@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import IdleTimerCustom from './components/account/IdleTimerCustom';
 import Navbar from './components/layouts/Navbar';
-import Loader from './components/lib/utils-components/Loader';
 import { selectIsLogged, signIn } from './redux-store/authenticationSlice';
 import Routes from './routes/Routes';
 import { getToken } from './services/tokenServices';
@@ -36,11 +34,11 @@ const App = () => {
         setIsLogin(false);
     }, []);
 
-    if (isLogin) return <Loader />;
+    if (isLogin) return null;
 
     return (
         <BrowserRouter>
-            <div className="flex h-full cursor-default flex-col bg-gray-100">
+            <div className="flex h-full cursor-default relative flex-col bg-gray-100">
                 {isLogged && <IdleTimerCustom />}
                 <Navbar />
                 <main className="mt-24 grow">
