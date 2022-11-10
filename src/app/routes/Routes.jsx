@@ -41,9 +41,9 @@ const Routes = () => {
       <Route
         path={URL.URL_HOME}
         element={
-          <PrivateRoute>
+          <Route>
             <HomeView />
-          </PrivateRoute>
+          </Route>
         }
       />
       <Route
