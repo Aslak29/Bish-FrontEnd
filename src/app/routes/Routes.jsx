@@ -63,7 +63,7 @@ const Routes = () => {
       <Route path={URL.URL_BLOG_ARTICLE} element={<BlogArticleView/>} />
       <Route path={URL.URL_CONTACT} element={<ContactView/>} />
       <Route path={URL.URL_PRESENTATION} element={<PresentationView/>} />
-      <Route path={URL.URL_SHOPPING_CART} element={<ShoppingCartView/>} />
+      <PrivateRoute roles={[ROLE_USER || ROLE_ADMIN]} path={URL.URL_SHOPPING_CART} element={<ShoppingCartView/>} />
       <Route path={URL.URL_FAQ} element={<FAQView/>} />
       <Route path='*' element={<Error404View/>} />
 
