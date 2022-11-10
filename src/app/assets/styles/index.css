@@ -3,6 +3,7 @@
 @import url(./components/component.css);
 @import url(./components/btn.css);
 @import url(./components/input.css);
+@import url(./components/color.css);
 
 @tailwind utilities;
 
