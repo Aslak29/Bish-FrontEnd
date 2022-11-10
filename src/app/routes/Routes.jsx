@@ -56,9 +56,15 @@ const Routes = () => {
       <Route path={URL.URL_BLOG_ARTICLE} element={<BlogArticleView/>} />
       <Route path={URL.URL_CONTACT} element={<ContactView/>} />
       <Route path={URL.URL_PRESENTATION} element={<PresentationView/>} />
-      <Route>
-        <PrivateRoute roles={[ROLE_USER || ROLE_ADMIN]} path={URL.URL_SHOPPING_CART} element={<ShoppingCartView/>} />
-      </Route>
+      <Route
+        path={URL.URL_SHOPPING_CART}
+        element={
+          <PrivateRoute roles={[ROLE_USER || ROLE_ADMIN]}>
+            <ShoppingCartView/>
+          </PrivateRoute>
+        }
+      />
+
       <Route path={URL.URL_FAQ} element={<FAQView/>} />
       <Route path='*' element={<Error404View/>} />
 
