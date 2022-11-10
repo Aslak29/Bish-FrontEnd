@@ -38,14 +38,7 @@ import Error404View from './../views/ClientView/Error404View';
 const Routes = () => {
   return (
     <RoutesContainer>
-      <Route
-        path={URL.URL_HOME}
-        element={
-          <Route>
-            <HomeView />
-          </Route>
-        }
-      />
+      <Route path={URL.URL_HOME} element={<HomeView />} />
       <Route
         path={URL.URL_ADMIN_HOME}
         element={
