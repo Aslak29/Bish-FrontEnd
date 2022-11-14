@@ -31,10 +31,10 @@ const Login = () => {
   };
 
   return (
-    <div className="flex w-3/4 bish-bg-white border-solid border-2 bish-border-gray rounded-3xl">
-      <div className="flex flex-col w-3/5 place-items-center pb-6 m-auto space-y-6">
-        <h1>Connexion</h1>
-        <div className="flex flex-col w-3/4">
+    <div className="flex flex-col sm:flex-row w-3/4 bish-bg-white border-solid border-2 bish-border-gray rounded-3xl">
+      <div className="flex flex-col w-4/5 sm:w-3/5 place-items-center pb-6 m-auto space-y-12">
+        <h1 className="text-2xl md:text-4xl lg:text-6xl mt-6 lg:mt-0">Connexion</h1>
+        <div className="flex flex-col w-full sm:w-3/4">
           <Formik
             initialValues={{
               email: "",
@@ -43,7 +43,7 @@ const Login = () => {
             onSubmit={handleLogin}
           >
           <Form className="space-y-6">
-            <div className="flex flex-col space-y-3 rounded-md shadow-sm">
+            <div className="flex flex-col space-y-6 rounded-md shadow-sm">
               <Field
                 type="email"
                 name="email"
@@ -57,11 +57,11 @@ const Login = () => {
                 className="input"
               />
             </div>
-            <div className="flex flex-col place-items-center space-y-6">
-              <Link to="/forgot-password">
-                <span className="underline underline-offset-8 bish-decoration-gray">Mot de passe oublié ?</span>
+            <div className="flex flex-col place-items-center">
+              <Link to="/aaa">
+                <span className="underline underline-offset-8 bish-decoration-gray bish-text-gray">Mot de passe oublié ?</span>
               </Link>
-              <button type="submit" className="bish-bg-blue py-3 rounded-3xl w-full bish-text-white">Se connecter</button>
+              <button type="submit" className="bish-bg-blue py-3 rounded-3xl w-full bish-text-white shadow-lg mt-12">Se connecter</button>
             </div>
             {errorLog && (
             <div className="flex justify-center">
@@ -74,8 +74,9 @@ const Login = () => {
         </Formik>
         </div>
       </div>
-      <div className="bish-bg-blue-opacity w-2/5 border-l bish-border-gray rounded-r-3xl px-6">
-        <img className="m-auto my-12" src={registerSVG} alt="Inscription"/>
+      <div className="bish-bg-blue-opacity sm:w-2/5 border-t sm:border-t-0 sm:border-l bish-border-gray rounded-b-3xl sm:rounded-bl-none sm:rounded-r-3xl px-6 sm:relative py-3 sm:py-0 flex justify-center">
+        <img className="m-auto my-12 hidden sm:block" src={registerSVG} alt="Inscription"/>
+        <button type="submit" className="bish-bg-blue py-3 rounded-3xl shadow-lg bish-text-white sm:absolute sm:bottom-32 sm:left-6 lg:bottom-44 lg:left-14 w-2/4 sm:w-1/3">S'inscrire</button>
       </div>
     </div>
   );
