@@ -18,7 +18,7 @@ It has:
 1. The project was build with `yarn` version`1.22.19`, so you need to install it:
 
    ```CMD
-   npm i -g yarn@1.22.19
+   git
    ```
 
 2. You need to install all the dependencies of the project:
