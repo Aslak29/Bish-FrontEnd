@@ -6,6 +6,6 @@ import axios from "axios";
  * @author Peter Mollet
  */
 const apiBackEnd = axios.create({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "http://localhost:80/api",
 });
 export default apiBackEnd;
