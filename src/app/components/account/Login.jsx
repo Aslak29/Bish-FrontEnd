@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row w-3/4 bish-bg-white border-solid border-2 bish-border-gray rounded-3xl">
+    <div className="flex flex-col sm:flex-row w-3/4 bish-bg-white border-solid border-2 bish-border-gray rounded-3xl my-12">
       <div className="flex flex-col w-4/5 sm:w-3/5 place-items-center pb-6 m-auto space-y-12">
         <h1 className="text-2xl md:text-4xl lg:text-6xl mt-6 lg:mt-0">Connexion</h1>
         <div className="flex flex-col w-full sm:w-3/4">
@@ -76,7 +76,7 @@ const Login = () => {
       </div>
       <div className="bish-bg-blue-opacity sm:w-2/5 border-t sm:border-t-0 sm:border-l bish-border-gray rounded-b-3xl sm:rounded-bl-none sm:rounded-r-3xl px-6 sm:relative py-3 sm:py-0 flex justify-center">
         <img className="m-auto my-12 hidden sm:block" src={registerSVG} alt="Inscription"/>
-        <button type="submit" className="bish-bg-blue py-3 rounded-3xl shadow-lg bish-text-white sm:absolute sm:bottom-32 sm:left-6 lg:bottom-44 lg:left-14 w-2/4 sm:w-1/3">S'inscrire</button>
+        {/*<button type="submit" className="bish-bg-blue py-3 rounded-3xl shadow-lg bish-text-white sm:absolute sm:bottom-32 sm:left-6 lg:bottom-44 lg:left-14 w-2/4 sm:w-1/3">S'inscrire</button>*/}
       </div>
     </div>
   );
