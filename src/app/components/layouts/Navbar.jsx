@@ -20,16 +20,17 @@ const Navbar = () => {
 
   // ---------------------States et Fonction pour le Menu Burger--------------------
   const [burgerClass, setBurgerClass] = useState("burger-bar unclicked");
-  const [menuClass, setMenuClass] = useState("menu hidden");
+  const [menuClass, setMenuClass] = useState("hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
+
   const updateMenu = () =>{
+    setIsMenuClicked(!isMenuClicked);
     if(!isMenuClicked){
       setBurgerClass("burger-bar clicked");
-      setMenuClass("menu visible");
-      console.log(burgerClass);
+      setMenuClass("w-screen h-full z-10 bish-text-blue flex flex-row bish-bg-white ");
     }else{
       setBurgerClass("burger-bar unclicked");
-      setMenuClass("menu hidden");
+      setMenuClass("hidden");
     }
   }
 
@@ -37,12 +38,11 @@ const Navbar = () => {
     <div className="absolute w-full bish-bg-blue px-1 sm:px-4 flex flex-row justify-between content-center ">
       
       {/*--------------------------------- Menu Burger---------------------------------  */}
-      <div className={`flex flex-col gap-y-2 w-10 h-10 m-auto hover:cursor-pointer sm:hidden`} onClick={updateMenu}>
+      <div className={`flex flex-col h-12 mx-4 my-auto hover:cursor-pointer sm:hidden`} onClick={updateMenu}>
         <div className={`${burgerClass} w-12 h-1.5 bish-bg-white m-auto`}></div>
         <div className={`${burgerClass} w-12 h-1.5 bish-bg-white m-auto`}></div>
         <div className={`${burgerClass} w-12 h-1.5 bish-bg-white m-auto`}></div>
       </div>
-      <div className={menuClass}></div>
 
       {/*--------------------------------- LOGO ---------------------------------  */}
       <div>
@@ -57,8 +57,8 @@ const Navbar = () => {
         
       {/*---------------------------------  Liens navbar --------------------------------- */}
 
-      <div className={`hidden bish-text-white h-8 my-auto sm:block mx-20`}>
-        <ul className="flex flex-row h-8">
+      <div className={`${menuClass} bish-text-white sm:h-8 sm:my-auto sm:block sm:mx-20`}>
+        <ul className="flex flex-col sm:flex-row h-8">
           <li className="w-auto border-l px-2 flex justify-center">
             <Link to={URL_PRODUCTS} className="mx-2 font-bold">
               Nos Produits
@@ -77,45 +77,47 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/*---------------------------------  Searchbar ---------------------------------  */}
+      {/*---------------------------------  Searchbar & Espace Client & Panier ---------------------------------  */}
+      <div className="flex flex-row gap-x-4 sm:gap-x-8">
 
-      <div className="h-8 my-auto mx-0 sm:w-72">
-        <form action="#" className="search-form hidden sm:block">
-          <input 
-            className="h-8 rounded-full w-72 border-transparent" 
-            type="search" 
-            name="searchbar" 
-            id="searchbar" 
-            placeholder="Rechercher..."/>
-            <input type="submit" value="" className="hidden"/>
-        </form>
-          <button className="sm:hidden">
-            <img
-                className="h-8 w-auto cursor-pointer"
-                src={search}
-                alt="Panier"/> 
-          </button>
-     </div>
-
-      {/*--------------------------------- Espace client et panier ---------------------------------  */}
-
-      <div className="flex justify-end my-auto mx-0 gap-x-8">
-          <> 
-            <Link to={URL_SHOPPING_CART}>
+        <div className="h-8 my-auto mx-0 sm:w-72">
+          <form action="#" className="search-form hidden sm:block">
+            <input 
+              className="h-8 rounded-full w-72 border-transparent" 
+              type="search" 
+              name="searchbar" 
+              id="searchbar" 
+              placeholder="Rechercher..."/>
+              <input type="submit" value="" className="hidden"/>
+          </form>
+            <button className="sm:hidden">
               <img
-                className="h-8 w-auto cursor-pointer sm:h-8"
-                src={Panier}
-                alt="Panier"
-              />                
-            </Link>
-            <Link to={URL_INFOS}>
-              <img
-                className="h-8 w-auto cursor-pointer sm:h-8"
-                src={Account}
-                alt="Espace Client"
-              />                    
-            </Link>
-          </>
+                  className="h-8 w-auto cursor-pointer"
+                  src={search}
+                  alt="Panier"/> 
+            </button>
+      </div>
+
+        {/*--------------------------------- Espace client et panier ---------------------------------  */}
+
+        <div className="flex justify-end my-auto mx-0 gap-x-4 sm:gap-x-8">
+            <> 
+              <Link to={URL_SHOPPING_CART}>
+                <img
+                  className="h-8 w-auto cursor-pointer sm:h-8"
+                  src={Panier}
+                  alt="Panier"
+                />                
+              </Link>
+              <Link to={URL_INFOS}>
+                <img
+                  className="h-8 w-auto cursor-pointer sm:h-8"
+                  src={Account}
+                  alt="Espace Client"
+                />                    
+              </Link>
+            </>
+        </div>
       </div>
     </div>
   );
