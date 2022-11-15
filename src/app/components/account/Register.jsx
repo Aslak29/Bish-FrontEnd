@@ -11,6 +11,7 @@ const Register = (props) => {
   const [number, hasNumber] = useState(false);
   const [name, hasName] = useState(false);
   const [surname, hasSurname] = useState(false);
+  const [confirmation, hasConfirmation] =useState(false);
   
   return (
     <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
@@ -30,6 +31,7 @@ const Register = (props) => {
               !/\d/.test(values.password) ? hasNumber(false) : hasNumber(true);
               /^([a-zA-Z ]+)$/.test(values.name) ? hasName(false) : hasName(true);
               /^([a-zA-Z ]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
+              values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
             }}
             onSubmit={(values,{resetForm, setErrors, setSubmitting, handleRegister}) => {
               let errors = {};
@@ -37,10 +39,15 @@ const Register = (props) => {
               errors.name =
               "Veulliez renseigner votre Prénom"
               console.log(errors.name)
+
               if (surname)
               errors.surname =
               "Veulliez renseigner votre Nom"
               console.log(errors.surname)
+
+              if(confirmation)
+                errors.confirmation = "Les mots de passes ne sont pas identiques"
+                console.log(errors.confirmation)
 
               if (!long || !number)
                 errors.password =
@@ -77,6 +84,7 @@ const Register = (props) => {
                       required
                       value={values.email}
                     />
+          
                     <Field
                       type="password"
                       name="password"
@@ -86,19 +94,22 @@ const Register = (props) => {
                       required
                       value={values.password}
                     />
-                          {errors.password && (
+                    
+                        {errors.password && (
                       <label className="error" htmlFor="password">
-                        Sorry! {errors.password}
+                        {errors.password}
                       </label>
                     )}
-                    {/* <Field
-                    type="confirmation"
+
+                    <Field
+                    type="password"
                     name="confirmation"
                     placeholder="Confirmer le mot de passe"
-                    className="input"       onChange={handleChange}
+                    className="input"      
+                    onChange={handleChange}
                     required
                     value={values.confirmation}
-                  /> */}
+                  />
                   </div>
                   <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
                     <Field
