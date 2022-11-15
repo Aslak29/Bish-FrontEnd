@@ -6,13 +6,13 @@ import { handleChange } from "react";
 import loginSVG from "../../assets/images/register-view-login.svg";
 import { URL_LOGIN } from "../../constants/urls/urlFrontEnd";
 
-const Register = (props) => {
+const Register = () => {
   const [long, longEnough] = useState(false);
   const [number, hasNumber] = useState(false);
   const [name, hasName] = useState(false);
   const [surname, hasSurname] = useState(false);
-  const [confirmation, hasConfirmation] =useState(false);
-  
+  const [confirmation, hasConfirmation] = useState(false);
+
   return (
     <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
       <div className="flex items-center justify-center flex-col border-2 border-black rounded-3xl w-3/4">
@@ -31,41 +31,35 @@ const Register = (props) => {
               !/\d/.test(values.password) ? hasNumber(false) : hasNumber(true);
               /^([a-zA-Z ]+)$/.test(values.name) ? hasName(false) : hasName(true);
               /^([a-zA-Z ]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
-              values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
-            }}
-            onSubmit={(values,{resetForm, setErrors, setSubmitting, handleRegister}) => {
+              values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);}}
+
+            onSubmit={(values,{ resetForm, setErrors, setSubmitting, handleRegister } ) => {
               let errors = {};
-              if (name)
-              errors.name =
-              "Veulliez renseigner votre Prénom"
-              console.log(errors.name)
+              if (name) errors.name = "Veulliez renseigner votre Prénom";
+              console.log(errors.name);
 
-              if (surname)
-              errors.surname =
-              "Veulliez renseigner votre Nom"
-              console.log(errors.surname)
+              if (surname) errors.surname = "Veulliez renseigner votre Nom";
+              console.log(errors.surname);
 
-              if(confirmation)
-                errors.confirmation = "Les mots de passes ne sont pas identiques"
-                console.log(errors.confirmation)
+              if (confirmation)
+                errors.confirmation =
+                  "Les mots de passes ne sont pas identiques";
+              console.log(errors.confirmation);
 
               if (!long || !number)
                 errors.password =
                   "Votre mot de passe doit contenir 8 caractères et un chiffre";
-                console.log(errors.password);
-                if (
-                  Object.entries(errors).length === 0 &&
-                  errors.constructor === Object
-                ) {
-                  alert(
-                    `Vous avez bien crée votre compte avec ${values.email}`
-                  );
-                  resetForm();
-                } else {
-                  setErrors(errors);
-                }
-                setSubmitting(false);
-
+              console.log(errors.password);
+              if (
+                Object.entries(errors).length === 0 &&
+                errors.constructor === Object
+              ) {
+                alert(`Vous avez bien crée votre compte avec ${values.email}`);
+                resetForm();
+              } else {
+                setErrors(errors);
+              }
+              setSubmitting(false);
             }}
           >
             {({ errors, values, handleChange, handleSubmit, isSubmitting }) => (
@@ -84,52 +78,73 @@ const Register = (props) => {
                       required
                       value={values.email}
                     />
-          
+
                     <Field
                       type="password"
                       name="password"
                       placeholder="Mot de passe"
-                      className="input"
+                      className={
+                        " input " + `${errors.password && "border-red-500"}`
+                      }
                       onChange={handleChange}
                       required
                       value={values.password}
                     />
-                    
-                        {errors.password && (
-                      <label className="error" htmlFor="password">
+                    {errors.password && (
+                      <p className="text-red-500 text-xs italic">
                         {errors.password}
-                      </label>
+                      </p>
                     )}
 
                     <Field
-                    type="password"
-                    name="confirmation"
-                    placeholder="Confirmer le mot de passe"
-                    className="input"      
-                    onChange={handleChange}
-                    required
-                    value={values.confirmation}
-                  />
+                      type="password"
+                      name="confirmation"
+                      placeholder="Confirmer le mot de passe"
+                      className={
+                        " input " + `${errors.confirmation && "border-red-500"}`
+                      }
+                      onChange={handleChange}
+                      required
+                      value={values.confirmation}
+                    />
+
+                    {errors.confirmation && (
+                      <p className="text-red-500 text-xs italic">
+                        {errors.confirmation}
+                      </p>
+                    )}
                   </div>
                   <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
                     <Field
                       type="surname"
                       name="surname"
                       placeholder="Nom"
-                      className="input"
+                      className={
+                        " input " + `${errors.surname && "border-red-500"}`
+                      }
                       onChange={handleChange}
                       required
                       value={values.surname}
                     />
+                    {errors.surname && (
+                      <p className="text-red-500 text-xs italic">
+                        {errors.surname}
+                      </p>
+                    )}
                     <Field
                       type="name"
                       name="name"
                       placeholder="Prénom"
-                      className="input"
+                      className={
+                        " input " + `${errors.name && "border-red-500"}`
+                      }
                       onChange={handleChange}
                       required
                       value={values.name}
                     />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs italic">{errors.name}</p>
+                    )}
                     <button
                       type="submit"
                       disabled={isSubmitting}
