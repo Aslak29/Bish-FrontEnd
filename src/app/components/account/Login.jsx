@@ -1,4 +1,3 @@
-import { LockClosedIcon } from "@heroicons/react/solid";
 import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -8,6 +7,7 @@ import { URL_HOME } from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "./../../api/backend/account";
 import registerSVG from "../../assets/images/login-view-register.svg";
+import { URL_REGISTER } from "../../constants/urls/urlFrontEnd";
 
 /**
  * Component Login
@@ -76,7 +76,7 @@ const Login = () => {
       </div>
       <div className="bish-bg-blue-opacity sm:w-2/5 border-t sm:border-t-0 sm:border-l bish-border-gray rounded-b-3xl sm:rounded-bl-none sm:rounded-r-3xl px-6 sm:relative py-3 sm:py-0 flex justify-center">
         <img className="m-auto my-12 hidden sm:block" src={registerSVG} alt="Inscription"/>
-        {/*<button type="submit" className="bish-bg-blue py-3 rounded-3xl shadow-lg bish-text-white sm:absolute sm:bottom-32 sm:left-6 lg:bottom-44 lg:left-14 w-2/4 sm:w-1/3">S'inscrire</button>*/}
+        {/* <Link className="bish-bg-blue py-3 text-center rounded-3xl shadow-lg bish-text-white sm:absolute sm:bottom-32 sm:left-6 lg:bottom-44 lg:left-14 w-2/4 sm:w-1/3" to={URL_REGISTER}>S'inscrire</Link> */}
       </div>
     </div>
   );
