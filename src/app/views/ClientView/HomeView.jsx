@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { ROLE_ADMIN } from '../constants/rolesConstant';
-import { URL_ADMIN_HOME } from '../constants/urls/urlFrontEnd';
-import { selectHasRole } from '../redux-store/authenticationSlice';
+import { ROLE_ADMIN } from '../../constants/rolesConstant';
+import { URL_ADMIN_HOME } from '../../constants/urls/urlFrontEnd';
+import { selectHasRole } from '../../redux-store/authenticationSlice';
 
 const HomeView = () => {
     const isAdmin = useSelector((state) => selectHasRole(state, ROLE_ADMIN));

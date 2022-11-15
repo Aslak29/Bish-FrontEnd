@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "./../../api/backend/account";
+import registerSVG from "../../assets/images/login-view-register.svg";
 
 /**
  * Component Login
@@ -30,82 +31,53 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full max-w-md space-y-8 rounded-md bg-white p-4 py-12 px-4 shadow sm:px-6 lg:px-8">
-      <div>
-        <div className="flex justify-center">
-          <img
-            className="h-12 w-auto cursor-pointer sm:h-10"
-            src="https://insy2s.com/insy2s/images/Logo-insy2s-INLINE-2021.svg"
-            alt=""
-            width={200}
-            height={60}
-          />
-        </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-800">
-          Sign in to your account
-        </h2>
-      </div>
-
-      <hr />
-
-      <Formik
-        initialValues={{
-          username: "",
-          password: "",
-        }}
-        onSubmit={handleLogin}
-      >
-        <Form className="mt-8 space-y-6">
-          <div className="flex flex-col space-y-3 rounded-md shadow-sm">
-            <Field
-              type="text"
-              name="username"
-              placeholder="Login"
-              autoComplete="username"
-              className="input"
-            />
-            <Field
-              type="password"
-              name="password"
-              placeholder="Password"
-              autoComplete="current-password"
-              className="input"
-            />
-          </div>
-
-          <div className="mt-3 flex items-center justify-between">
-            <div className="text-sm">
-              <Link to="/forgot-password">
-                <span className="cursor-pointer font-medium text-primary-dark hover:text-primary">
-                  Forgot your password?
-                </span>
-              </Link>
+    <div className="flex flex-col sm:flex-row w-3/4 bish-bg-white border-solid border-2 bish-border-gray rounded-3xl my-12">
+      <div className="flex flex-col w-4/5 sm:w-3/5 place-items-center pb-6 m-auto space-y-12">
+        <h1 className="text-2xl md:text-4xl lg:text-6xl mt-6 lg:mt-0">Connexion</h1>
+        <div className="flex flex-col w-full sm:w-3/4">
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            onSubmit={handleLogin}
+          >
+          <Form className="space-y-6">
+            <div className="flex flex-col space-y-6 rounded-md shadow-sm">
+              <Field
+                type="email"
+                name="email"
+                placeholder="Addresse e-mail"
+                className="input"
+              />
+              <Field
+                type="password"
+                name="password"
+                placeholder="Mot de passe"
+                className="input"
+              />
             </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              className="btn btn-primary group relative w-full"
-            >
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <LockClosedIcon
-                  className="h-5 w-5 text-primary-dark group-hover:text-primary-light"
-                  aria-hidden="true"
-                />
-              </span>
-              Sign in
-            </button>
-          </div>
-          {errorLog && (
+            <div className="flex flex-col place-items-center">
+              <Link to="/aaa">
+                <span className="underline underline-offset-8 bish-decoration-gray bish-text-gray">Mot de passe oublié ?</span>
+              </Link>
+              <button type="submit" className="bish-bg-blue py-3 rounded-3xl w-full bish-text-white shadow-lg mt-12">Se connecter</button>
+            </div>
+            {errorLog && (
             <div className="flex justify-center">
               <small className="text-sm italic text-red-600">
-                Login/Password incorrect(s)
+                Adresse e-mail/Mot de passe incorrect(s)
               </small>
             </div>
-          )}
-        </Form>
-      </Formik>
+            )}
+          </Form>
+        </Formik>
+        </div>
+      </div>
+      <div className="bish-bg-blue-opacity sm:w-2/5 border-t sm:border-t-0 sm:border-l bish-border-gray rounded-b-3xl sm:rounded-bl-none sm:rounded-r-3xl px-6 sm:relative py-3 sm:py-0 flex justify-center">
+        <img className="m-auto my-12 hidden sm:block" src={registerSVG} alt="Inscription"/>
+        {/*<button type="submit" className="bish-bg-blue py-3 rounded-3xl shadow-lg bish-text-white sm:absolute sm:bottom-32 sm:left-6 lg:bottom-44 lg:left-14 w-2/4 sm:w-1/3">S'inscrire</button>*/}
+      </div>
     </div>
   );
 };
