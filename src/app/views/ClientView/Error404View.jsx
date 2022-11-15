@@ -10,7 +10,11 @@ const Error404View = () => {
       <p className="text-base bish-text-blue font-bold text-center text-2xl md:text-xl sm:text-base sm:mx-10">
         La page que vous demandez n'existe pas
       </p>
-      <img src={error} alt="gif je suis perdu" className="mb-10 m-auto" />
+      <img
+        src={error}
+        alt="gif je suis perdu"
+        className="mb-10 m-auto rounded-b-3xl"
+      />
     </div>
   );
 };
