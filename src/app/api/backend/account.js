@@ -3,6 +3,6 @@ import apiBackEnd from './api.Backend';
 
 export function authenticate(values) {
     return apiBackEnd.post(URL_BACK_AUTHENTICATE,values).then(res=>{
-        console.log(res)
+        return res;
     });
 }

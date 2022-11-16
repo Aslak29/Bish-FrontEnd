@@ -26,7 +26,7 @@ export const authenticationSlice = createSlice({
             const claims = getPayloadToken(token);
             const user = {
                 username: claims.sub,
-                roles: claims.auth.split(','),
+                roles: claims.roles,
             };
             state.user = user;
             state.isAuthenticated = isTokenValid(token);

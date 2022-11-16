@@ -22,8 +22,8 @@ const Login = () => {
   const handleLogin = (values) => {
     authenticate(values)
       .then((res) => {
-        if (res.status === 200 && res.data.id_token) {
-          dispatch(signIn(res.data.id_token));
+        if (res.status === 200 && res.data.token) {
+          dispatch(signIn(res.data.token));
           navigate(URL_HOME);
         }
       })
