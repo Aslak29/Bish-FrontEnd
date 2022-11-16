@@ -1,13 +1,14 @@
 import React, {useEffect} from "react";
 import { Field, Form, Formik } from "formik";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import loginSVG from "../../assets/images/register-view-login.svg";
-import { URL_LOGIN } from "../../constants/urls/urlFrontEnd";
+import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
 import {data} from "autoprefixer";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [long, longEnough] = useState(false);
   const [number, hasNumber] = useState(false);
   const [name, hasName] = useState(false);
@@ -53,8 +54,12 @@ const Register = () => {
                 errors.constructor === Object
               ) {
                 console.log(values)
-                  axios.post(`http://127.0.0.1:80/api/user/register/${values.name}/${values.surname}/${values.email}/${values.password}`).then(r => {r.data})
-                alert(`Vous avez bien crée votre compte avec ${values.email}`);
+                  axios.post(`http://127.0.0.1:80/api/user/register/${values.name}/${values.surname}/${values.email}/${values.password}`).then(r => {
+                    if (r.status === 200){
+                      navigate(URL_HOME);
+                    }
+                  })
+
                 resetForm();
               } else {
                 setErrors(errors);
@@ -124,7 +129,7 @@ const Register = () => {
                   <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
                     <Field
                       name="surname"
-                      placeholder="Prenom"
+                      placeholder="Nom"
                       className={
                         " input " + `${errors.surname && "border-red-500"}`
                       }
