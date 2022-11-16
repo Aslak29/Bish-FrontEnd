@@ -16,6 +16,7 @@ import Panier from "../../assets/images/Panier.svg";
 import search from "../../assets/images/search.svg";
 import ScrollingMenu from './ScrollingMenu';
 import BurgerMenu from "./BurgerMenu";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   // const isLoggued = useSelector(selectIsLogged);
@@ -24,6 +25,7 @@ const Navbar = () => {
   const [burgerClass, setBurgerClass] = useState("burger-bar unclicked");
   const [menuClass, setMenuClass] = useState("hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
+  const [logoDisplay, setLogoDisplay] = useState("");
 
   const updateMenu = () =>{
     setIsMenuClicked(!isMenuClicked);
@@ -35,14 +37,21 @@ const Navbar = () => {
       setMenuClass("hidden");
     }
   }
+  const toggleLogo = (searchBarClick) =>{
+    if(searchBarClick){
+      setLogoDisplay("hidden");
+    }else{
+      setLogoDisplay("");
+    }
+  }
 
   return (
-    <div className="absolute w-full bish-bg-blue px-1 lg:px-4 flex flex-row justify-between content-center ">
+    <div className="absolute w-full h-20 bish-bg-blue px-1 lg:px-4 flex flex-row justify-between content-center ">
       {/*--------------------------------- Menu Burger---------------------------------  */}
       <BurgerMenu />
 
       {/*--------------------------------- LOGO ---------------------------------  */}
-      <div>
+      <div className={`${logoDisplay} block`}>
         <Link to={URL_HOME}>
           <img
             className="h-20 w-20 cursor-pointer"
@@ -77,23 +86,7 @@ const Navbar = () => {
       {/*---------------------------------  Searchbar & Espace Client & Panier ---------------------------------  */}
       <div className="flex flex-row gap-x-4 lg:gap-x-8">
 
-        <div className="h-8 my-auto mx-0">
-          <form action="#" className="search-form hidden lg:block">
-            <input 
-              className="h-8 rounded-full w-72 border-transparent" 
-              type="search" 
-              name="searchbar" 
-              id="searchbar" 
-              placeholder="Rechercher..."/>
-              <input type="submit" value="" className="hidden"/>
-          </form>
-            <button className="lg:hidden">
-              <img
-                  className="h-8 w-auto cursor-pointer"
-                  src={search}
-                  alt="Panier"/> 
-            </button>
-        </div>
+        <SearchBar searchBarToggle={toggleLogo}/>
 
         {/*--------------------------------- Espace client et panier ---------------------------------  */}
 
