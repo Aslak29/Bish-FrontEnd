@@ -72,7 +72,7 @@ const Register = () => {
                 className="flex justify-center w-full"
                 onSubmit={handleSubmit}
               >
-                <div className="flex justify-center flex-col sm:flex-row rounded-md shadow-sm pt-10 pb-10 w-3/4">
+                <div className="flex justify-center flex-col sm:flex-row rounded-md pt-10 pb-10 w-3/4">
                   <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
                     <Field
                       name="email"
