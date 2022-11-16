@@ -18,7 +18,7 @@ const ScrollingMenu = () => {
     }
 
     return (
-        <div>
+        <div className="z-50">
             <div className="dropdown w-fit relative">
               <button className="bish-bg-blue font-semibold rounded inline-flex items-center">
                 <img src={account} alt="Menu espace client" />
