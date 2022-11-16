@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Field, Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { handleChange } from "react";
+import axios from "axios";
 import loginSVG from "../../assets/images/register-view-login.svg";
 import { URL_LOGIN } from "../../constants/urls/urlFrontEnd";
+import {data} from "autoprefixer";
 
 const Register = () => {
   const [long, longEnough] = useState(false);
@@ -43,24 +44,16 @@ const Register = () => {
                console.log(errors.email)
               
               if (name) errors.name = "Veulliez renseigner votre Prénom";
-              console.log(errors.name);
-
               if (surname) errors.surname = "Veulliez renseigner votre Nom";
-              console.log(errors.surname);
+              if (confirmation) errors.confirmation = "Les mots de passes ne sont pas identiques";
+              if (!long || !number) errors.password = "Votre mot de passe doit contenir 8 caractères et un chiffre";
 
-              if (confirmation)
-                errors.confirmation =
-                  "Les mots de passes ne sont pas identiques";
-              console.log(errors.confirmation);
-
-              if (!long || !number)
-                errors.password =
-                  "Votre mot de passe doit contenir 8 caractères et un chiffre";
-              console.log(errors.password);
               if (
                 Object.entries(errors).length === 0 &&
                 errors.constructor === Object
               ) {
+                console.log(values)
+                  axios.post(`http://127.0.0.1:80/api/user/register/${values.name}/${values.surname}/${values.email}/${values.password}`).then(r => {r.data})
                 alert(`Vous avez bien crée votre compte avec ${values.email}`);
                 resetForm();
               } else {
@@ -131,7 +124,7 @@ const Register = () => {
                   <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
                     <Field
                       name="surname"
-                      placeholder="Nom"
+                      placeholder="Prenom"
                       className={
                         " input " + `${errors.surname && "border-red-500"}`
                       }
