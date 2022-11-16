@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import { Field, Form, Formik } from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import loginSVG from "../../assets/images/register-view-login.svg";
 import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
-import {data} from "autoprefixer";
+import {URL_BACK_REGISTER} from "../../constants/urls/urlBackEnd";
+import apiBackEnd from "../../api/backend/api.Backend";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ const Register = () => {
 
               if(email) errors.email = "Votre email n'est pas valide"
                console.log(errors.email)
-              
+
               if (name) errors.name = "Veulliez renseigner votre Prénom";
               if (surname) errors.surname = "Veulliez renseigner votre Nom";
               if (confirmation) errors.confirmation = "Les mots de passes ne sont pas identiques";
@@ -53,8 +53,7 @@ const Register = () => {
                 Object.entries(errors).length === 0 &&
                 errors.constructor === Object
               ) {
-                console.log(values)
-                  axios.post(`http://127.0.0.1:80/api/user/register/${values.name}/${values.surname}/${values.email}/${values.password}`).then(r => {
+                apiBackEnd.post(URL_BACK_REGISTER + `/${values.name}/${values.surname}/${values.email}/${values.password}/${values.confirmation}`).then(r => {
                     if (r.status === 200){
                       navigate(URL_HOME);
                     }
