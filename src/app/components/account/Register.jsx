@@ -12,6 +12,7 @@ const Register = () => {
   const [name, hasName] = useState(false);
   const [surname, hasSurname] = useState(false);
   const [confirmation, hasConfirmation] = useState(false);
+  const [email, hasEmail] = useState(false);
 
   return (
     <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
@@ -31,10 +32,16 @@ const Register = () => {
               !/\d/.test(values.password) ? hasNumber(false) : hasNumber(true);
               /^([a-zA-Z ]+)$/.test(values.name) ? hasName(false) : hasName(true);
               /^([a-zA-Z ]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
-              values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);}}
-
+              values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
+              /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(values.email)? hasEmail(false) : hasEmail(true);
+            }}
+             
             onSubmit={(values,{ resetForm, setErrors, setSubmitting, handleRegister } ) => {
               let errors = {};
+
+              if(email) errors.email = "Votre email n'est pas valide"
+               console.log(errors.email)
+              
               if (name) errors.name = "Veulliez renseigner votre Prénom";
               console.log(errors.name);
 
@@ -70,14 +77,21 @@ const Register = () => {
                 <div className="flex justify-center flex-col sm:flex-row rounded-md shadow-sm pt-10 pb-10 w-3/4">
                   <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
                     <Field
-                      type="email"
                       name="email"
                       placeholder="Addresse e-mail"
-                      className="input"
+                      className={
+                        " input " + `${errors.email && "border-red-500"}`
+                      }
                       onChange={handleChange}
                       required
                       value={values.email}
                     />
+
+                     {errors.email && (
+                      <p className="text-red-500 text-xs italic">
+                        {errors.email}
+                      </p>
+                    )} 
 
                     <Field
                       type="password"
@@ -116,7 +130,6 @@ const Register = () => {
                   </div>
                   <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
                     <Field
-                      type="surname"
                       name="surname"
                       placeholder="Nom"
                       className={
@@ -132,7 +145,6 @@ const Register = () => {
                       </p>
                     )}
                     <Field
-                      type="name"
                       name="name"
                       placeholder="Prénom"
                       className={
