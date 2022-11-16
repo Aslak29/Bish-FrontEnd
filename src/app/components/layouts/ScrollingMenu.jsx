@@ -21,7 +21,7 @@ const ScrollingMenu = () => {
         <div>
             <div className="dropdown w-fit relative">
               <button className="bish-bg-blue font-semibold rounded inline-flex items-center">
-                <img src={account} alt="Menu espace client" />
+                <img className="h-8" src={account} alt="Menu espace client" />
               </button>
               <ul className="dropdown-menu absolute hidden bish-bg-white bish-text-gray border-solid border bish-border-gray right-0">
                 {/* TODO: Get nom et prénom du user connecté */}

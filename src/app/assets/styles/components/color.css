@@ -60,3 +60,9 @@
 .bish-decoration-gray {
     text-decoration-color: #585050;
 }
+
+/* Box shadow color */
+
+.bish-shadow-blue{
+    box-shadow: 10px 10px 10px rgba(46, 183, 235, 0.50);
+}
