@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
-import { authenticate } from "./../../api/backend/account";
+import { authenticate } from "../../api/backend/account";
 import registerSVG from "../../assets/images/login-view-register.svg";
 import { URL_REGISTER } from "../../constants/urls/urlFrontEnd";
 
@@ -37,7 +37,7 @@ const Login = () => {
         <div className="flex flex-col w-full sm:w-3/4">
           <Formik
             initialValues={{
-              email: "",
+              username: "",
               password: "",
             }}
             onSubmit={handleLogin}
@@ -46,8 +46,8 @@ const Login = () => {
             <div className="flex flex-col space-y-6 rounded-md shadow-sm">
               <Field
                 type="email"
-                name="email"
-                placeholder="Addresse e-mail"
+                name="username"
+                placeholder="Adresse e-mail"
                 className="input"
               />
               <Field
