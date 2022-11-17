@@ -62,7 +62,7 @@ const Routes = () => {
       <Route
         path={URL.URL_SHOPPING_CART}
         element={
-          <PrivateRoute roles={[ROLE_USER || ROLE_ADMIN]}>
+          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
             <ShoppingCartView/>
           </PrivateRoute>
         }
@@ -78,7 +78,7 @@ const Routes = () => {
       <Route
         path={URL.URL_INFOS}
         element={
-          <PrivateRoute roles={[ROLE_USER || ROLE_ADMIN]}>
+          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
             <PersonnalInfoView/>
           </PrivateRoute>
         }
@@ -86,7 +86,7 @@ const Routes = () => {
       <Route
         path={URL.URL_ORDERS}
         element={
-          <PrivateRoute roles={[ROLE_USER|| ROLE_ADMIN]}>
+          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
             <OrdersView/>
           </PrivateRoute>
         }
@@ -94,7 +94,7 @@ const Routes = () => {
       <Route
         path={URL.URL_ORDER}
         element={
-          <PrivateRoute roles={[ROLE_USER|| ROLE_ADMIN]}>
+          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
             <OrderView/>
           </PrivateRoute>
         }
@@ -102,7 +102,7 @@ const Routes = () => {
       <Route
         path={URL.URL_TRACKING_ORDER}
         element={
-          <PrivateRoute roles={[ROLE_USER|| ROLE_ADMIN]}>
+          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
             <TrackingOrderView/>
           </PrivateRoute>
         }
