@@ -31,7 +31,7 @@ const Register = () => {
             }}
             validate={(values) => {
               values.password.length < 8 ? longEnough(false) : longEnough(true);
-              /^(?=.*[az])(?=.*[AZ])(?=.*\d)[A-Za-z\d$@.!%*?&]{8,}$/.test(values.password) ? hasPassword(false) : hasPassword(true);
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@.!%*?&]{8,}$/.test(values.password) ? hasPassword(false) : hasPassword(true);
               /^([a-zA-Z ]+)$/.test(values.name) ? hasName(false) : hasName(true);
               /^([a-zA-Z ]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
               values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
