@@ -35,6 +35,8 @@ export const authenticationSlice = createSlice({
         signOut: (state) => {
             localStorage.clear();
             sessionStorage.clear();
+            state.token = null;
+            state.user = null;
             state.isAuthenticated = false;
         },
     },
