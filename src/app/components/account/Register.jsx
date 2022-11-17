@@ -9,8 +9,8 @@ import apiBackEnd from "../../api/backend/api.Backend";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [password, hasPassword] = useState(false);
   const [long, longEnough] = useState(false);
-  const [number, hasNumber] = useState(false);
   const [name, hasName] = useState(false);
   const [surname, hasSurname] = useState(false);
   const [confirmation, hasConfirmation] = useState(false);
@@ -31,7 +31,7 @@ const Register = () => {
             }}
             validate={(values) => {
               values.password.length < 8 ? longEnough(false) : longEnough(true);
-              !/\d/.test(values.password) ? hasNumber(false) : hasNumber(true);
+              /^(?=.*[az])(?=.*[AZ])(?=.*\d)[A-Za-z\d$@.!%*?&]{8,}$/.test(values.password) ? hasPassword(false) : hasPassword(true);
               /^([a-zA-Z ]+)$/.test(values.name) ? hasName(false) : hasName(true);
               /^([a-zA-Z ]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
               values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
@@ -40,14 +40,11 @@ const Register = () => {
              
             onSubmit={(values,{ resetForm, setErrors, setSubmitting, handleRegister } ) => {
               let errors = {};
-
-              if(email) errors.email = "Votre email n'est pas valide"
-               console.log(errors.email)
-
-              if (name) errors.name = "Veulliez renseigner votre Prénom";
-              if (surname) errors.surname = "Veulliez renseigner votre Nom";
+              if (email) errors.email = "Votre email n'est pas valide"
+              if (name) errors.name = "Pas de chiffre dans votre prénom";
+              if (surname) errors.surname = "Pas de chiffre dans votre nom";
               if (confirmation) errors.confirmation = "Les mots de passes ne sont pas identiques";
-              if (!long || !number) errors.password = "Votre mot de passe doit contenir 8 caractères et un chiffre";
+              if (password) errors.password = "Le mot de passe doit contenir 1 Majuscule , 1 Minuscule, 1 chiffre et  8 caractères"
 
               if (
                 Object.entries(errors).length === 0 &&
