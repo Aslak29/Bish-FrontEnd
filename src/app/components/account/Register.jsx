@@ -52,11 +52,15 @@ const Register = () => {
               ) {
                 apiBackEnd.post(URL_BACK_REGISTER + `/${values.name}/${values.surname}/${values.email}/${values.password}/${values.confirmation}`).then(r => {
                     if (r.status === 200){
+                      resetForm();
                       navigate(URL_HOME);
                     }
-                  })
-
-                resetForm();
+                  }).catch(error => {
+                    if (error.response.data["errorCode"] === "001"){
+                      errors.email = "L'email est déjà utilisé"
+                    }
+                    setErrors(errors);
+                })
               } else {
                 setErrors(errors);
               }
@@ -79,6 +83,7 @@ const Register = () => {
                       onChange={handleChange}
                       required
                       value={values.email}
+                      autoComplete="off"
                     />
 
                      {errors.email && (
@@ -97,6 +102,7 @@ const Register = () => {
                       onChange={handleChange}
                       required
                       value={values.password}
+                      autoComplete="off"
                     />
                     {errors.password && (
                       <p className="text-red-500 text-xs italic">
@@ -114,6 +120,7 @@ const Register = () => {
                       onChange={handleChange}
                       required
                       value={values.confirmation}
+                      autoComplete="off"
                     />
 
                     {errors.confirmation && (
