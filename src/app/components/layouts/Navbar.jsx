@@ -71,9 +71,9 @@ const Navbar = () => {
             </Link>             */}
           </li>
           <li className="w-auto border-l px-2 flex justify-center">
-            {/* <Link to={URL_PRESENTATION} className="mx-2 font-bold">
+            { <Link to={URL_PRESENTATION} className="mx-2 font-bold">
               Qui sommes-nous?
-            </Link> */}
+            </Link> }
           </li>
           <li className="w-auto border-l border-r px-2 flex justify-center">
             {/* <Link to={URL_BLOG} className="mx-2 font-bold">
