@@ -30,11 +30,13 @@ function Footer() {
                 </ul> }
             </div>
             <div>
-                { <ul>
+              <ul>
+                <Link to={URL_FAQ}><li>FAQ</li></Link>
+              </ul>
+                {/* <ul>
                 <Link to={URL_CGU}><li>CGU</li></Link>
-                {/* <Link to={URL_FAQ}><li>FAQ</li></Link>
-                <Link to={URL_HELP}><li>Aide</li></Link> */}
-                </ul> }
+                <Link to={URL_HELP}><li>Aide</li></Link>
+                </ul> */}
             </div>
             <div><img
               className="hidden w-auto sm:block sm:h-10"
