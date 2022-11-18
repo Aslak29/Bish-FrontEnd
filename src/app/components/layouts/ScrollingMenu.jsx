@@ -29,7 +29,7 @@ const ScrollingMenu = () => {
                 <img className="h-8" src={account} alt="Menu espace client" />
               </button>
               {isLogged ? (
-                <ul className="dropdown-menu absolute hidden bish-bg-white bish-text-gray border-solid border bish-border-gray right-0">
+                <ul className="dropdown-menu absolute hidden bish-bg-white bish-text-gray border-solid border bish-border-gray right-0 xl:-right-2">
                   {/* TODO: Get nom et prénom du user connecté */}
                   <li className="py-2 px-4 block whitespace-nowrap">Bonjour <span className="font-semibold">Prénom Nom</span></li>
                   <hr />
