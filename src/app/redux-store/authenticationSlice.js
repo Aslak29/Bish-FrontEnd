@@ -25,7 +25,7 @@ export const authenticationSlice = createSlice({
             state.token = token;
             const claims = getPayloadToken(token);
             const user = {
-                username: claims.sub,
+                username: claims.username,
                 roles: claims.roles,
             };
             state.user = user;
@@ -35,6 +35,8 @@ export const authenticationSlice = createSlice({
         signOut: (state) => {
             localStorage.clear();
             sessionStorage.clear();
+            state.token = null;
+            state.user = null;
             state.isAuthenticated = false;
         },
     },
