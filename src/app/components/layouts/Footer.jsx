@@ -22,12 +22,12 @@ function Footer() {
               alt="Logo Bish"
             /></div>
             <div>
-                {/* <ul>
-                    <Link to={URL_PRESENTATION}><li>Qui sommes-nous ?</li></Link>
+                 <ul>
+                    {/*<Link to={URL_PRESENTATION}><li>Qui sommes-nous ?</li></Link>
                     <Link to={URL_BLOG}><li>Blog</li></Link>
-                    <Link to={URL_CONTACT}><li>Contact</li></Link>
+                    <Link to={URL_CONTACT}><li>Contact</li></Link>*/}
                     <Link to={URL_LEGAL_NOTICE}><li>Mentions légales</li></Link>
-                </ul> */}
+                </ul>
             </div>
             <div>
                 {/* <ul>
