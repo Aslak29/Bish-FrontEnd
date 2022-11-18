@@ -22,7 +22,7 @@ const QuestionFaq = props => {
     }
 
     return (
-        <div className='border-solid border-2 bish-border-gray py-3 px-6 rounded-xl bish-bg-white'>
+        <div className='border-solid border-2 bish-border-gray py-3 px-6 rounded-xl bish-bg-white transition-all duration-500 hover:bish-border-blue'>
             <button className='flex justify-between w-full' onClick={() => toggleAnswer()}>
                 <span className='font-medium my-auto'>{props.question}</span>
                 <img src={arrow} alt="Dérouler la réponse" className={`${rotateArrow} h-8`} />
