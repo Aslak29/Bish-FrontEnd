@@ -7,7 +7,7 @@ import { URL_INFOS, URL_ORDERS, URL_HOME } from "../../constants/urls/urlFrontEn
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from "../../redux-store/authenticationSlice";
 import { useNavigate } from 'react-router-dom';
-import { selectIsLogged } from './../../redux-store/authenticationSlice';
+import { selectIsLogged, selectUser } from './../../redux-store/authenticationSlice';
 import { URL_LOGIN } from "../../constants/urls/urlFrontEnd";
 import { getUserByMail } from "../../api/backend/account";
 
@@ -16,27 +16,13 @@ const ScrollingMenu = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLogged = useSelector(selectIsLogged);
-    const [name, setName] = useState(null);
-    const [surname, setSurname] = useState(null);
-    const email = useSelector((state) => state.auth.user)
-
-
-    useEffect(() => {
-      if(email) {
-        getUserByMail(email.username).then(res => {
-          setName(res.data.name);
-          setSurname(res.data.surname);
-        })
-      }
-    },[email])
-
+    const user = useSelector(selectUser);
 
     const logout = () => {
         dispatch(signOut());
         navigate(URL_HOME);
     }
     
-
     return (
         <div className="z-50">
             <div className="dropdown w-fit relative">
@@ -45,7 +31,7 @@ const ScrollingMenu = () => {
               </button>
               {isLogged ? (
                 <ul className="dropdown-menu absolute hidden bish-bg-white bish-text-gray border-solid border bish-border-gray right-0 xl:-right-2">
-                  <li className="py-2 px-4 block whitespace-nowrap">Bonjour <span className="font-semibold">{name} {surname}</span></li>
+                  <li className="py-2 px-4 block whitespace-nowrap">Bonjour <span className="font-semibold">{user.name} {user.surname}</span></li>
                   <hr />
                   <li><Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap" to={URL_INFOS}>Mon compte</Link></li>
                   <li><Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap" to={URL_ORDERS}>Mes commandes</Link></li>

@@ -9,8 +9,8 @@ const TOKEN_NAME = 'token';
  * @param {string} token: to save
  * @author Peter Mollet
  */
-export function setToken(token) {
-    localStorage.setItem(TOKEN_NAME, token);
+export function setToken(token, name, surname) {
+    localStorage.setItem(TOKEN_NAME, token)
 }
 
 /**
@@ -20,7 +20,7 @@ export function setToken(token) {
  * @author Peter Mollet
  */
 export function getToken() {
-    return localStorage.getItem(TOKEN_NAME);
+    return localStorage.getItem(TOKEN_NAME)
 }
 
 /**

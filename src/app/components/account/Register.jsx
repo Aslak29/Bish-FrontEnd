@@ -85,13 +85,43 @@ const Register = () => {
                       value={values.email}
                       autoComplete="off"
                     />
-
                      {errors.email && (
                       <p className="text-red-500 text-xs italic">
                         {errors.email}
                       </p>
-                    )} 
+                    )}
 
+                    <Field
+                      name="surname"
+                      placeholder="Nom"
+                      className={
+                        " input " + `${errors.surname && "border-red-500"}`
+                      }
+                      onChange={handleChange}
+                      required
+                      value={values.surname}
+                    />
+                    {errors.surname && (
+                      <p className="text-red-500 text-xs italic">
+                        {errors.surname}
+                      </p>
+                    )}
+
+                    <Field
+                      name="name"
+                      placeholder="Prénom"
+                      className={
+                        " input " + `${errors.name && "border-red-500"}`
+                      }
+                      onChange={handleChange}
+                      required
+                      value={values.name}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs italic">{errors.name}</p>
+                    )}
+                  </div>
+                  <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
                     <Field
                       type="password"
                       name="password"
@@ -122,42 +152,12 @@ const Register = () => {
                       value={values.confirmation}
                       autoComplete="off"
                     />
-
                     {errors.confirmation && (
                       <p className="text-red-500 text-xs italic">
                         {errors.confirmation}
                       </p>
                     )}
-                  </div>
-                  <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
-                    <Field
-                      name="surname"
-                      placeholder="Nom"
-                      className={
-                        " input " + `${errors.surname && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.surname}
-                    />
-                    {errors.surname && (
-                      <p className="text-red-500 text-xs italic">
-                        {errors.surname}
-                      </p>
-                    )}
-                    <Field
-                      name="name"
-                      placeholder="Prénom"
-                      className={
-                        " input " + `${errors.name && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.name}
-                    />
-                    {errors.name && (
-                      <p className="text-red-500 text-xs italic">{errors.name}</p>
-                    )}
+                    
                     <button
                       type="submit"
                       disabled={isSubmitting}
