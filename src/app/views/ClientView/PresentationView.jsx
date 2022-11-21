@@ -4,7 +4,7 @@ import logo from "../../assets/images/logoBish_3.svg";
 
 const PresentationView = () => {
   return (
-    <div className="flex justify-center items-center flex-col w-3/4 m-auto">
+    <div className="flex justify-center items-center flex-col w-3/4 m-auto mt-16 mb-20">
       <div>
         <h1 className="flex justify-center text-3xl">Qui sommes-nous ?</h1>
         <br />

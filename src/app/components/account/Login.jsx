@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-import { URL_HOME } from "../../constants/urls/urlFrontEnd";
+import {URL_FORGOT_PASSWORD, URL_HOME} from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "../../api/backend/account";
 import registerSVG from "../../assets/images/login-view-register.svg";
@@ -58,7 +58,7 @@ const Login = () => {
               />
             </div>
             <div className="flex flex-col place-items-center">
-              <Link to="/aaa">
+              <Link to={URL_FORGOT_PASSWORD}>
                 <span className="underline underline-offset-8 bish-decoration-gray bish-text-gray">Mot de passe oublié ?</span>
               </Link>
               <button type="submit" className="bish-bg-blue py-3 rounded-3xl w-full bish-text-white shadow-lg mt-12">Se connecter</button>

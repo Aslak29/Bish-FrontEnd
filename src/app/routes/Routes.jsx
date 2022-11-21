@@ -30,8 +30,8 @@ import AdminContactView from './../views/AdminView/AdminContactView';
 import Error404View from './../views/ClientView/Error404View';
 import HelpView from './../views/ClientView/HelpView';
 import CGUView from './../views/ClientView/CGUView';
-import LegalNoticeView from './../views/ClientView/LegalNoticeView'
-
+import LegalNoticeView from './../views/ClientView/LegalNoticeView';
+import ForgotPasswordView from './../views/ClientView/ForgotPasswordView';
 /**
  * Routes of the application
  * with public and private route
@@ -53,6 +53,7 @@ const Routes = () => {
 {/* Routes communes */}
       <Route path={URL.URL_LOGIN} element={<LoginView />} />
       <Route path={URL.URL_REGISTER} element={<RegisterView/>} />
+      <Route path={URL.URL_FORGOT_PASSWORD} element={<ForgotPasswordView/>} />
       <Route path={URL.URL_PRODUCTS} element={<ProductsView/>} />
       <Route path={URL.URL_PRODUCT} element={<ProductView/>} />
       <Route path={URL.URL_BLOG} element={<BlogView/>} />
