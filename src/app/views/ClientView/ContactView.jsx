@@ -16,17 +16,27 @@ const ContactView = () => {
   const [messageLength, hasMessageLength ] = useState(false);
 
   return (
-    <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
-      <div className="flex items-center justify-center flex-row border-2 border-black rounded-3xl w-3/4">
-        <div className=" flex flex-col justify-center items-center bish-bg-blue-opacity border-t rounded-b-3xl border-black w-full">
+    <div className="flex  justify-center mt-6 my-6 ">
+      <div className="flex content-center justify-center flex-row border-2 border-black rounded-3xl w-4/5 h-auto">
+
+{/* -----------------------------Image--------------------------------------  */}
+
+        <div className="hidden lg:flex flex-col justify-center items-center bish-bg-blue-opacity border-t rounded-l-3xl w-full gap-y-2">
+          <p>Utilisez notre formulaire de contact</p>
           <img
-            className="hidden sm:block pr-10 h-80"
+            className="hidden lg:block w-3/4 border-b-2	bish-border-blue "
             src={contact}
             alt="Contact"
-          />
+          /><br/>
+          <p>Ou contactez nous directement:</p><br/>
+          <p>Par e-mail: contact@bish.fr</p><br/>
+          <p>Par téléphone: 03 12 34 56 78</p>
         </div>
-        <div className="w-full flex flex-col justify-center pb-10">
-          <h3 className="pt-10">Inscription</h3>
+
+{/* -----------------------------Formulaire--------------------------------------  */}
+
+        <div className="w-full flex flex-col justify-center content-center ">
+          <h3 className="pt-12 text-center">Contactez-nous!</h3>
           <Formik
             initialValues={{
               name: "",
@@ -79,9 +89,10 @@ const ContactView = () => {
                 className="flex justify-center w-full"
                 onSubmit={handleSubmit}
               >
-                <div className="flex justify-center flex-col rounded-md pt-10 pb-10 w-3/4">
-                  <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
-                    <div className="flex flex-row flex-wrap">
+                
+                <div className="flex justify-center flex-col rounded-md pt-10 pb-10 w-3/4 h-full gap-y-2">
+                  <div className="w-full flex flex-col gap-y-2 ">
+                    <div className="flex flex-col justify-center h-64 gap-x-2 gap-y-2 sm:grid sm:grid-rows-4 sm:grid-cols-2">
 
 {/* -----------------------------NOM--------------------------------------- */}
 
@@ -89,7 +100,7 @@ const ContactView = () => {
                         name="surname"
                         placeholder="Nom"
                         className={
-                          " input " + `${errors.surname && "border-red-500"}`
+                          "col-span-1 h-10 input " + `${errors.surname && "border-red-500"}`
                         }
                         onChange={handleChange}
                         required
@@ -106,7 +117,7 @@ const ContactView = () => {
                         name="name"
                         placeholder="Prénom"
                         className={
-                          " input " + `${errors.name && "border-red-500"}`
+                          "col-span-1 h-10 input " + `${errors.name && "border-red-500"}`
                         }
                         onChange={handleChange}
                         required
@@ -119,9 +130,9 @@ const ContactView = () => {
 
                       <Field
                         name="email"
-                        placeholder="Addresse e-mail"
+                        placeholder="Adresse e-mail"
                         className={
-                          " input " + `${errors.email && "border-red-500"}`
+                          "col-span-1 h-10 input " + `${errors.email && "border-red-500"}`
                         }
                         onChange={handleChange}
                         required
@@ -139,7 +150,7 @@ const ContactView = () => {
                         name="phone"
                         placeholder="Numéro"
                         className={
-                          " input " + `${errors.phone && "border-red-500"}`
+                          "col-span-1 h-10 input " + `${errors.phone && "border-red-500"}`
                         }
                         onChange={handleChange}
                         value={values.phone}
@@ -152,14 +163,13 @@ const ContactView = () => {
                         </p>
                       )} 
 
-                    </div>
 {/* -----------------------------MESSAGE--------------------------------------- */}
 
                     <Field
                       name="message"
                       placeholder="Message"
                       className={
-                        " input " + `${errors.message && "border-red-500"}`
+                        "input col-span-2 w-full h-24 sm:h-28  " + `${errors.message && "border-red-500"}`
                       }
                       onChange={handleChange}
                       required
@@ -172,17 +182,22 @@ const ContactView = () => {
                       </p>
                     )} 
                   </div>
-                  <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
-
+                    </div>
+                    
 {/* -----------------------------SUBMIT--------------------------------------- */}
-
+                  <div className="w-full h-12 flex flex-col justify-center pt-4">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="bish-bg-blue py-2 rounded-3xl w-full bish-text-white shadow-lg "
+                      className="col-span-2 bish-bg-blue rounded-3xl w-full bish-text-white shadow-lg h-10"
                     >
                       Envoyer
                     </button>
+                  </div><br/>
+                  <div className="lg:hidden">
+                    <p >Vous pouvez également nous contacter directement:</p>
+                    <p className="font-light">Par e-mail: contact@bish.fr</p>
+                    <p className="font-light">Par téléphone: 03 12 34 56 78</p>
                   </div>
                 </div>
               </Form>
