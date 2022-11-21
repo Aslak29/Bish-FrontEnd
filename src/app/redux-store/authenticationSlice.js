@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getPayloadToken, isTokenValid, setToken } from './..//services/tokenServices';
+import { setUser } from './..//services/userServices';
+
+import { getUserByMail } from "../api/backend/account";
 
 /**
  * initial state: {
@@ -21,16 +24,19 @@ export const authenticationSlice = createSlice({
     initialState,
     reducers: {
         signIn: (state, action) => {
-            const token = action.payload;
+            const token = action.payload.token;
             state.token = token;
             const claims = getPayloadToken(token);
             const user = {
                 username: claims.username,
                 roles: claims.roles,
+                name: action.payload.name,
+                surname: action.payload.surname
             };
             state.user = user;
             state.isAuthenticated = isTokenValid(token);
-            setToken(action.payload);
+            setToken(action.payload.token);
+            setUser(action.payload.name, action.payload.surname);
         },
         signOut: (state) => {
             localStorage.clear();

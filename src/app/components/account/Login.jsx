@@ -2,7 +2,7 @@ import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import { getUserByMail } from "../../api/backend/account";
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "../../api/backend/account";
@@ -18,13 +18,25 @@ const Login = () => {
   const [errorLog, setErrorLog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const handleLogin = (values) => {
     authenticate(values)
       .then((res) => {
         if (res.status === 200 && res.data.token) {
-          dispatch(signIn(res.data.token));
-          navigate(URL_HOME);
+          let token = res.data.token
+          if(values.username) {
+            getUserByMail(values.username).then(res => {
+              let name = res.data.name;
+              let surname = res.data.surname;
+              let auth = {
+                token : token,
+                name : name,
+                surname : surname,
+              }
+              dispatch(signIn(auth));
+              navigate(URL_HOME);
+            })
+          }
         }
       })
       .catch(() => setErrorLog(true));
@@ -43,19 +55,25 @@ const Login = () => {
             onSubmit={handleLogin}
           >
           <Form className="space-y-6">
-            <div className="flex flex-col space-y-6 rounded-md shadow-sm">
-              <Field
-                type="email"
-                name="username"
-                placeholder="Adresse e-mail"
-                className="input"
-              />
-              <Field
-                type="password"
-                name="password"
-                placeholder="Mot de passe"
-                className="input"
-              />
+            <div className="flex flex-col space-y-6">
+              <div className="relative group rounded-lg border bish-border-gray shadow">
+                <Field
+                  type="email"
+                  name="username"
+                  required
+                  className="w-full border-0 rounded-lg peer"
+                />
+                <span className="pointer-events-none	transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Adresse e-mail</span>
+              </div>
+              <div className="relative group rounded-lg border bish-border-gray shadow">
+                <Field
+                  type="password"
+                  name="password"
+                  required
+                  className="w-full border-0 rounded-lg peer"
+                />
+                <span className="pointer-events-none	transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Mot de passe</span>
+              </div>
             </div>
             <div className="flex flex-col place-items-center">
               <Link to="/aaa">

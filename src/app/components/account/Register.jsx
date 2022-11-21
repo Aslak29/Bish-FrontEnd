@@ -74,90 +74,92 @@ const Register = () => {
               >
                 <div className="flex justify-center flex-col sm:flex-row rounded-md pt-10 pb-10 w-3/4">
                   <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
-                    <Field
-                      name="email"
-                      placeholder="Addresse e-mail"
-                      className={
-                        " input " + `${errors.email && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.email}
-                      autoComplete="off"
-                    />
-
-                     {errors.email && (
+                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.email && "border-red-500"}`}>
+                      <Field
+                        type="text"
+                        name="email"
+                        className="input w-full border-0 rounded-lg peer"
+                        onChange={handleChange}
+                        required
+                        value={values.email}
+                        autoComplete="off"
+                      />
+                      <span className="pointer-events-none	transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Adresse e-mail</span>
+                    </div>
+                    {errors.email && (
                       <p className="text-red-500 text-xs italic">
                         {errors.email}
                       </p>
-                    )} 
+                    )}
+                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.surname && "border-red-500"}`}>
+                      <Field
+                        type="text"
+                        name="surname"
+                        className="input w-full border-0 rounded-lg peer"
+                        onChange={handleChange}
+                        required
+                        value={values.surname}
+                      />
+                      <span className="pointer-events-none	transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Nom</span>
+                    </div>
+                    {errors.surname && (
+                      <p className="text-red-500 text-xs italic">
+                        {errors.surname}
+                      </p>
+                    )}
 
-                    <Field
-                      type="password"
-                      name="password"
-                      placeholder="Mot de passe"
-                      className={
-                        " input " + `${errors.password && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.password}
-                      autoComplete="off"
-                    />
+                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.name && "border-red-500"}`}>
+                      <Field
+                        type="text"
+                        name="name"
+                        className="input w-full border-0 rounded-lg peer"
+                        onChange={handleChange}
+                        required
+                        value={values.name}
+                      />
+                      <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Prénom</span>
+                    </div>
+                    {errors.name && (
+                      <p className="text-red-500 text-xs italic">{errors.name}</p>
+                    )}
+                  </div>
+                  <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
+                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.password && "border-red-500"}`}>
+                      <Field
+                        type="password"
+                        name="password"
+                        className="input w-full border-0 rounded-lg peer"
+                        onChange={handleChange}
+                        required
+                        value={values.password}
+                        autoComplete="off"
+                      />
+                      <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Mot de passe</span>
+                    </div>
                     {errors.password && (
                       <p className="text-red-500 text-xs italic">
                         {errors.password}
                       </p>
                     )}
 
-                    <Field
-                      type="password"
-                      name="confirmation"
-                      placeholder="Confirmer le mot de passe"
-                      className={
-                        " input " + `${errors.confirmation && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.confirmation}
-                      autoComplete="off"
-                    />
-
+                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.confirmation && "border-red-500"}`}>
+                      <Field
+                        type="password"
+                        name="confirmation"
+                        className="input w-full border-0 rounded-lg peer"
+                        onChange={handleChange}
+                        required
+                        value={values.confirmation}
+                        autoComplete="off"
+                      />
+                      <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Confirmer le mot de passe</span>
+                    </div>
                     {errors.confirmation && (
                       <p className="text-red-500 text-xs italic">
                         {errors.confirmation}
                       </p>
                     )}
-                  </div>
-                  <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
-                    <Field
-                      name="surname"
-                      placeholder="Nom"
-                      className={
-                        " input " + `${errors.surname && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.surname}
-                    />
-                    {errors.surname && (
-                      <p className="text-red-500 text-xs italic">
-                        {errors.surname}
-                      </p>
-                    )}
-                    <Field
-                      name="name"
-                      placeholder="Prénom"
-                      className={
-                        " input " + `${errors.name && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.name}
-                    />
-                    {errors.name && (
-                      <p className="text-red-500 text-xs italic">{errors.name}</p>
-                    )}
+                    
                     <button
                       type="submit"
                       disabled={isSubmitting}
