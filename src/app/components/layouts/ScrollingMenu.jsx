@@ -1,26 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import account from "../../assets/images/Account.svg";
 import logoutIMG from "../../assets/images/logout.png";
 import loginIMG from "../../assets/images/log-in.png";
 import { Link } from 'react-router-dom';
 import { URL_INFOS, URL_ORDERS, URL_HOME } from "../../constants/urls/urlFrontEnd";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from "../../redux-store/authenticationSlice";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { selectIsLogged } from './../../redux-store/authenticationSlice';
 import { URL_LOGIN } from "../../constants/urls/urlFrontEnd";
+import { getUserByMail } from "../../api/backend/account";
 
 const ScrollingMenu = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLogged = useSelector(selectIsLogged);
+    const [name, setName] = useState(null);
+    const [surname, setSurname] = useState(null);
+    const email = useSelector((state) => state.auth.user)
+
+
+    useEffect(() => {
+      if(email) {
+        getUserByMail(email.username).then(res => {
+          setName(res.data.name);
+          setSurname(res.data.surname);
+        })
+      }
+    },[email])
+
 
     const logout = () => {
         dispatch(signOut());
         navigate(URL_HOME);
     }
+    
 
     return (
         <div className="z-50">
@@ -29,9 +44,8 @@ const ScrollingMenu = () => {
                 <img className="h-8" src={account} alt="Menu espace client" />
               </button>
               {isLogged ? (
-                <ul className="dropdown-menu absolute hidden bish-bg-white bish-text-gray border-solid border bish-border-gray right-0">
-                  {/* TODO: Get nom et prénom du user connecté */}
-                  <li className="py-2 px-4 block whitespace-nowrap">Bonjour <span className="font-semibold">Prénom Nom</span></li>
+                <ul className="dropdown-menu absolute hidden bish-bg-white bish-text-gray border-solid border bish-border-gray right-0 xl:-right-2">
+                  <li className="py-2 px-4 block whitespace-nowrap">Bonjour <span className="font-semibold">{name} {surname}</span></li>
                   <hr />
                   <li><Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap" to={URL_INFOS}>Mon compte</Link></li>
                   <li><Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap" to={URL_ORDERS}>Mes commandes</Link></li>
