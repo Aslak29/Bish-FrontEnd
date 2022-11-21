@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserByMail } from "../../api/backend/account";
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
 
-import {URL_FORGOT_PASSWORD, URL_HOME} from "../../constants/urls/urlFrontEnd";
+import {URL_FORGOT_PASSWORD} from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "../../api/backend/account";
 import registerSVG from "../../assets/images/login-view-register.svg";
