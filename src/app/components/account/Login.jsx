@@ -2,6 +2,8 @@ import { Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { getUserByMail } from "../../api/backend/account";
+import { URL_HOME } from "../../constants/urls/urlFrontEnd";
 
 import {URL_FORGOT_PASSWORD, URL_HOME} from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
@@ -23,8 +25,20 @@ const Login = () => {
     authenticate(values)
       .then((res) => {
         if (res.status === 200 && res.data.token) {
-          dispatch(signIn(res.data.token));
-          navigate(URL_HOME);
+          let token = res.data.token
+          if(values.username) {
+            getUserByMail(values.username).then(res => {
+              let name = res.data.name;
+              let surname = res.data.surname;
+              let auth = {
+                token : token,
+                name : name,
+                surname : surname,
+              }
+              dispatch(signIn(auth));
+              navigate(URL_HOME);
+            })
+          }
         }
       })
       .catch(() => setErrorLog(true));
