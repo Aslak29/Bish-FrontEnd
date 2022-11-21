@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-
 import Navbar from './components/layouts/Navbar';
-import { selectIsLogged, signIn } from './redux-store/authenticationSlice';
+import { selectIsLogged, signIn, selectUser } from './redux-store/authenticationSlice';
 import Routes from './routes/Routes';
 import { getToken } from './services/tokenServices';
+import { getUser } from './services/userServices';
 import Footer from './components/layouts/Footer';
 
 const contextClass = {
@@ -30,8 +29,17 @@ const App = () => {
     const [isLogin, setIsLogin] = useState(true);
 
     useEffect(() => {
-        const token = getToken();
-        if (token) dispatch(signIn(token));
+        let auth = null;
+        let user = getUser();
+        let token = getToken();
+        if (user.name && user.surname && token) {
+            auth = {
+                token: token,
+                name: user.name,
+                surname: user.surname,
+            }
+            if (auth.token) dispatch(signIn(auth));
+        }
         setIsLogin(false);
     }, []);
 
