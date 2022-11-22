@@ -52,32 +52,35 @@ return(
                     >
                         <div className="flex justify-center flex-col sm:flex-row rounded-md pt-10 pb-10 w-3/4">
                             <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
-
-                                <Field
-                                    type="password"
-                                    name="password"
-                                    placeholder="Nouveau mot de passe"
-                                    className={" input " + `${errors.password && "border-red-500"}`}
-                                    onChange={handleChange}
-                                    required
-                                    value={values.password}
-                                    autoComplete="off"
-                                />
+                                <div className={`input-div group ${errors.password && "border-red-500"}`}>
+                                    <Field
+                                        type="password"
+                                        name="password"
+                                        className="input peer"
+                                        onChange={handleChange}
+                                        required
+                                        value={values.password}
+                                        autoComplete="off"
+                                    />
+                                    <span className="label">Nouveau mot de passe</span>
+                                </div>
                                 {errors.password && (
                                     <p className="text-red-500 text-xs italic">
                                         {errors.password}
                                     </p>
                                 )}
-                                <Field
-                                    type="password"
-                                    name="confirmation"
-                                    placeholder="Confirmer mot de passe"
-                                    className={" input " + `${errors.confirmation && "border-red-500"}`}
-                                    onChange={handleChange}
-                                    required
-                                    value={values.confirmation}
-                                    autoComplete="off"
-                                />
+                                <div className={`input-div group ${errors.confirmation && "border-red-500"}`}>
+                                    <Field
+                                        type="password"
+                                        name="confirmation"
+                                        className="input peer"
+                                        onChange={handleChange}
+                                        required
+                                        value={values.confirmation}
+                                        autoComplete="off"
+                                    />
+                                    <span className="label">Confirmer le mot de passe</span>
+                                </div>
                                 {errors.confirmation && (
                                     <p className="text-red-500 text-xs italic">
                                         {errors.confirmation}
