@@ -92,7 +92,7 @@ const ContactView = () => {
                 
                 <div className="flex justify-center flex-col rounded-md pt-10 pb-10 w-3/4 h-full gap-y-2">
                   <div className="w-full flex flex-col gap-y-2 ">
-                    <div className="flex flex-col justify-center h-64 gap-x-2 gap-y-2 sm:grid sm:grid-rows-4 sm:grid-cols-2">
+                    <div className="flex flex-col justify-center h-64 gap-x-2 gap-y-6 sm:gap-y-2 sm:grid sm:grid-rows-4 sm:grid-cols-2">
 
 {/* -----------------------------NOM--------------------------------------- */}
                       <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.surname && "border-red-500"}`}>
@@ -161,7 +161,7 @@ const ContactView = () => {
                       )} 
 
 {/* -----------------------------MESSAGE--------------------------------------- */}
-                      <div className={"relative group rounded-lg border bish-border-gray shadow col-span-2 w-full h-24 sm:h-28" + `${errors.phone && "border-red-500"}`}>
+                      <div className={"relative group rounded-lg border bish-border-gray shadow col-span-2 w-full h-24 sm:h-28 " + `${errors.phone && "border-red-500"}`}>
                         <Field
                           name="message"
                           className="w-full border-0 rounded-lg peer pl-2 h-full"
@@ -170,7 +170,7 @@ const ContactView = () => {
                           value={values.message}
                           autoComplete="off"
                         />
-                        <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-8 peer-valid:-translate-y-8 group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Message</span>
+                        <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 md:group-focus-within:-translate-y-9 md:peer-valid:-translate-y-9 group-focus-within:-translate-y-4 peer-valid:-translate-y-4 group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Message</span>
                       </div>
                       {errors.message && (
                         <p className="text-red-500 text-xs italic">
