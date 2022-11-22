@@ -3,9 +3,7 @@ import { Field, Form, Formik } from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import apiBackEnd from "../../api/backend/api.Backend";
-import {URL_FORGOT_PASSWORD} from "../../constants/urls/urlBackEnd";
-import {URL_HOME} from "../../constants/urls/urlFrontEnd";
-/*import apiBackEnd from "../../api/backend/api.Backend";*/
+import {URL_SEND_MAIL_FORGOT_PASSWORD} from "../../constants/urls/urlBackEnd";
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -31,17 +29,12 @@ const ForgotPassword = () => {
                             if (
                                 Object.entries(errors).length === 0 &&
                                 errors.constructor === Object
-                            ) {
-                                console.log(Object)
-                                apiBackEnd.post(URL_FORGOT_PASSWORD + `/${values.email}`).then(r => {
-                                    if (r.status === 200){
-                                        resetForm();
-                                        navigate(URL_HOME);
-                                    }
-                                }).catch(error => {
-                                    if (error.response.data["errorCode"] === "004"){
-                                        errors.email = "L'email n'existe pas !"
-                                    }
+                            ){
+                                apiBackEnd.post(URL_SEND_MAIL_FORGOT_PASSWORD + `/${values.email}`).then(r => {
+                                    errors.send = "Si l'email est lié à un compte, un mail vient de vous être envoyé"
+                                    setErrors(errors);
+                                }).catch(error =>{
+                                    errors.send = "Si l'email est lié à un compte, un mail vient de vous être envoyé"
                                     setErrors(errors);
                                 })
                             } else {
@@ -50,7 +43,7 @@ const ForgotPassword = () => {
                             setSubmitting(false);
                         }}
                     >
-                        {({ errors, values, handleChange, handleSubmit, isSubmitting }) => (
+                        {({ errors, values, handleChange, handleSubmit, isSubmitting}) => (
                             <Form
                                 className="flex justify-center w-full"
                                 onSubmit={handleSubmit}
@@ -70,6 +63,11 @@ const ForgotPassword = () => {
                                         {errors.email && (
                                             <p className="text-red-500 text-xs italic">
                                                 {errors.email}
+                                            </p>
+                                        )}
+                                        {errors.send && (
+                                            <p className="text-green-50-500 text-xs italic">
+                                                {errors.send}✅
                                             </p>
                                         )}
                                         <button

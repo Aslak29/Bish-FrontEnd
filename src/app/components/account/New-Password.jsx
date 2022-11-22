@@ -1,10 +1,13 @@
 import React from 'react'
 import { Field, Form, Formik } from "formik";
-import {Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import apiBackEnd from "../../api/backend/api.Backend";
+import {URL_RESET_PASSWORD} from "../../constants/urls/urlBackEnd";
+import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
+import {useNavigate} from "react-router-dom";
 
 const NewPassword = () =>{
+    const navigate = useNavigate();
     const [password, hasPassword] = useState(false);
     const [confirmation, hasConfirmation] = useState(false);
 
@@ -31,16 +34,9 @@ return(
                         Object.entries(errors).length === 0 &&
                         errors.constructor === Object
                     ) {
-                        console.log(Object)
-                        apiBackEnd.post("").then(r => {
-                            if (r.status === 200){
-                                resetForm();
-                                /*navigate(URL_HOME);*/
-                            }
+                        apiBackEnd.post(URL_RESET_PASSWORD + `${location.pathname.split( '/' )[3]}` + `/${values.password}`+ `/${values.confirmation}`).then(r => {
+                            navigate(URL_LOGIN)
                         }).catch(error => {
-                            /*if (error.response.data["errorCode"] === "001"){
-                                errors.email = "L'email est déjà utilisé"
-                            }*/
                             setErrors(errors);
                         })
                     } else {
