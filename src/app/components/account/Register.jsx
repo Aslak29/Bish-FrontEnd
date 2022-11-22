@@ -22,7 +22,6 @@ const Register = () => {
         <h3 className="pt-10">Inscription</h3>
         <div className="w-full flex justify-center pb-10">
           <Formik
-          // ------------------Valeurs initial de notre formulaire------------------ //
             initialValues={{
               email: "",
               password: "",
