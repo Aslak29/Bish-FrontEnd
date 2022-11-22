@@ -16,17 +16,27 @@ const ContactView = () => {
   const [messageLength, hasMessageLength ] = useState(false);
 
   return (
-    <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
-      <div className="flex items-center justify-center flex-row border-2 border-black rounded-3xl w-3/4">
-        <div className=" flex flex-col justify-center items-center bish-bg-blue-opacity border-t rounded-b-3xl border-black w-full">
+    <div className="flex  justify-center mt-6 my-6 ">
+      <div className="flex content-center justify-center flex-row border-2 border-black rounded-3xl w-4/5 h-auto">
+
+{/* -----------------------------Image--------------------------------------  */}
+
+        <div className="hidden lg:flex flex-col justify-center items-center bish-bg-blue-opacity border-t rounded-l-3xl w-full gap-y-2">
+          <p>Utilisez notre formulaire de contact</p>
           <img
-            className="hidden sm:block pr-10 h-80"
+            className="hidden lg:block w-3/4 border-b-2	bish-border-blue "
             src={contact}
             alt="Contact"
-          />
+          /><br/>
+          <p>Ou contactez nous directement:</p><br/>
+          <p>Par e-mail: contact@bish.fr</p><br/>
+          <p>Par téléphone: 03 12 34 56 78</p>
         </div>
-        <div className="w-full flex flex-col justify-center pb-10">
-          <h3 className="pt-10">Inscription</h3>
+
+{/* -----------------------------Formulaire--------------------------------------  */}
+
+        <div className="w-full flex flex-col justify-center content-center ">
+          <h3 className="pt-12 text-center">Contactez-nous!</h3>
           <Formik
             initialValues={{
               name: "",
@@ -79,110 +89,111 @@ const ContactView = () => {
                 className="flex justify-center w-full"
                 onSubmit={handleSubmit}
               >
-                <div className="flex justify-center flex-col rounded-md pt-10 pb-10 w-3/4">
-                  <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
-                    <div className="flex flex-row flex-wrap">
+                
+                <div className="flex justify-center flex-col rounded-md pt-10 pb-10 w-3/4 h-full gap-y-2">
+                  <div className="w-full flex flex-col gap-y-2 ">
+                    <div className="flex flex-col justify-center h-64 gap-x-2 gap-y-6 sm:gap-y-2 sm:grid sm:grid-rows-4 sm:grid-cols-2">
 
 {/* -----------------------------NOM--------------------------------------- */}
-
-                      <Field
-                        name="surname"
-                        placeholder="Nom"
-                        className={
-                          " input " + `${errors.surname && "border-red-500"}`
-                        }
-                        onChange={handleChange}
-                        required
-                        value={values.surname}
-                      />
+                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.surname && "border-red-500"}`}>
+                        <Field
+                          name="surname"
+                          className="w-full border-0 rounded-lg peer h-10 pl-2"
+                          onChange={handleChange}
+                          required
+                          value={values.surname}
+                        />
+                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Nom</span>
+                      </div>
                       {errors.surname && (
                         <p className="text-red-500 text-xs italic">
                           {errors.surname}
                         </p>
                       )}
+
 {/* -----------------------------PRENOM--------------------------------------- */}
-
-                      <Field
-                        name="name"
-                        placeholder="Prénom"
-                        className={
-                          " input " + `${errors.name && "border-red-500"}`
-                        }
-                        onChange={handleChange}
-                        required
-                        value={values.name}
-                      />
-                        {errors.name && (
-                          <p className="text-red-500 text-xs italic">{errors.name}</p>
-                        )}
+                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.name && "border-red-500"}`}>
+                        <Field
+                          name="name"
+                          className="w-full border-0 rounded-lg peer h-10 pl-2"
+                          onChange={handleChange}
+                          required
+                          value={values.name}
+                        />
+                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Prénom</span>
+                      </div>
+                      {errors.name && (
+                        <p className="text-red-500 text-xs italic">{errors.name}</p>
+                      )}
 {/* -----------------------------EMAIL--------------------------------------- */}
-
-                      <Field
-                        name="email"
-                        placeholder="Addresse e-mail"
-                        className={
-                          " input " + `${errors.email && "border-red-500"}`
-                        }
-                        onChange={handleChange}
-                        required
-                        value={values.email}
-                        autoComplete="off"
-                      />
+                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.email && "border-red-500"}`}>
+                        <Field
+                          name="email"
+                          className="w-full border-0 rounded-lg peer h-10 pl-2"
+                          onChange={handleChange}
+                          required
+                          value={values.email}
+                          autoComplete="off"
+                        />
+                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Adresse e-mail</span>
+                      </div>
                       {errors.email && (
                         <p className="text-red-500 text-xs italic">
                           {errors.email}
                         </p>
                       )} 
 {/* -----------------------------TELEPHONE--------------------------------------- */}
-
-                      <Field
-                        name="phone"
-                        placeholder="Numéro"
-                        className={
-                          " input " + `${errors.phone && "border-red-500"}`
-                        }
-                        onChange={handleChange}
-                        value={values.phone}
-                        autoComplete="off"
-                        required
-                      />
+                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.phone && "border-red-500"}`}>
+                        <Field
+                          name="phone"
+                          className="w-full border-0 rounded-lg peer h-10 pl-2"
+                          onChange={handleChange}
+                          value={values.phone}
+                          autoComplete="off"
+                          required
+                        />
+                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Numéro</span>
+                      </div>
                       {errors.phone && (
                         <p className="text-red-500 text-xs italic">
                           {errors.phone}
                         </p>
                       )} 
 
-                    </div>
 {/* -----------------------------MESSAGE--------------------------------------- */}
-
-                    <Field
-                      name="message"
-                      placeholder="Message"
-                      className={
-                        " input " + `${errors.message && "border-red-500"}`
-                      }
-                      onChange={handleChange}
-                      required
-                      value={values.message}
-                      autoComplete="off"
-                    />
-                     {errors.message && (
-                      <p className="text-red-500 text-xs italic">
-                        {errors.email}
-                      </p>
-                    )} 
+                      <div className={"relative group rounded-lg border bish-border-gray shadow col-span-2 w-full h-24 sm:h-28 " + `${errors.phone && "border-red-500"}`}>
+                        <Field
+                          name="message"
+                          className="w-full border-0 rounded-lg peer pl-2 h-full"
+                          onChange={handleChange}
+                          required
+                          value={values.message}
+                          autoComplete="off"
+                        />
+                        <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 md:group-focus-within:-translate-y-9 md:peer-valid:-translate-y-9 group-focus-within:-translate-y-4 peer-valid:-translate-y-4 group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Message</span>
+                      </div>
+                      {errors.message && (
+                        <p className="text-red-500 text-xs italic">
+                          {errors.email}
+                        </p>
+                      )} 
+                    </div>
                   </div>
-                  <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
-
+                    
 {/* -----------------------------SUBMIT--------------------------------------- */}
-
+                  <div className="w-full h-16 flex flex-col justify-center">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="bish-bg-blue py-2 rounded-3xl w-full bish-text-white shadow-lg "
+                      className="col-span-2 bish-bg-blue rounded-3xl w-full bish-text-white shadow-lg h-10"
                     >
                       Envoyer
                     </button>
+                  </div><br/>
+                  <div className="lg:hidden">
+                    <p >Vous pouvez également nous contacter directement:</p>
+                    <p className="font-light">Par e-mail: contact@bish.fr</p>
+                    <p className="font-light">Par téléphone: 03 12 34 56 78</p>
                   </div>
                 </div>
               </Form>
