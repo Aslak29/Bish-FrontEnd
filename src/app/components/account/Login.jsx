@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserByMail } from "../../api/backend/account";
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
+
+import {URL_FORGOT_PASSWORD} from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "../../api/backend/account";
 import registerSVG from "../../assets/images/login-view-register.svg";
@@ -18,7 +20,7 @@ const Login = () => {
   const [errorLog, setErrorLog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const handleLogin = (values) => {
     authenticate(values)
       .then((res) => {
@@ -68,23 +70,22 @@ const Login = () => {
                   <Field type="password" name="password" required className="input peer"/>
                   <span className="label">Mot de passe</span>
                 </div>
-
-              </div>
-              <div className="flex flex-col place-items-center">
-                <Link to="/aaa">
-                  <span className="underline underline-offset-8 bish-decoration-gray bish-text-gray">Mot de passe oublié ?</span>
-                </Link>
-                <button type="submit" className="bish-bg-blue py-3 rounded-3xl w-full bish-text-white shadow-lg mt-8">Se connecter</button>
-              </div>
-              {errorLog && (
-              <div className="flex justify-center">
-                <small className="text-sm italic text-red-600">
-                  Adresse e-mail/Mot de passe incorrect(s)
-                </small>
-              </div>
-              )}
-            </Form>
-          </Formik>
+            </div>
+            <div className="flex flex-col place-items-center">
+              <Link to={URL_FORGOT_PASSWORD}>
+                <span className="underline underline-offset-8 bish-decoration-gray bish-text-gray">Mot de passe oublié ?</span>
+              </Link>
+              <button type="submit" className="bish-bg-blue py-3 rounded-3xl w-full bish-text-white shadow-lg mt-8">Se connecter</button>
+            </div>
+            {errorLog && (
+            <div className="flex justify-center">
+              <small className="text-sm italic text-red-600">
+                Adresse e-mail/Mot de passe incorrect(s)
+              </small>
+            </div>
+            )}
+          </Form>
+        </Formik>
         </div>
       </div>
       {/* Section inscription */}
