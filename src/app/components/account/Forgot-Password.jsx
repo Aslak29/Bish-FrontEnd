@@ -50,16 +50,17 @@ const ForgotPassword = () => {
                             >
                                 <div className="flex justify-center flex-col sm:flex-row rounded-md pt-20 pb-20 w-3/4">
                                     <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
-
-                                        <Field
-                                            name="email"
-                                            placeholder="Addresse e-mail"
-                                            className={" input " + `${errors.email && "border-red-500"}`}
-                                            onChange={handleChange}
-                                            required
-                                            value={values.email}
-                                            autoComplete="off"
-                                        />
+                                        <div className={`input-div group ${errors.email && "border-red-500"}`}>
+                                            <Field
+                                                name="email"
+                                                className="input peer h-10 pl-2"
+                                                onChange={handleChange}
+                                                required
+                                                value={values.email}
+                                                autoComplete="off"
+                                            />
+                                            <span className="label">Adresse e-mail</span>
+                                        </div>
                                         {errors.email && (
                                             <p className="text-red-500 text-xs italic">
                                                 {errors.email}
