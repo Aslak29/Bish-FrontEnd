@@ -29,7 +29,6 @@ const Register = () => {
               name: "",
               surname: "",
             }}
-            // ------------------Utilisation de REGEX pour gérer les erreurs------------------ //
             validate={(values) => {
               values.password.length < 8 ? longEnough(false) : longEnough(true);
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@.!%*?&]{8,}$/.test(values.password) ? hasPassword(false) : hasPassword(true);
@@ -38,7 +37,6 @@ const Register = () => {
               values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
               /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(values.email)? hasEmail(false) : hasEmail(true);
             }}
-            // ------------------Fonction onSubmit pour les messages d'erreurs------------------ //
             onSubmit={(values,{ resetForm, setErrors, setSubmitting, handleRegister } ) => {
               let errors = {};
               if (email) errors.email = "Votre email n'est pas valide"
@@ -51,7 +49,6 @@ const Register = () => {
                 Object.entries(errors).length === 0 &&
                 errors.constructor === Object
               ) {
-            // ------------------Appelle API coté BACK------------------ //
                 apiBackEnd.post(URL_BACK_REGISTER + `/${values.name}/${values.surname}/${values.email}/${values.password}/${values.confirmation}`).then(r => {
                     if (r.status === 200){
                       resetForm();
@@ -70,7 +67,6 @@ const Register = () => {
             }}
           >
             {({ errors, values, handleChange, handleSubmit, isSubmitting }) => (
-              // ------------------Formulaire----------------- //
               <Form
                 className="flex justify-center w-full"
                 onSubmit={handleSubmit}
