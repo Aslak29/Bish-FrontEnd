@@ -20,8 +20,10 @@ const Register = () => {
     <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
       <div className="flex items-center justify-center flex-col border-2 border-black rounded-3xl w-3/4">
         <h3 className="pt-10">Inscription</h3>
+        {/* Section inscription */}
         <div className="w-full flex justify-center pb-10">
           <Formik
+          // Valeurs initiales du formulaire
             initialValues={{
               email: "",
               password: "",
@@ -29,6 +31,7 @@ const Register = () => {
               name: "",
               surname: "",
             }}
+            // REGEX de validation des champs
             validate={(values) => {
               values.password.length < 8 ? longEnough(false) : longEnough(true);
               /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@.!%*?&]{8,}$/.test(values.password) ? hasPassword(false) : hasPassword(true);
@@ -37,7 +40,7 @@ const Register = () => {
               values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
               /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(values.email)? hasEmail(false) : hasEmail(true);
             }}
-             
+            // Messages d'erreur si champs non valide
             onSubmit={(values,{ resetForm, setErrors, setSubmitting, handleRegister } ) => {
               let errors = {};
               if (email) errors.email = "Votre email n'est pas valide"
@@ -50,6 +53,7 @@ const Register = () => {
                 Object.entries(errors).length === 0 &&
                 errors.constructor === Object
               ) {
+                // Appel API pour l'inscription
                 apiBackEnd.post(URL_BACK_REGISTER + `/${values.name}/${values.surname}/${values.email}/${values.password}/${values.confirmation}`).then(r => {
                     if (r.status === 200){
                       resetForm();
@@ -73,93 +77,64 @@ const Register = () => {
                 onSubmit={handleSubmit}
               >
                 <div className="flex justify-center flex-col sm:flex-row rounded-md pt-10 pb-10 w-3/4">
+                  {/* Section input gauche */}
                   <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
-                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.email && "border-red-500"}`}>
-                      <Field
-                        type="text"
-                        name="email"
-                        className="input w-full border-0 rounded-lg peer"
-                        onChange={handleChange}
-                        required
-                        value={values.email}
-                        autoComplete="off"
-                      />
-                      <span className="pointer-events-none	transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Adresse e-mail</span>
+
+                    {/* Adresse e-mail */}
+                    <div className={`input-div group ${errors.email && "border-red-500"}`}>
+                      <Field type="text" name="email" className="input peer" onChange={handleChange} required value={values.email} autoComplete="off"/>
+                      <span className="label">Adresse e-mail</span>
                     </div>
                     {errors.email && (
                       <p className="text-red-500 text-xs italic">
                         {errors.email}
                       </p>
                     )}
-                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.surname && "border-red-500"}`}>
-                      <Field
-                        type="text"
-                        name="surname"
-                        className="input w-full border-0 rounded-lg peer"
-                        onChange={handleChange}
-                        required
-                        value={values.surname}
-                      />
-                      <span className="pointer-events-none	transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Nom</span>
+                    {/* Nom */}
+                    <div className={`input-div group ${errors.surname && "border-red-500"}`}>
+                      <Field type="text" name="surname" className="input peer" onChange={handleChange} required value={values.surname} />
+                      <span className="label">Nom</span>
                     </div>
                     {errors.surname && (
                       <p className="text-red-500 text-xs italic">
                         {errors.surname}
                       </p>
                     )}
-
-                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.name && "border-red-500"}`}>
-                      <Field
-                        type="text"
-                        name="name"
-                        className="input w-full border-0 rounded-lg peer"
-                        onChange={handleChange}
-                        required
-                        value={values.name}
-                      />
-                      <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Prénom</span>
+                    {/* Prénom */}
+                    <div className={`input-div group ${errors.name && "border-red-500"}`}>
+                      <Field type="text" name="name" className="input peer" onChange={handleChange} required value={values.name}/>
+                      <span className="label">Prénom</span>
                     </div>
                     {errors.name && (
                       <p className="text-red-500 text-xs italic">{errors.name}</p>
                     )}
+
                   </div>
+
+                  {/* Section input droite + buton */}
                   <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
-                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.password && "border-red-500"}`}>
-                      <Field
-                        type="password"
-                        name="password"
-                        className="input w-full border-0 rounded-lg peer"
-                        onChange={handleChange}
-                        required
-                        value={values.password}
-                        autoComplete="off"
-                      />
-                      <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Mot de passe</span>
+
+                    {/* Mot de passe */}
+                    <div className={`input-div group ${errors.password && "border-red-500"}`}>
+                      <Field type="password" name="password" className="input peer" onChange={handleChange} required value={values.password} autoComplete="off"/>
+                      <span className="label">Mot de passe</span>
                     </div>
                     {errors.password && (
                       <p className="text-red-500 text-xs italic">
                         {errors.password}
                       </p>
                     )}
-
-                    <div className={"relative group rounded-lg border bish-border-gray shadow " + `${errors.confirmation && "border-red-500"}`}>
-                      <Field
-                        type="password"
-                        name="confirmation"
-                        className="input w-full border-0 rounded-lg peer"
-                        onChange={handleChange}
-                        required
-                        value={values.confirmation}
-                        autoComplete="off"
-                      />
-                      <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Confirmer le mot de passe</span>
+                    {/* Confirmer le mot de passe */}
+                    <div className={`input-div group ${errors.confirmation && "border-red-500"}`}>
+                      <Field type="password" name="confirmation" className="input peer" onChange={handleChange} required value={values.confirmation} autoComplete="off"/>
+                      <span className="label">Confirmer le mot de passe</span>
                     </div>
                     {errors.confirmation && (
                       <p className="text-red-500 text-xs italic">
                         {errors.confirmation}
                       </p>
                     )}
-                    
+                    {/* Buton s'inscrire */}
                     <button
                       type="submit"
                       disabled={isSubmitting}
@@ -173,6 +148,7 @@ const Register = () => {
             )}
           </Formik>
         </div>
+        {/* Section connexion */}
         <div className=" flex justify-center items-center bish-bg-blue-opacity border-t rounded-b-3xl border-black w-full">
           <img
             className="hidden sm:block pr-10"
