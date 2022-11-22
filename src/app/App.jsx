@@ -24,31 +24,9 @@ const contextClass = {
  * @author Peter Mollet
  */
 const App = () => {
-    const isLogged = useSelector(selectIsLogged);
-    const dispatch = useDispatch();
-    const [isLogin, setIsLogin] = useState(true);
-
-    useEffect(() => {
-        let auth = null;
-        let user = getUser();
-        let token = getToken();
-        if (user.name && user.surname && token) {
-            auth = {
-                token: token,
-                name: user.name,
-                surname: user.surname,
-            }
-            if (auth.token) dispatch(signIn(auth));
-        }
-        setIsLogin(false);
-    }, []);
-
-    if (isLogin) return null;
-
     return (
         <BrowserRouter>
             <div className="flex min-h-full cursor-default relative flex-col bish-bg-white">
-                {/* {isLogged && <IdleTimerCustom />} */}
                 <Navbar />
                 <main className="mt-24 grow">
                     <Routes />

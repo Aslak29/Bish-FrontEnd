@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getPayloadToken, isTokenValid, setToken } from './..//services/tokenServices';
 import { setUser } from './..//services/userServices';
 
-import { getUserByMail } from "../api/backend/account";
+
 
 /**
  * initial state: {
