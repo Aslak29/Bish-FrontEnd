@@ -92,85 +92,57 @@ const ContactView = () => {
                 
                 <div className="flex justify-center flex-col rounded-md pt-10 pb-10 w-3/4 h-full gap-y-2">
                   <div className="w-full flex flex-col gap-y-2 ">
-                    <div className="flex flex-col justify-center h-64 gap-x-2 gap-y-6 sm:gap-y-2 sm:grid sm:grid-rows-4 sm:grid-cols-2">
+                    <div className="flex flex-col justify-center h-96 sm:h-64 gap-x-2 gap-y-8 sm:gap-y-6 sm:grid sm:grid-rows-4 sm:grid-cols-2">
 
-{/* -----------------------------NOM--------------------------------------- */}
-                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.surname && "border-red-500"}`}>
-                        <Field
-                          name="surname"
-                          className="w-full border-0 rounded-lg peer h-10 pl-2"
-                          onChange={handleChange}
-                          required
-                          value={values.surname}
-                        />
-                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Nom</span>
+                      {/* -----------------------------NOM--------------------------------------- */}
+                      <div className={`input-div group h-min ${errors.surname && "border-red-500"}`}>
+                        <Field name="surname" className="input peer h-10 pl-2" onChange={handleChange} required value={values.surname}/>
+                        <span className="label">Nom</span>
                       </div>
                       {errors.surname && (
                         <p className="text-red-500 text-xs italic">
                           {errors.surname}
                         </p>
                       )}
-
-{/* -----------------------------PRENOM--------------------------------------- */}
-                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.name && "border-red-500"}`}>
-                        <Field
-                          name="name"
-                          className="w-full border-0 rounded-lg peer h-10 pl-2"
-                          onChange={handleChange}
-                          required
-                          value={values.name}
-                        />
-                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Prénom</span>
+                      {/* -----------------------------PRENOM--------------------------------------- */}
+                      <div className={`input-div group h-min ${errors.name && "border-red-500"}`}>
+                        <Field name="name" className="input peer h-10 pl-2" onChange={handleChange} required value={values.name}/>
+                        <span className="label">Prénom</span>
                       </div>
                       {errors.name && (
                         <p className="text-red-500 text-xs italic">{errors.name}</p>
                       )}
-{/* -----------------------------EMAIL--------------------------------------- */}
-                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.email && "border-red-500"}`}>
-                        <Field
-                          name="email"
-                          className="w-full border-0 rounded-lg peer h-10 pl-2"
-                          onChange={handleChange}
-                          required
-                          value={values.email}
-                          autoComplete="off"
-                        />
-                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Adresse e-mail</span>
+                      {/* -----------------------------EMAIL--------------------------------------- */}
+                      <div className={`input-div group h-min ${errors.email && "border-red-500"}`}>
+                        <Field name="email" className="input peer h-10 pl-2" onChange={handleChange} required value={values.email} autoComplete="off"/>
+                        <span className="label">Adresse e-mail</span>
                       </div>
                       {errors.email && (
                         <p className="text-red-500 text-xs italic">
                           {errors.email}
                         </p>
                       )} 
-{/* -----------------------------TELEPHONE--------------------------------------- */}
-                      <div className={"relative group rounded-lg border bish-border-gray shadow h-min " + `${errors.phone && "border-red-500"}`}>
-                        <Field
-                          name="phone"
-                          className="w-full border-0 rounded-lg peer h-10 pl-2"
-                          onChange={handleChange}
-                          value={values.phone}
-                          autoComplete="off"
-                          required
-                        />
-                        <span className="pointer-events-none h-10 transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-full peer-valid:-translate-y-full group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Numéro</span>
+                      {/* -----------------------------TELEPHONE--------------------------------------- */}
+                      <div className={`input-div group h-min ${errors.phone && "border-red-500"}`}>
+                        <Field name="phone" className="input peer h-10 pl-2" onChange={handleChange} value={values.phone} autoComplete="off"required/>
+                        <span className="label">Numéro</span>
                       </div>
                       {errors.phone && (
                         <p className="text-red-500 text-xs italic">
                           {errors.phone}
                         </p>
                       )} 
-
-{/* -----------------------------MESSAGE--------------------------------------- */}
-                      <div className={"relative group rounded-lg border bish-border-gray shadow col-span-2 w-full h-24 sm:h-28 " + `${errors.phone && "border-red-500"}`}>
+                      {/* -----------------------------MESSAGE--------------------------------------- */}
+                      <div className={`input-div group col-span-2 h-24 sm:h-28 ${errors.phone && "border-red-500"}`}>
                         <Field
                           name="message"
-                          className="w-full border-0 rounded-lg peer pl-2 h-full"
+                          className="input peer h-full pl-2"
                           onChange={handleChange}
                           required
                           value={values.message}
                           autoComplete="off"
                         />
-                        <span className="pointer-events-none transform transition-all rounded-lg absolute top-0 left-0 h-full flex items-center pl-2 text-sm group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 md:group-focus-within:-translate-y-9 md:peer-valid:-translate-y-9 group-focus-within:-translate-y-4 peer-valid:-translate-y-4 group-focus-within:pl-0 peer-valid:pl-0 group-focus-within:pb-1 peer-valid:pb-1 bish-text-gray">Message</span>
+                        <span className="label group-focus-within:-translate-y-9 peer-valid:-translate-y-9">Message</span>
                       </div>
                       {errors.message && (
                         <p className="text-red-500 text-xs italic">
@@ -180,7 +152,7 @@ const ContactView = () => {
                     </div>
                   </div>
                     
-{/* -----------------------------SUBMIT--------------------------------------- */}
+                  {/* -----------------------------SUBMIT--------------------------------------- */}
                   <div className="w-full h-16 flex flex-col justify-center">
                     <button
                       type="submit"
