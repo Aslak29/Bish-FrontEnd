@@ -52,7 +52,7 @@ const Register = () => {
                 Object.entries(errors).length === 0 &&
                 errors.constructor === Object
               ) {
-            // ------------------Liaison avec le coté BACK------------------ //
+            // ------------------Appelle API coté BACK------------------ //
                 apiBackEnd.post(URL_BACK_REGISTER + `/${values.name}/${values.surname}/${values.email}/${values.password}/${values.confirmation}`).then(r => {
                     if (r.status === 200){
                       resetForm();
