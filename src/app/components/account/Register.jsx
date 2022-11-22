@@ -37,7 +37,7 @@ const Register = () => {
               values.confirmation === values.password ? hasConfirmation(false) : hasConfirmation(true);
               /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(values.email)? hasEmail(false) : hasEmail(true);
             }}
-             
+            
             onSubmit={(values,{ resetForm, setErrors, setSubmitting, handleRegister } ) => {
               let errors = {};
               if (email) errors.email = "Votre email n'est pas valide"
@@ -45,7 +45,7 @@ const Register = () => {
               if (surname) errors.surname = "Pas de chiffre dans votre nom";
               if (confirmation) errors.confirmation = "Les mots de passes ne sont pas identiques";
               if (password) errors.password = "Le mot de passe doit contenir 1 Majuscule , 1 Minuscule, 1 chiffre et  8 caractères"
-
+            
               if (
                 Object.entries(errors).length === 0 &&
                 errors.constructor === Object
