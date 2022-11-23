@@ -29,7 +29,7 @@ const NavAccount = () => {
                 <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_TRACKING_ORDER}>Suivi de commandes</Link></li>
                 <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ORDERS}>Commandes</Link></li>
                 <li className="flex justify-center content-center pt-6">
-                    <button className="btn-logout py-2 px-4 block whitespace-nowrap flex items-center w-3/6" onClick={() => logout()}>
+                    <button className="btn-logout py-2 px-4 whitespace-nowrap flex items-center" onClick={() => logout()}>
                         <span>Déconnexion</span>
                     </button>
                 </li>  
