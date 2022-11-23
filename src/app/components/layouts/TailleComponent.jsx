@@ -41,7 +41,6 @@ function StockState(){
             </Fragment>
             );
         
-
 const TailleComponent = stateSize({
     name:'stateSize',
     reducers: {
