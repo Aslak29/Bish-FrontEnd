@@ -33,6 +33,7 @@ import CGUView from './../views/ClientView/CGUView';
 import LegalNoticeView from './../views/ClientView/LegalNoticeView';
 import ForgotPasswordView from './../views/ClientView/ForgotPasswordView';
 import NewPasswordView from './../views/ClientView/NewPasswordView'
+import AccountView from './../views/ClientView/AccountView';
 /**
  * Routes of the application
  * with public and private route
@@ -79,6 +80,14 @@ const Routes = () => {
 
 {/* // Routes client loggé (private Route) */}
       <Route
+        path={URL.URL_ACCOUNT}
+        element={
+          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
+            <AccountView />
+          </PrivateRoute>
+        }
+      >
+        <Route
         path={URL.URL_INFOS}
         element={
           <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
@@ -110,6 +119,8 @@ const Routes = () => {
           </PrivateRoute>
         }
       />
+
+      </Route>
 
 {/* // Routes admin (private) */}
       <Route
