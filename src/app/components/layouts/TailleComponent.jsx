@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Fragment} from "react";
 // requête API
 
-function stockState(){
+function StockState(){
     // l'état retourné doit etre available true ou false pour chaque taille
     const [dataProduitSizeXS, setDataSizeXS] =
         useState("");
@@ -26,24 +26,19 @@ function stockState(){
         })
         .then(data => {
             // sortir le chiffre du stock et taille_id
-            setDataSizeL(data[3].url) = $available
+            setDataSizeL(data[2][3].url) = $available
         })
     })
 // si le stock est à zéro ou inférieur, taille_id est opaque
-    function changeState($available){
-        if ($available <= 0){
-
-        }
-    }
         return (
-            <div>
+            <Fragment>
                 <div className="XS"><button>{dataProduitSizeXS && <p>XS</p>}</button></div>  
                 <div className="S"><button>{dataProduitSizeS && <p>S</p>}</button></div>
                 <div className="M"><button>{dataProduitSizeM && <p>M</p>}</button></div>
                 <div className="L"><button>{dataProduitSizeL && <p>L</p>}</button></div>
                 <div className="XL"><button>{dataProduitSizeXL && <p>XL</p>}</button></div>
                 <div className="XXL"><button>{dataProduitSizeXXL && <p>XXL</p>}</button></div>
-            </div>
+            </Fragment>
             );
         
 
@@ -69,5 +64,5 @@ const TailleComponent = stateSize({
     //         {text: {taille}, taille_id},
     //         {int: {stock}, produit_id}
     // ]);
-// export default TailleComponent;
+export default StockState;
 
