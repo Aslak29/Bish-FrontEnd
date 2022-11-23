@@ -85,11 +85,9 @@ const Navbar = () => {
 
       {/*---------------------------------  Searchbar & Espace Client & Panier ---------------------------------  */}
       <div className="flex flex-row gap-x-4 lg:gap-x-8">
-
         <SearchBar searchBarToggle={toggleLogo}/>
 
         {/*--------------------------------- Espace client et panier ---------------------------------  */}
-
         <div className="flex justify-end my-auto mx-0 gap-x-4 lg:gap-x-8">
             <> 
               <Link to={URL_SHOPPING_CART}>
@@ -99,13 +97,6 @@ const Navbar = () => {
                   alt="Panier"
                 />                
               </Link>
-              {/* <Link to={URL_INFOS}>
-                <img
-                  className="h-8 w-auto cursor-pointer"
-                  src={Account}
-                  alt="Espace Client"
-                />                    
-              </Link> */}
               <ScrollingMenu/>
             </>
         </div>
