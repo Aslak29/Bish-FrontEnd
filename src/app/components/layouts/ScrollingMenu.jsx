@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import account from "../../assets/images/Account.svg";
 import logoutIMG from "../../assets/images/logout.png";
 import loginIMG from "../../assets/images/log-in.png";
+import register from "../../assets/images/register.png";
 import { Link } from 'react-router-dom';
-import { URL_INFOS, URL_ORDERS, URL_HOME, URL_ADMIN_HOME } from "../../constants/urls/urlFrontEnd";
+import { URL_INFOS, URL_ORDERS, URL_HOME, URL_REGISTER, URL_ADMIN_HOME } from "../../constants/urls/urlFrontEnd";
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from "../../redux-store/authenticationSlice";
 import { useNavigate } from 'react-router-dom';
@@ -53,8 +54,14 @@ const ScrollingMenu = () => {
                   <li>
                     <Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap flex w-max" to={URL_LOGIN}>
                         <span>Connexion</span>
-                        <img className="m-auto h-5 ml-2" src={loginIMG} alt="Déconnexion" />
+                        <img className="m-auto h-5 ml-2" src={loginIMG} alt="Connexion" />
                     </Link>
+                  </li>
+                  <li>
+                       <Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap flex w-max" to={URL_REGISTER}>
+                           <span>Inscription</span>
+                           <img className="m-auto h-5 ml-3" src={register} alt="Inscription" />
+                       </Link>
                   </li>
                 </ul>
                 )
