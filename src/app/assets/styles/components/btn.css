@@ -42,3 +42,8 @@
 .btn-indigo{
     @apply text-white bg-indigo-600 hover:bg-indigo-700 hover:text-white active:ring-indigo-500 ;
 }
+
+/* Bouton déconnexion */
+.btn-logout{
+    @apply bish-bg-blue bish-text-white rounded-lg;
+}
