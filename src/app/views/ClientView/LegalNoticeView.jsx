@@ -1,8 +1,13 @@
 import React from 'react'
+import {Helmet} from "react-helmet-async";
 
 const LegalNoticeView = () => {
   return (
     <div className="w-3/4 m-auto mt-20">
+        <Helmet>
+            <title>Bish - Mentions Légales</title>
+            <meta name="description" content="Retrouvez nos Mentions Légales pour notre site Bish" />
+        </Helmet>
 
         <h1 className="text-center">Mentions Légales</h1>
 

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { URL_HOME } from '../../constants/urls/urlFrontEnd';
 import Login from '../../components/account/Login';
 import { selectIsLogged } from '../../redux-store/authenticationSlice';
+import {Helmet} from "react-helmet-async";
 
 /**
  * View/Page Login
@@ -21,6 +22,10 @@ const LoginView = () => {
 
     return (
         <div className="flex h-full items-center justify-center w-full">
+            <Helmet>
+                <title>Bish - Connexion</title>
+                <meta name="description" content="Connectez-vous à votre compte client sur notre site Bish"/>
+            </Helmet>
             <Login className="" />
         </div>
     );
