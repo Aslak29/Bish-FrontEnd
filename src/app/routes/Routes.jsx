@@ -119,63 +119,65 @@ const Routes = () => {
             <AdminHomeView />
           </PrivateRoute>
         }
-      />
-      <Route
-        path={URL.URL_ADMIN_CATEGORIES}
-        element={
-          <PrivateRoute roles={[ROLE_ADMIN]}>
-            <AdminCategoriesView />
-          </PrivateRoute>
-        }
-      />
-      <Route
+      >
+        <Route
+          path={URL.URL_ADMIN_CATEGORIES}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminCategoriesView />
+            </PrivateRoute>
+          }
+        />
+        <Route
         path={URL.URL_ADMIN_USERS}
         element={
           <PrivateRoute roles={[ROLE_ADMIN]}>
             <AdminUsersView />
           </PrivateRoute>
         }
-      />
-      <Route
-        path={URL.URL_ADMIN_PRODUCTS}
-        element={
-          <PrivateRoute roles={[ROLE_ADMIN]}>
-            <AdminProductsView />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path={URL.URL_ADMIN_STATS}
-        element={
-          <PrivateRoute roles={[ROLE_ADMIN]}>
-            <AdminStatsView />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path={URL.URL_ADMIN_BLOG}
-        element={
-          <PrivateRoute roles={[ROLE_ADMIN]}>
-            <AdminBlogView/>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path={URL.URL_ADMIN_ORDERS}
-        element={
-          <PrivateRoute roles={[ROLE_ADMIN]}>
-            <AdminOrdersView/>
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path={URL.URL_ADMIN_CONTACT}
-        element={
-          <PrivateRoute roles={[ROLE_ADMIN]}>
-            <AdminContactView />
-          </PrivateRoute>
-        }
-      />
+        />
+        <Route
+          path={URL.URL_ADMIN_PRODUCTS}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminProductsView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={URL.URL_ADMIN_STATS}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminStatsView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={URL.URL_ADMIN_BLOG}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminBlogView/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={URL.URL_ADMIN_ORDERS}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminOrdersView/>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={URL.URL_ADMIN_CONTACT}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminContactView />
+            </PrivateRoute>
+          }
+        />
+      </Route>
+
     </RoutesContainer>
   );
 };

@@ -3,7 +3,7 @@ import Register from '../../components/account/Register'
 
 const RegisterView = () => {
   return (
-    <div><Register className="" /></div>
+    <div className='w-full'><Register/></div>
   )
 }
 

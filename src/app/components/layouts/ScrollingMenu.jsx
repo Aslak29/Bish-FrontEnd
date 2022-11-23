@@ -4,19 +4,20 @@ import logoutIMG from "../../assets/images/logout.png";
 import loginIMG from "../../assets/images/log-in.png";
 import register from "../../assets/images/register.png";
 import { Link } from 'react-router-dom';
-import {URL_INFOS, URL_ORDERS, URL_HOME, URL_REGISTER} from "../../constants/urls/urlFrontEnd";
+import { URL_INFOS, URL_ORDERS, URL_HOME, URL_REGISTER, URL_ADMIN_HOME } from "../../constants/urls/urlFrontEnd";
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from "../../redux-store/authenticationSlice";
 import { useNavigate } from 'react-router-dom';
-import { selectIsLogged, selectUser } from './../../redux-store/authenticationSlice';
+import { selectIsLogged, selectUser, selectHasRole } from './../../redux-store/authenticationSlice';
 import { URL_LOGIN } from "../../constants/urls/urlFrontEnd";
-import { getUserByMail } from "../../api/backend/account";
+import { ROLE_ADMIN } from '../../constants/rolesConstant';
 
 const ScrollingMenu = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLogged = useSelector(selectIsLogged);
+    const isAdmin = useSelector((state) => selectHasRole(state, ROLE_ADMIN));
     const user = useSelector(selectUser);
 
     const logout = () => {
@@ -32,7 +33,11 @@ const ScrollingMenu = () => {
               </button>
               {isLogged ? (
                 <ul className="dropdown-menu absolute hidden bish-bg-white bish-text-gray border-solid border bish-border-gray right-0 xl:-right-2">
-                  <li className="py-2 px-4 block whitespace-nowrap">Bonjour <span className="font-semibold">{user.name} {user.surname}</span></li>
+                  {isAdmin ? (
+                    <li><Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap" to={URL_ADMIN_HOME}>Administration</Link></li>
+                  ) : (
+                    <li className="py-2 px-4 block whitespace-nowrap">Bonjour <span className="font-semibold">{user.name} {user.surname}</span></li>
+                  )}
                   <hr />
                   <li><Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap" to={URL_INFOS}>Mon compte</Link></li>
                   <li><Link className="hover:bish-bg-blue-opacity py-2 px-4 block whitespace-nowrap" to={URL_ORDERS}>Mes commandes</Link></li>
