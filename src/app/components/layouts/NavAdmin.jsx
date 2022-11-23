@@ -15,7 +15,7 @@ const NavAdmin = () => {
 
     // Style
     const navelement = 'w-full border-solid border-b bish-border-gray';
-    const lien = 'block pl-4 sm:pl-6 py-5 hover:translate-x-3';
+    const lien = 'block pl-4 sm:pl-6 py-5 transition-all hover:translate-x-3';
 
     const [menuClick, setMenuClick] = useState(false);
     const [menuDisplay, setMenuDisplay] = useState('hidden');
