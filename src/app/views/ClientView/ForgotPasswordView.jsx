@@ -3,7 +3,7 @@ import ForgotPassword from "../../components/account/Forgot-Password";
 
 const ForgotPasswordView = () => {
     return (
-        <div><ForgotPassword/>
+        <div className='w-full'><ForgotPassword/>
         </div>
     )
 }

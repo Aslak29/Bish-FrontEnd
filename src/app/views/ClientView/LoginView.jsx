@@ -20,7 +20,7 @@ const LoginView = () => {
     }, []);
 
     return (
-        <div className="flex h-full items-center justify-center">
+        <div className="flex h-full items-center justify-center w-full">
             <Login className="" />
         </div>
     );
