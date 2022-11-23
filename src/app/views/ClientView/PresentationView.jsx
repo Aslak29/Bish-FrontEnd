@@ -1,7 +1,7 @@
 import React from "react";
 import presentationSVG from "../../assets/images/undraw_team_collaboration_re_ow29_1.svg";
 import logo from "../../assets/images/logoBish_3.svg";
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 
 const PresentationView = () => {
   return (

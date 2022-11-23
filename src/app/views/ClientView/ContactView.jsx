@@ -6,7 +6,7 @@ import contact from "../../assets/images/contact.svg";
 import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
 import {URL_BACK_ADD_CONTACT} from "../../constants/urls/urlBackEnd";
 import apiBackEnd from "../../api/backend/api.Backend";
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 
 const ContactView = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const ContactView = () => {
             alt="Contact"
           /><br/>
           <p>Ou contactez nous directement:</p><br/>
-          <p>Par e-mail: contact@bish.fr</p><br/>
+          <p>Par e-mail: bishincubateur@gmail.com</p><br/>
           <p>Par téléphone: 03 12 34 56 78</p>
         </div>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Register from '../../components/account/Register'
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 
 const RegisterView = () => {
   return (

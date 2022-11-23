@@ -1,6 +1,6 @@
 import React from "react";
 import error from "../../assets/images/error.gif";
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 
 const Error404View = () => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import ForgotPassword from "../../components/account/Forgot-Password";
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 
 const ForgotPasswordView = () => {
     return (

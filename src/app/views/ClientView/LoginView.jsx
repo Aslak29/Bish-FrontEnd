@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { URL_HOME } from '../../constants/urls/urlFrontEnd';
 import Login from '../../components/account/Login';
 import { selectIsLogged } from '../../redux-store/authenticationSlice';
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 
 /**
  * View/Page Login

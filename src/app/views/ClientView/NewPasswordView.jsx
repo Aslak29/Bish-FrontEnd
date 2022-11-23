@@ -1,6 +1,6 @@
 import React from 'react'
 import NewPassword from '../../components/account/New-Password'
-import {Helmet} from "react-helmet";
+import {Helmet} from "react-helmet-async";
 
 const NewPasswordView = () => {
  return(
