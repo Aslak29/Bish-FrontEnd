@@ -37,8 +37,8 @@ const BurgerMenu = () => {
   }
 
   return (
-    <div className={`dropdown w-12 my-auto relative lg:hidden z-40`}>
-      <div className={`flex flex-col h-12 mx-4 my-auto hover:cursor-pointer lg:hidden`} onClick={updateMenu}>
+    <div className={`dropdown w-auto my-auto relative lg:hidden z-40`}>
+      <div className={`flex flex-col h-12 mx-4 my-auto hover:cursor-pointer lg:hidden w-auto`} onClick={updateMenu}>
         <div className={`${burgerBarTop} w-12 h-1.5 bish-bg-white m-auto`}></div>
         <div className={`${burgerBarHidden} w-12 h-1.5 bish-bg-white m-auto`}></div>
         <div className={`${burgerBarBottom} w-12 h-1.5 bish-bg-white m-auto`}></div>

@@ -17,6 +17,7 @@ export const URL_NEW_PASSWORD ='/reset-password/reset/:token'
 
 // Espace client
 
+export const URL_ACCOUNT = '/espace-client/';
 export const URL_INFOS = '/espace-client/informations-personnelles';
 export const URL_ORDERS = '/espace-client/commandes';
 export const URL_ORDER = '/espace-client/commandes/commande/:orderID';
