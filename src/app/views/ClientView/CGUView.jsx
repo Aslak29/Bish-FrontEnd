@@ -1,8 +1,13 @@
 import React from "react";
+import {Helmet} from "react-helmet-async";
 
 const CGUView = () => {
   return (
     <div className="w-3/4 m-auto mt-20 mb-20">
+      <Helmet>
+        <title>Bish - Conditions Génerales Utilisation</title>
+        <meta name="description" content="Conditions Génerales Utilisation pour notre site Bish" />
+      </Helmet>
       <h1 className="text-center">CGU</h1>
       <div>
         <h3 className="mt-20 mb-10">1. Objet</h3>
