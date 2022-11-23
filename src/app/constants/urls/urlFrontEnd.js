@@ -10,13 +10,13 @@ export const URL_PRESENTATION = '/qui-sommes-nous';
 export const URL_SHOPPING_CART = '/panier';
 export const URL_FAQ = '/faq';
 export const URL_CGU = '/cgu'
-export const URL_HELP ='/aide'
 export const URL_LEGAL_NOTICE ='/mentions-legales'
 export const URL_FORGOT_PASSWORD = '/mot-de-passe-oublier'
 export const URL_NEW_PASSWORD ='/reset-password/reset/:token'
 
 // Espace client
 
+export const URL_ACCOUNT = '/espace-client/';
 export const URL_INFOS = '/espace-client/informations-personnelles';
 export const URL_ORDERS = '/espace-client/commandes';
 export const URL_ORDER = '/espace-client/commandes/commande/:orderID';

@@ -7,7 +7,6 @@ import {
     URL_FAQ,
     URL_LEGAL_NOTICE,
     URL_CGU,
-    URL_HELP,
   } from "../../constants/urls/urlFrontEnd"
   import logo from "../../assets/images/logo-bish.svg";
   import stripe from "../../assets/images/stripe.svg";
