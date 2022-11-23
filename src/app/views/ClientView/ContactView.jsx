@@ -20,7 +20,7 @@ const ContactView = () => {
     <div className="flex  justify-center mt-6 my-6 w-full">
       <Helmet>
         <title>Bish - Contact</title>
-        <meta name="description" content="Notre services contact pour nous contacter rapidement !" />
+        <meta name="description" content="Notre service contact pour nous contacter rapidement !" data-react-helmet="true"/>
       </Helmet>
       <div className="flex content-center justify-center flex-row border-2 border-black rounded-3xl w-4/5 h-auto">
 
