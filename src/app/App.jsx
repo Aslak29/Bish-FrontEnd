@@ -27,8 +27,8 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className="flex min-h-full cursor-default relative flex-col bish-bg-white">
-                <Navbar />
-                <main className="mt-24 grow">
+                <Navbar/>
+                <main className="mt-20 flex grow">
                     <Routes />
                 </main>
                 <Footer />

@@ -16,7 +16,7 @@ const ContactView = () => {
   const [messageLength, hasMessageLength ] = useState(false);
 
   return (
-    <div className="flex  justify-center mt-6 my-6 ">
+    <div className="flex  justify-center mt-6 my-6 w-full">
       <div className="flex content-center justify-center flex-row border-2 border-black rounded-3xl w-4/5 h-auto">
 
 {/* -----------------------------Image--------------------------------------  */}
