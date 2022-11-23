@@ -28,7 +28,6 @@ import AdminBlogView from './../views/AdminView/AdminBlogView';
 import AdminOrdersView from './../views/AdminView/AdminOrdersView';
 import AdminContactView from './../views/AdminView/AdminContactView';
 import Error404View from './../views/ClientView/Error404View';
-import HelpView from './../views/ClientView/HelpView';
 import CGUView from './../views/ClientView/CGUView';
 import LegalNoticeView from './../views/ClientView/LegalNoticeView';
 import ForgotPasswordView from './../views/ClientView/ForgotPasswordView';
@@ -73,7 +72,6 @@ const Routes = () => {
 
       <Route path={URL.URL_FAQ} element={<FAQView/>} />
       <Route path='*' element={<Error404View/>} />
-      <Route path={URL.URL_HELP} element={<HelpView/>} />
       <Route path={URL.URL_CGU} element={<CGUView/>} />
       <Route path={URL.URL_LEGAL_NOTICE} element={<LegalNoticeView/>} />
 

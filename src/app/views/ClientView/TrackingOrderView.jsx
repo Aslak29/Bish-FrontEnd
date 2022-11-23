@@ -1,8 +1,13 @@
 import React from 'react'
+import {Helmet} from "react-helmet";
 
 const TrackingOrderView = () => {
   return (
-    <div>TrackingControlView</div>
+    <div>
+      <Helmet>
+        <title>Bish - Suivi de Commandes</title>
+      </Helmet>
+      TrackingControlView</div>
   )
 }
 

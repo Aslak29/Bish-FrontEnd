@@ -1,10 +1,15 @@
 import React from "react";
 import presentationSVG from "../../assets/images/undraw_team_collaboration_re_ow29_1.svg";
 import logo from "../../assets/images/logoBish_3.svg";
+import {Helmet} from "react-helmet";
 
 const PresentationView = () => {
   return (
     <div className="flex justify-center items-center flex-col w-3/4 m-auto mt-16 mb-20">
+      <Helmet>
+        <title>Bish - Qui sommes-nous ?</title>
+        <meta name="description" content="Nous sommes Bish, Nous sommes une entreprise de vente de vêtements en ligne français" />
+      </Helmet>
       <div>
         <h1 className="flex justify-center text-3xl">Qui sommes-nous ?</h1>
         <br />

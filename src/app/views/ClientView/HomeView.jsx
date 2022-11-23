@@ -1,9 +1,15 @@
-import React from 'react';
-import { URL_ADMIN_HOME } from '../../constants/urls/urlFrontEnd';
+import React, {useEffect} from 'react';
+import {Helmet} from "react-helmet";
 
 const HomeView = () => {
+
+
     return (
         <div>
+            <Helmet>
+                <title>Bish - Accueil</title>
+                <meta name="description" content="Découvrez les dernières tendances mode femme et homme en ligne sur Bish." />
+            </Helmet>
             <p className="font-extrabold text-primary">HOME</p>
         </div>
     );

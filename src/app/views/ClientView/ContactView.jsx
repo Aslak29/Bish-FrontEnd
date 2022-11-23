@@ -6,6 +6,7 @@ import contact from "../../assets/images/contact.svg";
 import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
 import {URL_BACK_ADD_CONTACT} from "../../constants/urls/urlBackEnd";
 import apiBackEnd from "../../api/backend/api.Backend";
+import {Helmet} from "react-helmet";
 
 const ContactView = () => {
   const navigate = useNavigate();
@@ -17,6 +18,10 @@ const ContactView = () => {
 
   return (
     <div className="flex  justify-center mt-6 my-6 w-full">
+      <Helmet>
+        <title>Bish - Contact</title>
+        <meta name="description" content="Notre services contact pour nous contacter rapidement !" />
+      </Helmet>
       <div className="flex content-center justify-center flex-row border-2 border-black rounded-3xl w-4/5 h-auto">
 
 {/* -----------------------------Image--------------------------------------  */}

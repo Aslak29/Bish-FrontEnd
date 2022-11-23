@@ -1,6 +1,6 @@
 import React from 'react'
 import QuestionFaq from './../../components/QuestionFaq';
-import { useEffect } from 'react';
+import {Helmet} from "react-helmet";
 
 const FAQView = () => {
 
@@ -43,20 +43,10 @@ const FAQView = () => {
     }
 
   ]
-
-  useEffect(() => {
-    console.log(questions)
-    
-  }, [])
-
   return (
     <div className='w-11/12 sm:w-3/4 m-auto space-y-6 my-6'>
       <h1 className='text-center mb-10'>Foire aux questions</h1>
-      {questions.map((res) => {
-        return (
-          <QuestionFaq question={res.question} answer={res.answer}/>
-        )
-      } )}
+      {questions.map((res, i) => <QuestionFaq key={i} question={res.question} answer={res.answer}/>)}
     </div>
   )
 }

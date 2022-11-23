@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import apiBackend from "../../api/backend/api.Backend";
 import {URL_BACK_BLOG} from "../../constants/urls/urlBackEnd";
+import {Helmet} from "react-helmet";
 
 const BlogView = () => {
 
@@ -15,6 +16,10 @@ const BlogView = () => {
 
   return (
     <div>
+        <Helmet>
+            <title>Bish - Blog</title>
+            <meta name="description" content="Découvrez les nouveaux article de notre blog !" />
+        </Helmet>
       BlogView
       {blog.map((blogs) => {
         return (
