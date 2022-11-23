@@ -3,7 +3,7 @@ import NewPassword from '../../components/account/New-Password'
 
 const NewPasswordView = () => {
  return(
-    <div>
+    <div className='w-full'>
         <NewPassword/>
     </div>
  )
