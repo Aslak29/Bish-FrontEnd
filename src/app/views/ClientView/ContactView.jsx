@@ -51,8 +51,8 @@ const ContactView = () => {
               phone:""
             }}
             validate={(values) => {
-              /^([a-zA-Z ]+)$/.test(values.name) ? hasName(false) : hasName(true);
-              /^([a-zA-Z ]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
+              /^([A-Za-z$@.àâçéèùûîï!%*?&]+)/.test(values.name) ? hasName(false) : hasName(true);
+              /^([A-Za-z$@.àâçéèùûîï!%*?&]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
               /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(values.email)? hasEmail(false) : hasEmail(true);
               /^[0-9]{10}$/.test(values.phone)? hasPhone(false) : hasPhone(true);
               values.message.length > 50 ? hasMessageLength(false) : hasMessageLength(true);
@@ -97,63 +97,75 @@ const ContactView = () => {
                 
                 <div className="flex justify-center flex-col rounded-md pt-10 pb-10 w-3/4 h-full gap-y-2">
                   <div className="w-full flex flex-col gap-y-2 ">
-                    <div className="flex flex-col justify-center h-96 sm:h-64 gap-x-2 gap-y-8 sm:gap-y-6 sm:grid sm:grid-rows-4 sm:grid-cols-2">
+                    <div className="flex flex-col justify-center gap-x-2 gap-y-8 sm:gap-y-6 sm:grid sm:grid-cols-2">
 
                       {/* -----------------------------NOM--------------------------------------- */}
-                      <div className={`input-div group h-min ${errors.surname && "border-red-500"}`}>
-                        <Field name="surname" className="input peer h-10 pl-2" onChange={handleChange} required value={values.surname}/>
-                        <span className="label">Nom</span>
+                      <div>
+                        <div className={`input-div group h-min ${errors.surname && "border-red-500"}`}>
+                          <Field name="surname" className="input peer h-10 pl-2" onChange={handleChange} required value={values.surname}/>
+                          <span className="label">Nom</span>
+                        </div>
+                        {errors.surname && (
+                          <p className="text-red-500 text-xs italic">
+                            {errors.surname}
+                          </p>
+                        )}
                       </div>
-                      {errors.surname && (
-                        <p className="text-red-500 text-xs italic">
-                          {errors.surname}
-                        </p>
-                      )}
+                      
                       {/* -----------------------------PRENOM--------------------------------------- */}
-                      <div className={`input-div group h-min ${errors.name && "border-red-500"}`}>
-                        <Field name="name" className="input peer h-10 pl-2" onChange={handleChange} required value={values.name}/>
-                        <span className="label">Prénom</span>
+                      <div>
+                        <div className={`input-div group h-min ${errors.name && "border-red-500"}`}>
+                          <Field name="name" className="input peer h-10 pl-2" onChange={handleChange} required value={values.name}/>
+                          <span className="label">Prénom</span>
+                        </div>
+                        {errors.name && (
+                          <p className="text-red-500 text-xs italic">{errors.name}</p>
+                        )}
                       </div>
-                      {errors.name && (
-                        <p className="text-red-500 text-xs italic">{errors.name}</p>
-                      )}
                       {/* -----------------------------EMAIL--------------------------------------- */}
-                      <div className={`input-div group h-min ${errors.email && "border-red-500"}`}>
-                        <Field name="email" className="input peer h-10 pl-2" onChange={handleChange} required value={values.email} autoComplete="off"/>
-                        <span className="label">Adresse e-mail</span>
-                      </div>
-                      {errors.email && (
-                        <p className="text-red-500 text-xs italic">
-                          {errors.email}
-                        </p>
-                      )} 
+                      <div>
+                        <div className={`input-div group h-min ${errors.email && "border-red-500"}`}>
+                          <Field name="email" className="input peer h-10 pl-2" onChange={handleChange} required value={values.email} autoComplete="off"/>
+                          <span className="label">Adresse e-mail</span>
+                        </div>
+                        {errors.email && (
+                          <p className="text-red-500 text-xs italic">
+                            {errors.email}
+                          </p>
+                        )} 
+                      </div> 
                       {/* -----------------------------TELEPHONE--------------------------------------- */}
-                      <div className={`input-div group h-min ${errors.phone && "border-red-500"}`}>
-                        <Field name="phone" className="input peer h-10 pl-2" onChange={handleChange} value={values.phone} autoComplete="off"required/>
-                        <span className="label">Numéro</span>
+                      <div>
+                        <div className={`input-div group h-min ${errors.phone && "border-red-500"}`}>
+                          <Field name="phone" className="input peer h-10 pl-2" onChange={handleChange} value={values.phone} autoComplete="off"required/>
+                          <span className="label">Numéro</span>
+                        </div>
+                        {errors.phone && (
+                          <p className="text-red-500 text-xs italic">
+                            {errors.phone}
+                          </p>
+                        )} 
                       </div>
-                      {errors.phone && (
-                        <p className="text-red-500 text-xs italic">
-                          {errors.phone}
-                        </p>
-                      )} 
                       {/* -----------------------------MESSAGE--------------------------------------- */}
-                      <div className={`input-div group col-span-2 h-24 sm:h-28 ${errors.phone && "border-red-500"}`}>
-                        <Field
-                          name="message"
-                          className="input peer h-full pl-2"
-                          onChange={handleChange}
-                          required
-                          value={values.message}
-                          autoComplete="off"
-                        />
-                        <span className="label group-focus-within:-translate-y-9 peer-valid:-translate-y-9">Message</span>
+                      <div className="col-span-2">
+                        <div className={`input-div group h-24 sm:h-28 ${errors.phone && "border-red-500"}`}>
+                          <Field
+                            name="message"
+                            className="input peer h-full pl-2"
+                            onChange={handleChange}
+                            required
+                            value={values.message}
+                            autoComplete="off"
+                            component="textarea"
+                          />
+                          <span className="label group-focus-within:-translate-y-9 peer-valid:-translate-y-9">Message</span>
+                        </div>
+                        {errors.message && (
+                          <p className="text-red-500 text-xs italic">
+                            {errors.email}
+                          </p>
+                        )}
                       </div>
-                      {errors.message && (
-                        <p className="text-red-500 text-xs italic">
-                          {errors.email}
-                        </p>
-                      )} 
                     </div>
                   </div>
                     
