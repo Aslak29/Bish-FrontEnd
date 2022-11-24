@@ -146,6 +146,7 @@ const ContactView = () => {
                           required
                           value={values.message}
                           autoComplete="off"
+                          component="textarea"
                         />
                         <span className="label group-focus-within:-translate-y-9 peer-valid:-translate-y-9">Message</span>
                       </div>
