@@ -4,9 +4,7 @@ import { useParams } from "react-router-dom";
 import apiBackEnd from "../../api/backend/api.Backend";
 import { URL_BACK_SIZE_PRODUCT } from "../../constants/urls/urlBackEnd";
 
-// const url =;
 const TailleComponent = () => {
-  // l'état retourné doit etre available true ou false pour chaque taille
   const [dataProduitSizeS, setDataSizeS] = useState([]);
   const [dataProduitSizeM, setDataSizeM] = useState([]);
   const [dataProduitSizeL, setDataSizeL] = useState([]);
@@ -25,7 +23,6 @@ const TailleComponent = () => {
     .catch((error)=>{
       console.log(error)
     })
-    // const newArr = [] -- nouveau tableau pour ne pas toucher au useEffect nécessaire ??
     // tri par taille
     // window.addEventListener("sort", actionSort)
     // function actionSort() {}
@@ -35,16 +32,39 @@ const TailleComponent = () => {
     // };
   }, []);
   // si le stock est à zéro ou inférieur, taille_id est opaque
-  return (
-    <div>
+}
+$noStock = Boolean;
+if (dataProduitSizeS, dataProduitSizeM, dataProduitSizeL, dataProduitSizeXL <= 0){
+  $noStock = true;
+  }else{
+    $noStock = false;
+  }
+    return (
       <div>
-        <button className="btn-primary-bish">{dataProduitSizeS}</button>
-        <button className="btn">{dataProduitSizeM}</button>
-        <button className="btn">{dataProduitSizeL}</button>
-        <button className="btn">{dataProduitSizeXL}</button>
+
+          <button
+            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
+          >
+            {"S"}
+          </button>
+          <button
+            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
+          >
+            {"M"}
+          </button>
+          <button
+            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
+          >
+            {"L"}
+          </button>
+          <button
+            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
+          > 
+            {"XL"}
+          </button>
+
       </div>
-    </div>
-  );
+    );
 };
 
 // const TailleComponent = stateSize({
