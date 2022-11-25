@@ -1,0 +1,3 @@
+.link-hover-blue{
+    @apply hover:bish-bg-blue hover:text-white ;
+}
