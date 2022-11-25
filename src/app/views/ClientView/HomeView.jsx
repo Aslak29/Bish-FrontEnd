@@ -18,9 +18,6 @@ const HomeView = () => {
                     Admin
                 </button>
             )}
-                <div className='test'>
-                    <TailleComponent/>
-                </div>
         </div>
     );
 };
