@@ -6,7 +6,7 @@ import {URL_PRODUCT} from "../../constants/urls/urlFrontEnd";
 
 const PromoCard = () => {
   return (
-         <div className='ml-5'>
+         <div>
             <div className='flex flex-col border-2 bish-border-gray'>
                 <div>
                 <img className="mb-2" src={imgCard} alt="Promo" />
