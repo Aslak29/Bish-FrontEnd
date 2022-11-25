@@ -9,3 +9,6 @@ export const URL_SEND_MAIL_FORGOT_PASSWORD = '/reset-password/sendMail'
 export const URL_RESET_PASSWORD = '/reset-password/reset/'
 // Routes contactController
 export const URL_BACK_ADD_CONTACT = '/contact/add'
+
+// route produits {tri par taille}
+export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
