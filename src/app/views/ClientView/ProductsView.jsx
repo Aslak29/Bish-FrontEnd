@@ -11,7 +11,10 @@ const ProductsView = () => {
                 <title>Bish - Nos Produits</title>
                 <meta name="description" content="Retrouvez tous nos produits disponibles à tout moments"/>
             </Helmet>
-            <Categories/>
+            <div className="md:w-3/5 m-auto">
+                <Categories/>
+            </div>
+
             <ProductsContainer/>
             <Paginate/>
         </div>
