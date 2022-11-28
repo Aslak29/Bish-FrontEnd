@@ -1,4 +1,5 @@
 export const URL_HOME = '/';
+export const URL_404 = '/404';
 export const URL_LOGIN = '/connexion';
 export const URL_REGISTER = '/inscription';
 export const URL_PRODUCTS = '/produits';
