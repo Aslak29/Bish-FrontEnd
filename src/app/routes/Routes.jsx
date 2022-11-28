@@ -73,6 +73,7 @@ const Routes = () => {
 
       <Route path={URL.URL_FAQ} element={<FAQView/>} />
       <Route path='*' element={<Error404View/>} />
+        <Route path={URL.URL_404} element={<Error404View/>} />
       <Route path={URL.URL_CGU} element={<CGUView/>} />
       <Route path={URL.URL_LEGAL_NOTICE} element={<LegalNoticeView/>} />
 

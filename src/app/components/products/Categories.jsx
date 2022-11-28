@@ -10,7 +10,6 @@ const Categories = () => {
         // Appel API pour charger les catégories
         apiBackEnd.get(URL_BACK_CATEGORIES).then(r => {
             setCategorie(r.data)
-            console.log(r.data)
         }).catch(error => {
             console.log(error)
         })
