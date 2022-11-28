@@ -11,6 +11,8 @@ const ProductsContainer = () => {
     const [filterCloseDisplay, setFilterCloseDisplay] = useState('hidden');
 
     const [filterValue, setFilterValue] = useState([]);
+    const [priceRange, setPriceRange] = useState([]);
+    
 
 
     const toggleFilter = () => {
@@ -35,15 +37,22 @@ const ProductsContainer = () => {
         setFilterValue([orderBy, note])
     }
 
+    const priceRangeFilter = (priceRange) => {
+        setPriceRange(priceRange)
+    }
+
+
     useEffect(() => {
         // TODO: ACTUALISER LISTE PRODUITS AVEC API
-      },[filterValue])
+        console.log(filterValue)
+        console.log(priceRange)
+      },[filterValue, priceRange])
 
   return (
     <div className='space-y-6'>
         <div className={`${filterCloseDisplay} bish-bg-gray h-full w-full absolute top-0 left-0 z-30 opacity-0`} onClick={() => closeFilter()}/>
         <div className={`${filterDisplay} fixed top-0 right-0 z-40 h-full border bish-border-gray pr-20 bish-bg-white pl-5`}>
-            <Filtre closeFilter={() => closeFilter()} filter={filterChoice}/>
+            <Filtre closeFilter={() => closeFilter()} filter={filterChoice} priceRangeFilter={priceRangeFilter}/>
         </div>
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
