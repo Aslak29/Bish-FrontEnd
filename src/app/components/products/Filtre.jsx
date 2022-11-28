@@ -54,6 +54,7 @@ const Filtre = props => {
 
     const rangeSelector = (event, newValue) => {
         setValue(newValue);
+        props.priceRangeFilter(newValue);
     };
 
 
