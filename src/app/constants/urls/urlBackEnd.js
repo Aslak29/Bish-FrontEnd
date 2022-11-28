@@ -13,3 +13,6 @@ export const URL_BACK_ADD_CONTACT = '/contact/add'
 
 // Routes categoriesController
 export const URL_BACK_CATEGORIES = "/categorie/"
+
+// Routes productController
+export const URL_BACK_PRODUCT = "/produit/"
