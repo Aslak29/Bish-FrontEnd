@@ -52,9 +52,9 @@ const BurgerMenu = () => {
           </li>
           <li className='w-4/5 m-auto border bish-border-blue rounded-lg py-8  flex justify-start bish-shadow-blue '>
             <img src={ShoppingBasket} alt="Nos Produits" className='w-16 mr-12 ml-4' />
-            {/* <Link to={URL_PRODUCTS} className="bish-text-blue font-semibold my-auto" onClick={updateMenu}>
+            <Link to={URL_PRODUCTS} className="bish-text-blue font-semibold my-auto" onClick={updateMenu}>
               Nos Produits
-            </Link>             */}
+            </Link>            
           </li>
           <li className='w-4/5 m-auto border bish-border-blue rounded-lg py-8  flex justify-start bish-shadow-blue'>
             <img src={Question} alt="Qui sommes nous" className='w-16 mr-12 ml-4'/>

@@ -13,7 +13,7 @@ import {
 
 function Footer() {
   return (
-    <footer className="bish-bg-blue bish-text-white">
+    <footer className="bish-bg-blue bish-text-white z-50">
         <div className='flex justify-between items-center pt-4 pb-4 pl-4 pr-2 sm:pt-6 sm:pb-6 sm:pl-10 sm:pr-10'>
             <div className='order-last sm:order-first'> <img
               className="h-12 w-auto sm:h-20"
