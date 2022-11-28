@@ -9,8 +9,9 @@ const TailleComponent = () => {
   const [dataProduitSizeM, setDataSizeM] = useState([]);
   const [dataProduitSizeL, setDataSizeL] = useState([]);
   const [dataProduitSizeXL, setDataSizeXL] = useState([]);
-  const { productID } = useParams();
-
+  // const { productID } = useParams();
+  const [dataProduct, setDataProduct] = useState([]);
+  
   useEffect(() => {
     apiBackEnd.post(URL_BACK_SIZE_PRODUCT + `${productID}`)
     .then((response) => {
@@ -23,6 +24,7 @@ const TailleComponent = () => {
     .catch((error)=>{
       console.log(error)
     })
+  },[])
     // tri par taille
     // window.addEventListener("sort", actionSort)
     // function actionSort() {}
@@ -30,42 +32,64 @@ const TailleComponent = () => {
     // return () => {
     //   window.removeEventListener("sort", actionSort);
     // };
-  }, []);
+    
+    function stockIsOK(props){
+      const availableInStock = props.availableInStock;
+      if(availableInStock){
+        return <button className="btn-primary-bish">{setDataSizeS(response.data["s"])}</button>
+      }else{
+        return (
+          <button className="btn-secondary-bish">
+            {setDataSizeS(response.data["s"])}
+          </button>
+        );
+      }
+    }
+  
+  let noStock = Boolean;
+  if (setDataSizeS[1], dataProduitSizeM, dataProduitSizeL, dataProduitSizeXL <= 0){
+    noStock = true;
+    }else{
+      noStock = false;  
+    };
   // si le stock est à zéro ou inférieur, taille_id est opaque
-}
-$noStock = Boolean;
-if (dataProduitSizeS, dataProduitSizeM, dataProduitSizeL, dataProduitSizeXL <= 0){
-  $noStock = true;
-  }else{
-    $noStock = false;
-  }
+
     return (
       <div>
-
-          <button
-            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
+        <div>
+            <button 
+              className={
+              (noStock = false ? "btn-secondary-bish" : "btn-primary-bish")
+            }
           >
             {"S"}
           </button>
           <button
-            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
+            className={
+              (noStock = false ? "btn-secondary-bish" : "btn-primary-bish")
+            }
           >
             {"M"}
           </button>
           <button
-            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
+            className={
+              (noStock = false ? "btn-secondary-bish" : "btn-primary-bish")
+            }
           >
             {"L"}
           </button>
           <button
-            className={$noStock=false ? "btn-secondary-bish" : "btn-primary-bish"}
-          > 
+            className={
+              (noStock = false ? "btn-secondary-bish" : "btn-primary-bish")
+            }
+          >
             {"XL"}
           </button>
-
+        </div>
       </div>
     );
-};
+  }
+
 
 // const TailleComponent = stateSize({
 //     name:'stateSize',
