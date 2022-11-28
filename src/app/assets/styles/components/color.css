@@ -41,6 +41,9 @@
 .bish-text-gray {
     color: #585050;
 }
+.hover\:bish-text-blue:hover {
+    color: #2EB7EB;
+}
 
 /* Border color*/
 .bish-border-blue {

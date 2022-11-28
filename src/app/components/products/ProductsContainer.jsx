@@ -9,7 +9,6 @@ const ProductsContainer = () => {
     const [filterDisplay, setFilterDisplay] = useState('hidden');
     const [filterCloseDisplay, setFilterCloseDisplay] = useState('hidden');
 
-
     const toggleFilter = () => {
         if (!filterClick) {
             setFilterClick(true)
