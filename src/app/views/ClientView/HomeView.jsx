@@ -1,6 +1,7 @@
 import React from 'react';
 import {Helmet} from "react-helmet-async";
 import Slide from '../../components/Slide';
+import Paginate from '../../components/products/Paginate';
 
 const HomeView = () => {
     return (

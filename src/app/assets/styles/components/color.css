@@ -11,6 +11,9 @@
 .bish-bg-gray {
     background-color: #585050;
 }
+.bish-bg-product-detail {
+    background-color: #D9D9D9;
+}
 
 /* Background color opacity (utilisé dans page de connexion et inscription*/
 .bish-bg-blue-opacity {
@@ -40,6 +43,9 @@
 }
 .bish-text-gray {
     color: #585050;
+}
+.hover\:bish-text-blue:hover {
+    color: #2EB7EB;
 }
 
 /* Border color*/

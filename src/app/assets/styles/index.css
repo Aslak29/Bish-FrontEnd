@@ -6,6 +6,7 @@
 @import url(./components/color.css);
 @import url(./components/scrolling-menu.css);
 @import url(./components/link.css);
+@import url(./components/promo-triangle.css);
 
 @tailwind utilities;
 
