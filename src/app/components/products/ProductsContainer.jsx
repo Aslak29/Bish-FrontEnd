@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import ProductCard from './ProductCard';
 import arrow from '../../assets/images/arrow-left.png'
 import filter from '../../assets/images/filter.png'
+import Filtre from "./Filtre";
 
 const ProductsContainer = () => {
 
@@ -14,7 +15,6 @@ const ProductsContainer = () => {
             setFilterClick(true)
             setFilterDisplay('block')
             setFilterCloseDisplay('block')
-            console.log('click')
         } else {
             setFilterClick(false)
             setFilterDisplay('hidden')
@@ -31,9 +31,9 @@ const ProductsContainer = () => {
 
   return (
     <div className='space-y-6'>
-        <div className={`${filterCloseDisplay} bish-bg-gray h-full w-full absolute top-0 left-0 z-40 opacity-0`} onClick={() => closeFilter()}/>
-        <div className={`${filterDisplay} fixed top-0 right-0 z-30 w-64 h-full bg-slate-900`}>
-            {/* TODO: COMPOSANT FILTRE */}
+        <div className={`${filterCloseDisplay} bish-bg-gray h-full w-full absolute top-0 left-0 z-30 opacity-0`} onClick={() => closeFilter()}/>
+        <div className={`${filterDisplay} fixed top-0 right-0 z-40 h-full border bish-border-gray pr-20 bish-bg-white pl-5`}>
+            <Filtre closeFilter={() => closeFilter()}/>
         </div>
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>

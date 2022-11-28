@@ -19,11 +19,11 @@ const Categories = () => {
             {categorie.map(cat =>
             <div className="cursor-pointer group text-center">
                 <img
-                    className="rounded-full group-hover:border-2 bish-border-blue "
+                    className="rounded-full group-hover:border-2 bish-border-blue shadow-xl"
                     src={window.location.origin + '/src/app/assets/images/categories/' + cat.pathImage}
                     alt="Catégorie"
                 />
-                <p> {cat.name} </p>
+                <p className="text-sm md:text-lg font-medium"> {cat.name} </p>
             </div>
             )}
         </div>
