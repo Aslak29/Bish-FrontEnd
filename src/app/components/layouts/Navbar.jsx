@@ -46,7 +46,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="absolute w-full h-20 bish-bg-blue px-1 lg:px-4 flex flex-row justify-between content-center ">
+    <div className="fixed w-full h-20 bish-bg-blue px-1 lg:px-4 flex flex-row justify-between content-center z-50">
       {/*--------------------------------- Menu Burger---------------------------------  */}
       <BurgerMenu />
 
@@ -66,9 +66,9 @@ const Navbar = () => {
       <div className={`${menuClass} bish-text-white lg:h-8 lg:my-auto lg:block lg:mx-20`}>
         <ul className="flex flex-col lg:flex-row h-8">
           <li className="w-auto border-l px-2 flex justify-center">
-            {/* <Link to={URL_PRODUCTS} className="mx-2 font-bold">
+            <Link to={URL_PRODUCTS} className="mx-2 font-bold">
               Nos Produits
-            </Link>             */}
+            </Link>            
           </li>
           <li className="w-auto border-l px-2 flex justify-center">
             { <Link to={URL_PRESENTATION} className="mx-2 font-bold">

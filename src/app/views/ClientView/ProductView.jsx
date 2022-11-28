@@ -4,7 +4,7 @@ import TailleComponent from "../../components/layouts/TailleComponent";
 
 const ProductView = () => {
   return (
-    <div>
+    <div className='w-3/4 m-auto'>
       <Helmet>
         <title>Bish - Inscription</title>
         <meta

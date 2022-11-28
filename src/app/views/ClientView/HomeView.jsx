@@ -1,5 +1,6 @@
 import React from 'react';
 import {Helmet} from "react-helmet-async";
+import Paginate from '../../components/products/Paginate';
 
 const HomeView = () => {
     return (
@@ -10,14 +11,14 @@ const HomeView = () => {
             </Helmet>
             <p className="font-extrabold text-primary">HOME</p>
 
-            {isAdmin && (
+           {/*isAdmin && (
                 <button
                     className="btn btn-primary"
                     onClick={() => navigate(URL_ADMIN_HOME)}
                 >
                     Admin
                 </button>
-            )}
+           )*/}
         </div>
     );
 };
