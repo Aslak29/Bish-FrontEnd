@@ -60,15 +60,42 @@ const Filtre = props => {
     const handleChangeAsc = () => {
         setCheckedAsc(!checkedAsc)
         setCheckedDesc(false)
+        if(checkedNote) {
+            props.filter('asc', true)
+        } else {
+            props.filter('asc', false)
+        }
     };
 
     const handleChangeDesc = () => {
         setCheckedDesc(!checkedDesc)
         setCheckedAsc(false)
+        if(checkedNote) {
+            props.filter('desc', true)
+        } else {
+            props.filter('desc', false)
+        }    
     };
 
     const handleChangeNote = () => {
         setCheckedNote(!checkedNote)
+        if(document.getElementsByName('orderByNote')[0].checked){
+            if(checkedAsc) {
+                props.filter('asc' ,true)
+            } else if(checkedDesc) {
+                props.filter('desc' ,true)
+            } else {
+                props.filter(null ,true)
+            }
+        } else {
+            if(checkedAsc) {
+                props.filter('asc' ,false)
+            } else if(checkedDesc) {
+                props.filter('desc' ,false)
+            } else {
+                props.filter(null ,false)
+            } 
+        }
     };
 
     return(
