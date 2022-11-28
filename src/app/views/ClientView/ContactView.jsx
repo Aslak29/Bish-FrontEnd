@@ -51,8 +51,8 @@ const ContactView = () => {
               phone:""
             }}
             validate={(values) => {
-              /^([A-Za-z$@.àâçéèùûîï!%*?&]+)/.test(values.name) ? hasName(false) : hasName(true);
-              /^([A-Za-z$@.àâçéèùûîï!%*?&]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
+              /^([A-Za-z$@.àâäçéèëîïôöùû!%*?&]+)/.test(values.name) ? hasName(false) : hasName(true);
+              /^([A-Za-z$@.àâäçéèëîïôöùû!%*?&]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
               /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(values.email)? hasEmail(false) : hasEmail(true);
               /^[0-9]{10}$/.test(values.phone)? hasPhone(false) : hasPhone(true);
               values.message.length > 50 ? hasMessageLength(false) : hasMessageLength(true);
