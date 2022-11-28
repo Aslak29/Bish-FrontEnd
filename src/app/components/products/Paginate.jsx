@@ -9,7 +9,7 @@ const Paginate = () => {
       };
 
   return (
-    <div>
+    <div className="w-fit m-auto">
       <ReactPaginate
         previousLabel={<img src={arrowLeft} alt="Page suivante" className="h-6"/>}
         nextLabel={<img src={arrowRight} alt="Page suivante" className="h-6"/>}
