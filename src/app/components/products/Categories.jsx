@@ -10,6 +10,7 @@ const Categories = () => {
         // Appel API pour charger les catégories
         apiBackEnd.get(URL_BACK_CATEGORIES).then(r => {
             setCategorie(r.data)
+            console.log(r.data)
         }).catch(error => {
             console.log(error)
         })
@@ -17,7 +18,7 @@ const Categories = () => {
     return(
         <div className="my-6 flex justify-center space-x-4 bish-text-gray ">
             {categorie.map(cat =>
-            <div className="cursor-pointer group text-center">
+            <div className="cursor-pointer group text-center" key={cat.id}>
                 <img
                     className="rounded-full group-hover:border-2 bish-border-blue shadow-xl"
                     src={window.location.origin + '/src/app/assets/images/categories/' + cat.pathImage}
