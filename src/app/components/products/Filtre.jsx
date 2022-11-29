@@ -59,19 +59,17 @@ const Filtre = (props) => {
   let timer;
 
   const rangeSelector = (event, newValue) => {
-    setValue(newValue);
+    setValue(newValue)
     setoldValue(value);
     if (timer) {
-        console.log("lala")
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
       timer = null;
-      if (oldValue === value) {
-        console.log("gneu")
+      if (oldValue === newValue) {
         props.priceRangeFilter(newValue);
       }
-    }, 4000);
+    }, 2000);
   };
 
   const handleChangeAsc = () => {
