@@ -38,9 +38,10 @@ const ProductCard = props => {
           <div className={`${stockLabelDisplay} absolute top-1/2 w-full text-center z-10`}>
             <span>Plus en stock</span>
           </div>
-            <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}>
-              <img src={image} alt="" className={`${opacityStock}`}/>
-            </Link>
+          {(
+                props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}><img src={image} alt="" className={`${opacityStock}`}/></Link>
+              : <Link to={`${URL_PRODUCT_LINK}${produit.id}`}><img src={image} alt="" className={`${opacityStock}`}/></Link>
+              )}
             {/* Triangle promotion */}
             {(props.promo > 0 && 
               <div className="triangle absolute top-0 right-0 opacity-95">
@@ -59,7 +60,11 @@ const ProductCard = props => {
         <div className={`${opacityStock} flex flex-col`}>
             {/* TODO: Ajouter le composant note */}
             <span>COMPOSANT NOTE</span>
-            <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
+              {(
+                props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
+              : <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
+              )}
+           
             <span className='font-bold'>{produit.price} €</span>
             <button className='lg:hidden border-solid border bish-border-gray rounded py-2 mx-5 mt-2' onClick={() => toggleDrawer()}>Ajouter</button>
         </div>

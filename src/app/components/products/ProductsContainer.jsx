@@ -35,12 +35,6 @@ const ProductsContainer = () => {
         }
     }
 
-    const temp = {
-        id: 1,
-        name: "Blouson noir",
-        price: 29
-    }
-
     const filterChoice = (orderBy, note) => {
         setFilterValue([orderBy, note])
     }
