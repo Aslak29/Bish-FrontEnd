@@ -18,7 +18,6 @@ const ProductView = () => {
 
     useEffect(() => {
         apiBackend.get(URL_BACK_PRODUCT + `${id}` ).then((response => {
-            console.log(response.data);
             if (response.status === 200){
                 setProduct(response.data);
             }
