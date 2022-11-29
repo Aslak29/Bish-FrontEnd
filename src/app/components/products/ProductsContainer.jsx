@@ -3,6 +3,8 @@ import ProductCard from './ProductCard';
 import arrow from '../../assets/images/arrow-left.png'
 import filter from '../../assets/images/filter.png'
 import Filtre from "./Filtre";
+import apiBackEnd from "../../api/backend/api.Backend";
+import { URL_BACK_PRODUCT_FILTER } from '../../constants/urls/urlBackEnd';
 
 const ProductsContainer = () => {
 
@@ -11,6 +13,8 @@ const ProductsContainer = () => {
     const [filterCloseDisplay, setFilterCloseDisplay] = useState('hidden');
 
     const [filterValue, setFilterValue] = useState([]);
+    const [priceRange, setPriceRange] = useState([0,200]);
+    const [produits, setProduits] = useState([]);
 
 
     const toggleFilter = () => {
@@ -31,25 +35,29 @@ const ProductsContainer = () => {
         }
     }
 
-    const temp = {
-        id: 1,
-        name: "Blouson noir",
-        price: 29
-    }
-
     const filterChoice = (orderBy, note) => {
         setFilterValue([orderBy, note])
     }
 
+    const priceRangeFilter = (priceRange) => {
+        setPriceRange(priceRange)
+    }
+
     useEffect(() => {
-        // TODO: ACTUALISER LISTE PRODUITS AVEC API
-      },[filterValue])
+        const callApi= () =>{
+            apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}`).then(r => {
+            setProduits(r.data);
+        }).catch(error => {
+            console.log(error)
+        })} 
+        callApi()
+      },[filterValue, priceRange])
 
   return (
     <div className='space-y-6'>
         <div className={`${filterCloseDisplay} bish-bg-gray h-full w-full absolute top-0 left-0 z-30 opacity-0`} onClick={() => closeFilter()}/>
         <div className={`${filterDisplay} fixed top-0 right-0 z-40 h-full border bish-border-gray pr-20 bish-bg-white pl-5`}>
-            <Filtre closeFilter={() => closeFilter()} filter={filterChoice}/>
+            <Filtre closeFilter={() => closeFilter()} filter={filterChoice} priceRangeFilter={priceRangeFilter}/>
         </div>
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
@@ -62,26 +70,7 @@ const ProductsContainer = () => {
             </button>
         </div>
         <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
+            {produits.map((r) => <ProductCard key={r.id} produit={r}/>)}
         </div>
     </div>
   )
