@@ -29,6 +29,12 @@ const ProductsContainer = () => {
         }
     }
 
+    const temp = {
+        id: 1,
+        name: "Blouson noir",
+        price: 29
+    }
+
   return (
     <div className='space-y-6'>
         <div className={`${filterCloseDisplay} bish-bg-gray h-full w-full absolute top-0 left-0 z-30 opacity-0`} onClick={() => closeFilter()}/>
@@ -46,16 +52,16 @@ const ProductsContainer = () => {
             </button>
         </div>
         <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
-            <ProductCard stock={true} promo='10'/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={false}/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={true} promo='30'/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={true} promo='20'/>
-            <ProductCard stock={false}/>
-            <ProductCard stock={true}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
         </div>
     </div>
   )
