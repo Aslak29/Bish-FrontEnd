@@ -18,6 +18,7 @@ const ProductView = () => {
 
     useEffect(() => {
         apiBackend.get(URL_BACK_PRODUCT + `${id}` ).then((response => {
+            console.log(response.data);
             if (response.status === 200){
                 setProduct(response.data);
             }
@@ -39,7 +40,8 @@ const ProductView = () => {
     <div className="w-full">
         <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
             {product.map((r) => <ProductDetail key={r.id} {...r}/>)}
-            <SuggestionsContainer update={updateDetailComponent}/>
+            {product.map((r) => <SuggestionsContainer key={r.id} idCategorie={r.id_categorie} update={updateDetailComponent}/>)}
+            
         </div>
     </div>
   )

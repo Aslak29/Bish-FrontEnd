@@ -14,15 +14,16 @@ const SuggestionsContainer = props => {
 
 
   useEffect(() => {
-    // TODO: APPEL API SUGGESTIONS - CHANGER ID CATEGORIE DYNAMIC
-    suggestions(1).then((res) => {
-      if (res.status === 200){
-        setSuggestionsByCateg(res.data)
-      } 
-    }).catch(error => {
-      if (error.response.data["errorCode"] === "003"){
-          navigate(URL_404)
-      }});
+    if (props.idCategorie !== '-') {
+      suggestions(props.idCategorie).then((res) => {
+        if (res.status === 200){
+          setSuggestionsByCateg(res.data)
+        } 
+      }).catch(error => {
+        if (error.response.data["errorCode"] === "003"){
+            navigate(URL_404)
+        }});
+    }
   },[updateSuggests])
 
   //Permet de relancer le useEffect pour changer le contenu de SuggestionsContainer au clic sur une ProductCard
@@ -33,7 +34,7 @@ const SuggestionsContainer = props => {
 
   return (
     <div>
-        <h2 className='text-2xl underline'>Vous Aimerez Aussi</h2>
+      {props.idCategorie !== '-' ? <h2 className='text-2xl underline'>Vous Aimerez Aussi</h2> : <></>}
         <div className='flex flex-row space-x-6 my-6 mx-24'>
             {suggestionsByCateg.map((r) => <ProductCard update={updateSuggestionsComponent} key={r.id} produit={r}/>)}
         </div>
