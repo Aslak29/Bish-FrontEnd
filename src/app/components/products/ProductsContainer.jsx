@@ -76,26 +76,7 @@ const ProductsContainer = () => {
             </button>
         </div>
         <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
-            <ProductCard produit={temp}/>
+            {produits.map((r) => <ProductCard key={r.id} produit={r}/>)}
         </div>
     </div>
   )
