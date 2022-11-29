@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {Helmet} from "react-helmet-async";
 import ProductDetail from "../../components/products/ProductDetail";
 import apiBackend from "../../api/backend/api.Backend";
 import {URL_BACK_PRODUCT} from "../../constants/urls/urlBackEnd";
@@ -17,8 +16,7 @@ const ProductView = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        apiBackend.get(URL_BACK_PRODUCT + `${id}` ).then((response => {
-            console.log(response.data);
+        apiBackend.post(URL_BACK_PRODUCT + `${id}` ).then((response => {
             if (response.status === 200){
                 setProduct(response.data);
             }

@@ -10,7 +10,6 @@ const BlogView = () => {
   useEffect(() => {
     apiBackend.get(URL_BACK_BLOG).then((response => {
       setBlog(response.data)
-      console.log(response.data)
     }))
   },[])
 
