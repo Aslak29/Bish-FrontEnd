@@ -14,7 +14,7 @@ const ProductsContainer = () => {
 
     const [filterValue, setFilterValue] = useState([]);
     const [priceRange, setPriceRange] = useState([0,200]);
-    
+    const [produits, setProduits] = useState([]);
 
 
     const toggleFilter = () => {
@@ -46,8 +46,7 @@ const ProductsContainer = () => {
     useEffect(() => {
         const callApi= () =>{
             apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}`).then(r => {
-            console.log(filterValue[0])
-            console.log(r)
+            setProduits(r.data);
         }).catch(error => {
             console.log(error)
         })} 
