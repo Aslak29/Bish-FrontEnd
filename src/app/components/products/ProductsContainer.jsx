@@ -3,6 +3,8 @@ import ProductCard from './ProductCard';
 import arrow from '../../assets/images/arrow-left.png'
 import filter from '../../assets/images/filter.png'
 import Filtre from "./Filtre";
+import apiBackEnd from "../../api/backend/api.Backend";
+import { URL_BACK_PRODUCT_FILTER } from '../../constants/urls/urlBackEnd';
 
 const ProductsContainer = () => {
 
@@ -11,7 +13,7 @@ const ProductsContainer = () => {
     const [filterCloseDisplay, setFilterCloseDisplay] = useState('hidden');
 
     const [filterValue, setFilterValue] = useState([]);
-    const [priceRange, setPriceRange] = useState([]);
+    const [priceRange, setPriceRange] = useState([0,200]);
     
 
 
@@ -41,11 +43,15 @@ const ProductsContainer = () => {
         setPriceRange(priceRange)
     }
 
-
     useEffect(() => {
-        // TODO: ACTUALISER LISTE PRODUITS AVEC API
-        console.log(filterValue)
-        console.log(priceRange)
+        const callApi= () =>{
+            apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}`).then(r => {
+            console.log(filterValue[0])
+            console.log(r)
+        }).catch(error => {
+            console.log(error)
+        })} 
+        callApi()
       },[filterValue, priceRange])
 
   return (
