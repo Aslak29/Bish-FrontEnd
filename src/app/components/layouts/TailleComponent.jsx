@@ -23,19 +23,23 @@ const TailleComponent = () => {
   const { productID } = useParams();
   // const [dataProduct, setDataProduct] = useState([0, 1, 3]);
   // console.log(TailleComponent);
+  // let arraySizeByProduct = [];
   useEffect(() => {
     apiBackEnd
       .get(URL_BACK_SIZE_PRODUCT + `${productID}`)
       .then((response) => {
         for (const [key, value] of Object.entries(response.data)) {
-          setDataSize(key, value); // const productSizes =  Object.entries(`${key}:${value.stock}`);
+          const arrayRender = [];
+          const arraySizeByProduct = Object.entries(`${key}:${value.stock}`);
+          arraySizeByProduct.every(key, value);
+          console.log(arraySizeByProduct);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-  console.log(dataProduitSize);
+  // console.log(dataProduitSize);
 
   // le stock est-il positif ou non ?
   let noStock = Boolean;
