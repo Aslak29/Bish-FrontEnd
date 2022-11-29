@@ -72,6 +72,16 @@ const ProductsContainer = () => {
             <ProductCard produit={temp}/>
             <ProductCard produit={temp}/>
             <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
         </div>
     </div>
   )
