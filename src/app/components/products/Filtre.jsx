@@ -141,7 +141,7 @@ const Filtre = (props) => {
             name="orderByPrice"
           />
         </li>
-        <li>
+        {/* <li>
           <CheckBox
             label="Note moyenne"
             typeCheck="checkbox"
@@ -149,7 +149,7 @@ const Filtre = (props) => {
             onChange={() => handleChangeNote()}
             name="orderByNote"
           />
-        </li>
+        </li> */}
       </ul>
 
       <div className="">
