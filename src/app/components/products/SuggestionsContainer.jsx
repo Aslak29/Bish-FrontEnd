@@ -5,17 +5,20 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { URL_404 } from '../../constants/urls/urlFrontEnd.js'
+import loadingSVG from '../../assets/images/loading-spin.svg'
 
 const SuggestionsContainer = props => {
 
   const [suggestionsByCateg, setSuggestionsByCateg] = useState([])
   const navigate = useNavigate();
-  const [updateSuggests, setUpdateSuggests] =  useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (props.idCategorie !== '-') {
+      setIsLoading(true)
       suggestions(props.idCategorie).then((res) => {
+        setIsLoading(false)
         if (res.status === 200){
           setSuggestionsByCateg(res.data)
         } 
@@ -24,20 +27,21 @@ const SuggestionsContainer = props => {
             navigate(URL_404)
         }});
     }
-  },[updateSuggests])
-
-  //Permet de relancer le useEffect pour changer le contenu de SuggestionsContainer au clic sur une ProductCard
-  const updateSuggestionsComponent = () => {
-    setUpdateSuggests(!updateSuggests)
-    props.update()
-  };    
+  },[])
 
   return (
     <div>
       {props.idCategorie !== '-' ? <h2 className='text-2xl underline'>Vous Aimerez Aussi</h2> : <></>}
-        <div className='flex flex-row space-x-6 my-6 mx-24'>
-            {suggestionsByCateg.map((r) => <ProductCard update={updateSuggestionsComponent} key={r.id} produit={r}/>)}
+      {
+        isLoading ? (<img className='m-auto' src={loadingSVG} alt="Chargement"></img>)
+        : 
+        (
+          <div className='flex flex-row space-x-6 my-6 mx-24'>
+            {suggestionsByCateg.map((r) => <ProductCard update={props.update} key={r.id} produit={r}/>)}
         </div>
+          )
+        }
+        
     </div>
   )
 }
