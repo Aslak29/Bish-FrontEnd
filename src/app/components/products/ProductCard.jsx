@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import image from '../../assets/images/products/example.png'
 import { Link } from 'react-router-dom';
-import { URL_PRODUCT } from "../../constants/urls/urlFrontEnd";
+import { URL_PRODUCT_LINK } from "../../constants/urls/urlFrontEnd";
 
 const ProductCard = props => {
 
@@ -11,6 +11,7 @@ const ProductCard = props => {
   const [stockLabelDisplay, setStockLabelDisplay] = useState('hidden');
   const [stockDisplay, setStockDisplay] = useState('flex lg:flex');
   const [stockDisplayResponsive, setStockDisplayResponsive] = useState('');
+  const produit = props.produit;
 
   const toggleDrawer = () =>{
     setIsClicked(!isClicked);
@@ -37,7 +38,7 @@ const ProductCard = props => {
           <div className={`${stockLabelDisplay} absolute top-1/2 w-full text-center z-10`}>
             <span>Plus en stock</span>
           </div>
-            <Link to={URL_PRODUCT}>
+            <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}>
               <img src={image} alt="" className={`${opacityStock}`}/>
             </Link>
             {/* Triangle promotion */}
@@ -58,8 +59,8 @@ const ProductCard = props => {
         <div className={`${opacityStock} flex flex-col`}>
             {/* TODO: Ajouter le composant note */}
             <span>COMPOSANT NOTE</span>
-            <Link to={URL_PRODUCT} className="hover:bish-text-blue hover:font-semibold">Blouson uni matelassée</Link>
-            <span className='font-bold'>29.00 €</span>
+            <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
+            <span className='font-bold'>{produit.price} €</span>
             <button className='lg:hidden border-solid border bish-border-gray rounded py-2 mx-5 mt-2' onClick={() => toggleDrawer()}>Ajouter</button>
         </div>
         {/* Drawer mobile */}

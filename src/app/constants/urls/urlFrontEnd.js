@@ -4,6 +4,7 @@ export const URL_LOGIN = '/connexion';
 export const URL_REGISTER = '/inscription';
 export const URL_PRODUCTS = '/produits';
 export const URL_PRODUCT = '/produits/produit/:productID';
+export const URL_PRODUCT_LINK = '/produits/produit/';
 export const URL_BLOG = '/blog';
 export const URL_BLOG_ARTICLE = '/blog/article/:articleID';
 export const URL_CONTACT = '/contact';
