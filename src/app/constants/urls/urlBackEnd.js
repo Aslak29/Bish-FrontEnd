@@ -16,3 +16,4 @@ export const URL_BACK_CATEGORIES = "/categorie/"
 
 // Routes productController
 export const URL_BACK_PRODUCT = "/produit/"
+export const URL_BACK_SUGGESTIONS = "/produit/suggestions/"

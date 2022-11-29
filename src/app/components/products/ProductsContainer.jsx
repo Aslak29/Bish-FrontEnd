@@ -31,6 +31,12 @@ const ProductsContainer = () => {
         }
     }
 
+    const temp = {
+        id: 1,
+        name: "Blouson noir",
+        price: 29
+    }
+
     const filterChoice = (orderBy, note) => {
         setFilterValue([orderBy, note])
     }
@@ -56,16 +62,16 @@ const ProductsContainer = () => {
             </button>
         </div>
         <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
-            <ProductCard stock={true} promo='10'/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={false}/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={true} promo='30'/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={true}/>
-            <ProductCard stock={true} promo='20'/>
-            <ProductCard stock={false}/>
-            <ProductCard stock={true}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
+            <ProductCard produit={temp}/>
         </div>
     </div>
   )
