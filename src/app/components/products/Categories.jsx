@@ -17,13 +17,13 @@ const Categories = () => {
     return(
         <div className="my-6 flex justify-center space-x-4 bish-text-gray ">
             {categorie.map(cat =>
-            <div className="cursor-pointer group text-center">
+            <div className="cursor-pointer group text-center" key={cat.id}>
                 <img
-                    className="rounded-full group-hover:border-2 bish-border-blue "
+                    className="rounded-full group-hover:border-2 bish-border-blue shadow-xl"
                     src={window.location.origin + '/src/app/assets/images/categories/' + cat.pathImage}
                     alt="Catégorie"
                 />
-                <p> {cat.name} </p>
+                <p className="text-sm md:text-lg font-medium"> {cat.name} </p>
             </div>
             )}
         </div>

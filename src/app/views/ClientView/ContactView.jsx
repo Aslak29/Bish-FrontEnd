@@ -75,11 +75,9 @@ const ContactView = () => {
                 apiBackEnd.post(URL_BACK_ADD_CONTACT + `/${values.name}/${values.surname}/${values.email}/${values.message}/${values.phone}`).then(r => {
                     if (r.status === 200){
                       resetForm();
-                      console.log(r);
                     }
                   }).catch(error => {
                     setErrors(errors);
-                    console.log(error);
                 })
               } else {
                 setErrors(errors);

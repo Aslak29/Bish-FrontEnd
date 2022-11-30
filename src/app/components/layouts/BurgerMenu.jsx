@@ -26,7 +26,7 @@ const BurgerMenu = () => {
       setBurgerBarTop("absolute top-5 burger-bar clicked origin-center rotate-45");
       setBurgerBarBottom("absolute top-5  burger-bar clicked origin-center -rotate-45");
       setBurgerBarHidden("hidden");
-      setMenuClass("block top-8");
+      setMenuClass("block top-10");
 
     }else{
       setBurgerBarTop("");
@@ -43,7 +43,7 @@ const BurgerMenu = () => {
         <div className={`${burgerBarHidden} w-12 h-1.5 bish-bg-white m-auto`}></div>
         <div className={`${burgerBarBottom} w-12 h-1.5 bish-bg-white m-auto`}></div>
       </div>
-        <ul className={`${menuClass}  w-screen h-screen absolute -left-1 bish-bg-white bish-text-gray space-y-8 my-9 text-3xl`}>
+        <ul className={`${menuClass}  w-screen h-screen absolute -left-1 bish-bg-white bish-text-gray space-y-8 mt-6 pt-8 text-3xl`}>
           <li className='w-4/5 m-auto  border bish-border-blue rounded-lg py-8 flex justify-start bish-shadow-blue mt-3'>
             <img src={Home} alt="Accueil" className='w-16 mr-12 ml-4 ' />
             <Link to={URL_HOME} className="bish-text-blue font-semibold my-auto" onClick={updateMenu}>
@@ -54,7 +54,7 @@ const BurgerMenu = () => {
             <img src={ShoppingBasket} alt="Nos Produits" className='w-16 mr-12 ml-4' />
             <Link to={URL_PRODUCTS} className="bish-text-blue font-semibold my-auto" onClick={updateMenu}>
               Nos Produits
-            </Link>            
+            </Link>
           </li>
           <li className='w-4/5 m-auto border bish-border-blue rounded-lg py-8  flex justify-start bish-shadow-blue'>
             <img src={Question} alt="Qui sommes nous" className='w-16 mr-12 ml-4'/>
