@@ -2,6 +2,7 @@ import React from 'react';
 import {Helmet} from "react-helmet-async";
 import Slide from '../../components/Slide';
 import Paginate from '../../components/products/Paginate';
+import PromoContainer from '../../components/products/PromoContainer';
 
 const HomeView = () => {
     return (
@@ -11,7 +12,7 @@ const HomeView = () => {
                 <meta name="description" content="Découvrez les dernières tendances mode femme et homme en ligne sur Bish." />
             </Helmet>
             <Slide className='w-full'/>
-            <div className='h-96'>Ici le composant promotions</div>
+            <div className='h-auto pb-6 px-6'> <PromoContainer/></div>
         </div>
     );
 };

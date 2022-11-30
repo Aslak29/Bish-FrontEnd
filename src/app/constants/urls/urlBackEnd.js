@@ -13,6 +13,9 @@ export const URL_BACK_ADD_CONTACT = '/contact/add'
 
 // Routes categoriesController
 export const URL_BACK_CATEGORIES = "/categorie/"
+export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 
 // Routes productController
 export const URL_BACK_PRODUCT = "/produit/"
+export const URL_BACK_PRODUCT_TREND = "/produit/isTrend"
+
