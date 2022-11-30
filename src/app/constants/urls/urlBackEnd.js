@@ -16,6 +16,9 @@ export const URL_BACK_ADD_CONTACT = '/contact/add'
 export const URL_BACK_CATEGORIES = "/categorie/"
 export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 
+// route produits {tri par taille}
+export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
+
 // Routes productController
 export const URL_BACK_PRODUCT = "/produit/"
 export const URL_BACK_PRODUCT_BY_ID = "/produit/find/"
