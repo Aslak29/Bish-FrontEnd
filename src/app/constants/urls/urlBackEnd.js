@@ -1,5 +1,6 @@
 export const URL_BACK_AUTHENTICATE = '/login_check';
-export const URL_BACK_BLOG = '/blog';
+export const URL_BACK_BLOG = '/blog/';
+export const URL_BACK_BLOG_LAST_ARTICLE = '/blog/lastArticle';
 
 
 // Routes userController
@@ -16,8 +17,9 @@ export const URL_BACK_CATEGORIES = "/categorie/"
 export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 
 // Routes productController
-export const URL_BACK_PRODUCT = "/produit/find/"
+export const URL_BACK_PRODUCT = "/produit/"
+export const URL_BACK_PRODUCT_BY_ID = "/produit/find/"
 export const URL_BACK_PRODUCT_FILTER ="/produit/filter/"
 export const URL_BACK_SUGGESTIONS = "/produit/suggestions/"
 export const URL_BACK_PRODUCT_TREND = "/produit/isTrend"
-
+export const URL_BACK_PRODUCT_BEST_PROMO = "/produit/bestPromo"

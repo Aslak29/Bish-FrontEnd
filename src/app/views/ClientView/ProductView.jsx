@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import ProductDetail from "../../components/products/ProductDetail";
 import apiBackend from "../../api/backend/api.Backend";
-import {URL_BACK_PRODUCT} from "../../constants/urls/urlBackEnd";
+import {URL_BACK_PRODUCT_BY_ID} from "../../constants/urls/urlBackEnd";
 import {useNavigate, useParams} from "react-router-dom";
 import {URL_404} from "../../constants/urls/urlFrontEnd";
 import SuggestionsContainer from "../../components/products/SuggestionsContainer"
@@ -16,7 +16,7 @@ const ProductView = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        apiBackend.post(URL_BACK_PRODUCT + `${id}` ).then((response => {
+        apiBackend.post(URL_BACK_PRODUCT_BY_ID + `${id}` ).then((response => {
             if (response.status === 200){
                 setProduct(response.data);
             }
