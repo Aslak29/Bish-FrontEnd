@@ -17,6 +17,8 @@ const ProductsContainer = () => {
     const [priceRange, setPriceRange] = useState([0,200]);
     const [produits, setProduits] = useState([]);
 
+    const [categorie, setCategorie] = useState();
+
     const [isLoading, setIsLoading] = useState(false);
 
     const toggleFilter = () => {
@@ -48,14 +50,15 @@ const ProductsContainer = () => {
     useEffect(() => {
         const callApi= () =>{
             setIsLoading(true)
-            apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}`).then(r => {
+            apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}` + `${categorie}`).then(r => {
             setIsLoading(false)
             setProduits(r.data);
         }).catch(error => {
             console.log(error)
         })} 
         callApi()
-      },[filterValue, priceRange])
+      },[filterValue, priceRange,categorie])
+
 
   return (
     <div className='space-y-6'>
