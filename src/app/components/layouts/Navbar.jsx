@@ -46,7 +46,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="fixed z-40 w-full h-20 bish-bg-blue px-1 lg:px-4 flex flex-row justify-between content-center ">
+    <div className="fixed z-50 w-full h-20 bish-bg-blue px-1 lg:px-4 flex flex-row justify-between content-center ">
       {/*--------------------------------- Menu Burger---------------------------------  */}
       <BurgerMenu />
 
