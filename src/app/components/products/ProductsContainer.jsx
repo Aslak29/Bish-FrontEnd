@@ -5,6 +5,7 @@ import filter from '../../assets/images/filter.png'
 import Filtre from "./Filtre";
 import apiBackEnd from "../../api/backend/api.Backend";
 import { URL_BACK_PRODUCT_FILTER } from '../../constants/urls/urlBackEnd';
+import loadingSVG from '../../assets/images/loading-spin.svg'
 
 const ProductsContainer = () => {
 
@@ -16,6 +17,7 @@ const ProductsContainer = () => {
     const [priceRange, setPriceRange] = useState([0,200]);
     const [produits, setProduits] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(false);
 
     const toggleFilter = () => {
         if (!filterClick) {
@@ -45,7 +47,9 @@ const ProductsContainer = () => {
 
     useEffect(() => {
         const callApi= () =>{
+            setIsLoading(true)
             apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}`).then(r => {
+            setIsLoading(false)
             setProduits(r.data);
         }).catch(error => {
             console.log(error)
@@ -69,9 +73,14 @@ const ProductsContainer = () => {
                 <span className=''>Filtrer et trier</span>
             </button>
         </div>
-        <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
+        {isLoading ? (<img className='m-auto py-24' src={loadingSVG} alt="Chargement"></img>)
+        : 
+        (
+            <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
             {produits.map((r) => <ProductCard key={r.id} produit={r}/>)}
-        </div>
+            </div>
+        )}
+        
     </div>
   )
 }
