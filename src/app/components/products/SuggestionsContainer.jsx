@@ -17,7 +17,7 @@ const SuggestionsContainer = props => {
   useEffect(() => {
     if (props.idCategorie !== '-') {
       setIsLoading(true)
-      suggestions(props.idCategorie).then((res) => {
+      suggestions(props.idCategorie, props.id).then((res) => {
         setIsLoading(false)
         if (res.status === 200){
           setSuggestionsByCateg(res.data)
