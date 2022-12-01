@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import apiBackEnd from "../../api/backend/api.Backend";
-import StarRatings from './react-star-ratings';
+  // import StarRatings from 'react-star-ratings';
 import { URL_BACK_STARS_PRODUCT } from "../../constants/urls/urlBackEnd";
 
 
@@ -28,7 +28,7 @@ const StarsComponent = () => {
       });
   }, [productID]);
 
-  render() {
+
     // rating = 2;
     return (
       <StarRatings
@@ -40,7 +40,7 @@ const StarsComponent = () => {
       />
     );
   }
-}
+
 
 class BarStars extends Component {
   render() {
