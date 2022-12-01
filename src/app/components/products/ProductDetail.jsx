@@ -1,11 +1,10 @@
 import React from 'react'
-import product from "../../assets/images/products/image.jpg";
 import caddie from "../../assets/images/caddie.png";
 import {Helmet} from "react-helmet-async";
 const ProductDetail = (props) => {
 
     return (
-            <div className="flex flex-col lg:flex-row justify-center bish-bg-product-detail rounded-xl">
+            <div className="flex flex-col lg:flex-row justify-center bish-bg-product-detail rounded-lg">
                 <Helmet>
                     <title>Bish - {props.name}</title>
                     <meta name="description" content={props.description}/>
@@ -32,7 +31,7 @@ const ProductDetail = (props) => {
                             {(props.promotion.length !== 0 ?
                                 <div>
                                     <span className='line-through'>{props.price}€</span>
-                                    <span> {props.promotion.price_remise}€</span>
+                                    <span className='font-semibold text-3xl'> {props.promotion.price_remise}€</span>
                                 </div>
                                 :
                                 <span>{props.price} €</span>

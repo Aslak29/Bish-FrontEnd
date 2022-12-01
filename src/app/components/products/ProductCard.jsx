@@ -50,7 +50,7 @@ const ProductCard = props => {
         <div className={`${drawerDisplay} ${stockDisplayResponsive} bish-bg-gray h-full w-full absolute top-0 left-0 z-10 opacity-50`} onClick={() => toggleDrawer()}/>
         <div className='relative group border-solid border-2 bish-border-gray'>
           <div className={`${stockLabelDisplay} absolute top-1/2 w-full text-center z-10`}>
-            <span>Plus en stock</span>
+            <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className='block w-full h-full'>Plus en stock</Link>
           </div>
           {(
                 props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}><img src={image} alt="" className={`${opacityStock}`}/></Link>
@@ -65,9 +65,9 @@ const ProductCard = props => {
               </div>
             )}
             {/* Hover ajouter au panier */}
-            <div className={`${drawerDisplay} ${stockDisplay} border-t-2 lg:border-0 bish-border-gray py-10 z-20 fixed left-0 flex-col lg:absolute bottom-0 lg:invisible lg:group-hover:visible lg:h-1/3 w-full bish-bg-white lg:opacity-90 justify-center`}>
-                <span className='mx-auto'>Ajouter au panier</span>
-                <span className='mx-auto flex flex-row space-x-2'>
+            <div className={`${drawerDisplay} ${stockDisplay} border-t-2 lg:border-0 bish-border-gray pt-10 pb-12 z-20 fixed left-0 flex-col lg:absolute bottom-0 lg:invisible lg:group-hover:visible lg:h-1/3 w-full bish-bg-white-opacity-90 justify-center`}>
+                <span className='mx-auto mb-2 text-lg'>Ajouter au panier</span>
+                <span className='w-full flex flex-row space-x-2 px-5 justify-center'>
                   {Object.entries(produit.stockBySize).map(([index, res]) => <Taille key={index} taille={res} addStock={addStock}/>)}
                 </span>
             </div>
@@ -81,8 +81,8 @@ const ProductCard = props => {
               )}
             <div>{(props.produit.promotion.length !== 0 ?
                 <div>
-                    <span className='font-bold line-through'>{props.produit.price}€</span>
-                    <span className="font-bold"> {props.produit.promotion.price_remise}€</span>
+                    <span className='font-bold line-through bish-text-gray'>{props.produit.price}€</span>
+                    <span className="font-bold text-xl"> {props.produit.promotion.price_remise}€</span>
                 </div>
                  :
                 <span className='font-bold'>{props.produit.price} €</span>
