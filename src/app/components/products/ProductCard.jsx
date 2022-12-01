@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import image from '../../assets/images/products/example.png'
 import { Link } from 'react-router-dom';
 import { URL_PRODUCT_LINK } from "../../constants/urls/urlFrontEnd";
+import Taille from './Taille';
 
 const ProductCard = props => {
 
@@ -13,6 +14,8 @@ const ProductCard = props => {
   const [stockDisplayResponsive, setStockDisplayResponsive] = useState('');
   const produit = props.produit;
 
+  const [inStock, setInStock] = useState(false);
+
   const toggleDrawer = () =>{
     setIsClicked(!isClicked);
     if(!isClicked){
@@ -23,13 +26,24 @@ const ProductCard = props => {
   }
 
   useEffect(() => {
-    if(!props.stock) {
+    if(!inStock) {
       setOpacityStock('opacity-50')
       setStockLabelDisplay('block')
       setStockDisplay('hidden')
       setStockDisplayResponsive('hidden')
+    } else {
+      setOpacityStock('opacity-100')
+      setStockLabelDisplay('hidden')
+      setStockDisplay('flex lg:flex')
+      setStockDisplayResponsive('block')
     }
-  },[])
+  },[inStock])
+
+  const addStock = stock => {
+    if (stock > 0) {
+      setInStock(true)
+    }
+  }
 
   return (
     <div>
@@ -53,8 +67,9 @@ const ProductCard = props => {
             {/* Hover ajouter au panier */}
             <div className={`${drawerDisplay} ${stockDisplay} border-t-2 lg:border-0 bish-border-gray py-10 z-20 fixed left-0 flex-col lg:absolute bottom-0 lg:invisible lg:group-hover:visible lg:h-1/3 w-full bish-bg-white lg:opacity-90 justify-center`}>
                 <span className='mx-auto'>Ajouter au panier</span>
-                {/* TODO: Ajouter le composant taille */}
-                <span className='mx-auto'>COMPOSANT TAILLE</span>
+                <span className='mx-auto flex flex-row space-x-2'>
+                  {Object.entries(produit.stockBySize).map(([index, res]) => <Taille key={index} taille={res} addStock={addStock}/>)}
+                </span>
             </div>
         </div>
         <div className={`${opacityStock} flex flex-col`}>
@@ -68,7 +83,6 @@ const ProductCard = props => {
             <span className='font-bold'>{produit.price} €</span>
             <button className='lg:hidden border-solid border bish-border-gray rounded py-2 mx-5 mt-2' onClick={() => toggleDrawer()}>Ajouter</button>
         </div>
-        {/* Drawer mobile */}
     </div>
   )
 }
