@@ -81,11 +81,11 @@ const ProductCard = props => {
               )}
             <div>{(props.produit.promotion.length !== 0 ?
                 <div>
-                    <span className='font-bold line-through bish-text-gray'>{props.produit.price}€</span>
-                    <span className="font-bold text-xl"> {props.produit.promotion.price_remise}€</span>
+                    <span className='font-bold line-through bish-text-gray'>{props.produit.price.toFixed(2)}€</span>
+                    <span className="font-bold text-xl"> {props.produit.promotion.price_remise.toFixed(2)}€</span>
                 </div>
                  :
-                <span className='font-bold'>{props.produit.price} €</span>
+                <span className='font-bold text-xl'>{props.produit.price.toFixed(2)} €</span>
             )}</div>
 
             <button className='lg:hidden border-solid border bish-border-gray rounded py-2 mx-5 mt-2' onClick={() => toggleDrawer()}>Ajouter</button>
