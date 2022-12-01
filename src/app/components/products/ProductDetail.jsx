@@ -26,7 +26,18 @@ const ProductDetail = (props) => {
                             {/*TODO: ajouter le component Note ici*/}
                         </div>
                     </div>
-                    <div className="pt-5 pb-3 bish-text-blue text-sm md:text-2xl">{props.price} €</div>
+                    <div className="pt-5 pb-3 bish-text-blue text-sm md:text-2xl">
+
+                        <div>
+                            {(props.promotion.length !== 0 ?
+                                <div>
+                                    <span className='line-through'>{props.price}€</span>
+                                    <span> {props.promotion.price_remise}€</span>
+                                </div>
+                                :
+                                <span>{props.price} €</span>
+                        )}</div>
+                    </div>
                     <div className="text-left text-sm md:text-lg">
                         {props.description}
                     </div>

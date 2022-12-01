@@ -43,10 +43,10 @@ const ProductCard = props => {
               : <Link to={`${URL_PRODUCT_LINK}${produit.id}`}><img src={image} alt="" className={`${opacityStock}`}/></Link>
               )}
             {/* Triangle promotion */}
-            {(props.promo > 0 && 
+            {(props.produit.promotion.length !== 0 &&
               <div className="triangle absolute top-0 right-0 opacity-95">
                 <div className='rotate-45 absolute top-3 -right-16 sm:top-1 sm:-right-14 md:top-2 md:-right-16 lg:top-2 lg:-right-16 xl:top-3 xl:-right-20 2xl:top-4 2xl:-right-24'>
-                  <span className='bish-text-white sm:text-sm md:text-lg lg:text-xl 2xl:text-2xl font-bold'>{props.promo}%</span>
+                  <span className='bish-text-white sm:text-sm md:text-lg lg:text-xl 2xl:text-2xl font-bold'>{props.produit.promotion.remise}%</span>
                 </div>
               </div>
             )}
@@ -64,8 +64,15 @@ const ProductCard = props => {
                 props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
               : <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
               )}
-           
-            <span className='font-bold'>{produit.price} €</span>
+            <div>{(props.produit.promotion.length !== 0 ?
+                <div>
+                    <span className='font-bold line-through'>{props.produit.price}€</span>
+                    <span className="font-bold"> {props.produit.promotion.price_remise}€</span>
+                </div>
+                 :
+                <span className='font-bold'>{props.produit.price} €</span>
+            )}</div>
+
             <button className='lg:hidden border-solid border bish-border-gray rounded py-2 mx-5 mt-2' onClick={() => toggleDrawer()}>Ajouter</button>
         </div>
         {/* Drawer mobile */}
