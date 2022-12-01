@@ -49,14 +49,15 @@ const ProductsContainer = props => {
     useEffect(() => {
         const callApi= () =>{
             setIsLoading(true)
-            apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}` + `/${props.categorie[0]}`).then(r => {
+            apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}` + `/${props.categorie[0]}` + `/${props.limit}` + `/${props.page*20}`).then(r => {
             setIsLoading(false)
-            setProduits(r.data);
+            props.setCountPage(r.data[1].count[0][1])
+            setProduits(r.data[0]);
         }).catch(error => {
             console.log(error)
         })} 
         callApi()
-      },[filterValue, priceRange,props.categorie])
+      },[filterValue, priceRange,props.categorie,props.page])
 
 
   return (
