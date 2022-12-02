@@ -43,6 +43,7 @@ const ProductCard = props => {
     if (stock > 0) {
       setInStock(true)
     }
+      console.log(props)
   }
 
   return (

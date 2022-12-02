@@ -10,7 +10,7 @@ const ProductsView = () => {
 
     const [page,setPage] = useState(0)
 
-    const [countPage,setCountPage] = useState()
+    const [countPage,setCountPage] = useState(0)
 
     const handleCategorie = (idCategorie,nameCategorie) =>{
         setCategorie([idCategorie,nameCategorie])
@@ -22,9 +22,8 @@ const ProductsView = () => {
     }
 
     const handleCountPage = (count) =>{
-        setCountPage(count/20)
+        setCountPage(Math.ceil(count/20))
     }
-
     return (
         <div className="w-11/12 lg:w-3/4 mx-auto my-6 space-y-6">
             <Helmet>
