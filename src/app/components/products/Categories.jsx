@@ -21,7 +21,7 @@ const Categories = props => {
             {categories.map(cat =>
             <div className="cursor-pointer group text-center" onClick={() => props.setCategorie(cat.id,cat.name)} key={cat.id}  >
                 <img
-                    className="rounded-full group-hover:border-2 bish-border-blue shadow-xl"
+                    className="rounded-full group-hover:border-4 bish-border-blue shadow-xl"
                     src={window.location.origin + '/src/app/assets/images/categories/' + cat.pathImage}
                     alt="Catégorie"
                 />

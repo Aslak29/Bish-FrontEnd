@@ -1,11 +1,12 @@
 import React from 'react'
-import product from "../../assets/images/products/image.jpg";
 import caddie from "../../assets/images/caddie.png";
 import {Helmet} from "react-helmet-async";
-const ProductDetail = (props) => {
-
+import { useEffect } from 'react';
+import Taille from './Taille';
+const ProductDetail = props => {
+    
     return (
-            <div className="flex flex-col lg:flex-row justify-center bish-bg-product-detail rounded-xl">
+            <div className="flex flex-col lg:flex-row justify-center bish-bg-product-detail rounded-lg">
                 <Helmet>
                     <title>Bish - {props.name}</title>
                     <meta name="description" content={props.description}/>
@@ -32,7 +33,7 @@ const ProductDetail = (props) => {
                             {(props.promotion.length !== 0 ?
                                 <div>
                                     <span className='line-through'>{props.price}€</span>
-                                    <span> {props.promotion.price_remise}€</span>
+                                    <span className='font-semibold text-3xl'> {props.promotion.price_remise}€</span>
                                 </div>
                                 :
                                 <span>{props.price} €</span>
@@ -43,7 +44,9 @@ const ProductDetail = (props) => {
                     </div>
                     <div className="mb-40 mt-8">
                         <p className="text-sm md:text-lg bish-text-blue">Tailles :</p>
-                        {/*TODO: ajouter le component Tailles ici*/}
+                        <div className='w-1/2 mt-4 flex flex-row space-x-2 justify-center'>
+                            {Object.entries(props.stockBySize).map(([index, res]) => <Taille key={index} taille={res} addStock={false}/>)}
+                        </div>
                     </div>
                     <div className="flex justify-end absolute bottom-10 right-10">
                         <button className="flex items-center bish-bg-blue rounded-xl bish-text-white shadow-lg p-3">Ajouter <img className="h-4 ml-3" src={caddie} alt=""/></button></div>
