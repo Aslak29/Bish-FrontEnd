@@ -6,7 +6,9 @@ const Taille = props => {
   const taille = props.taille
 
   useEffect(() => {
-    props.addStock(taille.stock)
+    if(props.addStock) {
+      props.addStock(taille.stock)
+    }
   },[])
 
   return (

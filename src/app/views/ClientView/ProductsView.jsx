@@ -34,9 +34,8 @@ const ProductsView = () => {
             <div className="md:w-3/5 m-auto">
                 <Categories setCategorie={handleCategorie}/>
             </div>
-            <Paginate setPage={handlePage} countPage={countPage}/>
             <ProductsContainer categorie={categorie} setCategorie={handleCategorie} setCountPage={handleCountPage} page={page} limit={20}/>
-
+            <Paginate setPage={handlePage} countPage={countPage}/>
         </div>
     );
 };

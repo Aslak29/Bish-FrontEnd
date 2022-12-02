@@ -67,9 +67,9 @@ const ProductCard = props => {
             {/* Hover ajouter au panier */}
             <div className={`${drawerDisplay} ${stockDisplay} border-t-2 lg:border-0 bish-border-gray pt-10 pb-12 z-20 fixed left-0 flex-col lg:absolute bottom-0 lg:invisible lg:group-hover:visible lg:h-1/3 w-full bish-bg-white-opacity-90 justify-center`}>
                 <span className='mx-auto mb-2 text-lg'>Ajouter au panier</span>
-                <span className='w-full flex flex-row space-x-2 px-5 justify-center'>
+                <div className='w-full flex flex-row space-x-2 px-5 justify-center'>
                   {Object.entries(produit.stockBySize).map(([index, res]) => <Taille key={index} taille={res} addStock={addStock}/>)}
-                </span>
+                </div>
             </div>
         </div>
         <div className={`${opacityStock} flex flex-col`}>
