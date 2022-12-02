@@ -37,6 +37,7 @@ const SuggestionsContainer = props => {
         : 
         (
           <div className='flex flex-row space-x-6 my-6 mx-24'>
+            
             {suggestionsByCateg.map((r) => <ProductCard update={props.update} key={r.id} produit={r}/>)}
         </div>
           )

@@ -9,7 +9,7 @@ import StarsComponent from "../../components/layouts/StarsComponent"
 
 const ProductView = () => {
 
-    const [product, setProduct] =  useState([]);
+    const [product, setProduct] =  useState();
     const [updateDetail, setUpdateDetail] =  useState(false);
 
     const num = useParams();
@@ -37,13 +37,19 @@ const ProductView = () => {
 
   return (
     <div className="w-full">
-        <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
-            {product.map((r) => <ProductDetail key={r.id} {...r}/>)}
-            {product.map((r) => <SuggestionsContainer key={r.id} id={r.id} idCategorie={r.id_categorie} update={updateDetailComponent}/>)}
-            <StarsComponent />
-        </div>
+      <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
+      {product && <ProductDetail {...product} />}
+      {<StarsComponent/>}
+      {product && (
+        <SuggestionsContainer
+        id={product.id}
+        idCategorie={product.id_categorie}
+        update={updateDetailComponent}
+        />
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
 export default ProductView

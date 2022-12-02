@@ -8,8 +8,21 @@ const ProductsView = () => {
 
     const [categorie,setCategorie] = useState([-1]);
 
+    const [page,setPage] = useState(0)
+
+    const [countPage,setCountPage] = useState()
+
     const handleCategorie = (idCategorie,nameCategorie) =>{
         setCategorie([idCategorie,nameCategorie])
+        setPage(0)
+    }
+
+    const handlePage = (numPage) =>{
+        setPage(numPage.selected.selected);
+    }
+
+    const handleCountPage = (count) =>{
+        setCountPage(count/20)
     }
 
     return (
@@ -21,9 +34,8 @@ const ProductsView = () => {
             <div className="md:w-3/5 m-auto">
                 <Categories setCategorie={handleCategorie}/>
             </div>
-
-            <ProductsContainer categorie={categorie} setCategorie={handleCategorie}/>
-            <Paginate/>
+            <ProductsContainer categorie={categorie} setCategorie={handleCategorie} setCountPage={handleCountPage} page={page} limit={20}/>
+            <Paginate setPage={handlePage} countPage={countPage}/>
         </div>
     );
 };
