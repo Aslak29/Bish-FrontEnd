@@ -16,10 +16,11 @@ export const URL_BACK_CATEGORIES = "/categorie/";
 // route produits {tri par taille}
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 // route composant notation
-export const URL_BACK_STARS_PRODUCT = "/produit/note/";
+// export const URL_BACK_STARS_PRODUCT = "/produit/note/";
 
 // Routes productController
 export const URL_BACK_PRODUCT = "/produit/find/";
 export const URL_BACK_PRODUCT_FILTER = "/produit/filter/";
 export const URL_BACK_SUGGESTIONS = "/produit/suggestions/";
 export const URL_BACK_PROMOTIONS = "/produit/promotions/";
+
