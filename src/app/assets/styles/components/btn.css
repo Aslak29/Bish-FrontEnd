@@ -43,30 +43,6 @@ import color.css .btn {
   @apply text-white bg-indigo-600 hover:bg-indigo-700 hover:text-white active:ring-indigo-500;
 }
 
-/* VARIABLES TAILWIND PROJET BISH - BOUTON TAILLES TAILLECOMPONENT */
-.btn-primary-bish {
-  color: #f5f5f5;
-  text-align: center;
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-  font-size: 20px;
-  border-radius: 5px;
-  background-color: #2eb7eb;
-  text-transform: uppercase;
-}
-.btn-secondary-bish {
-  background-color: #f5f5f5;
-  color: #605858;
-  text-align: center;
-  height: 40px;
-  width: 40px;
-  margin: 5px;
-  font-size: 20px;
-  border-radius: 5px;
-  text-transform: uppercase;
-}
-
 /* Bouton déconnexion */
 .btn-logout {
   @apply bish-bg-blue bish-text-white rounded-lg;

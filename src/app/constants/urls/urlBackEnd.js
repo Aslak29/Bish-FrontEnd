@@ -18,6 +18,7 @@ export const URL_BACK_CATEGORIES = "/categorie/"
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 
 // Routes productController
+export const URL_BACK_PRODUCTS = "/produit/"
 export const URL_BACK_PRODUCT = "/produit/find/"
 export const URL_BACK_PRODUCT_FILTER ="/produit/filter/"
 export const URL_BACK_SUGGESTIONS = "/produit/suggestions/"
