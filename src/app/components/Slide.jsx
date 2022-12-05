@@ -95,21 +95,20 @@ const Slide = () => {
                 </div>
 {/* Slide 1 = catégorie tendance */}
                 <div className='h-full flex flex-col justify-center items-center w-full'>
-                
-                    <div className='flex flex-col items-center'>
                     <p className='w-full fixed top-4'>Catégorie tendance du moment</p>
+                    <div className='flex flex-row items-center'>
                         <img src={window.location.origin + "/src/app/assets/images/categories/fullsize/" +  `${categories}`} alt="slide" className='object-scale-down'/>
                     </div>
-                    <button className="absolute  right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
+                    <button className="absolute right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
                 </div>
 
 {/* Slide 2 = meilleure promo*/}
                 <div className='h-full flex flex-col justify-center items-center w-full'>
                     <p className='w-full fixed top-4'>Meilleure promo du moment</p>
                     <div className='flex flex-row items-center'>
-                        <img src={window.location.origin + "/src/app/assets/images/promotions" +  `${promotions}`} alt="" className='object-scale-down'/>
+                        <img src={window.location.origin + "/src/app/assets/images/promotions" +  `${promotions}`} alt="" className='object-scale-down '/>
                     </div>
-                    <button className="absolute  right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
+                    <button className="absolute right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
                 </div>                
                 
 {/* Slide 4 = Le dernier article de blog */}
@@ -117,7 +116,7 @@ const Slide = () => {
                 <div className='h-full flex flex-col justify-center items-center w-full'>
                     <p className='w-full fixed top-4'>Nouvel article de blog</p>
                     <div className='flex flex-row items-center'>
-                        <img src={window.location.origin + "/src/app/assets/images/blog" +  `${blog}`} alt="" className='object-scale-down'/>
+                        <img src={window.location.origin + "/src/app/assets/images/blog" +  `${blog}`} alt="" className='object-scale-down '/>
                     </div>
                     <button className="absolute  right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
                 </div>
