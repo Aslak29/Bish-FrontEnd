@@ -77,7 +77,7 @@ const Slide = () => {
 
                 <div    className='flex flex-row justify-around items-center w-full h-[54rem] gap-x-5' 
                         style={{background: `linear-gradient(90deg, ${colorLeft}, ${colorRight})` }}>
-                        <p className='slide-title w-full fixed top-2 text-center bish-text-white font-bold text-2xl'>Produits tendances du moment!</p>
+                        <p className='slide-title w-full fixed top-0 text-center font-bold text-2xl'>Produits tendances du moment!</p>
                         {Object.entries(trend).map(([key,value])=>{
                             return(
                                 <div>
@@ -102,7 +102,7 @@ const Slide = () => {
 
 {/* Slide 2 = meilleure promo*/}
                 <div className='slide-default-bg flex flex-col justify-center h-[54rem]'>
-                    <p className='slide-title w-full fixed top-2 text-center font-bold text-2xl'>Meilleure promo du moment</p>
+                    <p className='slide-title w-full fixed top-0 text-center font-bold text-2xl'>Meilleure promo du moment</p>
                         <img src={window.location.origin + "/src/app/assets/images/promotions" +  `${promotions}`} alt="" className='h-full object-cover'/>
                     <button className="btn-slide-bish absolute right-10 w-auto px-4">Je découvre</button>
                 </div>                
@@ -110,7 +110,7 @@ const Slide = () => {
 {/* Slide 4 = Le dernier article de blog */}
 
                 <div className='slide-default-bg flex flex-col justify-center h-[54rem] '>
-                    <p className='slide-title w-full fixed top-2 text-center font-bold text-2xl'>Nouvel article de blog</p>
+                    <p className='slide-title w-full fixed top-0 text-center font-bold text-2xl'>Nouvel article de blog</p>
                         <img src={window.location.origin + "/src/app/assets/images/blog" +  `${blog}`} alt="" className='h-full object-cover'/>
                     <button className="btn-slide-bish absolute right-10 w-auto px-4">Je découvre</button>
                 </div>
