@@ -13,8 +13,12 @@ const ModalUpdate = props => {
           transform: 'translate(-50%, -50%)',
         },
     };
+
+    const inputStyle = ''
     
-    Modal.setAppElement('#root');
+    Modal.defaultStyles.overlay.zIndex = '40'
+    Modal.defaultStyles.overlay.backgroundColor = 'rgba(88, 80, 80, 0.5)'
+    Modal.setAppElement(document.getElementById('root'));
 
     return (
         <Modal
@@ -23,19 +27,7 @@ const ModalUpdate = props => {
             style={customStyles}
             contentLabel="Example Modal"
         >
-            <form className='grid grid-cols-3 gap-4'>
-                <input type="text" />
-                <input type="text" />
-
-                <input type="text" />
-
-                <input type="text" />
-
-                <input type="text" />
-
-                <input type="text" />
-
-            </form>
+            {props.formUpdate}
         </Modal>
     )
 }

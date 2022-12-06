@@ -138,6 +138,7 @@ const ContactView = () => {
                       {/* -----------------------------MESSAGE--------------------------------------- */}
                       <div className={`input-div group col-span-2 h-24 sm:h-28 ${errors.phone && "border-red-500"}`}>
                         <Field
+                          as="textarea"
                           name="message"
                           className="input peer h-full pl-2"
                           onChange={handleChange}

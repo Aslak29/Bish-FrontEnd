@@ -15,10 +15,6 @@ const TableRow = props => {
     setIsOpen(false);
   }
 
-  const updateRow = id => {
-
-  }
-
   const deleteRow = id => {
 
   }
@@ -28,13 +24,13 @@ const TableRow = props => {
       {props.element && props.element.map((res, index) => <td key={index} className='truncate hover:text-clip	text-center py-5' title={res}>{res}</td>)}
       <td colSpan='2' className='text-center space-x-5'>
         <button className='bg-orange-500 p-2 bish-text-white font-medium' onClick={() => openModal()}>
-          <img className='h-5 lg:h-8' src={editIMG} alt="Modifier" />
+          <img className='h-5 lg:h-8' src={editIMG} alt="Modifier"/>
         </button>
         <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => deleteRow()}>
           <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
         </button>
       </td>
-      <ModalUpdate modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal}/>
+      <ModalUpdate modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} formUpdate={props.formUpdate}/>
     </tr>
   )
 }
