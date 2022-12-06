@@ -17,7 +17,7 @@ const HomeView = () => {
             </div>
 
             <Slide className='w-full'/>
-            </div>
+            
             <div className='h-auto pb-6 px-6'> <PromoContainer/></div>
         </div>
     );
