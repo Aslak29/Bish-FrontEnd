@@ -1,13 +1,7 @@
 import React from "react";
-
 import StarRatings from "react-star-ratings";
-// import { URL_PRODUCT_LINK } from '/produits/produit/';
 
 const StarsComponent = (props) => {
-  let noteAverage = props;
-  console.log(props);
-  // const note = 3.2;
-  // let produit = props.produit;
 
   return (
     <div>
@@ -19,7 +13,6 @@ const StarsComponent = (props) => {
         starDimension="30px"
         starSpacing="4px"
         >
-        {noteAverage}
       </StarRatings>
     </div>
   );
