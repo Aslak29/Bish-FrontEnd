@@ -11,7 +11,10 @@ const HomeView = () => {
                 <title>Bish - Accueil</title>
                 <meta name="description" content="Découvrez les dernières tendances mode femme et homme en ligne sur Bish." />
             </Helmet>
+            <div>
+
             <Slide className='w-full'/>
+            </div>
             <div className='h-auto pb-6 px-6'> <PromoContainer/></div>
         </div>
     );

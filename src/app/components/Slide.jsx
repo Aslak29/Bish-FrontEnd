@@ -75,50 +75,44 @@ const Slide = () => {
 
 {/* Slide 3 = les 2 produits tendances aléatoires*/}
 
-                <div    className='h-full flex flex-col justify-center items-center w-full' 
+                <div    className='flex flex-row justify-around items-center w-full h-[54rem] gap-x-5' 
                         style={{background: `linear-gradient(90deg, ${colorLeft}, ${colorRight})` }}>
-                    <p className='w-full fixed top-4'>Produits tendances du moment!</p>
-                    <div className='flex flex-row items-center'>
+                        <p className='slide-title w-full fixed top-2 text-center bish-text-white font-bold text-2xl'>Produits tendances du moment!</p>
                         {Object.entries(trend).map(([key,value])=>{
                             return(
-                                <div className='slide-img object-content flex flex-col m-12'>
-                                    <img src={window.location.origin + "/src/app/assets/images/trends" +  `${value.pathImage}`} 
-                                alt="Tendance" 
-                                className='object-scale-down'/>
-                                <button className="right-10 border-2 border-black flex content-center p-2 font-semibold">
-                                    Je découvre
-                                </button>
+                                <div>
+                                    <div className='slide-img flex flex-col w-full'>
+                                        <img src={window.location.origin + "/src/app/assets/images/trends" +  `${value.pathImage}`} 
+                                    alt="Tendance" 
+                                    className='object-cover h-full'/>
+                                    </div>
+                                    <button className="btn-slide-bish w-auto h-auto px-4">
+                                        Je découvre
+                                    </button>
                                 </div>
                                 
-                            )})}                        
+                                )})}                        
                     </div>
-                </div>
 {/* Slide 1 = catégorie tendance */}
-                <div className='h-full flex flex-col justify-center items-center w-full'>
-                    <p className='w-full fixed top-4'>Catégorie tendance du moment</p>
-                    <div className='flex flex-row items-center'>
-                        <img src={window.location.origin + "/src/app/assets/images/categories/fullsize/" +  `${categories}`} alt="slide" className='object-scale-down'/>
-                    </div>
-                    <button className="absolute right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
+                <div className='slide-default-bg flex flex-col justify-center w-full h-[54rem]'>
+                    <p className='slide-title w-full fixed top-0 text-center font-bold text-2xl'>Catégorie tendance du moment</p>
+                    <img src={window.location.origin + "/src/app/assets/images/categories/fullsize/" +  `${categories}`} alt="slide" className='h-full object-cover'/>
+                    <button className="btn-slide-bish absolute right-10 w-auto px-4">Je découvre</button>
                 </div>
 
 {/* Slide 2 = meilleure promo*/}
-                <div className='h-full flex flex-col justify-center items-center w-full'>
-                    <p className='w-full fixed top-4'>Meilleure promo du moment</p>
-                    <div className='flex flex-row items-center'>
-                        <img src={window.location.origin + "/src/app/assets/images/promotions" +  `${promotions}`} alt="" className='object-scale-down '/>
-                    </div>
-                    <button className="absolute right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
+                <div className='slide-default-bg flex flex-col justify-center h-[54rem]'>
+                    <p className='slide-title w-full fixed top-2 text-center font-bold text-2xl'>Meilleure promo du moment</p>
+                        <img src={window.location.origin + "/src/app/assets/images/promotions" +  `${promotions}`} alt="" className='h-full object-cover'/>
+                    <button className="btn-slide-bish absolute right-10 w-auto px-4">Je découvre</button>
                 </div>                
                 
 {/* Slide 4 = Le dernier article de blog */}
 
-                <div className='h-full flex flex-col justify-center items-center w-full'>
-                    <p className='w-full fixed top-4'>Nouvel article de blog</p>
-                    <div className='flex flex-row items-center'>
-                        <img src={window.location.origin + "/src/app/assets/images/blog" +  `${blog}`} alt="" className='object-scale-down '/>
-                    </div>
-                    <button className="absolute  right-10 border-2 border-black h-fit flex content-start p-2 font-semibold">Je découvre</button>
+                <div className='slide-default-bg flex flex-col justify-center h-[54rem] '>
+                    <p className='slide-title w-full fixed top-2 text-center font-bold text-2xl'>Nouvel article de blog</p>
+                        <img src={window.location.origin + "/src/app/assets/images/blog" +  `${blog}`} alt="" className='h-full object-cover'/>
+                    <button className="btn-slide-bish absolute right-10 w-auto px-4">Je découvre</button>
                 </div>
 
             </Carousel>
