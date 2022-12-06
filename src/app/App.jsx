@@ -7,7 +7,6 @@ import Routes from './routes/Routes';
 import { getToken } from './services/tokenServices';
 import { getUser } from './services/userServices';
 import Footer from './components/layouts/Footer';
-import TailleComponent from './components/layouts/TailleComponent';
 
 const contextClass = {
     success: 'bg-green-600',
