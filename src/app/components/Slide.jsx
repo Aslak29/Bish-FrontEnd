@@ -29,13 +29,11 @@ const Slide = () => {
         apiBackend.get(URL_BACK_PRODUCT_BEST_PROMO).then((response =>{
             const imgProductPromo = response.data[0].path_image;
             setPromotions(imgProductPromo);
-            console.log(imgProductPromo);
         }))
 
         // -------------------------------Les deux produits tendances-------------------------------
         apiBackend.post(URL_BACK_PRODUCT_TREND).then((response =>{
             setTrend(response.data);
-            console.log(response.data);
             const fac = new FastAverageColor();
             const container = document.querySelector('.slide-img');
             for(let i=0; i<response.data.length ; i++){
@@ -49,7 +47,6 @@ const Slide = () => {
                         if(i==1){
                             setColorRight(color.hex);
                         }
-                        console.log(color);
                     })
                     .catch(e => {
                         console.log(e);
@@ -66,7 +63,6 @@ const Slide = () => {
         
         
     }, []);
-    console.log(trend);
 
         return (
             
@@ -80,7 +76,7 @@ const Slide = () => {
                         <p className='slide-title w-full fixed top-0 text-center font-bold text-2xl'>Produits tendances du moment!</p>
                         {Object.entries(trend).map(([key,value])=>{
                             return(
-                                <div>
+                                <div key={key}>
                                     <div className='slide-img flex flex-col w-full'>
                                         <img src={window.location.origin + "/src/app/assets/images/trends" +  `${value.pathImage}`} 
                                     alt="Tendance" 
