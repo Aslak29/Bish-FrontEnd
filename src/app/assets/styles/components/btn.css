@@ -68,16 +68,24 @@ import color.css .btn {
 }
 .btn-slide-bish{
   border: solid 2px #f5f5f5;
-  color: #f5f5f5;
+  border-radius: 5px;
+  color: #2eb7eb;
+  /* text-shadow: 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb, 0 0 2px #2eb7eb; */
+
   text-align: center;
   height: 40px;
   width: 40px;
   margin: 5px;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: transparent;
+  font-size: 1rem;
+  font-weight:bold;
+  background-color: rgba(245, 245, 245);
+  box-shadow: 2px 2px 10px #585050;
 }
-
+.btn-slide-bish:hover{
+background-color: #2eb7eb;
+color:rgba(245, 245, 245);
+border: solid 2px #2eb7eb;
+}
 /* Bouton déconnexion */
 .btn-logout {
   @apply bish-bg-blue bish-text-white rounded-lg;

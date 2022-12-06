@@ -1,10 +1,12 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {Helmet} from "react-helmet-async";
 import ProductsContainer from './../../components/products/ProductsContainer';
 import Paginate from './../../components/products/Paginate';
 import Categories from './../../components/products/Categories';
-
+import { useLocation } from 'react-router-dom';
 const ProductsView = () => {
+
+
 
     const [categorie,setCategorie] = useState([-1]);
 
@@ -12,8 +14,11 @@ const ProductsView = () => {
 
     const [countPage,setCountPage] = useState()
 
+    const location = useLocation();
+
     const handleCategorie = (idCategorie,nameCategorie) =>{
         setCategorie([idCategorie,nameCategorie])
+
         setPage(0)
     }
 
@@ -24,6 +29,12 @@ const ProductsView = () => {
     const handleCountPage = (count) =>{
         setCountPage(count/20)
     }
+
+    useEffect(()=>{
+        if(location.state?.categorie){
+            handleCategorie(location.state?.categorie, location.state?.name );
+        }
+    }, []);
 
     return (
         <div className="w-11/12 lg:w-3/4 mx-auto my-6 space-y-6">
