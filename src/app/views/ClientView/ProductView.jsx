@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {URL_404} from "../../constants/urls/urlFrontEnd";
 import SuggestionsContainer from "../../components/products/SuggestionsContainer"
 
+
 const ProductView = () => {
 
     const [product, setProduct] =  useState();
@@ -36,13 +37,19 @@ const ProductView = () => {
 
   return (
     <div className="w-full">
-        <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
-            {/* {Object.entries(product).map((res) => <ProductDetail key={res.id} {...res}/>)} */}
-            {product && <ProductDetail {...product}/>}
-            {product && <SuggestionsContainer id={product.id} idCategorie={product.id_categorie} update={updateDetailComponent}/>}
-        </div>
+      <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
+      {product && <ProductDetail {...product} />}
+  
+      {product && (
+        <SuggestionsContainer
+        id={product.id}
+        idCategorie={product.id_categorie}
+        update={updateDetailComponent}
+        />
+        )}
+      </div>
     </div>
-  )
+  );
 }
 
 export default ProductView
