@@ -3,6 +3,7 @@ import image from '../../assets/images/products/example.png'
 import { Link } from 'react-router-dom';
 import { URL_PRODUCT_LINK } from "../../constants/urls/urlFrontEnd";
 import Taille from './Taille';
+import StarsComponent from "./StarsComponent";
 
 const ProductCard = props => {
 
@@ -48,7 +49,7 @@ const ProductCard = props => {
   return (
     <div>
         <div className={`${drawerDisplay} ${stockDisplayResponsive} bish-bg-gray h-full w-full absolute top-0 left-0 z-10 opacity-50`} onClick={() => toggleDrawer()}/>
-        <div className='relative group border-solid border-2 bish-border-gray'>
+        <div className='relative group border-solid border-2 bish-border-gray mb-1'>
           <div className={`${stockLabelDisplay} absolute top-1/2 w-full text-center z-10`}>
             <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className='block w-full h-full'>Plus en stock</Link>
           </div>
@@ -73,8 +74,7 @@ const ProductCard = props => {
             </div>
         </div>
         <div className={`${opacityStock} flex flex-col`}>
-            {/* TODO: Ajouter le composant note */}
-            <span>COMPOSANT NOTE</span>
+            {produit.noteAverage && <StarsComponent note={produit.noteAverage}/>}
               {(
                 props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
               : <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
