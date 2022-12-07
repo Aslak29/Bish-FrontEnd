@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import apiBackEnd from "../../api/backend/api.Backend";
 import {URL_RESET_PASSWORD} from "../../constants/urls/urlBackEnd";
-import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
+import {URL_LOGIN} from "../../constants/urls/urlFrontEnd";
 import {useNavigate} from "react-router-dom";
 
 const NewPassword = () =>{

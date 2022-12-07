@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import ReactPaginate from "react-paginate";
 import arrowRight from "../../assets/images/arrow-right.png"
 import arrowLeft from "../../assets/images/arrow-left.png"
