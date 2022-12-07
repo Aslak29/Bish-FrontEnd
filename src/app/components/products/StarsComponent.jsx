@@ -1,26 +1,39 @@
-import React from "react";
-
+import React, {useState, useEffect} from "react";
 import StarRatings from "react-star-ratings";
-// import { URL_PRODUCT_LINK } from '/produits/produit/';
 
 const StarsComponent = (props) => {
-  let noteAverage = props;
-  console.log(props);
-  // const note = 3.2;
-  // let produit = props.produit;
+
+  const [matches, setMatches] = useState(window.matchMedia("(min-width: 640px)").matches)
+
+  useEffect(() => {
+    const handler = e => setMatches(e.matches);
+    window.matchMedia("(min-width: 640px)").addEventListener('change', handler);
+  },[])
 
   return (
     <div>
-      <StarRatings
-        rating={props.note}
-        starRatedColor="#2EB7EB"
-        numberOfStars={5}
-        name="rating"
-        starDimension="30px"
-        starSpacing="4px"
+      {matches ? 
+        <StarRatings
+          rating={props.note}
+          starRatedColor="#2EB7EB"
+          numberOfStars={5}
+          name="rating"
+          starDimension="2vw"
+          starSpacing="4px"
         >
-        {noteAverage}
-      </StarRatings>
+        </StarRatings>
+        :
+        <StarRatings
+          rating={props.note}
+          starRatedColor="#2EB7EB"
+          numberOfStars={5}
+          name="rating"
+          starDimension="5vw"
+          starSpacing="4px"
+        >
+        </StarRatings>
+      }
+      
     </div>
   );
 };
