@@ -1,8 +1,7 @@
 import React from 'react'
-import imgCard from '../../assets/images/imagecard.png'
 import arrow from '../../assets/images/arrow-right.png'
 import { Link } from 'react-router-dom'
-import {URL_PRODUCT, URL_PRODUCT_LINK} from "../../constants/urls/urlFrontEnd";
+import {URL_PRODUCT_LINK} from "../../constants/urls/urlFrontEnd";
 
 const PromoCard = (props) => {
   return (

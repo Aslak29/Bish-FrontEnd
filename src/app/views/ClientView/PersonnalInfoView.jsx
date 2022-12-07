@@ -7,7 +7,8 @@ const PersonnalInfoView = () => {
       <Helmet>
         <title>Bish - Informations Personnelles</title>
       </Helmet>
-      PersonnalInfoView</div>
+      PersonnalInfoView
+    </div>
 
   )
 }

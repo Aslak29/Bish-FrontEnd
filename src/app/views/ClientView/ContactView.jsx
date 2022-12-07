@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Field, Form, Formik } from "formik";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { useState } from "react";
 import contact from "../../assets/images/contact.svg";
-import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
 import {URL_BACK_ADD_CONTACT} from "../../constants/urls/urlBackEnd";
 import apiBackEnd from "../../api/backend/api.Backend";
 import {Helmet} from "react-helmet-async";

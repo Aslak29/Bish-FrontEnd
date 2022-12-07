@@ -6,19 +6,14 @@ import Categories from './../../components/products/Categories';
 import { useLocation } from 'react-router-dom';
 const ProductsView = () => {
 
-
-
     const [categorie,setCategorie] = useState([-1]);
-
     const [page,setPage] = useState(0)
-
-    const [countPage,setCountPage] = useState()
+    const [countPage,setCountPage] = useState(0)
 
     const location = useLocation();
 
     const handleCategorie = (idCategorie,nameCategorie) =>{
         setCategorie([idCategorie,nameCategorie])
-
         setPage(0)
     }
 
@@ -27,7 +22,7 @@ const ProductsView = () => {
     }
 
     const handleCountPage = (count) =>{
-        setCountPage(count/20)
+        setCountPage(Math.ceil(count/20))
     }
 
     useEffect(()=>{

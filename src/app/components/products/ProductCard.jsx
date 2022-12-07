@@ -67,9 +67,12 @@ const ProductCard = props => {
             )}
             {/* Hover ajouter au panier */}
             <div className={`${drawerDisplay} ${stockDisplay} border-t-2 lg:border-0 bish-border-gray pt-10 pb-12 z-20 fixed left-0 flex-col lg:absolute bottom-0 lg:invisible lg:group-hover:visible lg:h-1/3 w-full bish-bg-white-opacity-90 justify-center`}>
-                <span className='mx-auto mb-2 text-lg'>Ajouter au panier</span>
-                <div className='w-full flex flex-row space-x-2 px-5 justify-center'>
-                  {Object.entries(produit.stockBySize).map(([index, res]) => <Taille key={index} taille={res} addStock={addStock}/>)}
+                <span className='mx-auto mb-2 text-lg lg:text-base xl:text-lg'>Ajouter au panier</span>
+                <div className='w-full gap-1 flex justify-center'>
+                  {Object.entries(produit.stockBySize).map(([index, res]) =>
+                      <div key={index} className={`w-1/6 flex justify-center ${ res.taille === "xs" ? "order-1" : res.taille === "s" ? "order-2" : res.taille === "m" ? "order-3" : res.taille === "l" ? "order-4" : res.taille === "xl" && "order-5"}`}>
+                          <Taille taille={res} addStock={addStock}/>
+                      </div>)}
                 </div>
             </div>
         </div>
@@ -80,9 +83,9 @@ const ProductCard = props => {
               : <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
               )}
             <div>{(props.produit.promotion.length !== 0 ?
-                <div>
-                    <span className='font-bold line-through bish-text-gray'>{props.produit.price.toFixed(2)}€</span>
-                    <span className="font-bold text-xl"> {props.produit.promotion.price_remise.toFixed(2)}€</span>
+                <div className="">
+                    <span className='font-bold line-through text-base sm:text-sm md:text-base bish-text-gray'>{props.produit.price.toFixed(2)}€</span>
+                    <span className="font-bold text-xl sm:text-base md:text-xl"> {props.produit.promotion.price_remise.toFixed(2)}€</span>
                 </div>
                  :
                 <span className='font-bold text-xl'>{props.produit.price.toFixed(2)} €</span>
