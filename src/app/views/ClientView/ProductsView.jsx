@@ -7,9 +7,7 @@ import Categories from './../../components/products/Categories';
 const ProductsView = () => {
 
     const [categorie,setCategorie] = useState([-1]);
-
     const [page,setPage] = useState(0)
-
     const [countPage,setCountPage] = useState(0)
 
     const handleCategorie = (idCategorie,nameCategorie) =>{

@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import imageTest from '../assets/images/imageTest.jpeg';
 import {FastAverageColor} from "fast-average-color";
 import apiBackend from "../api/backend/api.Backend";
 import {URL_BACK_BLOG_LAST_ARTICLE, URL_BACK_CATEGORIES_TREND, URL_BACK_PRODUCT_BEST_PROMO, URL_BACK_PRODUCT_TREND} from "../constants/urls/urlBackEnd";
@@ -11,9 +10,8 @@ const Slide = () => {
     const [promotions,setPromotions]= useState('');
     const [trend,setTrend]= useState([]);
     const [blog,setBlog] = useState('');
-    const [colors, setColors] =useState([]);
-    const [colorLeft, setColorLeft] =useState();
-    const [colorRight, setColorRight] =useState();
+    const [colorLeft, setColorLeft] = useState();
+    const [colorRight, setColorRight] = useState();
 
 
     // const path = null;
@@ -21,30 +19,37 @@ const Slide = () => {
     useEffect(()=>{
         // -------------------------------La catégorie tendance-------------------------------
         apiBackend.get(URL_BACK_CATEGORIES_TREND).then((response =>{
+            console.log(response)
             const imgCategorieTrend = response.data[0].pathImage;
             setCategories(imgCategorieTrend);
-        }))
+        })).catch(e => {
+            console.log(e);
+        })
         
         // -------------------------------Le produit avec la meilleure promo-------------------------------
         apiBackend.get(URL_BACK_PRODUCT_BEST_PROMO).then((response =>{
+            console.log(response)
             const imgProductPromo = response.data[0].path_image;
             setPromotions(imgProductPromo);
-        }))
+        })).catch(e => {
+            console.log(e);
+        })
 
         // -------------------------------Les deux produits tendances-------------------------------
         apiBackend.post(URL_BACK_PRODUCT_TREND).then((response =>{
+            console.log(response)
             setTrend(response.data);
             const fac = new FastAverageColor();
             const container = document.querySelector('.slide-img');
             for(let i=0; i<response.data.length ; i++){
-                fac.getColorAsync("../../src/app/assets/images/trends"+response.data[i].pathImage)
+                fac.getColorAsync("../../src/app/assets/images/products/"+response.data[i].pathImage)
                     .then(color => {
                         container.style.backgroundColor = color.rgba;
                         container.style.color = color.isDark ? '#fff' : '#000';
-                        if(i==0){
+                        if(i===0){
                             setColorLeft(color.hex);
                         }
-                        if(i==1){
+                        if(i===1){
                             setColorRight(color.hex);
                         }
                     })
@@ -52,7 +57,9 @@ const Slide = () => {
                         console.log(e);
                     });
             }
-        }))
+        })).catch(e => {
+            console.log(e);
+        })
         
         // -------------------------------Le dernier article de blog-------------------------------
         apiBackend.get(URL_BACK_BLOG_LAST_ARTICLE).then((response => {
@@ -78,7 +85,7 @@ const Slide = () => {
                             return(
                                 <div key={key}>
                                     <div className='slide-img flex flex-col w-full'>
-                                        <img src={window.location.origin + "/src/app/assets/images/trends" +  `${value.pathImage}`} 
+                                        <img src={window.location.origin + "/src/app/assets/images/products/" +  `${value.pathImage}`}
                                     alt="Tendance" 
                                     className='object-cover h-full'/>
                                     </div>
@@ -99,7 +106,7 @@ const Slide = () => {
 {/* Slide 2 = meilleure promo*/}
                 <div className='slide-default-bg flex flex-col justify-center h-[54rem]'>
                     <p className='slide-title w-full fixed top-0 text-center font-bold text-2xl'>Meilleure promo du moment</p>
-                        <img src={window.location.origin + "/src/app/assets/images/promotions" +  `${promotions}`} alt="" className='h-full object-cover'/>
+                        <img src={window.location.origin + "/src/app/assets/images/promotions/" +  `${promotions}`} alt="" className='h-full object-cover'/>
                     <button className="btn-slide-bish absolute right-10 w-auto px-4">Je découvre</button>
                 </div>                
                 
