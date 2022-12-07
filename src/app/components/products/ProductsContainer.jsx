@@ -81,7 +81,7 @@ const ProductsContainer = props => {
         {isLoading ? (<img className='m-auto py-24' src={loadingSVG} alt="Chargement"></img>)
         : 
         (
-            <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
+            <div className='grid grid-cols-2 md:grid-cols-5 gap-4'>
             {produits.map((r) => <ProductCard key={r.id} produit={r}/>)}
             </div>
         )}
