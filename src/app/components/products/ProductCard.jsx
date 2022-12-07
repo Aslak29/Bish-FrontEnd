@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import image from '../../assets/images/products/example.png'
 import { Link } from 'react-router-dom';
 import { URL_PRODUCT_LINK } from "../../constants/urls/urlFrontEnd";
 import Taille from './Taille';
@@ -49,13 +48,13 @@ const ProductCard = props => {
   return (
     <div>
         <div className={`${drawerDisplay} ${stockDisplayResponsive} bish-bg-gray h-full w-full absolute top-0 left-0 z-10 opacity-50`} onClick={() => toggleDrawer()}/>
-        <div className='relative group border-solid border-2 bish-border-gray mb-1'>
+        <div className='relative group border-solid border-2 bish-border-gray mb-1 h-96 md:h-64 2xl:h-96'>
           <div className={`${stockLabelDisplay} absolute top-1/2 w-full text-center z-10`}>
             <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className='block w-full h-full'>Plus en stock</Link>
           </div>
           {(
-                props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}><img src={image} alt="" className={`${opacityStock}`}/></Link>
-              : <Link to={`${URL_PRODUCT_LINK}${produit.id}`}><img src={image} alt="" className={`${opacityStock}`}/></Link>
+                props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}><img src={window.location.origin + '/src/app/assets/images/products/' + produit.pathImage} alt="" className={`${opacityStock} object-cover w-full h-full`}/></Link>
+              : <Link to={`${URL_PRODUCT_LINK}${produit.id}`}><img src={window.location.origin + '/src/app/assets/images/products/' + produit.pathImage} alt="" className={`${opacityStock} object-cover w-full h-full`}/></Link>
               )}
             {/* Triangle promotion */}
             {(props.produit.promotion.length !== 0 &&
