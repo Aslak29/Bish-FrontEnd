@@ -5,9 +5,10 @@ import loadingSVG from '../../assets/images/loading-spin.svg'
 import TableRow from './../../components/admin/TableRow';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES } from '../../constants/urls/urlBackEnd';
+import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS } from '../../constants/urls/urlBackEnd';
 import apiBackEnd from '../../api/backend/api.Backend';
 import { Field, Form, Formik } from "formik";
+import axios from 'axios';
 
 const AdminProductsView = () => {
 
@@ -15,92 +16,120 @@ const AdminProductsView = () => {
   const headSort = 'flex py-5 justify-center items-center space-x-2 cursor-pointer'
   const labelHeader = 'truncate hover:text-clip'
 
-  const [categorie, setCategorie] = useState()
+  // Contenu d'un ligne de la table (sans les keys, que les datas)
   const [rows, setRows] = useState([])
+  // Formulaire UPDATE
   const [formUpdate, setFormUpdate] = useState([])
-
+  // SVG isLoading si requête en cours
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true)
-    apiBackEnd.get(URL_BACK_CATEGORIES).then(res => {
-      setCategorie(res.data)
+    axios.all([
+      apiBackEnd.get(URL_BACK_CATEGORIES),
+      apiBackEnd.get(URL_BACK_PROMOS),
+      apiBackEnd.get(URL_BACK_PRODUCTS)
+    ])
+    .then(respArr => {
+      // Set le contenu d'un table row (à mettre dans l'ordre voulu)
+      respArr[2].data.map((res) => setRows(current => [...current, [res.id, res.name, res.price.toFixed(2) + ' €', res.description, '4.3/5',
+        res.stockBySize.reduce((accumulator, currentValue) => accumulator + currentValue.stock, 0),
+        res.name_categorie, 
+        res.promotion.remise + ' %', res.created_at.date,
+        <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage} alt={res.name}/>,
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_available}/>
+      ]]))
+
+      // Formulaire UPDATE
+      respArr[2].data.map((res) => {
+
+        // Objet STOCK qui se créer dynamiquement pour utiliser dans les initialValues Formik
+        const stock = {}
+        res.stockBySize.map(resStock => stock[resStock.taille.toLowerCase()] = resStock.stock)
+
+        setFormUpdate(current => [...current,
+          <Formik
+            initialValues={{
+            name: res.name,
+            price: res.price,
+            description: res.description,
+            stock,
+            categorie: res.id_categorie,
+            promotion: res.promotion.id,
+            trend: res.is_trend,
+            available: res.is_available,
+            }}
+            onSubmit={() => console.log('submit')}
+          >
+            <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
+                {/* Nom */}
+                <div className="flex flex-col h-20">
+                  <span>Nom</span>
+                  <Field className='h-full' type="text" name="name"/>
+                </div>
+                {/* Prix */}
+                <div className="flex flex-col h-20">
+                  <span>Prix (en euros)</span>
+                  <Field className='h-full' type="number" name="price"/>
+                </div>
+                {/* Description */}
+                <div className="flex flex-col col-span-2 row-span-2">
+                  <span>Description</span>
+                  <Field className='h-full' as="textarea" type="text" name="description" required/>
+                </div>
+                {/* Stock */}
+                <div className="flex flex-row h-20">
+                  {
+                    res.stockBySize.map(resStock => 
+                    <div className="flex flex-col w-1/5 h-full" key={resStock.taille}>
+                      <span>{resStock.taille.toUpperCase()}</span>
+                      <Field className='h-full' type="number" name={'stock.' + resStock.taille.toLowerCase()} required/>
+                    </div>
+                  )}
+                </div>
+                {/* Catégorie */}
+                <div className="flex flex-col h-20">
+                  <span>Catégorie</span>
+                  <Field className='h-full' name="categorie" as="select">
+                    <option value='-'>-</option>
+                    {respArr[0].data.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
+                  </Field>
+                </div>
+                {/* Promotion */}
+                <div className="flex flex-col h-20">
+                  <span>Promotion</span>
+                  <Field className='h-full' name="promotion" as="select">
+                    <option value='-'>-</option>
+                    {respArr[1].data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise}</option>)}
+                  </Field>
+                </div>
+                {/* Image */}
+                <div className="flex flex-col h-20">
+                  <span>Image</span>
+                  <Field className='my-auto' type="file" name="file"/>
+                </div>
+                {/* Tendance et Visible */}
+                <div className="flex flex-row h-20 justify-around">
+                  <div className="flex flex-col h-full justify-center align-items-center">
+                    <span>Tendance</span>
+                    <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="trend"/>
+                  </div>
+                  <div className="flex flex-col h-full justify-center align-items-center">
+                    <span>Visible</span>
+                    <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="available"/>
+                  </div>      
+                </div>
+                {/* Button Modifier */}
+                <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Modifier</button>
+            </Form> 
+          </Formik>
+        ])
+      })
+      // Fin du chargement
+      setIsLoading(false)
     })
   },[])
-
-  useEffect(() => {
-    if (categorie) {
-      apiBackEnd.get(URL_BACK_PRODUCTS).then(res=> {
-        setIsLoading(false)
-        // Set le contenu d'un table row (à mettre dans l'ordre voulu)
-        res.data.map((res) => setRows(current => [...current, [res.id, res.name, res.price.toFixed(2) + ' €', res.description, '4.3/5',
-          res.stockBySize.reduce((accumulator, currentValue) => accumulator + currentValue.stock, 0),
-          res.name_categorie, 
-          res.promotion.remise + ' %', res.created_at.date,
-          <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
-          <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_available}/>
-        ]]))
-        // Formulaire UPDATE dans le modal
-        res.data.map((res) =>
-          setFormUpdate(current => [...current,
-            <Formik
-              initialValues={{
-              name: res.name,
-              price: res.price,
-              description: res.description,
-              xs: res.stockBySize[0].stock,
-              note: "",
-              stock: "",
-              categorie: res.id_categorie,
-              promotion: "",
-              date: "",
-              }}
-              onSubmit={() => console.log('submit')}
-            >
-              <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
-                  {/* Nom */}
-                  <div className="flex flex-col">
-                    <span>Nom</span>
-                    <Field type="text" name="name"/>
-                  </div>
-                  {/* Prix */}
-                  <div className="flex flex-col">
-                    <span>Prix (en euros)</span>
-                    <Field type="number" name="price"/>
-                  </div>
-                  {/* Description */}
-                  <div className="flex flex-col col-span-2">
-                    <span>Description</span>
-                    <Field as="textarea" type="text" name="description" required/>
-                  </div>
-                  {/* Stock */}
-                  <div className='flex flex-row'>
-                    {res.stockBySize.map(resStock => {
-                      return (
-                        <div className="flex flex-col w-1/5" key={resStock.taille}>
-                          <span>{resStock.taille.toUpperCase()}</span>
-                          <Field type="number" name={resStock.taille} required/>
-                        </div>
-                      )
-                    })}
-
-                  </div>
-                  {/* Catégorie */}
-                  <div className="flex flex-col">
-                    <span>Catégorie</span>
-                    <Field name="categorie" as="select">
-                      <option value='-'>-</option>
-                      {categorie.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
-                    </Field>
-                  </div>
-                  <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white">Modifier</button>
-              </Form> 
-            </Formik>
-          ])
-        )
-      })
-    }
-  },[categorie])
 
   const updateRow = id => {
 
@@ -207,7 +236,7 @@ const AdminProductsView = () => {
         : 
         (
           <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
-            <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white'>
+            <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
               <tr>
                 {/* Tous les titres dans le header de la table */}
                 <th onClick={() => sort(0)}>
@@ -264,6 +293,7 @@ const AdminProductsView = () => {
                     <img className='h-4' src={sortIMG} alt="Trier par ID" />
                   </div>
                 </th>
+                <th className={labelHeader} title='Tendance'>Image</th>
                 <th className={labelHeader} title='Tendance'>Tendance</th>
                 <th className={labelHeader} title='Visible'>Visible</th>
                 {/* TH Actions à ne pas supprimer */}
@@ -271,7 +301,7 @@ const AdminProductsView = () => {
               </tr>
             </thead>
             <tbody>
-              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[res[0]-1]}/>)}
+              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]}/>)}
             </tbody>
           </table>
         )
