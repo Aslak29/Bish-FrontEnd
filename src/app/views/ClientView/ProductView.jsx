@@ -11,7 +11,6 @@ const ProductView = () => {
 
     const [product, setProduct] =  useState();
     const [updateDetail, setUpdateDetail] =  useState(false);
-
     const num = useParams();
     let id = num.productID;
     const navigate = useNavigate();

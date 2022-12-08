@@ -12,14 +12,10 @@ const ProductsContainer = props => {
     const [filterClick, setFilterClick] = useState(false);
     const [filterDisplay, setFilterDisplay] = useState('hidden');
     const [filterCloseDisplay, setFilterCloseDisplay] = useState('hidden');
-
     const [filterValue, setFilterValue] = useState([]);
     const [priceRange, setPriceRange] = useState([0,200]);
     const [produits, setProduits] = useState([]);
-
     const [size,setSize] = useState("none");
-
-
     const [isLoading, setIsLoading] = useState(false);
 
     const toggleFilter = () => {
@@ -74,7 +70,7 @@ const ProductsContainer = props => {
         </div>
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
-                <img className='h-5 cursor-pointer' src={arrow} alt="Retour" onClick={() => props.setCategorie(-1)} />
+                <img className='h-5 cursor-pointer' src={arrow} alt="Retour" onClick={() => { window.location.reload()}}/>
                 <h1 className='text-2xl ml-3'>{props.categorie[1] ? <span>Vêtement {props.categorie[1]}</span> : 'Nos produits'}</h1>
             </div>
             <button className='flex flex-row border bish-border-gray rounded-2xl px-4 py-2 items-center' onClick={() => toggleFilter()}>
@@ -85,7 +81,7 @@ const ProductsContainer = props => {
         {isLoading ? (<img className='m-auto py-24' src={loadingSVG} alt="Chargement"></img>)
         : 
         (
-            <div className='grid grid-cols-2 sm:grid-cols-5 gap-4'>
+            <div className='grid grid-cols-2 md:grid-cols-5 gap-4'>
             {produits.map((r) => <ProductCard key={r.id} produit={r}/>)}
             </div>
         )}
@@ -94,4 +90,4 @@ const ProductsContainer = props => {
   )
 }
 
-export default ProductsContainer
+export default ProductsContainer;
