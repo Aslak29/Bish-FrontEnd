@@ -1,22 +1,21 @@
 import React from 'react'
 import editIMG from '../../assets/images/edit.png'
 import deleteIMG from '../../assets/images/delete.png'
-import ModalUpdate from './ModalUpdate';
+import ModalCrud from './ModalCrud';
 
 const TableRow = props => {
 
+  // State modal UPDATE
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
+  // Open modal UPDATE
   function openModal() {
     setIsOpen(true);
   }
 
+  // Close modal UPDATE
   function closeModal() {
     setIsOpen(false);
-  }
-
-  const deleteRow = id => {
-
   }
 
   return (
@@ -26,11 +25,11 @@ const TableRow = props => {
         <button className='bg-orange-500 p-2 bish-text-white font-medium' onClick={() => openModal()}>
           <img className='h-5 lg:h-8' src={editIMG} alt="Modifier"/>
         </button>
-        <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => deleteRow()}>
+        <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[0])}>
           <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
         </button>
       </td>
-      <ModalUpdate modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} formUpdate={props.formUpdate}/>
+      <ModalCrud modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} form={props.formUpdate}/>
     </tr>
   )
 }

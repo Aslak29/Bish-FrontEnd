@@ -1,7 +1,7 @@
 import React from 'react'
 import Modal from 'react-modal';
 
-const ModalUpdate = props => {
+const ModalCrud = props => {
 
     const customStyles = {
         content: {
@@ -27,9 +27,9 @@ const ModalUpdate = props => {
             style={customStyles}
             contentLabel="Example Modal"
         >
-            {props.formUpdate}
+            {props.form}
         </Modal>
     )
 }
 
-export default ModalUpdate
+export default ModalCrud
