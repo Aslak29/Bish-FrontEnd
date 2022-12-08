@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Field, Form, Formik } from "formik";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { useState } from "react";
 import contact from "../../assets/images/contact.svg";
-import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
 import {URL_BACK_ADD_CONTACT} from "../../constants/urls/urlBackEnd";
 import apiBackEnd from "../../api/backend/api.Backend";
 import {Helmet} from "react-helmet-async";
@@ -51,8 +50,8 @@ const ContactView = () => {
               phone:""
             }}
             validate={(values) => {
-              /^([a-zA-Z ]+)$/.test(values.name) ? hasName(false) : hasName(true);
-              /^([a-zA-Z ]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
+              /^([A-Za-z$@.àâäçéèëîïôöùû!%*?&]+)/.test(values.name) ? hasName(false) : hasName(true);
+              /^([A-Za-z$@.àâäçéèëîïôöùû!%*?&]+)$/.test(values.surname) ? hasSurname(false) : hasSurname(true);
               /^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)$/.test(values.email)? hasEmail(false) : hasEmail(true);
               /^[0-9]{10}$/.test(values.phone)? hasPhone(false) : hasPhone(true);
               values.message.length > 50 ? hasMessageLength(false) : hasMessageLength(true);

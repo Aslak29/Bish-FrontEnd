@@ -27,7 +27,7 @@ const SuggestionsContainer = props => {
             navigate(URL_404)
         }});
     }
-  },[])
+  },[props.id])
 
   return (
     <div>
@@ -36,10 +36,9 @@ const SuggestionsContainer = props => {
         isLoading ? (<img className='m-auto' src={loadingSVG} alt="Chargement"></img>)
         : 
         (
-          <div className='flex flex-row space-x-6 my-6 mx-24'>
-            
-            {suggestionsByCateg.map((r) => <ProductCard update={props.update} key={r.id} produit={r}/>)}
-        </div>
+          <div className='grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6 my-6 lg:mx-24'>
+            {suggestionsByCateg.map((r) =><ProductCard update={props.update} key={r.id} produit={r}/> )}
+          </div>
           )
         }
         

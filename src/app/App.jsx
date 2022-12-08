@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
-import { selectIsLogged, signIn, selectUser } from './redux-store/authenticationSlice';
 import Routes from './routes/Routes';
-import { getToken } from './services/tokenServices';
-import { getUser } from './services/userServices';
 import Footer from './components/layouts/Footer';
 
 const contextClass = {

@@ -62,12 +62,12 @@ const Login = () => {
 
                 {/* Adresse e-mail */}
                 <div className="input-div group">
-                  <Field type="email" name="username" required className="input peer"/>
+                  <Field type="text" name="username" required className="input peer" autoComplete="off"/>
                   <span className="label">Adresse e-mail</span>
                 </div>
                 {/* Mot de passe */}
                 <div className="input-div group">
-                  <Field type="password" name="password" required className="input peer"/>
+                  <Field type="password" name="password" required className="input peer" autoComplete="off"/>
                   <span className="label">Mot de passe</span>
                 </div>
             </div>

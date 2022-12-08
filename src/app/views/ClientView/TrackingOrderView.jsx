@@ -7,7 +7,8 @@ const TrackingOrderView = () => {
       <Helmet>
         <title>Bish - Suivi de Commandes</title>
       </Helmet>
-      TrackingControlView</div>
+      TrackingControlView
+    </div>
   )
 }
 

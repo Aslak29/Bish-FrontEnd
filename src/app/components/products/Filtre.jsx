@@ -113,6 +113,10 @@ const Filtre = (props) => {
     }
   };
 
+  const handleChangeSize = (event) => {
+    props.setSize(event.target.value)
+  }
+
   return (
     <div className="mt-24">
       <img
@@ -167,6 +171,17 @@ const Filtre = (props) => {
             valueLabelDisplay="auto"
             marks={marks}
           />
+        </div>
+        <div className="flex flex-col">
+          <span className="mr-3 whitespace-nowrap mt-1 bish-text-gray"></span>
+            Tailles disponibles:
+          <div className="w-full flex gap-1 my-4">
+            <button className="w-1/5 mx-auto rounded font-medium box-border h-8 p-1 text-center bish-bg-blue bish-text-white hover:bish-bg-white hover:border hover:bish-border-gray hover:text-black" onClick={handleChangeSize} value="XS">XS</button>
+            <button className="w-1/5 mx-auto rounded font-medium box-border h-8 p-1 text-center bish-bg-blue bish-text-white hover:bish-bg-white hover:border hover:bish-border-gray hover:text-black" onClick={handleChangeSize} value="S">S</button>
+            <button className="w-1/5 mx-auto rounded font-medium box-border h-8 p-1 text-center bish-bg-blue bish-text-white hover:bish-bg-white hover:border hover:bish-border-gray hover:text-black" onClick={handleChangeSize} value="M">M</button>
+            <button className="w-1/5 mx-auto rounded font-medium box-border h-8 p-1 text-center bish-bg-blue bish-text-white hover:bish-bg-white hover:border hover:bish-border-gray hover:text-black" onClick={handleChangeSize} value="L">L</button>
+            <button className="w-1/5 mx-auto rounded font-medium box-border h-8 p-1 text-center bish-bg-blue bish-text-white hover:bish-bg-white hover:border hover:bish-border-gray hover:text-black" onClick={handleChangeSize} value="XL">XL</button>
+          </div>
         </div>
       </div>
     </div>
