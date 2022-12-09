@@ -4,6 +4,7 @@ import apiBackEnd from '../../api/backend/api.Backend';
 import sortIMG from '../../assets/images/trier.png'
 import addIMG from '../../assets/images/add.png'
 import loadingSVG from '../../assets/images/loading-spin.svg'
+import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import ModalCrud from '../../components/admin/ModalCrud';
 import { search, sort } from '../../services/adminServices';
@@ -25,7 +26,9 @@ const AdminProductsView = () => {
   // SVG isLoading si requête en cours
   const [isLoading, setIsLoading] = useState(false);
   // State modal CREATE
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  // Reload du useEffect au changement
+  const [relaodApiCall, setRelaodApiCall] = useState(false);
 
   useEffect(() => {
     // Permet d'afficher le SVG de chargement
@@ -250,7 +253,39 @@ const AdminProductsView = () => {
   
   // DELETE élément dans la BDD
   const deleteRow = id => {
-    console.log(id)
+    if (window.confirm(`Êtes-vous sûr de vouloir supprimer le produit ${id} ?`)) {
+      apiBackEnd.delete(URL_BACK_DELETE_PRODUCT + id).then(res => {
+        if (res.status === 200) {
+          // Supprimer l'elément supprimer de la table
+          setRows(rows.filter(res => res[0] !== id))
+          // Notification produit supprimé
+          toast.success(`Produit ${id} supprimé!`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+        }
+      }).catch(error => {
+        if(error.response.data.errorCode === '006') {
+          // Notification produit en cours de commande
+          toast.warn(error.response.data.errorMessage, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      })
+    }
   }
 
   // Open modal CREATE
@@ -275,6 +310,8 @@ const AdminProductsView = () => {
 
   return (
     <div className='w-full ml-12 sm:ml-64'>
+      {/* Notifications */}
+      <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
       <div className='flex flex-row shadow fixed top-0 right-0 mt-20 bish-bg-white w-full z-10'>
         <div className='w-12 sm:w-72'></div>
