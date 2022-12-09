@@ -8,7 +8,7 @@ import TableRow from './../../components/admin/TableRow';
 import ModalCrud from '../../components/admin/ModalCrud';
 import { search, sort } from '../../services/adminServices';
 import { Field, Form, Formik } from "formik";
-import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS } from '../../constants/urls/urlBackEnd';
+import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT } from '../../constants/urls/urlBackEnd';
 
 const AdminProductsView = () => {
 
