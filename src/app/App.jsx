@@ -27,8 +27,7 @@ const App = () => {
                 <main className="mt-20 flex grow">
                     <Routes />
                 </main>
-                <Footer />
-                
+                <Footer />         
             </div>
         </BrowserRouter>
     );
