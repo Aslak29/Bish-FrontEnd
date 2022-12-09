@@ -20,7 +20,7 @@ const AdminProductsView = () => {
   const [rows, setRows] = useState([])
   // Formulaire UPDATE
   const [formUpdate, setFormUpdate] = useState([])
-  // Formulaire UPDATE
+  // Formulaire CREATE
   const [formCreate, setFormCreate] = useState()
   // SVG isLoading si requête en cours
   const [isLoading, setIsLoading] = useState(false);
