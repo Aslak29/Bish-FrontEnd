@@ -1,14 +1,11 @@
-let AWS = require("aws-sdk");
-
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-}
+import AWS from "aws-sdk"
 
 AWS.config.update({
-    accessKeyId: process.env.ACCESS_KEY_ID,
-    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+    accessKeyId: import.meta.env.VITE_AWS_ACCESS_KEY_ID,
+    secretAccessKey: import.meta.env.VITE_AWS_SECRET_ACCESS_KEY,
     region: "eu-west-3",
 });
+
 let s3 = new AWS.S3();
 let params = {
     Bucket: "awsbish",
@@ -22,10 +19,9 @@ let getS3Files = (callback) => {
 };
 
 getS3Files((data) => {
-    const files = data.Contents.map((file) => ({
+    return data.Contents.map((file) => ({
         fileName: file.key,
         fileDate: file.LastModified,
-    })).sort((a, b) => b.fileDate - a.fileDate);
-    console.log(data)
-    return files;
+    }));
 });
+export default s3;

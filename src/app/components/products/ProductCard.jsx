@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { URL_PRODUCT_LINK } from "../../constants/urls/urlFrontEnd";
 import Taille from './Taille';
 import StarsComponent from "./StarsComponent";
-
+import s3 from "../../bucket_S3/aws"
 const ProductCard = props => {
 
   const [isClicked, setIsClicked] = useState(false);
@@ -53,8 +53,8 @@ const ProductCard = props => {
             <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className='block w-full h-full'>Plus en stock</Link>
           </div>
           {(
-                props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}><img src={window.location.origin + '/src/app/assets/images/products/' + produit.pathImage} alt="" className={`${opacityStock} object-cover w-full h-full`}/></Link>
-              : <Link to={`${URL_PRODUCT_LINK}${produit.id}`}><img src={window.location.origin + '/src/app/assets/images/products/' + produit.pathImage} alt="" className={`${opacityStock} object-cover w-full h-full`}/></Link>
+                props.update ? <Link to={`${URL_PRODUCT_LINK}${produit.id}`} onClick={props.update}><img src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+produit.pathImage})} alt="" className={`${opacityStock} object-cover w-full h-full`}/></Link>
+              : <Link to={`${URL_PRODUCT_LINK}${produit.id}`}><img src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+produit.pathImage})} alt="" className={`${opacityStock} object-cover w-full h-full`}/></Link>
               )}
             {/* Triangle promotion */}
             {(props.produit.promotion.length !== 0 &&
