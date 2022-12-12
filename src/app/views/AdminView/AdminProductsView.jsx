@@ -4,11 +4,13 @@ import apiBackEnd from '../../api/backend/api.Backend';
 import sortIMG from '../../assets/images/trier.png'
 import addIMG from '../../assets/images/add.png'
 import loadingSVG from '../../assets/images/loading-spin.svg'
+import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import ModalCrud from '../../components/admin/ModalCrud';
 import { search, sort } from '../../services/adminServices';
-import { Field, Form, Formik } from "formik";
 import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT } from '../../constants/urls/urlBackEnd';
+import FormUpdate from '../../components/admin/product/FormUpdate';
+import FormCreate from '../../components/admin/product/FormCreate';
 
 const AdminProductsView = () => {
 
@@ -25,7 +27,7 @@ const AdminProductsView = () => {
   // SVG isLoading si requête en cours
   const [isLoading, setIsLoading] = useState(false);
   // State modal CREATE
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     // Permet d'afficher le SVG de chargement
@@ -47,7 +49,7 @@ const AdminProductsView = () => {
         '4.3/5',
         res.stockBySize.reduce((accumulator, currentValue) => accumulator + currentValue.stock, 0),
         res.name_categorie, 
-        res.promotion.remise + ' %',
+        res.promotion.remise > 0 ? res.promotion.remise + ' %' : '-',
         res.created_at.date,
         <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage} alt={res.name}/>,
         <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
@@ -55,187 +57,15 @@ const AdminProductsView = () => {
       ]]))
 
       respArr[2].data.map((res) => {
-        // Objet STOCK qui se créer dynamiquement pour utiliser dans les initialValues Formik UPDATE
-        const stockWithSize = {}
-        res.stockBySize.map(resStock => stockWithSize[resStock.taille.toLowerCase()] = resStock.stock)
         // Formulaire UPDATE
         setFormUpdate(current => [...current,
-          <Formik
-            initialValues={{
-            name: res.name,
-            price: res.price,
-            description: res.description,
-            stockWithSize,
-            categorie: res.id_categorie,
-            promotion: res.promotion.id,
-            trend: res.is_trend,
-            available: res.is_available
-            }}
-            onSubmit={(values) => updateRow(res.id, values)}
-          >
-            {props =>
-              <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
-                  {/* Nom */}
-                  <div className="flex flex-col h-20">
-                    <span>Nom</span>
-                    <Field className='h-full' type="text" name="name"/>
-                  </div>
-                  {/* Description */}
-                  <div className="flex flex-col col-span-2 row-span-2">
-                    <span>Description</span>
-                    <Field className='h-full' as="textarea" type="text" name="description" required/>
-                  </div>
-                  {/* Preview de l'image */}
-                  <div className="preview row-span-4 h-96 shadow-lg">
-                    <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage}/>
-                  </div>
-                  {/* Prix */}
-                  <div className="flex flex-col h-20">
-                    <span>Prix (en euros)</span>
-                    <Field className='h-full' type="number" name="price"/>
-                  </div>
-                  {/* Stock */}
-                  <div className="flex flex-row h-20">
-                    {
-                      res.stockBySize.map(resStock => 
-                      <div className="flex flex-col w-1/5 h-full" key={resStock.taille}>
-                        <span>{resStock.taille.toUpperCase()}</span>
-                        <Field className='h-full' type="number" name={'stockWithSize.' + resStock.taille.toLowerCase()} required/>
-                      </div>
-                    )}
-                  </div>
-                  {/* Catégorie */}
-                  <div className="flex flex-col h-20">
-                    <span>Catégorie</span>
-                    <Field className='h-full' name="categorie" as="select">
-                      <option value='-'>-</option>
-                      {respArr[0].data.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
-                    </Field>
-                  </div>
-                  {/* Promotion */}
-                  <div className="flex flex-col h-20">
-                    <span>Promotion</span>
-                    <Field className='h-full' name="promotion" as="select">
-                      <option value='-'>-</option>
-                      {respArr[1].data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} %</option>)}
-                    </Field>
-                  </div>
-                  {/* Tendance et Visible */}
-                  <div className="flex flex-row h-20 justify-around">
-                    <div className="flex flex-col h-full justify-center align-items-center">
-                      <span>Tendance</span>
-                      <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="trend"/>
-                    </div>
-                    <div className="flex flex-col h-full justify-center align-items-center">
-                      <span>Visible</span>
-                      <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="available"/>
-                    </div>      
-                  </div>
-                  <div></div>
-                  {/* Image */}
-                  <div className="flex flex-col h-20">
-                    <span>Image</span>
-                    <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); props.setFieldValue('infoFile', e.currentTarget.files[0])}}/>
-                  </div>
-                  {/* Button Modifier */}
-                  <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Modifier</button>
-              </Form>
-            }     
-          </Formik>
+          <FormUpdate produit={res} categories={respArr[0]} promotions={respArr[1]}/>
         ])
       })
       
       // Formulaire CREATE
-      const stock = {
-        xs: 0,
-        s: 0,
-        m: 0,
-        l: 0,
-        xl: 0,
-      }
       setFormCreate(
-        <Formik
-          initialValues={{
-          name: '',
-          price: '',
-          description: '',
-          stock,
-          categorie: '',
-          promotion: '',
-          trend: false,
-          available: false
-          }}
-          onSubmit={(values) => console.log(values)}
-        >
-          {props =>
-            <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
-                {/* Nom */}
-                <div className="flex flex-col h-20">
-                  <span>Nom</span>
-                  <Field className='h-full' type="text" name="name"/>
-                </div>
-                {/* Description */}
-                <div className="flex flex-col col-span-2 row-span-2">
-                  <span>Description</span>
-                  <Field className='h-full' as="textarea" type="text" name="description" required/>
-                </div>
-                {/* Preview de l'image */}
-                <div className="preview row-span-4 h-96 shadow-lg">
-                  <img className='hidden object-contain h-full w-full' id="img-preview" alt='Prévisualisation'/>
-                </div>
-                {/* Prix */}
-                <div className="flex flex-col h-20">
-                  <span>Prix (en euros)</span>
-                  <Field className='h-full' type="number" name="price"/>
-                </div>
-                {/* Stock */}
-                <div className="flex flex-row h-20">
-                  {
-                   Object.entries(stock).map(([key, value]) => 
-                    <div className="flex flex-col w-1/5 h-full" key={key}>
-                      <span>{key.toUpperCase()}</span>
-                      <Field className='h-full' type="number" name={'stock.' + key.toLowerCase()} required/>
-                    </div>
-                  )}
-                </div>
-                {/* Catégorie */}
-                <div className="flex flex-col h-20">
-                  <span>Catégorie</span>
-                  <Field className='h-full' name="categorie" as="select">
-                    <option value='-'>-</option>
-                    {respArr[0].data.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
-                  </Field>
-                </div>
-                {/* Promotion */}
-                <div className="flex flex-col h-20">
-                  <span>Promotion</span>
-                  <Field className='h-full' name="promotion" as="select">
-                    <option value='-'>-</option>
-                    {respArr[1].data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} %</option>)}
-                  </Field>
-                </div>
-                {/* Tendance et Visible */}
-                <div className="flex flex-row h-20 justify-around">
-                  <div className="flex flex-col h-full justify-center align-items-center">
-                    <span>Tendance</span>
-                    <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="trend"/>
-                  </div>
-                  <div className="flex flex-col h-full justify-center align-items-center">
-                    <span>Visible</span>
-                    <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="available"/>
-                  </div>      
-                </div>
-                <div></div>
-                {/* Image */}
-                <div className="flex flex-col h-20">
-                  <span>Image</span>
-                  <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); props.setFieldValue('infoFile', e.currentTarget.files[0])}}/>
-                </div>
-                {/* Button Modifier */}
-                <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Ajouter</button>
-            </Form>
-          }
-        </Formik>
+        <FormCreate categories={respArr[0]} promotions={respArr[1]}/>
       )
 
       // Fin du chargement
@@ -243,14 +73,25 @@ const AdminProductsView = () => {
     })
   },[])
 
-  // UPDATE élément dans la BDD
-  const updateRow = (id, values) => {
-    console.log(values);
-  }
+  
   
   // DELETE élément dans la BDD
   const deleteRow = id => {
-    console.log(id)
+    if (window.confirm(`Êtes-vous sûr de vouloir supprimer le produit ${id} ?`)) {
+      apiBackEnd.delete(URL_BACK_DELETE_PRODUCT + id).then(res => {
+        if (res.status === 200) {
+          // Supprimer l'elément supprimer de la table
+          setRows(rows.filter(res => res[0] !== id))
+          // Notification produit supprimé
+          toast.success(`Produit ${id} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+        }
+      }).catch(error => {
+        if(error.response.data.errorCode === '006') {
+          // Notification produit en cours de commande
+          toast.warn(error.response.data.errorMessage, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+        }
+      })
+    }
   }
 
   // Open modal CREATE
@@ -263,18 +104,10 @@ const AdminProductsView = () => {
     setIsOpen(false);
   }
 
-  // Preview de l'image dans input type file
-  const showPreview = e => {
-    if(e.target.files.length > 0){
-      var src = URL.createObjectURL(e.target.files[0]);
-      var preview = document.getElementById("img-preview");
-      preview.src = src;
-      preview.style.display = "block";
-    }
-  }
-
   return (
     <div className='w-full ml-12 sm:ml-64'>
+      {/* Notifications */}
+      <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
       <div className='flex flex-row shadow fixed top-0 right-0 mt-20 bish-bg-white w-full z-10'>
         <div className='w-12 sm:w-72'></div>
