@@ -45,8 +45,7 @@ const AdminProductsView = () => {
         res.name,
         res.price.toFixed(2) + ' €',
         res.description,
-        // TODO: note average
-        '4.3/5',
+        res.noteAverage ? res.noteAverage.toFixed(1) + '/5' : '-',
         res.stockBySize.reduce((accumulator, currentValue) => accumulator + currentValue.stock, 0),
         res.name_categorie, 
         res.promotion.remise > 0 ? res.promotion.remise + ' %' : '-',
@@ -73,14 +72,12 @@ const AdminProductsView = () => {
     })
   },[])
 
-  
-  
   // DELETE élément dans la BDD
   const deleteRow = id => {
     if (window.confirm(`Êtes-vous sûr de vouloir supprimer le produit ${id} ?`)) {
       apiBackEnd.delete(URL_BACK_DELETE_PRODUCT + id).then(res => {
         if (res.status === 200) {
-          // Supprimer l'elément supprimer de la table
+          // Supprimer l'elément delete de la table
           setRows(rows.filter(res => res[0] !== id))
           // Notification produit supprimé
           toast.success(`Produit ${id} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
