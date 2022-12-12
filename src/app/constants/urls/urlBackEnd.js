@@ -34,4 +34,5 @@ export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 export const URL_BACK_PROMOS = "/promotion/";
 
 // Routes ADMIN PRODUITS
+export const URL_BACK_CREATE_PRODUCT = '/produit/add/'
 export const URL_BACK_DELETE_PRODUCT = '/produit/remove/'
