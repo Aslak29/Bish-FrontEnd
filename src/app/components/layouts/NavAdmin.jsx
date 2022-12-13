@@ -40,7 +40,7 @@ const NavAdmin = () => {
     }
 
     return (
-        <div className={`${menuWidth} sm:w-1/5 md:w-1/6 shadow-xl flex items-center`}>
+        <div className={`${menuWidth} sm:w-64 shadow-xl flex items-center z-20 bish-bg-white h-screen fixed bottom-0 left-0`}>
             <button className={`${positionArrow} absolute sm:hidden`} onClick={() => toggleMenu()}>
                 <img className={`${rotateArrow} h-8`} src={arrow} alt="Afficher la navigation administration"/>
             </button>

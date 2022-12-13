@@ -6,6 +6,6 @@ import axios from "axios";
  * @author Peter Mollet
  */
 const apiBackEnd = axios.create({
-  baseURL: "https://127.0.0.1:80/api",
+  baseURL: import.meta.env.VITE_REQUEST_API,
 });
 export default apiBackEnd;
