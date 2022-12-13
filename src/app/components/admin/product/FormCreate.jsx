@@ -21,6 +21,8 @@ const FormCreate = props => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
           apiBackEnd.post(`${URL_BACK_CREATE_PRODUCT}${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
             if (res.status === 200) {
+              props.reload()
+              props.close()
               // Notification succès d'un ajout de produit
               toast.success(`Le produit ${res.data.id} - ${res.data.name} a été ajouté!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
             }
@@ -61,15 +63,12 @@ const FormCreate = props => {
             }
             onSubmit={(values) => createRow(values)}
         >
-            {({setFieldValue, errors, touched}) =>
+            {formikProps =>
                 <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
                     {/* Nom */}
                     <div className="flex flex-col h-20">
                       <span>Nom</span>
                       <Field className='h-full' type="text" name="name" required/>
-                      {errors.firstName && touched.firstName ? (
-             <div>{errors.firstName}</div>
-           ) : null}
                     </div>
                     {/* Description */}
                     <div className="flex flex-col col-span-2 row-span-2">
@@ -125,7 +124,7 @@ const FormCreate = props => {
                     {/* Image */}
                     <div className="flex flex-col h-20">
                       <span>Image</span>
-                      <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); setFieldValue('infoFile', e.currentTarget.files[0])}} required/>
+                      <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}} required/>
                     </div>
                     {/* Button Modifier */}
                     <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Ajouter</button>
