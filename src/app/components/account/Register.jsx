@@ -6,6 +6,7 @@ import loginSVG from "../../assets/images/register-view-login.svg";
 import {URL_HOME, URL_LOGIN} from "../../constants/urls/urlFrontEnd";
 import {URL_BACK_REGISTER} from "../../constants/urls/urlBackEnd";
 import apiBackEnd from "../../api/backend/api.Backend";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,6 +16,12 @@ const Register = () => {
   const [surname, hasSurname] = useState(false);
   const [confirmation, hasConfirmation] = useState(false);
   const [email, hasEmail] = useState(false);
+  const [env]= useState(import.meta.env.VITE_NODE_ENV);
+  const recaptchaRef = React.createRef()
+
+  function onChangeCaptcha(value) {
+    console.log("new value captcha : ")
+  }
 
   return (
     <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
@@ -42,13 +49,15 @@ const Register = () => {
             }}
            // Messages d'erreur si champs non valide
             onSubmit={(values,{ resetForm, setErrors, setSubmitting, handleRegister } ) => {
+              const recaptchaValue = recaptchaRef.current.getValue();
               let errors = {};
               if (email) errors.email = "Votre email n'est pas valide"
               if (name) errors.name = "Pas de chiffre dans votre prénom";
               if (surname) errors.surname = "Pas de chiffre dans votre nom";
               if (confirmation) errors.confirmation = "Les mots de passes ne sont pas identiques";
               if (password) errors.password = "Le mot de passe doit contenir 1 Majuscule , 1 Minuscule, 1 chiffre et  8 caractères"
-            
+              if (recaptchaValue === "") errors.captcha = "Compléter le captcha"
+
               if (
                 Object.entries(errors).length === 0 &&
                 errors.constructor === Object
@@ -134,6 +143,35 @@ const Register = () => {
                         {errors.confirmation}
                       </p>
                     )}
+                    {
+                      env === "development" ?
+                          <div>
+                            <ReCAPTCHA
+                                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                                onChange={onChangeCaptcha}
+                                ref={recaptchaRef}
+                            />
+                            {errors.captcha && (
+                                <p className="text-red-500 text-xs italic">
+                                  {errors.captcha}
+                                </p>
+                            )}
+                          </div> :
+                          <div>
+                            <ReCAPTCHA
+                                ref={recaptchaRef}
+                                sitekey={import.meta.env.VITE_SITE_KEY_RECAPTCHA}
+                                onChange={onChangeCaptcha}
+                            />
+                            {errors.captcha && (
+                                <p className="text-red-500 text-xs italic">
+                                  {errors.captcha}
+                                </p>
+                            )}
+                          </div>
+                    }
+
+
                     {/* Buton s'inscrire */}
                     <button
                       type="submit"
