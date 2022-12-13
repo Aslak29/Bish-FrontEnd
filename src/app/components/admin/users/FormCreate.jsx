@@ -1,22 +1,34 @@
 import React from 'react'
 import { Field, Form, Formik } from "formik"
-// import apiBackEnd from '../../../api/backend/api.Backend'
-// import { URL_BACK_CREATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
+import apiBackEnd from '../../../api/backend/api.Backend'
+import { URL_BACK_CREATE_USER } from '../../../constants/urls/urlBackEnd'
 
 function FormCreate() {
+
+      // CREATE élément dans la BDD
+      const createRow = (values) => {
+        if (window.confirm("Êtes-vous sûr de vouloir ajouter un utilisateur ?")) {
+        apiBackEnd.post(`${URL_BACK_CREATE_USER}${values.name}/${values.surname}/${values.email}/${values.password}/${values.passwordConfirm}/${values.roles}/${values.phone}`).then(res => {
+            console.log(res)
+        })
+        }
+    }
+
   return (
+    
     <Formik
     initialValues={{
     name: '',
     surname: '',
     email: '',
     password:'',
-    confirmpassword:'',
+    passwordConfirm:'',
     roles: '',
-    telephone: '',
-    created_at: '',
+    phone: '',
     
     }}
+
+    
     onSubmit={(values) => createRow(values)}
 >
     {formikProps =>
@@ -27,34 +39,33 @@ function FormCreate() {
               <Field className='h-full' type="text" name="name" required/>
             </div>
             {/* Description */}
-            <div className="flex flex-col col-span-2 row-span-2">
+            <div className="flex flex-col ">
               <span>Nom</span>
-              <Field className='h-full' as="textarea" type="text" name="surname" required/>
+              <Field className='h-full' type="text" name="surname" required/>
             </div>
             {/* Preview de l'image */}
             <div className="preview row-span-4 h-96 shadow-lg">
                 <span>Email</span>
-            <Field className='h-full' as="textarea" type="text" name="email" required/>
+            <Field className='h-full'  type="text" name="email" required/>
             </div>
             {/* Prix */}
             <div className="flex flex-col h-20">
               <span>Password</span>
-              <Field className='h-full' type="number" name="password" required/>
+              <Field className='h-full' type="text" name="password" required/>
+            </div>
+            <div className="flex flex-col h-20">
+              <span>Confirm Password</span>
+              <Field className='h-full' type="text" name="passwordConfirm" required/>
             </div>
             {/* Stock */}
             <div className="flex flex-row h-20">
                   <span>Roles</span>
-                  <Field className='h-full' type="number" name="roles" required/>
+                  <Field className='h-full' type="text" name="roles" required/>
             </div>
             {/* Catégorie */}
             <div className="flex flex-row h-20">
                   <span>Telephone</span>
-                  <Field className='h-full' type="number" name="telephone" required/>
-            </div>
-            {/* Promotion */}
-            <div className="flex flex-row h-20">
-                  <span>Crée le</span>
-                  <Field className='h-full' type="number" name="created_at" required/>
+                  <Field className='h-full' type="text" name="phone" required/>
             </div>
             {/* Button Modifier */}
             <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Ajouter</button>

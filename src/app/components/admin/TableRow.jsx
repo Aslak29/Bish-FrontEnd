@@ -17,7 +17,6 @@ const TableRow = props => {
   function closeModal() {
     setIsOpen(false);
   }
-console.log(props.element)
   return (
     <tr className='border-b bish-border-gray'>
       {props.element && props.element.map((res, index) => <td key={index} className='truncate hover:text-clip	text-center py-5' title={res}>{res}</td>)}

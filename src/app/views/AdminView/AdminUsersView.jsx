@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import apiBackEnd from '../../api/backend/api.Backend';
+import apiBackEnd from '../../api/backend/api.Backend';
 import loadingSVG from '../../assets/images/loading-spin.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
@@ -7,7 +7,7 @@ import ModalCrud from '../../components/admin/ModalCrud';
 import { search, sort } from '../../services/adminServices';
 import sortIMG from '../../assets/images/trier.png'
 import addIMG from '../../assets/images/add.png'
-// import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT } from '../../constants/urls/urlBackEnd';
+import { URL_BACK_USERS, URL_BACK_DELETE_USER } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/users/FormUpdate';
 import FormCreate from '../../components/admin/users/FormCreate';
 
@@ -27,60 +27,60 @@ const AdminUsersView = () => {
     // State modal CREATE
     const [modalIsOpen, setIsOpen] = useState(false);
 
-    // useEffect(() => {
-    //   // Permet d'afficher le SVG de chargement
-    //   setIsLoading(true)
-    //   // Récupération des données
-     
-    //   .then(respArr => {
-    //     // Set le contenu d'une row (à mettre dans l'ordre voulu)
-    //     respArr[2].data.map((res) => setRows(current => [...current, [
-    //       res.id,
-    //       res.name,
-    //       res.surname,
-    //       res.email,
-    //       res.roles,
-    //       res.telephone, 
-    //       res.created_at.date,
-    //     ]]))
+     useEffect(() => {
+       // Permet d'afficher le SVG de chargement
+      setIsLoading(true)
+      // Récupération des données
+      apiBackEnd.get(URL_BACK_USERS)
+
+       .then(res => {
+         // Set le contenu d'une row (à mettre dans l'ordre voulu)
+         res.data.map((res) => setRows(current => [...current, [
+          res.id,
+          res.name,
+          res.surname,
+          res.email,
+          res.roles,
+          res.phone, 
+          res.created_at,
+         ]]))
   
-    //     respArr[2].data.map((res) => {
-    //       // Formulaire UPDATE
-    //       setFormUpdate(current => [...current,
-    //         // <FormUpdate produit={res} categories={respArr[0]} promotions={respArr[1]}/>
-    //       ])
-    //     })
+        res.data.map((res) => {
+           // Formulaire UPDATE
+           setFormUpdate(current => [...current,
+             <FormUpdate user={res} />
+           ])
+         })
         
-    //     // Formulaire CREATE
-    //     setFormCreate(
-    //       // <FormCreate categories={respArr[0]} promotions={respArr[1]}/>
-    //     )
+        // Formulaire CREATE
+         setFormCreate(
+            <FormCreate />
+         )
   
-    //     // Fin du chargement
-    //     setIsLoading(false)
-    //   })
-    // },[])
-    useState(()=>{ 
-      setRows([[
-        "id",
-        "name",
-        "surname",
-        "email",
-        "roles",
-        "0000000",
-        "12-12-2022",
-       ],[
-        "id",
-        "name",
-        "surname",
-        "email",
-        "roles",
-        "0000000",
-        "12-12-2022",
-       ]]);
-  },[])
- 
-  
+         // Fin du chargement
+         setIsLoading(false)
+       })
+     },[])  
+
+       
+  // DELETE élément dans la BDD
+  const deleteRow = id => {
+    if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur ${id} ?`)) {
+      apiBackEnd.delete(URL_BACK_DELETE_USER + id).then(res => {
+        if (res.status === 200) {
+          // Supprimer l'elément supprimer de la table
+          setRows(rows.filter(res => res[0] !== id))
+          // Notification produit supprimé
+          toast.success(`Utilisateur ${id} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+        }
+      }).catch(error => {
+        if(error.response.data.errorCode === '006') {
+          // Notification produit en cours de commande
+          toast.warn(error.response.data.errorMessage, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+        }
+      })
+    }
+  }
 
     // Open modal CREATE
     function openModal() {
@@ -167,7 +167,7 @@ const AdminUsersView = () => {
           {/* Contenu de la table */}
           <tbody>
             {/* Retourne une ligne pour chaque élément */}
-            {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]}/>)} 
+            {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow}/>)} 
           </tbody>
         </table>
       )
