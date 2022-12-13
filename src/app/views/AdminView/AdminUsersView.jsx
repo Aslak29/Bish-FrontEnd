@@ -26,6 +26,8 @@ const AdminUsersView = () => {
     const [isLoading, setIsLoading] = useState(false);
     // State modal CREATE
     const [modalIsOpen, setIsOpen] = useState(false);
+      // Reload table
+    const [reload, setReload] = useState(false);
 
      useEffect(() => {
        // Permet d'afficher le SVG de chargement
@@ -48,19 +50,19 @@ const AdminUsersView = () => {
         res.data.map((res) => {
            // Formulaire UPDATE
            setFormUpdate(current => [...current,
-             <FormUpdate user={res} />
+             <FormUpdate user={res} setReload={setReload} reload={reload}/>
            ])
          })
         
         // Formulaire CREATE
          setFormCreate(
-            <FormCreate />
+            <FormCreate setReload={setReload} close={closeModal} reload={reload}/>
          )
   
          // Fin du chargement
          setIsLoading(false)
        })
-     },[])  
+     },[reload])  
 
        
   // DELETE élément dans la BDD

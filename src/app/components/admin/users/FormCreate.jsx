@@ -3,13 +3,14 @@ import { Field, Form, Formik } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_CREATE_USER } from '../../../constants/urls/urlBackEnd'
 
-function FormCreate() {
+const FormCreate = props => {
 
       // CREATE élément dans la BDD
       const createRow = (values) => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter un utilisateur ?")) {
         apiBackEnd.post(`${URL_BACK_CREATE_USER}${values.name}/${values.surname}/${values.email}/${values.password}/${values.passwordConfirm}/${values.roles}/${values.phone}`).then(res => {
-            console.log(res)
+            props.setReload(!props.reload);
+            props.close();
         })
         }
     }

@@ -37,11 +37,13 @@ export const URL_BACK_PROMOS = "/promotion/";
 // Routes ADMIN PRODUITS
 export const URL_BACK_CREATE_PRODUCT = '/produit/add/'
 export const URL_BACK_DELETE_PRODUCT = '/produit/remove/'
+export const URL_BACK_UPDATE_PRODUCT = '/produit/update/'
+export const URL_BACK_UPDATE_TREND_PRODUCT = '/produit/update/trend/'
+export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
 
 // Routes ADMIN USER
 export const URL_BACK_CREATE_USER = '/user/create/'
 export const URL_BACK_DELETE_USER = '/user/delete/'
+export const URL_BACK_UPDATE_USER = '/user/update/'
 
-export const URL_BACK_UPDATE_PRODUCT = '/produit/update/'
-export const URL_BACK_UPDATE_TREND_PRODUCT = '/produit/update/trend/'
-export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
+
