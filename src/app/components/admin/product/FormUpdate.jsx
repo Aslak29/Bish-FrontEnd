@@ -1,15 +1,32 @@
 import React from 'react'
 import { Field, Form, Formik } from "formik";
+import apiBackEnd from '../../../api/backend/api.Backend'
+import { URL_BACK_UPDATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
+import { toast } from 'react-toastify';
+import * as Yup from 'yup'
 
 const FormUpdate = props => {
 
     // Objet STOCK qui se créer dynamiquement pour utiliser dans les initialValues Formik UPDATE
-    const stockWithSize = {}
-    props.produit.stockBySize.map(resStock => stockWithSize[resStock.taille.toLowerCase()] = resStock.stock)
+    const stock = {}
+    props.produit.stockBySize.map(resStock => stock[resStock.taille.toLowerCase()] = resStock.stock)
 
     // UPDATE élément dans la BDD
     const updateRow = (id, values) => {
-        console.log(values);
+        if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
+            apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
+              if (res.status === 200) {
+                props.updateTable(props.produit, values, props.categories, props.promotions, props.index)
+                // Notification succès d'une modification de produit
+                toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+              }
+            }).catch(error => {
+                console.log(error);
+                // Notification erreur
+                toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+              }
+            )
+        }
     }
 
     // Preview de l'image dans input type file
@@ -28,11 +45,14 @@ const FormUpdate = props => {
                 name: props.produit.name,
                 price: props.produit.price,
                 description: props.produit.description,
-                stockWithSize,
+                stock,
                 categorie: props.produit.id_categorie,
-                promotion: props.produit.promotion.id,
+                promotion: props.produit.promotion.id ? props.produit.promotion.id : '-',
                 trend: props.produit.is_trend,
-                available: props.produit.is_available
+                available: props.produit.is_available,
+                infoFile: {
+                    name: props.produit.pathImage
+                }
             }}
             onSubmit={(values) => updateRow(props.produit.id, values)}
             >
@@ -63,7 +83,7 @@ const FormUpdate = props => {
                         props.produit.stockBySize.map(resStock => 
                         <div className="flex flex-col w-1/5 h-full" key={resStock.taille}>
                             <span>{resStock.taille.toUpperCase()}</span>
-                            <Field className='h-full' type="number" name={'stockWithSize.' + resStock.taille.toLowerCase()} required/>
+                            <Field className='h-full' type="number" name={'stock.' + resStock.taille.toLowerCase()} required/>
                         </div>
                     )}
                     </div>

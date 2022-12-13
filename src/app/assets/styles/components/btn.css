@@ -66,6 +66,12 @@ import color.css .btn {
   border-radius: 5px;
   text-transform: uppercase;
 }
+.btn-black-bish{
+  color: #000000;
+  text-align: center;
+  padding:10px;
+  border: 1px solid black;
+}
 .btn-slide-bish{
   border: solid 2px #f5f5f5;
   border-radius: 5px;
