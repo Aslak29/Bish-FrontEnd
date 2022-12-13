@@ -28,6 +28,8 @@ const AdminProductsView = () => {
   const [isLoading, setIsLoading] = useState(false);
   // State modal CREATE
   const [modalIsOpen, setIsOpen] = useState(false);
+  // Reload table
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     // Permet d'afficher le SVG de chargement
@@ -64,13 +66,13 @@ const AdminProductsView = () => {
       
       // Formulaire CREATE
       setFormCreate(
-        <FormCreate categories={respArr[0]} promotions={respArr[1]}/>
+        <FormCreate categories={respArr[0]} promotions={respArr[1]} reload={setReload} close={closeModal}/>
       )
 
       // Fin du chargement
       setIsLoading(false)
     })
-  },[])
+  },[reload])
 
   // Update le formulaire et la row update
   const updateTable = (produit, produitAfter, categs, promos, index) => {
