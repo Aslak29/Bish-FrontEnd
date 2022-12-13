@@ -13,8 +13,6 @@ const ModalCrud = props => {
           transform: 'translate(-50%, -50%)',
         },
     };
-
-    const inputStyle = ''
     
     Modal.defaultStyles.overlay.zIndex = '40'
     Modal.defaultStyles.overlay.backgroundColor = 'rgba(88, 80, 80, 0.5)'

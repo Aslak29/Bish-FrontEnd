@@ -3,10 +3,11 @@ import { Field, Form, Formik } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_CREATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
+import * as Yup from 'yup'
 
 const FormCreate = props => {
 
-    // VValeur par défaut du stock
+    // Valeur par défaut du stock
     const stock = {
         xs: 0,
         s: 0,
@@ -53,14 +54,22 @@ const FormCreate = props => {
             trend: false,
             available: false
             }}
+            validationSchema={
+              Yup.object().shape({
+                name: Yup.string().required('Required')
+              })
+            }
             onSubmit={(values) => createRow(values)}
         >
-            {formikProps =>
+            {({setFieldValue, errors, touched}) =>
                 <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
                     {/* Nom */}
                     <div className="flex flex-col h-20">
                       <span>Nom</span>
                       <Field className='h-full' type="text" name="name" required/>
+                      {errors.firstName && touched.firstName ? (
+             <div>{errors.firstName}</div>
+           ) : null}
                     </div>
                     {/* Description */}
                     <div className="flex flex-col col-span-2 row-span-2">
@@ -116,7 +125,7 @@ const FormCreate = props => {
                     {/* Image */}
                     <div className="flex flex-col h-20">
                       <span>Image</span>
-                      <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}} required/>
+                      <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); setFieldValue('infoFile', e.currentTarget.files[0])}} required/>
                     </div>
                     {/* Button Modifier */}
                     <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Ajouter</button>
