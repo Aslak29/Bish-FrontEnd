@@ -60,5 +60,3 @@ const OrderView = () => {
     </div>
   )};
   
-
-export default OrderView
