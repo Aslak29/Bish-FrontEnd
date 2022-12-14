@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Helmet} from "react-helmet-async";
 import { useParams } from 'react-router-dom';
 import apiBackend from "../../api/backend/api.Backend";
-import {URL_BACK_BLOG} from "../../constants/urls/urlBackEnd";
+import {URL_BACK_CATEGORIES} from "../../constants/urls/urlBackEnd";
 import { Link } from 'react-router-dom';
 
 const BlogArticleView = props => {
@@ -12,7 +12,7 @@ const BlogArticleView = props => {
   let id=parseInt(articleID.articleID)-1;
   
   useEffect(() => {
-    apiBackend.get(URL_BACK_BLOG).then((response => {
+    apiBackend.get(URL_BACK_CATEGORIES).then((response => {
       setArticlesBlog(response.data[id]);
     }))
   },[])
