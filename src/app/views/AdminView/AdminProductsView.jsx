@@ -66,7 +66,7 @@ const AdminProductsView = () => {
       
       // Formulaire CREATE
       setFormCreate(
-        <FormCreate categories={respArr[0]} promotions={respArr[1]} reload={setReload} close={closeModal}/>
+        <FormCreate categories={respArr[0]} promotions={respArr[1]} reload={reload} setReload={setReload} close={closeModal}/>
       )
 
       // Fin du chargement
