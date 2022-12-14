@@ -3,7 +3,7 @@ import { Field, Form, Formik, ErrorMessage } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_UPDATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
-import { productUpdateSchema } from '../../../../../utils/AdminValidationSchema'
+import { productUpdateSchema } from '../../../utils/AdminValidationSchema'
 
 const FormUpdate = props => {
 
