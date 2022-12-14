@@ -22,6 +22,8 @@ export const URL_RESET_PASSWORD = "/reset-password/reset/";
 
 // Routes CONTACT
 export const URL_BACK_ADD_CONTACT = "/contact/add";
+export const URL_BACK_CONTACT = "/contact/";
+export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";
 
 // Routes CATEGORIE
 export const URL_BACK_CATEGORIES = "/categorie/"
