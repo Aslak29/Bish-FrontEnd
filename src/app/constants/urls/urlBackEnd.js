@@ -32,11 +32,6 @@ export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
 
-// Routes productController
-export const URL_BACK_PRODUCT = "/produit/"
-export const URL_BACK_PRODUCT_BY_ID = "/produit/find/"
-export const URL_BACK_PRODUCT_FILTER ="/produit/filter/"
-export const URL_BACK_SUGGESTIONS = "/produit/suggestions/"
-export const URL_BACK_PRODUCT_TREND = "/produit/isTrend"
-export const URL_BACK_PRODUCT_BEST_PROMO = "/produit/bestPromo"
-export const URL_BACK_PROMOTIONS = "/produit/promotions"
+// Routes COMMANDES CLIENT 
+
+export const URL_BACK_SINGLE_ORDER = "/produitInCommande/";
