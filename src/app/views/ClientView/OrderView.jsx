@@ -1,7 +1,34 @@
 import React, { useState, useEffect } from "react";
 import {Helmet} from "react-helmet-async";
+import { useParams } from "react-router-dom";
+import apiBackend from "../../api/backend/api.Backend";
+import {URL_BACK_SINGLE_ORDER} from "../../constants/urls/urlBackEnd.js";
+
+
 
 const OrderView = () => {
+    const [singleOrder, setSingleOrder] = useState([]);
+    const singleOrderID = useParams();
+    
+    useEffect(
+      () => {
+        apiBackend
+          .post(URL_BACK_SINGLE_ORDER + `${singleOrderID.orderID}`)
+          .then((response) => {
+            if (response.status === 200) {
+              setSingleOrder(response.data);
+              console.log(response.data);
+            }
+          })
+          .catch((error) => {
+            if (error.response.data["errorCode"] === "002") {
+            }
+          });
+    },[]);
+        
+
+
+
   return (
     <div>
       <h1 className="m-5 bish-text-blue text-center">Vos commandes en cours</h1>
@@ -31,9 +58,7 @@ const OrderView = () => {
       </div>
     </div>
     </div>
-
-
-  );
-  }
+  )};
+  
 
 export default OrderView
