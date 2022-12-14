@@ -55,8 +55,8 @@ const AdminProductsView = () => {
         res.promotion.remise > 0 ? res.promotion.remise + ' %' : '-',
         res.created_at.date,
         <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage} alt={res.name}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend} id={`checkTrend${res.id}`} onClick={() => changeIsTrend(res, respArr[0], respArr[1], index)}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_available} id={`checkAvailable${res.id}`} onClick={() => changeIsAvailable(res, respArr[0], respArr[1], index)}/>
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={res.is_trend} id={`checkTrend${res.id}`} onChange={() => changeIsTrend(res, respArr[0], respArr[1], index)}/>,
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={res.is_available} id={`checkAvailable${res.id}`} onChange={() => changeIsAvailable(res, respArr[0], respArr[1], index)}/>
       ]]))
 
       respArr[2].data.map((res, index) => {
@@ -114,8 +114,8 @@ const AdminProductsView = () => {
         produit.promotion.remise > 0 ? produit.promotion.remise + ' %' : '-',
         produit.created_at.date,
         <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + produit.pathImage} alt={produit.name}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={produit.is_trend} id={`checkTrend${produit.id}`} onClick={() => changeIsTrend(produit, categs, promos, index)}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={produit.is_available} id={`checkAvailable${produit.id}`} onClick={() => changeIsAvailable(produit, categs, promos, index)}/>
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={produit.is_trend} id={`checkTrend${produit.id}`} onChange={() => changeIsTrend(produit, categs, promos, index)}/>,
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={produit.is_available} id={`checkAvailable${produit.id}`} onChange={() => changeIsAvailable(produit, categs, promos, index)}/>
       ],
       ...current.slice(index+1)
     ])
@@ -125,6 +125,7 @@ const AdminProductsView = () => {
   const changeIsTrend = (produit, categs, promos, index) => {
     let isTrend = document.getElementById('checkTrend' + produit.id).checked
     apiBackEnd.post(`${URL_BACK_UPDATE_TREND_PRODUCT}${produit.id}/${isTrend}/`).then(res => {
+      document.getElementById('checkTrend' + produit.id).checked = isTrend
       produit.is_trend = !produit.is_trend
       // Modifier la checkbox "tendance" du FormUpdate
       setFormUpdate(current => [
@@ -144,6 +145,7 @@ const AdminProductsView = () => {
   const changeIsAvailable = (produit, categs, promos, index) => {
     let isAvailable = document.getElementById('checkAvailable' + produit.id).checked
     apiBackEnd.post(`${URL_BACK_UPDATE_AVAILABLE_PRODUCT}${produit.id}/${isAvailable}/`).then(res => {
+      document.getElementById('checkAvailable' + produit.id).checked = isAvailable
       produit.is_available = !produit.is_available
       // Modifier la checkbox "visible" du FormUpdate
       setFormUpdate(current => [
