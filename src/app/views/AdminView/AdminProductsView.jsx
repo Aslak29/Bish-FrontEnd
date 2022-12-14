@@ -66,7 +66,7 @@ const AdminProductsView = () => {
       
       // Formulaire CREATE
       setFormCreate(
-        <FormCreate categories={respArr[0]} promotions={respArr[1]} reload={setReload} close={closeModal}/>
+        <FormCreate categories={respArr[0]} promotions={respArr[1]} reload={reload} setReload={setReload} close={closeModal}/>
       )
 
       // Fin du chargement
@@ -75,10 +75,10 @@ const AdminProductsView = () => {
   },[reload])
 
   // Update le formulaire et la row update
-  const updateTable = (produit, produitAfter, categs, promos, index) => {
+  const updateTable = (produit, produitAfter, categs, promos, index, pathImageDefault) => {
     produit.name = produitAfter.name
     produit.description = produitAfter.description
-    produit.pathImage = produitAfter.infoFile.name
+    produit.pathImage = produitAfter.infoFile !== undefined ? produitAfter.infoFile.name : pathImageDefault
     produit.id_categorie = produitAfter.categorie
     produit.name_categorie = categs.data.find(element => element.id == produitAfter.categorie).name
     produit.is_trend = produitAfter.trend
