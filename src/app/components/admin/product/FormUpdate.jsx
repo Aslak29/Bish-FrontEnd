@@ -3,7 +3,7 @@ import { Field, Form, Formik, ErrorMessage } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_UPDATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
-import * as Yup from 'yup'
+import { productUpdateSchema } from '../../../../../utils/AdminValidationSchema'
 
 const FormUpdate = props => {
 
@@ -11,12 +11,14 @@ const FormUpdate = props => {
     const stock = {}
     props.produit.stockBySize.map(resStock => stock[resStock.taille.toLowerCase()] = resStock.stock)
 
+    const pathImageDefault = props.produit.pathImage
+
     // UPDATE élément dans la BDD
-    const updateRow = (id, values) => {
+    const updateRow = (id, pathImageDefault, values) => {
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
-            apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
+            apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
               if (res.status === 200) {
-                props.updateTable(props.produit, values, props.categories, props.promotions, props.index)
+                props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
                 // Notification succès d'une modification de produit
                 toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
@@ -51,20 +53,11 @@ const FormUpdate = props => {
                 trend: props.produit.is_trend,
                 available: props.produit.is_available,
                 infoFile: {
-                    name: props.produit.pathImage,
+                    name: props.produit.pathImage
                 }
             }}
-            validationSchema={
-                Yup.object().shape({
-                    name: Yup.string().min(2, 'Minimum 2 caractères').required('Requis'),
-                    price: Yup.number('Le prix doit comporter que des chiffres').required('Requis').positive('Le prix doit être supérieur à 0'),
-                    description: Yup.string().min(15, 'Minimum 15 caractères').required('Requis'),
-                    trend: Yup.boolean().required(),
-                    available: Yup.boolean().required(),
-                    infoFile: Yup.mixed().test('fileFormat', "Unsupported Format", value => value && value.type == "image/jpeg")
-                })
-            }
-            onSubmit={(values) => updateRow(props.produit.id, values)}
+            validationSchema={productUpdateSchema}
+            onSubmit={(values) => updateRow(props.produit.id, pathImageDefault, values)}
             >
             {formikProps =>
                 <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
