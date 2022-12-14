@@ -25,6 +25,9 @@ export const URL_BACK_ADD_CONTACT = "/contact/add";
 
 // Routes CATEGORIE
 export const URL_BACK_CATEGORIES = "/categorie/"
+export const URL_BACK_CATEGORIES_CREATE = "/categorie/create"
+export const URL_BACK_CATEGORIES_UPDATE = "/categorie/update"
+export const URL_BACK_CATEGORIES_DELETE = "/categorie/delete/"
 export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 
 // Route TAILLE
