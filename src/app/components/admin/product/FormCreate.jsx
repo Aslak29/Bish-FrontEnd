@@ -2,8 +2,8 @@ import React from 'react'
 import { Field, Form, Formik, ErrorMessage } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_CREATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
-import { toast } from 'react-toastify';
-import * as Yup from 'yup'
+import { toast } from 'react-toastify'
+import { productCreateSchema } from '../../../utils/AdminValidationSchema';
 
 const FormCreate = props => {
 
@@ -56,16 +56,7 @@ const FormCreate = props => {
             trend: false,
             available: false,
             }}
-            validationSchema={
-              Yup.object().shape({
-                name: Yup.string().min(2, 'Minimum 2 caractères').required('Requis'),
-                price: Yup.number('Le prix doit comporter que des chiffres').required('Requis').positive('Le prix doit être supérieur à 0'),
-                description: Yup.string().min(15, 'Minimum 15 caractères').required('Requis'),
-                trend: Yup.boolean().required(),
-                available: Yup.boolean().required(),
-                infoFile: Yup.mixed().required("Requis").test('fileFormat', "Unsupported Format", value => value && value.type == "image/jpeg")
-              })
-            }
+            validationSchema={productCreateSchema}
             onSubmit={(values) => createRow(values)}
         >
             {formikProps =>

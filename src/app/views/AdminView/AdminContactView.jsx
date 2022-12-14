@@ -6,7 +6,7 @@ import {toast, ToastContainer} from "react-toastify";
 import {search, sort} from "../../services/adminServices";
 import loadingSVG from "../../assets/images/loading-spin.svg";
 import sortIMG from "../../assets/images/trier.png";
-
+import {Helmet} from "react-helmet-async";
 
 const AdminContactView = () => {
 
@@ -83,6 +83,9 @@ const AdminContactView = () => {
 
     return (
         <div className='w-full ml-12 sm:ml-64'>
+            <Helmet>
+              <title>Bish - Admin Contact</title>
+            </Helmet>
             {/* Notifications */}
             <ToastContainer/>
             {/* TITRE + BUTTON AJOUTER */}

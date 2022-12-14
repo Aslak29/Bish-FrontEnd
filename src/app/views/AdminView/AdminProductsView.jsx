@@ -11,6 +11,7 @@ import { search, sort } from '../../services/adminServices';
 import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT, URL_BACK_UPDATE_TREND_PRODUCT, URL_BACK_UPDATE_AVAILABLE_PRODUCT } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/product/FormUpdate';
 import FormCreate from '../../components/admin/product/FormCreate';
+import {Helmet} from 'react-helmet-async'
 
 const AdminProductsView = () => {
 
@@ -41,6 +42,7 @@ const AdminProductsView = () => {
       apiBackEnd.get(URL_BACK_PRODUCTS)
     ])
     .then(respArr => {
+      setRows([])
       // Set le contenu d'une row (à mettre dans l'ordre voulu)
       respArr[2].data.map((res, index) => setRows(current => [...current, [
         res.id,
@@ -188,6 +190,9 @@ const AdminProductsView = () => {
 
   return (
     <div className='w-full ml-12 sm:ml-64'>
+      <Helmet>
+        <title>Bish - Admin Produits</title>
+      </Helmet>
       {/* Notifications */}
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
