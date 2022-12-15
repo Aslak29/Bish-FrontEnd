@@ -7,7 +7,6 @@ import { productCreateSchema } from '../../../utils/AdminValidationSchema';
 import { productCreateInitialValues } from '../../../utils/AdminInitialValues'
 
 const FormCreate = props => {
-
     // Valeur par défaut du stock
     const stock = {
         xs: 0,
@@ -19,6 +18,7 @@ const FormCreate = props => {
 
     // CREATE élément dans la BDD
     const createRow = (values) => {
+
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
           apiBackEnd.post(`${URL_BACK_CREATE_PRODUCT}${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
             if (res.status === 200) {

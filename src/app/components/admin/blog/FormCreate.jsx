@@ -1,24 +1,24 @@
 import React from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import apiBackEnd from '../../../api/backend/api.Backend';
-import {URL_BACK_CATEGORIES_CREATE} from '../../../constants/urls/urlBackEnd';
+import {URL_BACK_CREATE_BLOG} from '../../../constants/urls/urlBackEnd';
 import {toast} from "react-toastify";
-import {categoryCreateSchema} from "../../../utils/AdminValidationSchema";
-import {categoryCreateInitialValues} from "../../../utils/AdminInitialValues";
+import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
+import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
 
 const FormCreate = props => {
-
+console.log(props);
     // CREATE élément dans la BDD
     const createRow = (values) => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
-            apiBackEnd.post(`${URL_BACK_CATEGORIES_CREATE}/${values.name}/${values.trend}/${values.infoFile.name}`).then(res => {
+            apiBackEnd.post(`${URL_BACK_CREATE_BLOG}${values.title}/${values.description}/${values.infoFile.name}`).then(res => {
                 console.log(res)
                 if (res.status === 200) {
                     // Notification succès d'un ajout de produit
                     props.setReload(!props.reload)
                     props.close()
                     console.log(res.data)
-                    toast.success(`Le produit ${res.data.id} - ${res.data.name} a été ajouté!`, {
+                    toast.success(`L'article ${res.data.id} - ${res.data.title} a été ajouté!`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -59,60 +59,58 @@ const FormCreate = props => {
     }
     return (
         <Formik
-            initialValues={ categoryCreateInitialValues }
-            validationSchema={ categoryCreateSchema }
+            initialValues={ blogCreateInitialValues }
+            validationSchema={ blogCreateSchema }
             onSubmit={(values) => {
                 createRow(values)
             }}
         >
             {formikProps =>
                 <Form className="w-[40rem]">
-                    {/* Nom */}
+                    {/* TITRE */}
                     <div className="flex flex-row gap-4 mb-4">
                         <div className="flex flex-col justify-between items-start">
                             <div className="flex flex-col h-20 w-full">
-                                <span>Nom</span>
-                                <Field className='h-full w-full' type="text" name="name"/>
+                                <span>Titre</span>
+                                <Field className='h-full w-full' type="text" name="title"/>
                                 <ErrorMessage
-                                    name="name"
+                                    name="title"
                                     component="small"
                                     className="text-red-400"
                                 />
                             </div>
-
-                            <div className="flex flex-row h-20 justify-around">
-                                <div className="flex flex-col h-full justify-center align-items-center">
-                                    <span>Tendance</span>
-                                    <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto'
-                                           type="checkbox" name="trend"
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col h-20">
-                                <span>Image</span>
-                                <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
-                                    console.log(e.currentTarget.files[0].type)
-                                    showPreview(e);
-                                    formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
-                                }} required/>
-                                <ErrorMessage
-                                    name="infoFile"
-                                    component="small"
-                                    className="text-red-400"
-                                />
-                            </div>
+                        {/* Description */}
+                        <div className="flex flex-col col-span-2 row-span-2">
+                            <span>Description</span>
+                            <Field className='h-full' as="textarea" type="text" name="description" required/>
+                            <ErrorMessage name="description" component="small" className="text-red-400"/>
                         </div>
                         {/* Image */}
-                        {/* Preview de l'image */}
-                        <div className="flex flex-col w-full">
-                            <div className="preview row-span-4 h-96 w-full shadow-lg">
-                                <img className='hidden object-contain h-full w-full' id="img-preview"
-                                     alt='Prévisualisation'
-                                />
-                            </div>
+
+                        <div className="flex flex-col h-20">
+                            <span>Image</span>
+                            <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
+                                console.log(e.currentTarget.files[0].type)
+                                showPreview(e);
+                                formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
+                            }} required/>
+                            <ErrorMessage
+                                name="infoFile"
+                                component="small"
+                                className="text-red-400"
+                            />
                         </div>
                     </div>
+                    {/* Image */}
+                    {/* Preview de l'image */}
+                    <div className="flex flex-col w-full">
+                        <div className="preview row-span-4 h-96 w-full shadow-lg">
+                            <img className='hidden object-contain h-full w-full' id="img-preview"
+                                    alt='Prévisualisation'
+                            />
+                        </div>
+                    </div>
+                </div>
                     <div className="w-full">
                         <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">
                             Ajouter
