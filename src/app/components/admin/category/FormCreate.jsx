@@ -11,25 +11,24 @@ const FormCreate = props => {
     // CREATE élément dans la BDD
     const createRow = (values) => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
-            apiBackEnd.post(`${URL_BACK_CATEGORIES_CREATE}/${values.name}/${values.trend}/${values.infoFile.name}`).then(res => {
-                console.log(res)
-                if (res.status === 200) {
-                    // Notification succès d'un ajout de produit
-                    props.setReload(!props.reload)
-                    props.close()
-                    console.log(res.data)
-                    toast.success(`Le produit ${res.data.id} - ${res.data.name} a été ajouté!`, {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light"
-                    })
-                }
-            }).catch(error => {
+            apiBackEnd.post(`${URL_BACK_CATEGORIES_CREATE}/${values.name}/${values.trend}/${values.infoFile.name}`)
+                .then(res => {
+                    if (res.status === 200) {
+                        // Notification succès d'un ajout de produit
+                        props.setReload(!props.reload)
+                        props.close()
+                        toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été ajouté!`, {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        })
+                    }
+                }).catch(error => {
                     console.log(error)
                     // Notification erreur
                     toast.warn('Une erreur est survenue', {
@@ -51,7 +50,6 @@ const FormCreate = props => {
     const showPreview = e => {
         if (e.target.files.length > 0) {
             let src = URL.createObjectURL(e.target.files[0]);
-            console.log(e.target.files[0])
             let preview = document.getElementById("img-preview");
             preview.src = src;
             preview.style.display = "block";
@@ -59,8 +57,8 @@ const FormCreate = props => {
     }
     return (
         <Formik
-            initialValues={ categoryCreateInitialValues }
-            validationSchema={ categoryCreateSchema }
+            initialValues={categoryCreateInitialValues}
+            validationSchema={categoryCreateSchema}
             onSubmit={(values) => {
                 createRow(values)
             }}
@@ -92,7 +90,6 @@ const FormCreate = props => {
                             <div className="flex flex-col h-20">
                                 <span>Image</span>
                                 <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
-                                    console.log(e.currentTarget.files[0].type)
                                     showPreview(e);
                                     formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
                                 }} required/>
