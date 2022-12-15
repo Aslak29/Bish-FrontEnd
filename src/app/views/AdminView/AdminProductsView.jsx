@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import apiBackEnd from '../../api/backend/api.Backend';
-import sortIMG from '../../assets/images/trier.png'
-import addIMG from '../../assets/images/add.png'
 import loadingSVG from '../../assets/images/loading-spin.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
-import ModalCrud from '../../components/admin/ModalCrud';
-import { search, sort } from '../../services/adminServices';
+import TableHeadSort from '../../components/admin/TableHeadSort';
 import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT, URL_BACK_UPDATE_TREND_PRODUCT, URL_BACK_UPDATE_AVAILABLE_PRODUCT } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/product/FormUpdate';
 import FormCreate from '../../components/admin/product/FormCreate';
 import {Helmet} from 'react-helmet-async'
+import TitleContainer from '../../components/admin/TitleContainer';
 
 const AdminProductsView = () => {
 
   // Style
-  const headSort = 'flex py-5 justify-center items-center space-x-2 cursor-pointer'
   const labelHeader = 'truncate hover:text-clip'
-
+  // State modal CREATE
+  const [modalIsOpen, setIsOpen] = useState(false);
   // Contenu d'un ligne de la table (sans les keys, que les datas)
   const [rows, setRows] = useState([])
   // Formulaire UPDATE
@@ -27,8 +25,6 @@ const AdminProductsView = () => {
   const [formCreate, setFormCreate] = useState()
   // SVG isLoading si requête en cours
   const [isLoading, setIsLoading] = useState(false);
-  // State modal CREATE
-  const [modalIsOpen, setIsOpen] = useState(false);
   // Reload table
   const [reload, setReload] = useState(false);
 
@@ -55,8 +51,8 @@ const AdminProductsView = () => {
         res.promotion.remise > 0 ? res.promotion.remise + ' %' : '-',
         res.created_at.date,
         <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage} alt={res.name}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend} id={`checkTrend${res.id}`} onClick={() => changeIsTrend(res, respArr[0], respArr[1], index)}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_available} id={`checkAvailable${res.id}`} onClick={() => changeIsAvailable(res, respArr[0], respArr[1], index)}/>
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={res.is_trend} id={`checkTrend${res.id}`} onChange={() => changeIsTrend(res, respArr[0], respArr[1], index)}/>,
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={res.is_available} id={`checkAvailable${res.id}`} onChange={() => changeIsAvailable(res, respArr[0], respArr[1], index)}/>
       ]]))
 
       respArr[2].data.map((res, index) => {
@@ -99,7 +95,6 @@ const AdminProductsView = () => {
       <FormUpdate produit={produit} categories={categs} promotions={promos} index={index} updateTable={updateTable}/>,
       ...current.slice(index+1)
     ])
-    console.log(index);
     // Modifier la row concernée par l'update
     setRows(current => [
       ...current.slice(0, index),
@@ -114,8 +109,8 @@ const AdminProductsView = () => {
         produit.promotion.remise > 0 ? produit.promotion.remise + ' %' : '-',
         produit.created_at.date,
         <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + produit.pathImage} alt={produit.name}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={produit.is_trend} id={`checkTrend${produit.id}`} onClick={() => changeIsTrend(produit, categs, promos, index)}/>,
-        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={produit.is_available} id={`checkAvailable${produit.id}`} onClick={() => changeIsAvailable(produit, categs, promos, index)}/>
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={produit.is_trend} id={`checkTrend${produit.id}`} onChange={() => changeIsTrend(produit, categs, promos, index)}/>,
+        <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={produit.is_available} id={`checkAvailable${produit.id}`} onChange={() => changeIsAvailable(produit, categs, promos, index)}/>
       ],
       ...current.slice(index+1)
     ])
@@ -125,6 +120,7 @@ const AdminProductsView = () => {
   const changeIsTrend = (produit, categs, promos, index) => {
     let isTrend = document.getElementById('checkTrend' + produit.id).checked
     apiBackEnd.post(`${URL_BACK_UPDATE_TREND_PRODUCT}${produit.id}/${isTrend}/`).then(res => {
+      document.getElementById('checkTrend' + produit.id).checked = isTrend
       produit.is_trend = !produit.is_trend
       // Modifier la checkbox "tendance" du FormUpdate
       setFormUpdate(current => [
@@ -144,6 +140,7 @@ const AdminProductsView = () => {
   const changeIsAvailable = (produit, categs, promos, index) => {
     let isAvailable = document.getElementById('checkAvailable' + produit.id).checked
     apiBackEnd.post(`${URL_BACK_UPDATE_AVAILABLE_PRODUCT}${produit.id}/${isAvailable}/`).then(res => {
+      document.getElementById('checkAvailable' + produit.id).checked = isAvailable
       produit.is_available = !produit.is_available
       // Modifier la checkbox "visible" du FormUpdate
       setFormUpdate(current => [
@@ -196,18 +193,7 @@ const AdminProductsView = () => {
       {/* Notifications */}
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
-      <div className='flex flex-row shadow fixed top-0 right-0 mt-20 bish-bg-white w-full z-10'>
-        <div className='w-12 sm:w-72'></div>
-        <div className='flex flex-row justify-between space-x-5 h-20 w-full px-10'>
-          <span className='text-center my-auto text-2xl font-medium'>PRODUITS</span>
-          <input className='w-1/3 h-10 my-auto' type="text" id="searchInput" onKeyUp={() => search()} placeholder="Rechercher.."/>
-          <button className='my-auto bg-green-600 p-2 bish-text-white font-medium' onClick={() => openModal()}>
-            <img className='h-5 lg:h-8' src={addIMG} alt="Ajouter" />
-          </button>
-        </div>
-      </div>
-      {/* Modal CREATE */}
-      <ModalCrud modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} form={formCreate}/>
+      <TitleContainer form={formCreate} name="PRODUITS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
       {/* TABLE PRODUITS */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 
@@ -217,60 +203,15 @@ const AdminProductsView = () => {
             <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
               <tr>
                 {/* Tous les titres dans le header de la table */}
-                <th onClick={() => sort(0)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Id'>Id</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(1)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Nom'>Nom</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(2)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Prix'>Prix</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(3)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Description'>Description</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(4)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Note'>Note</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(5)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Stock'>Stock</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(6)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Catégorie'>Catégorie</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(7)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Promotion'>Promotion</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
-                <th onClick={() => sort(8)}>
-                  <div className={headSort}>
-                    <span className={labelHeader} title='Date'>Date</span>
-                    <img className='h-4' src={sortIMG} alt="Trier par ID" />
-                  </div>
-                </th>
+                <TableHeadSort nbSortColumn="0" name="Id" />
+                <TableHeadSort nbSortColumn="1" name="Nom" />
+                <TableHeadSort nbSortColumn="2" name="Prix" />
+                <TableHeadSort nbSortColumn="3" name="Description" />
+                <TableHeadSort nbSortColumn="4" name="Note" />
+                <TableHeadSort nbSortColumn="5" name="Stock" />
+                <TableHeadSort nbSortColumn="6" name="Catégorie" />
+                <TableHeadSort nbSortColumn="7" name="Promotion" />
+                <TableHeadSort nbSortColumn="8" name="Date" />
                 <th className={labelHeader} title='Tendance'>Image</th>
                 <th className={labelHeader} title='Tendance'>Tendance</th>
                 <th className={labelHeader} title='Visible'>Visible</th>
