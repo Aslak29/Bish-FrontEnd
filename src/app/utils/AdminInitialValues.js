@@ -47,5 +47,31 @@ export const categoryUpdateInitialValues = (categories) => {
     }
 }
 
+// Valeur Initiale du formulaire Create Users
+
+export const userCreateInitialValues = {
+    name: '',
+    surname: '',
+    email: '',
+    password:'',
+    passwordConfirm:'',
+    roles: 'ROLE_ADMIN',
+    phone: '',
+    
+    }
 
 
+// Valeur Initiale du formulaire Update  Users
+
+
+export const userUpdateInitialValues = (user) => {
+    return{
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        password: '',
+        passwordConfirm: '',
+        roles: user.roles,
+        phone: user.phone,
+        }
+}

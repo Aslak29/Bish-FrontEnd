@@ -15,6 +15,7 @@ export const URL_BACK_BLOG = '/blog/';
 export const URL_BACK_BLOG_LAST_ARTICLE = '/blog/lastArticle';
 
 // Routes USER
+export const URL_BACK_USERS ="/user/"
 export const URL_BACK_REGISTER = "/user/register";
 export const URL_BACK_USER_BY_MAIL = "/user/getUserByMail";
 export const URL_SEND_MAIL_FORGOT_PASSWORD = "/reset-password/sendMail";
@@ -44,3 +45,10 @@ export const URL_BACK_DELETE_PRODUCT = '/produit/remove/'
 export const URL_BACK_UPDATE_PRODUCT = '/produit/update/'
 export const URL_BACK_UPDATE_TREND_PRODUCT = '/produit/update/trend/'
 export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
+
+// Routes ADMIN USER
+export const URL_BACK_CREATE_USER = '/user/create/'
+export const URL_BACK_DELETE_USER = '/user/delete/'
+export const URL_BACK_UPDATE_USER = '/user/update/'
+
+
