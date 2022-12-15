@@ -47,5 +47,13 @@ export const categoryUpdateInitialValues = (categories) => {
     }
 }
 
+export const promotionCreateInitialValues = () => {
+    return {
+        remise : '',
+        startDate : '',
+        endDate : '',
+    }
+}
+
 
 
