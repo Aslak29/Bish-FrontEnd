@@ -4,6 +4,7 @@ import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_CREATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify'
 import { productCreateSchema } from '../../../utils/AdminValidationSchema';
+import { productCreateInitialValues } from '../../../utils/AdminInitialValues'
 
 const FormCreate = props => {
 
@@ -46,16 +47,7 @@ const FormCreate = props => {
 
     return (
         <Formik
-            initialValues={{
-            name: '',
-            price: '',
-            description: '',
-            stock,
-            categorie: 1,
-            promotion: '-',
-            trend: false,
-            available: false,
-            }}
+            initialValues={productCreateInitialValues(stock)}
             validationSchema={productCreateSchema}
             onSubmit={(values) => createRow(values)}
         >

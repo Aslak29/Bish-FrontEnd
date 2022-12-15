@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
-// Schéma de validation des formulaire admin produits
+// PRODUITS
+// Schéma de validation du formulaire create admin produit
 export const productCreateSchema = Yup.object().shape({
         name: Yup.string().min(2, 'Minimum 2 caractères').required('Requis'),
         price: Yup.number('Le prix doit comporter que des chiffres').required('Requis').positive('Le prix doit être supérieur à 0'),
@@ -8,11 +9,11 @@ export const productCreateSchema = Yup.object().shape({
         trend: Yup.boolean().required(),
         available: Yup.boolean().required(),
         infoFile:
-            Yup.mixed().required("Requis").test('fileFormat', "Seul les formats jpg et png sont accepté !",
+            Yup.mixed().required("Requis").test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
             value => value && (value.type === "image/jpeg" || value.type === "image/png"))
     })
 
-// Schéma de validation des formulaire admin produits
+// Schéma de validation du formulaire update admin produit
 export const productUpdateSchema = Yup.object().shape({
     name: Yup.string().min(2, 'Minimum 2 caractères').required('Requis'),
     price: Yup.number('Le prix doit comporter que des chiffres').required('Requis').positive('Le prix doit être supérieur à 0'),
@@ -20,11 +21,12 @@ export const productUpdateSchema = Yup.object().shape({
     trend: Yup.boolean().required(),
     available: Yup.boolean().required(),
     infoFile:
-        Yup.mixed().test('fileFormat', "Seul les formats jpg et png sont accepté !",
+        Yup.mixed().test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
         value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
 })
 
-// Schéma de validation des formulaires admin catégories
+// CATEGORIES
+// Schéma de validation du formulaire create admin catégorie
 export const categoryCreateSchema = Yup.object().shape({
     name: Yup.string()
         .min(2, 'le nom de la catégorie est trop court !')
@@ -34,12 +36,12 @@ export const categoryCreateSchema = Yup.object().shape({
     infoFile: Yup.mixed()
         .test(
             "fileFormat",
-            "Seul les formats jpg et png sont accepté !",
+            "Seuls les formats .jpg et .png sont acceptés",
             value => value && (value.type === "image/jpeg" || value.type === "image/png")
         )
 })
 
-// Schéma de validation des formulaires admin catégories
+// Schéma de validation du formulaire create update catégorie
 export const categoryUpdateSchema =  Yup.object().shape({
     name: Yup.string()
         .min(2, 'le nom de la catégorie est trop court !')
@@ -49,7 +51,7 @@ export const categoryUpdateSchema =  Yup.object().shape({
     infoFile: Yup.mixed()
         .test(
             "fileFormat",
-            "Seul les formats jpg et png sont accepté !",
+            "Seuls les formats .jpg et .png sont acceptés",
             value => value ?
                 value.type ?
                     (value.type === "image/jpeg" || value.type === "image/png") : true
