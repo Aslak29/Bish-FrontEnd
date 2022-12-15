@@ -95,7 +95,6 @@ const AdminProductsView = () => {
       <FormUpdate produit={produit} categories={categs} promotions={promos} index={index} updateTable={updateTable}/>,
       ...current.slice(index+1)
     ])
-    console.log(index);
     // Modifier la row concernée par l'update
     setRows(current => [
       ...current.slice(0, index),
