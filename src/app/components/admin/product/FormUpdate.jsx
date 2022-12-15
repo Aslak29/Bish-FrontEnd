@@ -1,9 +1,10 @@
 import React from 'react'
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, ErrorMessage } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_UPDATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
-import * as Yup from 'yup'
+import { productUpdateSchema } from '../../../utils/AdminValidationSchema'
+import { productUpdateInitialValues } from '../../../utils/AdminInitialValues';
 
 const FormUpdate = props => {
 
@@ -11,12 +12,14 @@ const FormUpdate = props => {
     const stock = {}
     props.produit.stockBySize.map(resStock => stock[resStock.taille.toLowerCase()] = resStock.stock)
 
+    const pathImageDefault = props.produit.pathImage
+
     // UPDATE élément dans la BDD
-    const updateRow = (id, values) => {
+    const updateRow = (id, pathImageDefault, values) => {
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
-            apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
+            apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
               if (res.status === 200) {
-                props.updateTable(props.produit, values, props.categories, props.promotions, props.index)
+                props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
                 // Notification succès d'une modification de produit
                 toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
@@ -41,41 +44,33 @@ const FormUpdate = props => {
 
     return (
         <Formik
-            initialValues={{
-                name: props.produit.name,
-                price: props.produit.price,
-                description: props.produit.description,
-                stock,
-                categorie: props.produit.id_categorie,
-                promotion: props.produit.promotion.id ? props.produit.promotion.id : '-',
-                trend: props.produit.is_trend,
-                available: props.produit.is_available,
-                infoFile: {
-                    name: props.produit.pathImage
-                }
-            }}
-            onSubmit={(values) => updateRow(props.produit.id, values)}
+            initialValues={productUpdateInitialValues(props.produit, stock)}
+            validationSchema={productUpdateSchema}
+            onSubmit={(values) => updateRow(props.produit.id, pathImageDefault, values)}
             >
             {formikProps =>
                 <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
                     {/* Nom */}
                     <div className="flex flex-col h-20">
-                    <span>Nom</span>
-                    <Field className='h-full' type="text" name="name"/>
+                        <span>Nom</span>
+                        <Field className='h-full' type="text" name="name"/>
+                        <ErrorMessage name="name" component="small" className="text-red-400"/>
                     </div>
                     {/* Description */}
                     <div className="flex flex-col col-span-2 row-span-2">
-                    <span>Description</span>
-                    <Field className='h-full' as="textarea" type="text" name="description" required/>
+                        <span>Description</span>
+                        <Field className='h-full' as="textarea" type="text" name="description" required/>
+                        <ErrorMessage name="description" component="small" className="text-red-400"/>
                     </div>
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
-                    <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/products/' + props.produit.pathImage}/>
+                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/products/' + props.produit.pathImage}/>
                     </div>
                     {/* Prix */}
                     <div className="flex flex-col h-20">
-                    <span>Prix (en euros)</span>
-                    <Field className='h-full' type="number" name="price"/>
+                        <span>Prix (en euros)</span>
+                        <Field className='h-full' type="number" name="price"/>
+                        <ErrorMessage name="price" component="small" className="text-red-400"/>
                     </div>
                     {/* Stock */}
                     <div className="flex flex-row h-20">
@@ -117,8 +112,9 @@ const FormUpdate = props => {
                     <div></div>
                     {/* Image */}
                     <div className="flex flex-col h-20">
-                    <span>Image</span>
-                    <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}}/>
+                        <span>Image</span>
+                        <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}}/>
+                        <ErrorMessage name="infoFile" component="small" className="text-red-400"/>
                     </div>
                     {/* Button Modifier */}
                     <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Modifier</button>

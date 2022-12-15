@@ -23,9 +23,14 @@ export const URL_RESET_PASSWORD = "/reset-password/reset/";
 
 // Routes CONTACT
 export const URL_BACK_ADD_CONTACT = "/contact/add";
+export const URL_BACK_CONTACT = "/contact/";
+export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";
 
 // Routes CATEGORIE
 export const URL_BACK_CATEGORIES = "/categorie/"
+export const URL_BACK_CATEGORIES_CREATE = "/categorie/create"
+export const URL_BACK_CATEGORIES_UPDATE = "/categorie/update"
+export const URL_BACK_CATEGORIES_DELETE = "/categorie/delete/"
 export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 
 // Route TAILLE

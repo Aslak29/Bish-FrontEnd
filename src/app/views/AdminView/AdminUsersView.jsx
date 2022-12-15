@@ -10,6 +10,7 @@ import addIMG from '../../assets/images/add.png'
 import { URL_BACK_USERS, URL_BACK_DELETE_USER } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/users/FormUpdate';
 import FormCreate from '../../components/admin/users/FormCreate';
+import {Helmet} from "react-helmet-async";
 
 const AdminUsersView = () => {
   
@@ -96,6 +97,9 @@ const AdminUsersView = () => {
 
   return (
     <div className='w-full ml-12 sm:ml-64'>
+         <Helmet>
+        <title>Bish - Admin Users</title>
+      </Helmet>
     {/* Notifications */}
     <ToastContainer />
     {/* TITRE + BUTTON AJOUTER */}

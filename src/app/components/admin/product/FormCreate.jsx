@@ -1,9 +1,10 @@
 import React from 'react'
-import { Field, Form, Formik } from "formik"
+import { Field, Form, Formik, ErrorMessage } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_CREATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
-import { toast } from 'react-toastify';
-import * as Yup from 'yup'
+import { toast } from 'react-toastify'
+import { productCreateSchema } from '../../../utils/AdminValidationSchema';
+import { productCreateInitialValues } from '../../../utils/AdminInitialValues'
 
 const FormCreate = props => {
 
@@ -21,7 +22,7 @@ const FormCreate = props => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
           apiBackEnd.post(`${URL_BACK_CREATE_PRODUCT}${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
             if (res.status === 200) {
-              props.reload()
+              props.setReload(!props.reload)
               props.close()
               // Notification succès d'un ajout de produit
               toast.success(`Le produit ${res.data.id} - ${res.data.name} a été ajouté!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
@@ -46,21 +47,8 @@ const FormCreate = props => {
 
     return (
         <Formik
-            initialValues={{
-            name: '',
-            price: '',
-            description: '',
-            stock,
-            categorie: 1,
-            promotion: '-',
-            trend: false,
-            available: false
-            }}
-            validationSchema={
-              Yup.object().shape({
-                name: Yup.string().required('Required')
-              })
-            }
+            initialValues={productCreateInitialValues(stock)}
+            validationSchema={productCreateSchema}
             onSubmit={(values) => createRow(values)}
         >
             {formikProps =>
@@ -68,12 +56,14 @@ const FormCreate = props => {
                     {/* Nom */}
                     <div className="flex flex-col h-20">
                       <span>Nom</span>
-                      <Field className='h-full' type="text" name="name" required/>
+                      <Field className='h-full' type="text" name="name"/>
+                      <ErrorMessage name="name" component="small" className="text-red-400"/>
                     </div>
                     {/* Description */}
                     <div className="flex flex-col col-span-2 row-span-2">
                       <span>Description</span>
                       <Field className='h-full' as="textarea" type="text" name="description" required/>
+                      <ErrorMessage name="description" component="small" className="text-red-400"/>
                     </div>
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
@@ -82,7 +72,8 @@ const FormCreate = props => {
                     {/* Prix */}
                     <div className="flex flex-col h-20">
                       <span>Prix (en euros)</span>
-                      <Field className='h-full' type="number" name="price" required/>
+                      <Field className='h-full' type="number" name="price"/>
+                      <ErrorMessage name="price" component="small" className="text-red-400"/>
                     </div>
                     {/* Stock */}
                     <div className="flex flex-row h-20">
@@ -125,6 +116,7 @@ const FormCreate = props => {
                     <div className="flex flex-col h-20">
                       <span>Image</span>
                       <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {showPreview(e); formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}} required/>
+                      <ErrorMessage name="infoFile" component="small" className="text-red-400"/>
                     </div>
                     {/* Button Modifier */}
                     <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Ajouter</button>
