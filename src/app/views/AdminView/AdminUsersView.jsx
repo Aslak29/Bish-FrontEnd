@@ -68,12 +68,12 @@ const AdminUsersView = () => {
   // DELETE élément dans la BDD
   const deleteRow = id => {
     if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur ${id} ?`)) {
-      apiBackEnd.delete(URL_BACK_DELETE_USER + id).then(res => {
+      apiBackEnd.post(URL_BACK_DELETE_USER + id).then(res => {
         if (res.status === 200) {
           // Supprimer l'elément supprimer de la table
           setRows(rows.filter(res => res[0] !== id))
           // Notification produit supprimé
-          toast.success(`Utilisateur ${id} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+          toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         }
       }).catch(error => {
         if(error.response.data.errorCode === '006') {
