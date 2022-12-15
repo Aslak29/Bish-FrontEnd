@@ -3,7 +3,8 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_UPDATE_USER } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
-import * as Yup from 'yup';
+import { userSchema } from '../../../utils/AdminValidationSchema';
+import { userUpdateInitialValues } from '../../../utils/AdminInitialValues';
 
 
 const FormUpdate = props => {
@@ -30,28 +31,9 @@ const roles = ["ROLE_ADMIN", "ROLE_USER"]
   return (
      
     <Formik
-    initialValues={{
-    name: props.user.name,
-    surname: props.user.surname,
-    email: props.user.email,
-    password: '',
-    passwordConfirm: '',
-    roles: props.user.roles,
-    phone: props.user.phone,
-    
-    }}
-    validationSchema={
-      Yup.object().shape({
-        name: Yup.string().min(2,'Minimum 2 Caractère').required('Required'),
-        surname:Yup.string().min(2,'Minimum 2 Caractère').required('Required'),
-        email: Yup.string().email('Email Invalide').required('Required'),
-        password: Yup.string().min(8,'Minimum 8 Caractère').matches(/[A-Z]/,'Votre Mot de passe doit contenir une Majuscule').matches(/[a-z]/,'Votre Mot de passe doit contenir une Minuscule').matches(/[0-9]/,'Votre Mot de passe doit contenir un Chiffre').required('Required'),
-        passwordConfirm: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
-        phone: Yup.string().matches(/^[0-9]*$/,'Que des Chiffres').min(10,'minimum 10 chiffre').max(10,'maximum 10 chiffre').required('Required')
-      })
-    }
+    initialValues={userUpdateInitialValues(props.user)}
+    validationSchema={userSchema}
 
-    
     onSubmit={(values) => updateRow(props.user.id,values)}
 >
     {formikProps =>
