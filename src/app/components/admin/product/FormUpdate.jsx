@@ -4,6 +4,7 @@ import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_UPDATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
 import { productUpdateSchema } from '../../../utils/AdminValidationSchema'
+import { productUpdateInitialValues } from '../../../utils/AdminInitialValues';
 
 const FormUpdate = props => {
 
@@ -43,19 +44,7 @@ const FormUpdate = props => {
 
     return (
         <Formik
-            initialValues={{
-                name: props.produit.name,
-                price: props.produit.price,
-                description: props.produit.description,
-                stock,
-                categorie: props.produit.id_categorie,
-                promotion: props.produit.promotion.id ? props.produit.promotion.id : '-',
-                trend: props.produit.is_trend,
-                available: props.produit.is_available,
-                infoFile: {
-                    name: props.produit.pathImage
-                }
-            }}
+            initialValues={productUpdateInitialValues(props.produit, stock)}
             validationSchema={productUpdateSchema}
             onSubmit={(values) => updateRow(props.produit.id, pathImageDefault, values)}
             >
