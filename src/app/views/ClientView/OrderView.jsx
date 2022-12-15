@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {Helmet} from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import apiBackend from "../../api/backend/api.Backend";
 import {URL_BACK_SINGLE_ORDER} from "../../constants/urls/urlBackEnd.js";
@@ -17,8 +16,12 @@ const OrderView = () => {
           .then((response) => {
             if (response.status === 200) {
               setSingleOrder(response.data);
-              console.log(response.data);
             }
+            // $dataOrderArray =[];
+            // foreach($idInCommandes as $idInCommande){
+            //   $dataOrderArray
+            // }
+            console.log(response.data);
           })
           .catch((error) => {
             if (error.response.data["errorCode"] === "002") {
@@ -26,8 +29,6 @@ const OrderView = () => {
           });
     },[]);
         
-
-
 
   return (
     <div>
@@ -60,3 +61,4 @@ const OrderView = () => {
     </div>
   )};
   
+export default OrderView;
