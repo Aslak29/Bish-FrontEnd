@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserByMail } from "../../api/backend/account";
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
-
 import {URL_FORGOT_PASSWORD} from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "../../api/backend/account";
@@ -28,10 +27,12 @@ const Login = () => {
           let token = res.data.token
           if(values.username) {
             getUserByMail(values.username).then(res => {
+              let id = res.data.id;
               let name = res.data.name;
               let surname = res.data.surname;
               let auth = {
                 token : token,
+                id: id,
                 name : name,
                 surname : surname,
               }
