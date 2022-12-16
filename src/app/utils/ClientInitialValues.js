@@ -1,4 +1,10 @@
 // Valeurs initiales du formulaire contact
+export const loginInitialValues = {
+    username: "",
+    password: ""
+}
+
+// Valeurs initiales du formulaire contact
 export const contactInitialValues = user => {
     return {
         name: user ? user.name : '',

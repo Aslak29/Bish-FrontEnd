@@ -44,10 +44,7 @@ const ContactView = () => {
           <Formik
             initialValues={contactInitialValues(user ? user : null)}
             validationSchema={contactSchema}
-             
             onSubmit={(values, { resetForm }) => {
-
-
                 const resObj = {
                   name: values.name,
                   surname: values.surname,
