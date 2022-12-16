@@ -15,10 +15,9 @@ const FormUpdate = props => {
         console.log(values);
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
             apiBackEnd.post(
-                `${URL_BACK_UPDATE_BLOG}${id}/${values.title}/${values.description}/${
-                    values.infoFile !== undefined ? values.infoFile.name : pathImageDefault
-                }`
+                `${URL_BACK_UPDATE_BLOG}`, {id: id, title: values.title, description:values.description, pathImage: values.infoFile !== undefined ? values.infoFile.name : pathImageDefault }
             ).then(res => {
+                console.log(res);
                 if (res.status === 200) {
                     props.updateTable(props.blog, values, props.index, pathImageDefault)
                     // Notification succès d'une modification de produit

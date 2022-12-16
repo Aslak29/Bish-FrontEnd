@@ -7,17 +7,21 @@ import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
 import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
 
 const FormCreate = props => {
-console.log(props);
+// console.log(props);
     // CREATE élément dans la BDD
-    const createRow = (values) => {
+    const createRow = ( values, pathImageDefault) => {
+        console.log(values.description);
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
-            apiBackEnd.post(`${URL_BACK_CREATE_BLOG}${values.title}/${values.description}/${values.infoFile.name}`).then(res => {
-                console.log(res)
+            apiBackEnd.post(`${URL_BACK_CREATE_BLOG}`, 
+            {   title: values.title, 
+                description:values.description, 
+                pathImage: values.infoFile !== undefined ? values.infoFile.name : pathImageDefault })
+            .then(res => {
+                console.log(res);
                 if (res.status === 200) {
                     // Notification succès d'un ajout de produit
                     props.setReload(!props.reload)
                     props.close()
-                    console.log(res.data)
                     toast.success(`L'article ${res.data.id} - ${res.data.title} a été ajouté!`, {
                         position: "top-right",
                         autoClose: 5000,
@@ -51,7 +55,6 @@ console.log(props);
     const showPreview = e => {
         if (e.target.files.length > 0) {
             let src = URL.createObjectURL(e.target.files[0]);
-            console.log(e.target.files[0])
             let preview = document.getElementById("img-preview");
             preview.src = src;
             preview.style.display = "block";
@@ -90,7 +93,6 @@ console.log(props);
                         <div className="flex flex-col h-20">
                             <span>Image</span>
                             <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
-                                console.log(e.currentTarget.files[0].type)
                                 showPreview(e);
                                 formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
                             }} required/>
