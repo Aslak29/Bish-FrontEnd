@@ -8,6 +8,13 @@ export const loginInitialValues = {
 export const forgotPasswordInitialValues = {
     email: ""
 }
+
+// Valeurs initiales du formulaire FORGOT PASSWORD
+export const newPasswordInitialValues = {
+    password: "",
+    confirmation: ""
+}
+
 // Valeurs initiales du formulaire CONTACT
 export const contactInitialValues = user => {
     return {

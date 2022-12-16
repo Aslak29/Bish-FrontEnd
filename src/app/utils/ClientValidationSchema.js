@@ -11,6 +11,11 @@ export const forgotPasswordSchema = Yup.object().shape({
     email: Yup.string().email('Email invalide').required('Requis'),
 })
 
+// Schéma de validation du formulaire FORGOT PASSWORD
+export const newPasswordSchema = Yup.object().shape({
+    password: Yup.string().min(8,'Minimum 8 Caractère').matches(/[A-Z]/,'Votre Mot de passe doit contenir une Majuscule').matches(/[a-z]/,'Votre Mot de passe doit contenir une Minuscule').matches(/[0-9]/,'Votre Mot de passe doit contenir un Chiffre').required('Required'),
+    confirmation: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
+})
 
 // Schéma de validation du formulaire CONTACT
 export const contactSchema = Yup.object().shape({
