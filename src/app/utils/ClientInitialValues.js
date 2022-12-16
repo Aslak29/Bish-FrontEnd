@@ -4,6 +4,16 @@ export const loginInitialValues = {
     password: ""
 }
 
+// Valeurs initiales du formulaire LOGIN
+export const registerInitialValues = {
+    email: "",
+    password: "",
+    confirmation: "",
+    name: "",
+    surname: "",
+    recaptcha: ''
+}
+
 // Valeurs initiales du formulaire FORGOT PASSWORD
 export const forgotPasswordInitialValues = {
     email: ""
