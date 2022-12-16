@@ -67,4 +67,15 @@ export const promotionCreateSchema = Yup.object().shape({
     endDate: Yup.date()
         .required("Champs Requis")
 })
-    
+
+// Schéma de Validation Formulaire Create Update Users
+
+export const userSchema =  Yup.object().shape({
+    name: Yup.string().min(2,'Minimum 2 Caractère').required('Required'),
+    surname:Yup.string().min(2,'Minimum 2 Caractère').required('Required'),
+    email: Yup.string().email('Email Invalide').required('Required'),
+    password: Yup.string().min(8,'Minimum 8 Caractère').matches(/[A-Z]/,'Votre Mot de passe doit contenir une Majuscule').matches(/[a-z]/,'Votre Mot de passe doit contenir une Minuscule').matches(/[0-9]/,'Votre Mot de passe doit contenir un Chiffre').required('Required'),
+    passwordConfirm: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
+    phone: Yup.string().matches(/^[0-9]*$/,'Que des Chiffres').min(10,'minimum 10 chiffre').max(10,'maximum 10 chiffre').required('Required')
+  })
+
