@@ -47,6 +47,12 @@ export const categoryUpdateInitialValues = (categories) => {
     }
 }
 
+export const promotionUpdateInitialValues = (promotion) => {
+    return {
+        remise : promotion.remise,
+    }
+}
+
 export const promotionCreateInitialValues = () => {
     return {
         remise : '',

@@ -8,6 +8,7 @@ import TableRow from "../../components/admin/TableRow";
 import TitleContainer from "../../components/admin/TitleContainer";
 import TableHeadSort from "../../components/admin/TableHeadSort";
 import FormCreate from "../../components/admin/promotion/FormCreate";
+import FormUpdate from "../../components/admin/promotion/FormUpdate";
 
 const AdminPromotionsView = () => {
 
@@ -45,6 +46,14 @@ const AdminPromotionsView = () => {
                 res.start_date,
                 res.end_date,
             ]]))
+
+            respArr.data.map((res, index) => {
+                // Formulaire UPDATE
+                setFormUpdate(current => [...current,
+                    <FormUpdate promotion={res} index={index} updateTable={updateTable}/>
+                ])
+            })
+
             // Formulaire CREATE
             setFormCreate(
                 <FormCreate reload={reload} setReload={setReload} close={closeModal}/>
@@ -52,9 +61,25 @@ const AdminPromotionsView = () => {
             // Fin du chargement
             setIsLoading(false)
         })
-
-
     }, [reload])
+
+    const updateTable = (promotion,values, index, startDate, startEnd)=> {
+        promotion.remise = values.remise
+        promotion.start_date = startDate + "00:00:00"
+        promotion.end_date = startEnd + "00:00:00"
+
+        // Modifier la row concernée par l'update
+        setRows(current => [
+            ...current.slice(0, index),
+            [
+                promotion.id,
+                promotion.remise,
+                promotion.start_date,
+                promotion.end_date
+               ],
+            ...current.slice(index+1)
+        ])
+    }
 
     const deleteRow = id => {
         if (window.confirm(`Êtes-vous sûr de vouloir supprimer la promotion ${id} ?`)) {
@@ -63,7 +88,7 @@ const AdminPromotionsView = () => {
                     console.log(res)
                     // Supprimer l'elément delete de la table
                     setRows(rows.filter(res => res[0] !== id))
-                    // Notification produit supprimé
+                    // Notification promotion supprimé
                     toast.success(`Contact ${id} supprimé!`, {
                         position: "top-right",
                         autoClose: 5000,
@@ -77,7 +102,7 @@ const AdminPromotionsView = () => {
                 }
             }).catch(error => {
                 if (error.response.data.errorCode === '006') {
-                    // Notification produit en cours de commande
+                    // Notification promotion en cours de commande
                     toast.warn(error.response.data.errorMessage, {
                         position: "top-right",
                         autoClose: 5000,
@@ -92,6 +117,7 @@ const AdminPromotionsView = () => {
             })
         }
     }
+
     // Open modal CREATE
     function openModal() {
         setIsOpen(true);
@@ -101,6 +127,7 @@ const AdminPromotionsView = () => {
     function closeModal() {
         setIsOpen(false);
     }
+
     return (
         <div className='w-full ml-12 sm:ml-64'>
             <Helmet>
@@ -109,7 +136,8 @@ const AdminPromotionsView = () => {
             {/* Notifications */}
             <ToastContainer/>
             {/* TITRE + BUTTON AJOUTER */}
-            <TitleContainer form={formCreate} name="PROMOTION" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+            <TitleContainer form={formCreate} name="PROMOTION" modalIsOpen={modalIsOpen} openModal={openModal}
+                            closeModal={closeModal} addButton={true}/>
             {/* Modal CREATE */}
 
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
@@ -120,10 +148,10 @@ const AdminPromotionsView = () => {
                         <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
                         <tr>
                             {/* Tous les titres dans le header de la table */}
-                            <TableHeadSort nbSortColumn="0" name="Id" />
-                            <TableHeadSort nbSortColumn="1" name="Remise" />
-                            <TableHeadSort nbSortColumn="2" name="Date de début" />
-                            <TableHeadSort nbSortColumn="3" name="Date de fin" />
+                            <TableHeadSort nbSortColumn="0" name="Id"/>
+                            <TableHeadSort nbSortColumn="1" name="Remise"/>
+                            <TableHeadSort nbSortColumn="2" name="Date de début"/>
+                            <TableHeadSort nbSortColumn="3" name="Date de fin"/>
                             {/* TH Actions à ne pas supprimer */}
                             <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
                         </tr>
@@ -131,7 +159,9 @@ const AdminPromotionsView = () => {
                         {/* Contenu de la table */}
                         <tbody>
                         {/* Retourne une ligne pour chaque élément */}
-                        {rows && rows.map((res, index) => <TableRow key={index} element={res} deleteRow={deleteRow} formUpdate={formUpdate[index]} disabledEdit={false}/>)}
+                        {rows && rows.map((res, index) => <TableRow key={index} element={res} deleteRow={deleteRow}
+                                                                    formUpdate={formUpdate[index]}
+                                                                    disabledEdit={false}/>)}
                         </tbody>
                     </table>
                 )
