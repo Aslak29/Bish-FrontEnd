@@ -30,13 +30,14 @@ export const authenticationSlice = createSlice({
             const user = {
                 username: claims.username,
                 roles: claims.roles,
+                id: action.payload.id,
                 name: action.payload.name,
                 surname: action.payload.surname
             };
             state.user = user;
             state.isAuthenticated = isTokenValid(token);
             setToken(action.payload.token);
-            setUser(action.payload.name, action.payload.surname);
+            setUser(action.payload.id, action.payload.name, action.payload.surname);
         },
         signOut: (state) => {
             localStorage.clear();
@@ -51,7 +52,7 @@ export const authenticationSlice = createSlice({
 export const { signIn, signOut } = authenticationSlice.actions;
 
 export const selectIsLogged = (state) => state.auth.isAuthenticated;
-export const selectUser = (state) => state.auth.user;
+export const selectUser = (state) => state.auth.user ? state.auth.user : null;
 export const selectToken = (state) => state.auth.token;
 export const selectHasRole = (state, roles) => {
     if (!roles || roles.length === 0) return true;
