@@ -38,7 +38,9 @@ const AdminProductsView = () => {
       apiBackEnd.get(URL_BACK_PRODUCTS)
     ])
     .then(respArr => {
+      console.log(respArr);
       setRows([])
+      setFormUpdate([])
       // Set le contenu d'une row (à mettre dans l'ordre voulu)
       respArr[2].data.map((res, index) => setRows(current => [...current, [
         res.id,

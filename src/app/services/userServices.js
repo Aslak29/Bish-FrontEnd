@@ -1,3 +1,4 @@
+const ID_NAME = 'id';
 const NAME_NAME = 'name';
 const USERNAME_NAME = 'surname';
 
@@ -7,7 +8,8 @@ const USERNAME_NAME = 'surname';
  * @param {string} surname: to save
  * @author Peter Mollet
  */
- export function setUser(name, surname) {
+ export function setUser(id, name, surname) {
+    localStorage.setItem(ID_NAME, id);
     localStorage.setItem(NAME_NAME, name);
     localStorage.setItem(USERNAME_NAME, surname);
 }
@@ -19,6 +21,7 @@ const USERNAME_NAME = 'surname';
  */
 export function getUser() {
     return {
+        id: localStorage.getItem(ID_NAME),
         name: localStorage.getItem(NAME_NAME),
         surname: localStorage.getItem(USERNAME_NAME)
     }
