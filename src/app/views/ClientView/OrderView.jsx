@@ -17,17 +17,26 @@ function OrderView() {
   // SVG isLoading si requête en cours
   const [isLoading, setIsLoading] = useState(false);
   const { orderID } = useParams();
-  const [infoCommande, setInfoCommande] = useState();
+  const [infoCommande, setInfoCommande] = useState([]);
   const [etatCommande, setEtatCommande] = useState();
   const [dateCommande, setDateCommande] = useState();
-  let infoClientCommande = [];
+  const [infoClient, setInfoClient] = useState({});
+  const [totalCommande, setTotalCommande] = useState(0);
 
+  let infoClientCommande = [];
+  // infoClientCommande = useRef(infoClientCommande[0].Adresse);
   useEffect(() => {
     setIsLoading(true);
     apiBackend
       .post(URL_BACK_SINGLE_ORDER + `${orderID}`)
       .then((response) => {
         if (response.status === 200) {
+          let total = 0;
+          response.data.map((res) => {
+            total += res.total && res.total;
+            res.total && setTotalCommande(total);
+            console.log(res.total);
+          });
           setInfoCommande(
             response.data[response.data.length - 1][0].numeroCommande
           );
@@ -37,8 +46,9 @@ function OrderView() {
           );
           // pop pour sortir les infos Commande à part des articles
           infoClientCommande = response.data.pop();
-
-          console.log(infoClientCommande[0].Adresse);
+          // console.log(response.data.pop());
+          setInfoClient(infoClientCommande[0].Adresse);
+          console.log(infoClientCommande);
           setRows(response.data);
           setIsLoading(false);
         }
@@ -49,6 +59,10 @@ function OrderView() {
         }
       });
   }, []);
+  // Pour récupération Adresse Client uniquement
+  useEffect(() => {
+    console.log(infoClient);
+  }, [infoClient]);
 
   return (
     <div>
@@ -72,7 +86,10 @@ function OrderView() {
           alt="Chargement"
         ></img>
       ) : (
-        <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
+        <table
+          className="table-fixed w-3/4 pl-5 mt-20 font-medium"
+          id="searchTable"
+        >
           {/* Nom de chaque colonne */}
           <thead className="border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow">
             <tr>
@@ -100,7 +117,7 @@ function OrderView() {
                         row.image
                       }
                       alt=""
-                      className={`object-cover w-1/2 h-1/2`}
+                      className={`w-1/2 h-1/2 items-center`}
                     />
                   </td>
                   <td>{row.nomProduit}</td>
@@ -108,7 +125,7 @@ function OrderView() {
                   <td>{row.quantite}</td>
                   <td>{row.prixUnitaire}</td>
                   <td>{row.remise}</td>
-                  <td>{row.total}</td>
+                  <td className="text-end">{row.total}</td>
                 </tr>
               );
             })}
@@ -116,14 +133,35 @@ function OrderView() {
         </table>
       )}
       {
-        <div>
-          //{" "}
-          {/*infoClientCommande.map((info, index) => {
-          // return (
-          //     <h3>{info[0].Adresse}</h3>
-          //     <p>{}</p>
-          //     );
-      //   })*/}
+        <div className="flex flex-row justify-between w-3/4 m-1 font-medium">
+          <div className="border-b-4 flex flex-col- bish-bg-white-up items-center justify-center text-center w-1/2">
+            <div className="items-start justify-start text-left">
+              Adresse de livraison:
+            </div>
+            <div className="flex flex-col p-2">
+              <span>{infoClient.rue}</span>
+              <span>{infoClient.Code_Postal}</span>
+              <span>{infoClient.ville}</span>
+            </div>
+          </div>
+          <div className="flex flex-row h-full">
+            <div className="flex flex-col pr-5">
+              <span>Sous-total Produits: </span>
+              <span>Taxes: </span>
+              <span>Frais de port: </span>
+              <span className="bish-bg-blue bish-text-white rounded text-center font-medium">
+                TOTAL:
+              </span>
+            </div>
+            <div className="flex flex-col text-right">
+              <span>{totalCommande.toFixed(2) + " €"}</span>
+              <span>{(totalCommande * 0.2).toFixed(2) + " €"}</span>
+              <span> 2 €</span>
+              <span>
+                {(totalCommande + totalCommande * 0.2 + 2).toFixed(2) + " €"}
+              </span>
+            </div>
+          </div>
         </div>
       }
     </div>
