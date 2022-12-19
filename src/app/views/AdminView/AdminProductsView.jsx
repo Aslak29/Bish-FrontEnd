@@ -49,7 +49,7 @@ const AdminProductsView = () => {
         res.description,
         res.noteAverage ? res.noteAverage.toFixed(1) + '/5' : '-',
         res.stockBySize.reduce((accumulator, currentValue) => accumulator + currentValue.stock, 0),
-        res.name_categorie, 
+        res.name_categorie,
         res.promotion.remise > 0 ? res.promotion.remise + ' %' : '-',
         res.created_at.date,
         <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage} alt={res.name}/>,

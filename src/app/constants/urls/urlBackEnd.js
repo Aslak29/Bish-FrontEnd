@@ -1,14 +1,14 @@
 // Routes AUTHENTICATE
-export const URL_BACK_AUTHENTICATE = '/login_check';
+export const URL_BACK_AUTHENTICATE = "/login_check";
 
 // Routes PRODUITS
-export const URL_BACK_PRODUCTS = "/produit/"
-export const URL_BACK_PRODUCT_BY_ID = "/produit/find/"
-export const URL_BACK_PRODUCT_FILTER ="/produit/filter/"
-export const URL_BACK_SUGGESTIONS = "/produit/suggestions/"
-export const URL_BACK_PRODUCT_TREND = "/produit/isTrend"
-export const URL_BACK_PRODUCT_BEST_PROMO = "/produit/bestPromo"
-export const URL_BACK_PROMOTIONS = "/produit/promotions"
+export const URL_BACK_PRODUCTS = "/produit/";
+export const URL_BACK_PRODUCT_BY_ID = "/produit/find/";
+export const URL_BACK_PRODUCT_FILTER = "/produit/filter/";
+export const URL_BACK_SUGGESTIONS = "/produit/suggestions/";
+export const URL_BACK_PRODUCT_TREND = "/produit/isTrend";
+export const URL_BACK_PRODUCT_BEST_PROMO = "/produit/bestPromo";
+export const URL_BACK_PROMOTIONS = "/produit/promotions";
 
 // Routes BLOG
 export const URL_BACK_BLOG = '/blog/';
@@ -58,4 +58,5 @@ export const URL_BACK_CREATE_USER = '/user/create/'
 export const URL_BACK_DELETE_USER = '/user/delete/'
 export const URL_BACK_UPDATE_USER = '/user/update/'
 
-
+// Routes COMMANDES CLIENT
+export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";
