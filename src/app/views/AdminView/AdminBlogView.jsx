@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
-import apiBackEnd from '../../api/backend/api.Backend';
-import sortIMG from '../../assets/images/trier.png'
-import addIMG from '../../assets/images/add.png'
-import loadingSVG from '../../assets/images/loading-spin.svg'
+import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
-import ModalCrud from '../../components/admin/ModalCrud';
-import { search, sort } from '../../services/adminServices';
-import { Field, Form, Formik } from "formik";
-import { URL_BACK_BLOG } from '../../constants/urls/urlBackEnd';
+import TableHeadSort from '../../components/admin/TableHeadSort';
+import apiBackEnd from '../../api/backend/api.Backend';
+import loadingSVG from '../../assets/images/loading-spin.svg'
+import { URL_BACK_BLOG, URL_BACK_DELETE_BLOG} from '../../constants/urls/urlBackEnd';
+import FormUpdate from '../../components/admin/blog/FormUpdate';
+import FormCreate from '../../components/admin/blog/FormCreate';
+import {Helmet} from 'react-helmet-async'
+import TitleContainer from '../../components/admin/TitleContainer';
 
 const AdminBlogView = () => {
 
@@ -26,99 +26,89 @@ const AdminBlogView = () => {
     const [isLoading, setIsLoading] = useState(false);
     // State modal CREATE
     const [modalIsOpen, setIsOpen] = React.useState(false);
+    // Reload table
+    const [reload, setReload] = useState(false);
+
 
     useEffect(() => {
         // Permet d'afficher le SVG de chargement
-        // setIsLoading(true)
+        setIsLoading(true)
         // Récupération des données
-        axios.all([
+        
         // TODO: SI PLUSIEURS APPEL API: METTRE ICI
-        apiBackEnd.get(URL_BACK_BLOG),
-        ])
-        .then(respArr => {
-          console.log(respArr[2]);
+        apiBackEnd.get(URL_BACK_BLOG).then(response => {
+            console.log(response);
         // TODO: EXEMPLE: METTRE LES ELEMENT DANS L'ORDRE D'AFFICHAGE DANS UNE ROW
         // Set le contenu d'une row (à mettre dans l'ordre voulu)
-        // respArr[2].data.map((res) => setRows(current => [...current, [
-        //     res.id,
-        //     res.name,
-        //     res.price.toFixed(2) + ' €',
-        //     <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage} alt={res.name}/>,
-        //     <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
-        // ]]))
-
-        // respArr[2].data.map((res) => {
-        //     // TODO: FORMULAIRE AFFICHE DANS LE MODAL UPDATE
-        //     // Formulaire UPDATE
-        //     setFormUpdate(current => [...current,
-        //         <Formik
-        //             initialValues={{
-        //             // TODO: DEFINIR LES VALEURS INITIALES
-        //             name: res.id,
-        //             description: res.name
-        //             }}
-        //             onSubmit={(values) => updateRow(res.id, values)}
-        //         >
-        //             <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
-        //                 {/* Nom */}
-        //                 <div className="flex flex-col h-20">
-        //                     <span>Nom</span>
-        //                     <Field className='h-full' type="text" name="name"/>
-        //                 </div>
-        //                 {/* Description */}
-        //                 <div className="flex flex-col col-span-2 row-span-2">
-        //                     <span>Description</span>
-        //                     <Field className='h-full' as="textarea" type="text" name="description" required/>
-        //                 </div>
-        //                 {/* Button Modifier */}
-        //                 <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Modifier</button>
-        //             </Form>
-        //         </Formik>
-        //     ])
-        // })
-      
-        // TODO: FORMULAIRE AFFICHE DANS LE MODAL CREATE
+        response.data.map((res) => setRows(current => [...current, [
+            res.id,
+            res.title,
+            res.description,
+            <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + res.pathImage} alt={res.title}/>,
+            // <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
+        ]]))
+        response.data.map((res, index) => {
+          // Formulaire UPDATE
+          setFormUpdate(current => [...current,
+            <FormUpdate blog={res} index={index} 
+            updateTable={updateTable}
+            />
+          ])
+        })
+        
         // Formulaire CREATE
-        // setFormCreate(
-        //     <Formik
-        //         initialValues={{
-        //         // TODO: DEFINIR LES VALEURS INITIALES
-        //         name: '',
-        //         description: '',
-        //         }}
-        //         onSubmit={(values) => console.log(values)}
-        //     >
-        //         <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
-        //                 {/* Nom */}
-        //                 <div className="flex flex-col h-20">
-        //                     <span>Nom</span>
-        //                     <Field className='h-full' type="text" name="name"/>
-        //                 </div>
-        //                 {/* Description */}
-        //                 <div className="flex flex-col col-span-2 row-span-2">
-        //                     <span>Description</span>
-        //                     <Field className='h-full' as="textarea" type="text" name="description" required/>
-        //                 </div>
-        //                 {/* Button Modifier */}
-        //                 <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Ajouter</button>
-        //         </Form>
-        //     </Formik>
-        // )
+        setFormCreate(
+          <FormCreate blog={response} 
+          reload={reload} setReload={setReload} 
+          close={closeModal}/>
+        )
+  
 
       // Fin du chargement
       setIsLoading(false)
     })
-    },[])
+    },[reload])
 
-    // UPDATE élément dans la BDD
-    const updateRow = (id, values) => {
-      console.log(values);
+    const updateTable = (blog, blogAfter, index, pathImageDefault) => {
+      blog.title = blogAfter.title
+      blog.description = blogAfter.description
+      blog.pathImage = blogAfter.infoFile !== undefined ? blogAfter.infoFile.name : pathImageDefault
+      // Modifier le modal update de la row concernée
+      setFormUpdate(current => [
+        ...current.slice(0, index),
+        <FormUpdate blog={blog}  index={index} updateTable={updateTable}/>,
+        ...current.slice(index+1)
+      ])
+      // Modifier la row concernée par l'update
+      setRows(current => [
+        ...current.slice(0, index),
+        [
+          blog.id,
+          blog.title,
+          blog.description,
+          <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + blog.pathImage} alt={blog.title}/>,
+        ],
+        ...current.slice(index+1)
+      ])
     }
-
-    // DELETE élément dans la BDD
-    const deleteRow = id => {
-      console.log(id)
+  // DELETE élément dans la BDD
+  const deleteRow = id => {
+    if (window.confirm(`Êtes-vous sûr de vouloir supprimer le produit ${id} ?`)) {
+      apiBackEnd.delete(URL_BACK_DELETE_BLOG + id).then(res => {
+        if (res.status === 200) {
+          // Supprimer l'elément delete de la table
+          setRows(rows.filter(res => res[0] !== id))
+          // Notification produit supprimé
+          toast.success(`Produit ${id} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+        }
+      }).catch(error => {
+        if(error.response.data.errorCode === '006') {
+          // Notification produit en cours de commande
+          toast.warn(error.response.data.errorMessage, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+        }
+      })
     }
+  }
 
     // Open modal CREATE
     function openModal() {
@@ -130,9 +120,42 @@ const AdminBlogView = () => {
       setIsOpen(false);
     }
 
-  return (
-    <div>AdminBlogView</div>
-  )
+    return (
+      <div className='w-full ml-12 sm:ml-64'>
+        <Helmet>
+          <title>Bish - Admin Blog</title>
+        </Helmet>
+        {/* Notifications */}
+        <ToastContainer />
+        {/* TITRE + BUTTON AJOUTER */}
+        <TitleContainer form={formCreate} name="BLOG" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+        {/* TABLE  */}
+        {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
+          : 
+          (
+            <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
+              {/* Nom de chaque colonne */}
+              <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
+                <tr>
+                  {/* Tous les titres dans le header de la table */}
+                  <TableHeadSort nbSortColumn="0" name="Id" />
+                  <TableHeadSort nbSortColumn="1" name="Titre" />
+                  <TableHeadSort nbSortColumn="2" name="Description" />
+                  <th className={labelHeader} title='Tendance'>Image</th>
+                  {/* TH Actions à ne pas supprimer */}
+                  <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
+                </tr>
+              </thead>
+              {/* Contenu de la table */}
+              <tbody>
+                {/* Retourne une ligne pour chaque élément */}
+                {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow}/>)}
+              </tbody>
+            </table>
+          )
+        }
+      </div>
+    )
 }
 
 export default AdminBlogView

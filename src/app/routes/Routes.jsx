@@ -33,6 +33,7 @@ import LegalNoticeView from './../views/ClientView/LegalNoticeView';
 import ForgotPasswordView from './../views/ClientView/ForgotPasswordView';
 import NewPasswordView from './../views/ClientView/NewPasswordView'
 import AccountView from './../views/ClientView/AccountView';
+import AdminPromotionsView from "../views/AdminView/AdminPromotionsView";
 /**
  * Routes of the application
  * with public and private route
@@ -65,7 +66,7 @@ const Routes = () => {
       <Route
         path={URL.URL_SHOPPING_CART}
         element={
-          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
+          <PrivateRoute roles={[ROLE_USER]}>
             <ShoppingCartView/>
           </PrivateRoute>
         }
@@ -81,7 +82,7 @@ const Routes = () => {
       <Route
         path={URL.URL_ACCOUNT}
         element={
-          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
+          <PrivateRoute roles={[ROLE_USER]}>
             <AccountView />
           </PrivateRoute>
         }
@@ -89,7 +90,7 @@ const Routes = () => {
         <Route
         path={URL.URL_INFOS}
         element={
-          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
+          <PrivateRoute roles={[ROLE_USER]}>
             <PersonnalInfoView/>
           </PrivateRoute>
         }
@@ -97,7 +98,7 @@ const Routes = () => {
       <Route
         path={URL.URL_ORDERS}
         element={
-          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
+          <PrivateRoute roles={[ROLE_USER]}>
             <OrdersView/>
           </PrivateRoute>
         }
@@ -105,7 +106,7 @@ const Routes = () => {
       <Route
         path={URL.URL_ORDER}
         element={
-          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
+          <PrivateRoute roles={[ROLE_USER]}>
             <OrderView/>
           </PrivateRoute>
         }
@@ -113,7 +114,7 @@ const Routes = () => {
       <Route
         path={URL.URL_TRACKING_ORDER}
         element={
-          <PrivateRoute roles1={[ROLE_ADMIN]} roles2={[ROLE_USER]}>
+          <PrivateRoute roles={[ROLE_USER]}>
             <TrackingOrderView/>
           </PrivateRoute>
         }
@@ -185,6 +186,14 @@ const Routes = () => {
               <AdminContactView />
             </PrivateRoute>
           }
+        />
+        <Route
+           path={URL.URL_ADMIN_PROMOTION}
+           element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+                <AdminPromotionsView />
+            </PrivateRoute>
+        }
         />
       </Route>
 

@@ -11,9 +11,14 @@ export const URL_BACK_PRODUCT_BEST_PROMO = "/produit/bestPromo";
 export const URL_BACK_PROMOTIONS = "/produit/promotions";
 
 // Routes BLOG
-export const URL_BACK_BLOG = "/blog/";
-export const URL_BACK_BLOG_LAST_ARTICLE = "/blog/lastArticle";
+export const URL_BACK_BLOG = '/blog/';
+export const URL_BACK_BLOG_LAST_ARTICLE = '/blog/lastArticle';
+export const URL_BACK_CREATE_BLOG = '/blog/add'
+export const URL_BACK_DELETE_BLOG = '/blog/remove/'
+export const URL_BACK_UPDATE_BLOG = '/blog/update'
+
 // Routes USER
+export const URL_BACK_USERS ="/user/"
 export const URL_BACK_REGISTER = "/user/register";
 export const URL_BACK_USER_BY_MAIL = "/user/getUserByMail";
 export const URL_SEND_MAIL_FORGOT_PASSWORD = "/reset-password/sendMail";
@@ -24,25 +29,34 @@ export const URL_BACK_ADD_CONTACT = "/contact/add";
 export const URL_BACK_CONTACT = "/contact/";
 export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";
 
-// Routes categoriesController
-export const URL_BACK_CATEGORIES = "/categorie/";
-export const URL_BACK_CATEGORIES_CREATE = "/categorie/create";
-export const URL_BACK_CATEGORIES_UPDATE = "/categorie/update";
-export const URL_BACK_CATEGORIES_DELETE = "/categorie/delete/";
-export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend";
+// Routes CATEGORIE
+export const URL_BACK_CATEGORIES = "/categorie/"
+export const URL_BACK_CATEGORIES_CREATE = "/categorie/create"
+export const URL_BACK_CATEGORIES_UPDATE = "/categorie/update"
+export const URL_BACK_CATEGORIES_DELETE = "/categorie/delete/"
+export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
+export const URL_BACK_CATEGORIES_UPDATE_TREND = "/categorie/updateIsTrend/"
 
 // Route TAILLE
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
+export const URL_BACK_DELETE_PROMOTION = "/promotion/remove/"
+export const URL_BACK_CREATE_PROMOTION = "/promotion/add/"
+export const URL_BACK_UPDATE_PROMOTION = "promotion/update/"
 
 // Routes ADMIN PRODUITS
-export const URL_BACK_CREATE_PRODUCT = "/produit/add/";
-export const URL_BACK_DELETE_PRODUCT = "/produit/remove/";
-export const URL_BACK_UPDATE_PRODUCT = "/produit/update/";
-export const URL_BACK_UPDATE_TREND_PRODUCT = "/produit/update/trend/";
-export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = "/produit/update/available/";
-// Routes COMMANDES CLIENT
+export const URL_BACK_CREATE_PRODUCT = '/produit/add/'
+export const URL_BACK_DELETE_PRODUCT = '/produit/remove/'
+export const URL_BACK_UPDATE_PRODUCT = '/produit/update/'
+export const URL_BACK_UPDATE_TREND_PRODUCT = '/produit/update/trend/'
+export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
 
+// Routes ADMIN USER
+export const URL_BACK_CREATE_USER = '/user/create/'
+export const URL_BACK_DELETE_USER = '/user/delete/'
+export const URL_BACK_UPDATE_USER = '/user/update/'
+
+// Routes COMMANDES CLIENT
 export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";

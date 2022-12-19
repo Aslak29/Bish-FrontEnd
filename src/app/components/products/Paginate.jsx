@@ -16,6 +16,7 @@ const Paginate = props => {
         pageCount={props.countPage}
         marginPagesDisplayed={3}
         pageRangeDisplayed={3}
+        forcePage={props.countPage > 0 ? props.page : -1}
         onPageChange={(selected)=>props.setPage({selected})}
         pageClassName="border bish-border-gray px-2 py-1 rounded"
         className="flex gap-3 items-center"
