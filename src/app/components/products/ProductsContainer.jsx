@@ -70,7 +70,7 @@ const ProductsContainer = props => {
         </div>
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
-                <img className='h-5 cursor-pointer' src={arrow} alt="Retour" onClick={() => { window.location.reload()}}/>
+                <img className='h-5 cursor-pointer' src={arrow} alt="Retour" onClick={() => props.backArrow()}/>
                 <h1 className='text-2xl ml-3'>{props.categorie[1] ? <span>Vêtement {props.categorie[1]}</span> : 'Nos produits'}</h1>
             </div>
             <button className='flex flex-row border bish-border-gray rounded-2xl px-4 py-2 items-center' onClick={() => toggleFilter()}>
