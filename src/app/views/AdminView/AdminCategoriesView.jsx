@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {search, sort} from "../../services/adminServices";
-import addIMG from "../../assets/images/add.png";
-import sortIMG from "../../assets/images/trier.png";
 import TableRow from "../../components/admin/TableRow";
 import apiBackEnd from "../../api/backend/api.Backend";
-import {URL_BACK_CATEGORIES, URL_BACK_CATEGORIES_DELETE} from "../../constants/urls/urlBackEnd";
-import ModalCrud from "../../components/admin/ModalCrud";
+import {
+    URL_BACK_CATEGORIES,
+    URL_BACK_CATEGORIES_DELETE, URL_BACK_CATEGORIES_UPDATE_TREND,
+} from "../../constants/urls/urlBackEnd";
 import loadingSVG from "../../assets/images/loading-spin.svg";
 import {toast, ToastContainer} from "react-toastify";
 import FormCreate from "../../components/admin/category/FormCreate";
 import FormUpdate from "../../components/admin/category/FormUpdate";
 import {Helmet} from "react-helmet-async";
+import TableHeadSort from "../../components/admin/TableHeadSort";
+import TitleContainer from "../../components/admin/TitleContainer";
 
 const AdminCategoriesView = () => {
 
-    const headSort = 'flex py-5 justify-center items-center space-x-2 cursor-pointer';
     const labelHeader = 'truncate hover:text-clip';
 
     // Contenu d'un ligne de la table (sans les keys, que les datas)
@@ -30,29 +30,28 @@ const AdminCategoriesView = () => {
 
     const [reload, setReload] = useState(false);
 
-    {/*formUpdate={formUpdate[index]} deleteRow={deleteRow}*/
-    }
-
-
     useEffect(() => {
 
         setIsLoading(true)
 
         apiBackEnd.get(URL_BACK_CATEGORIES).then(res => {
-            console.log(res);
             setRows([]);
-            res.data.map((res) => setRows(current => [...current, [
+            setFormUpdate([])
+            res.data.map((res, index) => setRows(current => [...current, [
                 res.id,
                 res.name,
                 <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50'
                      src={window.location.origin + '/src/app/assets/images/categories/' + res.pathImage}
                      alt={res.name}/>,
-                <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.isTrend}/>
+                <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
+                       id={`checkTrend${res.id}`} onChange={() => changeIsTrend(res, index)}
+                       checked={res.isTrend}
+                />
             ]]))
 
-            res.data.map((res) => {
+            res.data.map((res, index) => {
                 setFormUpdate(current => [...current,
-                    <FormUpdate categories={res}/>
+                    <FormUpdate categories={res} index={index} updateTable={updateTable}/>
                 ])
             })
 
@@ -63,6 +62,72 @@ const AdminCategoriesView = () => {
         setIsLoading(false)
     }, [reload])
 
+
+    const changeIsTrend = (categories, index) => {
+        let isTrend = document.getElementById('checkTrend' + categories.id).checked
+        apiBackEnd.post(`${URL_BACK_CATEGORIES_UPDATE_TREND}${categories.id}/${isTrend}/`).then(res => {
+            document.getElementById('checkTrend' + categories.id).checked = isTrend
+            categories.isTrend = !categories.isTrend
+            // Modifier la checkbox "tendance" du FormUpdate
+            setFormUpdate(current => [
+                ...current.slice(0, index),
+                <FormUpdate categories={categories} index={index} updateTable={updateTable}/>,
+                ...current.slice(index + 1)
+            ])
+            if (isTrend) {
+                toast.success(`Catégorie ${res.data.id} est en tendance !`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                })
+            } else {
+                toast.success(`Catégorie ${res.data.id} n'est plus en tendance !`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                })
+            }
+        })
+    }
+
+
+    const updateTable = (categories, categoriesAfter, index, pathImageDefault) => {
+        categories.name = categoriesAfter.name
+        categories.isTrend = categoriesAfter.trend
+        categories.pathImage = categoriesAfter.infoFile !== undefined ? categoriesAfter.infoFile.name : pathImageDefault
+        // Modifier le modal update de la row concernée
+        setFormUpdate(current => [
+            ...current.slice(0, index),
+            <FormUpdate categories={categories} index={index} updateTable={updateTable}/>,
+            ...current.slice(index + 1)
+        ])
+        // Modifier la row concernée par l'update
+        setRows(current => [
+            ...current.slice(0, index),
+            [
+                categories.id,
+                categories.name,
+                <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50'
+                     src={window.location.origin + '/src/app/assets/images/categories/' + categories.pathImage}
+                     alt={categories.name}/>,
+                <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
+                       id={`checkTrend${categories.id}`} onChange={() => changeIsTrend(categories, index)}
+                       checked={categories.isTrend}/>
+            ],
+            ...current.slice(index + 1)
+        ])
+    }
+
     const deleteRow = id => {
         if (window.confirm(`Êtes-vous sûr de vouloir supprimer la catégorie ${id} ?`)) {
             apiBackEnd.delete(URL_BACK_CATEGORIES_DELETE + id).then(res => {
@@ -70,7 +135,7 @@ const AdminCategoriesView = () => {
                     // Supprimer l'elément supprimer de la table
                     setRows(rows.filter(res => res[0] !== id))
                     // Notification produit supprimé
-                    toast.success(`Produit ${id} supprimé!`, {
+                    toast.success(`Catégorie ${id} supprimé!`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -117,20 +182,9 @@ const AdminCategoriesView = () => {
             </Helmet>
             <ToastContainer/>
 
-            <div className='flex flex-row shadow fixed top-0 right-0 mt-20 bish-bg-white w-full z-10'>
-                <div className='w-12 sm:w-72'></div>
-                <div className='flex flex-row justify-between space-x-5 h-20 w-full px-10'>
-                    <span className='text-center my-auto text-2xl font-medium'>Catégories</span>
-                    <input className='w-1/3 h-10 my-auto' type="text" id="searchInput" onKeyUp={() => search()}
-                           placeholder="Rechercher.."/>
-                    <button className='my-auto bg-green-600 p-2 bish-text-white font-medium'
-                            onClick={() => openModal()}>
-                        <img className='h-5 lg:h-8' src={addIMG} alt="Ajouter"/>
-                    </button>
-                </div>
-            </div>
+            <TitleContainer form={formCreate} name="CATÉGORIES" modalIsOpen={modalIsOpen} openModal={openModal}
+                            closeModal={closeModal} addButton={true}/>
 
-            <ModalCrud modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} form={formCreate}/>
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
                 :
                 (
@@ -139,18 +193,8 @@ const AdminCategoriesView = () => {
                         <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
                         <tr>
                             {/* Tous les titres dans le header de la table */}
-                            <th onClick={() => sort(0)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Id'>Id</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(1)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Nom'>Nom</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
+                            <TableHeadSort nbSortColumn="0" name="Id"/>
+                            <TableHeadSort nbSortColumn="1" name="Nom"/>
                             <th className={labelHeader} title='Tendance'>Image</th>
                             <th className={labelHeader} title='Tendance'>Tendance</th>
                             {/* TH Actions à ne pas supprimer */}
