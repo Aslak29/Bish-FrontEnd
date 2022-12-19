@@ -7,7 +7,8 @@ import {
     URL_ADMIN_STATS,
     URL_ADMIN_BLOG,
     URL_ADMIN_ORDERS,
-    URL_ADMIN_CONTACT
+    URL_ADMIN_CONTACT,
+    URL_ADMIN_PROMOTION,
 } from '../../constants/urls/urlFrontEnd';
 import arrow from '../../assets/images/arrow-right.png'
 
@@ -65,6 +66,9 @@ const NavAdmin = () => {
                 </li>
                 <li className={navelement}>
                     <Link className={lien} to={URL_ADMIN_CONTACT}>Contact</Link>
+                </li>
+                <li className={navelement}>
+                    <Link className={lien} to={URL_ADMIN_PROMOTION}>Promotions</Link>
                 </li>
             </ul>
         </div>

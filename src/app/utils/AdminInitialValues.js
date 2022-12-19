@@ -47,6 +47,20 @@ export const categoryUpdateInitialValues = (categories) => {
     }
 }
 
+export const promotionUpdateInitialValues = (promotion) => {
+    return {
+        remise : promotion.remise,
+    }
+}
+
+export const promotionCreateInitialValues = () => {
+    return {
+        remise : '',
+        startDate : '',
+        endDate : '',
+    }
+}
+
 // Valeur Initiale du formulaire Create Users
 
 export const userCreateInitialValues = {
@@ -57,7 +71,7 @@ export const userCreateInitialValues = {
     passwordConfirm:'',
     roles: 'ROLE_ADMIN',
     phone: '',
-    
+
     }
 
 

@@ -33,6 +33,7 @@ import LegalNoticeView from './../views/ClientView/LegalNoticeView';
 import ForgotPasswordView from './../views/ClientView/ForgotPasswordView';
 import NewPasswordView from './../views/ClientView/NewPasswordView'
 import AccountView from './../views/ClientView/AccountView';
+import AdminPromotionsView from "../views/AdminView/AdminPromotionsView";
 /**
  * Routes of the application
  * with public and private route
@@ -185,6 +186,14 @@ const Routes = () => {
               <AdminContactView />
             </PrivateRoute>
           }
+        />
+        <Route
+           path={URL.URL_ADMIN_PROMOTION}
+           element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+                <AdminPromotionsView />
+            </PrivateRoute>
+        }
         />
       </Route>
 

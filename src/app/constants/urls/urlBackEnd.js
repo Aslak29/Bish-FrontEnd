@@ -42,6 +42,9 @@ export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
+export const URL_BACK_DELETE_PROMOTION = "/promotion/remove/"
+export const URL_BACK_CREATE_PROMOTION = "/promotion/add/"
+export const URL_BACK_UPDATE_PROMOTION = "promotion/update/"
 
 // Routes ADMIN PRODUITS
 export const URL_BACK_CREATE_PRODUCT = '/produit/add/'

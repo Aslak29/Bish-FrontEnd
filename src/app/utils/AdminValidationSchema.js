@@ -59,6 +59,15 @@ export const categoryUpdateSchema =  Yup.object().shape({
         )
 })
 
+export const promotionCreateSchema = Yup.object().shape({
+    remise: Yup.number()
+        .required("Champs Requis !"),
+    startDate: Yup.date()
+        .required("Champs Requis"),
+    endDate: Yup.date()
+        .required("Champs Requis")
+})
+
 // Schéma de Validation Formulaire Create Update Users
 
 export const userSchema =  Yup.object().shape({
