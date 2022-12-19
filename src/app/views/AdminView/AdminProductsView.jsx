@@ -10,6 +10,7 @@ import FormUpdate from '../../components/admin/product/FormUpdate';
 import FormCreate from '../../components/admin/product/FormCreate';
 import {Helmet} from 'react-helmet-async'
 import TitleContainer from '../../components/admin/TitleContainer';
+import s3 from "../../bucket_S3/aws";
 
 const AdminProductsView = () => {
 
@@ -38,7 +39,6 @@ const AdminProductsView = () => {
       apiBackEnd.get(URL_BACK_PRODUCTS)
     ])
     .then(respArr => {
-      console.log(respArr);
       setRows([])
       setFormUpdate([])
       // Set le contenu d'une row (à mettre dans l'ordre voulu)
@@ -52,7 +52,7 @@ const AdminProductsView = () => {
         res.name_categorie, 
         res.promotion.remise > 0 ? res.promotion.remise + ' %' : '-',
         res.created_at.date,
-        <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/products/' + res.pathImage} alt={res.name}/>,
+        <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+ res.pathImage})} alt={res.name}/>,
         <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={res.is_trend} id={`checkTrend${res.id}`} onChange={() => changeIsTrend(res, respArr[0], respArr[1], index)}/>,
         <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" checked={res.is_available} id={`checkAvailable${res.id}`} onChange={() => changeIsAvailable(res, respArr[0], respArr[1], index)}/>
       ]]))

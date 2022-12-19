@@ -5,6 +5,7 @@ import { URL_BACK_CREATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify'
 import { productCreateSchema } from '../../../utils/AdminValidationSchema';
 import { productCreateInitialValues } from '../../../utils/AdminInitialValues'
+import {createAlbum} from "../../../bucket_S3/awsFunction";
 
 const FormCreate = props => {
     // Valeur par défaut du stock
@@ -21,7 +22,8 @@ const FormCreate = props => {
 
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
           apiBackEnd.post(`${URL_BACK_CREATE_PRODUCT}${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
-            if (res.status === 200) {
+            if (res.status === 200){
+              createAlbum(values.infoFile.name,values.infoFile)
               props.setReload(!props.reload)
               props.close()
               // Notification succès d'un ajout de produit
