@@ -95,7 +95,7 @@ const ProductCard = props => {
               : <Link to={`${URL_PRODUCT_LINK}${produit.id}`} className="hover:bish-text-blue hover:font-semibold">{produit.name}</Link>
               )}
             <div>{(props.produit.promotion.length !== 0 ?
-                <div className="">
+                <div>
                     <span className='font-bold line-through text-base sm:text-sm md:text-base bish-text-gray'>{props.produit.price.toFixed(2)}€</span>
                     <span className="font-bold text-xl sm:text-base md:text-xl"> {props.produit.promotion.price_remise.toFixed(2)}€</span>
                 </div>
