@@ -72,7 +72,7 @@ const Slide = () => {
     return (
 
         // showThumbs={false} permet de cacher les vignettes du carousel
-        <Carousel autoPlay interval="7000" transitionTime="2000" showStatus={false} stopOnHover={true} showThumbs={false} className='w-full'>
+        <Carousel autoPlay interval="7000" transitionTime="2000" showStatus={false} stopOnHover={true} showThumbs={false} infiniteLoop={true} className='w-full'>
 
             {/* Slide 3 = les 2 produits tendances aléatoires*/}
 

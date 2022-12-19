@@ -11,16 +11,15 @@ const FormUpdate = props => {
     const pathImageDefault = props.categories.pathImage;
 
     const updateRow = (id, values) => {
-        console.log(id);
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
             apiBackEnd.post(
                 `${URL_BACK_CATEGORIES_UPDATE}/${id}/${values.name}/${values.trend}/${
-                    values.infoFile !== undefined ? values.infoFile.name : pathImageDefault
-                }`
+                    values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}`
             ).then(res => {
                 if (res.status === 200) {
+                    props.updateTable(props.categories, values, props.index, pathImageDefault)
                     // Notification succès d'une modification de produit
-                    toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, {
+                    toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été modifié!`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -32,7 +31,6 @@ const FormUpdate = props => {
                     })
                 }
             }).catch(error => {
-                    console.log(error);
                     // Notification erreur
                     toast.error('Une erreur est survenue', {
                         position: "top-right",
@@ -92,7 +90,6 @@ const FormUpdate = props => {
                             <div className="flex flex-col h-20">
                                 <span>Image</span>
                                 <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
-                                    console.log(e.currentTarget.files[0].type)
                                     showPreview(e);
                                     formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
                                 }}/>

@@ -1,15 +1,16 @@
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, ErrorMessage } from "formik"
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserByMail } from "../../api/backend/account";
 import { URL_HOME } from "../../constants/urls/urlFrontEnd";
-
 import {URL_FORGOT_PASSWORD} from "../../constants/urls/urlFrontEnd";
 import { signIn } from "../../redux-store/authenticationSlice";
 import { authenticate } from "../../api/backend/account";
 import registerSVG from "../../assets/images/login-view-register.svg";
 import { URL_REGISTER } from "../../constants/urls/urlFrontEnd";
+import { loginInitialValues } from './../../utils/ClientInitialValues';
+import { loginSchema } from './../../utils/ClientValidationSchema';
 
 /**
  * Component Login
@@ -28,10 +29,12 @@ const Login = () => {
           let token = res.data.token
           if(values.username) {
             getUserByMail(values.username).then(res => {
+              let id = res.data.id;
               let name = res.data.name;
               let surname = res.data.surname;
               let auth = {
                 token : token,
+                id: id,
                 name : name,
                 surname : surname,
               }
@@ -51,24 +54,27 @@ const Login = () => {
         <h1 className="text-2xl md:text-4xl lg:text-6xl mt-6 lg:mt-0">Connexion</h1>
         <div className="flex flex-col w-full sm:w-3/4">
           <Formik
-            initialValues={{
-              username: "",
-              password: "",
-            }}
+            initialValues={loginInitialValues}
+            validationSchema={loginSchema}
             onSubmit={handleLogin}
           >
             <Form className="space-y-6">
               <div className="flex flex-col space-y-8 sm:space-y-10">
-
                 {/* Adresse e-mail */}
-                <div className="input-div group">
-                  <Field type="text" name="username" required className="input peer" autoComplete="off"/>
-                  <span className="label">Adresse e-mail</span>
+                <div>
+                  <div className="input-div group">
+                    <Field type="text" name="username" required className="input peer" autoComplete="off"/>
+                    <span className="label">Adresse e-mail</span>
+                  </div>
+                  <ErrorMessage name="username" component="small" className="text-red-400"/>
                 </div>
                 {/* Mot de passe */}
-                <div className="input-div group">
-                  <Field type="password" name="password" required className="input peer" autoComplete="off"/>
-                  <span className="label">Mot de passe</span>
+                <div>
+                  <div className="input-div group">
+                    <Field type="password" name="password" required className="input peer" autoComplete="off"/>
+                    <span className="label">Mot de passe</span>
+                  </div>
+                  <ErrorMessage name="password" component="small" className="text-red-400"/>
                 </div>
             </div>
             <div className="flex flex-col place-items-center">

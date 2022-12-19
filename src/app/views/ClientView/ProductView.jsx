@@ -5,26 +5,32 @@ import {URL_BACK_PRODUCT_BY_ID} from "../../constants/urls/urlBackEnd";
 import {useNavigate, useParams} from "react-router-dom";
 import {URL_404} from "../../constants/urls/urlFrontEnd";
 import SuggestionsContainer from "../../components/products/SuggestionsContainer"
+import Bot from "../../components/bot/Bot";
 
 
 const ProductView = () => {
 
-    const [product, setProduct] =  useState();
-    const [updateDetail, setUpdateDetail] =  useState(false);
+    const [product, setProduct] = useState();
+    const [updateDetail, setUpdateDetail] = useState(false);
+    const [timerBot, setTimer] = useState();
+    const [openedBot, setopenedBot] = useState({opened: false});
+
     const num = useParams();
     let id = num.productID;
     const navigate = useNavigate();
 
     useEffect(() => {
-        apiBackend.post(URL_BACK_PRODUCT_BY_ID + `${id}` ).then((response => {
-            if (response.status === 200){
+        apiBackend.post(URL_BACK_PRODUCT_BY_ID + `${id}`).then((response => {
+            if (response.status === 200) {
                 setProduct(response.data);
+                setTimer(setTimeout(() => toggleFloating({opened: true}), 30000));
             }
         })).catch(error => {
-            if (error.response.data["errorCode"] === "002"){
+            if (error.response.data["errorCode"] === "002") {
                 navigate(URL_404)
-            }})
-    },[updateDetail])
+            }
+        })
+    }, [updateDetail])
 
     //Permet de relancer le useEffect pour changer le contenu de ProductDetail au clic sur une ProductCard
     const updateDetailComponent = () => {
@@ -32,23 +38,30 @@ const ProductView = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth',
-    });    }
+        });
+    }
 
-  return (
-    <div className="w-full">
-      <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
-      {product && <ProductDetail {...product} />}
-  
-      {product && (
-        <SuggestionsContainer
-        id={product.id}
-        idCategorie={product.id_categorie}
-        update={updateDetailComponent}
-        />
-        )}
-      </div>
-    </div>
-  );
+    const toggleFloating = ({opened}) => {
+        clearTimeout(timerBot);
+        setopenedBot({opened})
+    }
+
+    return (
+        <div className="w-full">
+            <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
+                {product && <ProductDetail {...product} />}
+
+                {product && (
+                    <SuggestionsContainer
+                        id={product.id}
+                        idCategorie={product.id_categorie}
+                        update={updateDetailComponent}
+                    />
+                )}
+            </div>
+            <Bot opened={openedBot} toggleFloating={toggleFloating}/>
+        </div>
+    );
 }
 
 export default ProductView
