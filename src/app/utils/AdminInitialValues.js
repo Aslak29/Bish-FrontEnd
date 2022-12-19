@@ -89,3 +89,24 @@ export const userUpdateInitialValues = (user) => {
         phone: user.phone,
         }
 }
+
+// BLOG
+// Valeurs initiales du formulaire create blog
+export const blogCreateInitialValues = {
+    title: '',
+    description: '',
+    date: '',
+    pathImage: ''
+}
+// Valeurs initiales du formulaire update blog
+
+export const blogUpdateInitialValues = (blog) => {
+    return{
+        title: blog.title,
+        description: blog.description,
+        date: blog.date,
+        infoFile: {
+            name: blog.pathImage
+        }    
+    }
+}

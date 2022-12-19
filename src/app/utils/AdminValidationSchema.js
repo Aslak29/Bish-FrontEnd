@@ -78,4 +78,22 @@ export const userSchema =  Yup.object().shape({
     passwordConfirm: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
     phone: Yup.string().matches(/^[0-9]*$/,'Que des Chiffres').min(10,'minimum 10 chiffre').max(10,'maximum 10 chiffre').required('Required')
   })
+    
+// BLOG
+// Schéma de validation du formulaire create admin produit
+export const blogCreateSchema = Yup.object().shape({
+    title: Yup.string().min(2, 'Minimum 2 caractères').required('Requis'),
+    description: Yup.string().min(15, 'Minimum 15 caractères').required('Requis'),
+    infoFile:
+        Yup.mixed().required("Requis").test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
+        value => value && (value.type === "image/jpeg" || value.type === "image/png"))
+})
 
+// Schéma de validation du formulaire update admin produit
+export const blogUpdateSchema = Yup.object().shape({
+title: Yup.string().min(10, 'Minimum 10 caractères').required('Requis'),
+description: Yup.string().min(20, 'Minimum 20 caractères').required('Requis'),
+infoFile:
+    Yup.mixed().test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
+    value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
+})
