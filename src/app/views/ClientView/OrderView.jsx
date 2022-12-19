@@ -134,11 +134,9 @@ function OrderView() {
       )}
       {
         <div className="flex flex-row justify-between w-3/4 m-1 font-medium">
-          <div className="border-b-4 flex flex-col- bish-bg-white-up items-center justify-center text-center w-1/2">
-            <div className="items-start justify-start text-left">
-              Adresse de livraison:
-            </div>
-            <div className="flex flex-col p-2">
+          <div className="border-b-4 flex flex-row bish-bg-white-up items-start justify-start text-center w-1/2 p-2">
+            <div className="flex my-auto">Adresse de livraison:</div>
+            <div className="flex flex-col text-center w-full">
               <span>{infoClient.rue}</span>
               <span>{infoClient.Code_Postal}</span>
               <span>{infoClient.ville}</span>
