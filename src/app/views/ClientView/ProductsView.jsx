@@ -31,6 +31,11 @@ const ProductsView = () => {
         }
     }, []);
 
+    const backArrow = () => {
+        setCategorie([-1])
+        setPage(0)
+    }
+
     return (
         <div className="w-11/12 lg:w-3/4 mx-auto my-6 space-y-6">
             <Helmet>
@@ -40,8 +45,8 @@ const ProductsView = () => {
             <div className="md:w-3/5 m-auto">
                 <Categories setCategorie={handleCategorie}/>
             </div>
-            <ProductsContainer categorie={categorie} setCategorie={handleCategorie} setCountPage={handleCountPage} page={page} limit={20}/>
-            <Paginate setPage={handlePage} countPage={countPage}/>
+            <ProductsContainer categorie={categorie} setCategorie={handleCategorie} setCountPage={handleCountPage} page={page} limit={20} backArrow={backArrow}/>
+            <Paginate setPage={handlePage} countPage={countPage} page={page}/>
         </div>
     );
 };
