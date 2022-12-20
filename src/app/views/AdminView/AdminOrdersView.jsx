@@ -8,7 +8,7 @@ import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
 import {  URL_BACK_COMMANDES } from '../../constants/urls/urlBackEnd';
 // import FormUpdate from '../../components/admin/product/FormUpdate';
-// import TitleContainer from '../../components/admin/TitleContainer';
+import TitleContainer from '../../components/admin/TitleContainer';
 import TableDetail from '../../components/admin/commandes/TableDetail';
 
 
@@ -39,7 +39,7 @@ const AdminOrdersView = () => {
           res.user.user_name,
           res.user.user_surname,
           res.totalCommande +'€',   
-          res.adresse.num_rue +' '+ res.adresse.complement_adresse +' '+ res.adresse.rue +' '+ res.adresse.ville +' '+ res.adresse.code_postal,
+          res.adresse.num_rue +' '+ (res.adresse.complement_adresse ? res.adresse.complement_adresse : '') +' '+ res.adresse.rue +' '+ res.adresse.ville +' '+ res.adresse.code_postal,
           res.etatCommande,
           res.date_facture,
           <TableDetail detail={res}/>
@@ -66,6 +66,8 @@ const AdminOrdersView = () => {
       </Helmet>
       {/* Notifications */}
       {/* <ToastContainer /> */}
+      {/* TITRE + BUTTON AJOUTER */}
+      <TitleContainer name="COMMANDES" addButton={false} />
       {/* TABLE Commandes */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 

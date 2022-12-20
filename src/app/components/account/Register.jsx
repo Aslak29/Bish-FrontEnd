@@ -41,7 +41,7 @@ const Register = () => {
                 })
             }}
           >
-            {formikProps =>
+            {({setFieldValue, errors}) =>
               <Form
                 className="flex justify-center w-full"
               >
@@ -89,7 +89,7 @@ const Register = () => {
                                 sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
                                 ref={recaptchaRef}
                                 onChange={(value) => {
-                                  formikProps.setFieldValue("recaptcha", value);
+                                  setFieldValue("recaptcha", value);
                                 }}
                             />
                             <ErrorMessage name="recaptcha" component="small" className="text-red-400"/>
@@ -100,7 +100,7 @@ const Register = () => {
                                 ref={recaptchaRef}
                                 sitekey={import.meta.env.VITE_SITE_KEY_RECAPTCHA}
                                 onChange={(value) => {
-                                  formikProps.setFieldValue("recaptcha", value);
+                                  setFieldValue("recaptcha", value);
                                 }}
                             />
                             <ErrorMessage name="recaptcha" component="small" className="text-red-400"/>
