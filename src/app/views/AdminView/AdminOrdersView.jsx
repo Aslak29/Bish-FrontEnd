@@ -7,7 +7,7 @@ import loadingSVG from '../../assets/images/loading-spin.svg'
 import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
 import {  URL_BACK_COMMANDES } from '../../constants/urls/urlBackEnd';
-// import FormUpdate from '../../components/admin/product/FormUpdate';
+import FormUpdate from '../../components/admin/commandes/FormUpdate';
 import TitleContainer from '../../components/admin/TitleContainer';
 import TableDetail from '../../components/admin/commandes/TableDetail';
 
@@ -30,7 +30,6 @@ const AdminOrdersView = () => {
       // Récupération des données
       apiBackEnd.get(URL_BACK_COMMANDES)
       .then(res => {
-        console.log(res);
         setRows([])
         setFormUpdate([])
         // Set le contenu d'une row (à mettre dans l'ordre voulu)
@@ -47,9 +46,9 @@ const AdminOrdersView = () => {
   
         res.data.map((res) => {
           // Formulaire UPDATE
-          // setFormUpdate(current => [...current,
-          //   <FormUpdate produit={res} categories={respArr[0]} promotions={respArr[1]} index={index} updateTable={updateTable}/>
-          // ])
+          setFormUpdate(current => [...current,
+            <FormUpdate commande={res}/>
+          ])
         })
 
         // Fin du chargement

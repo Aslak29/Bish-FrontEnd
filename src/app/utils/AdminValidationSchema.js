@@ -97,3 +97,19 @@ infoFile:
     Yup.mixed().test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
     value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
 })
+
+// Schéma de validation du formulaire update commande details produit
+export const orderDetailProductSchema = Yup.object().shape({
+    taille: Yup.string().required('Champ obligatoire'),
+    quantite: Yup.number('Indiquer que des chiffres').required('Champ obligatoire').positive('Indiquer un chiffre positif'),
+    prix: Yup.number('Indiquer que des chiffres').required('Champ obligatoire').positive('Indiquer un chiffre positif'),
+})
+
+// Schéma de validation du formulaire update commande
+export const orderProductSchema = Yup.object().shape({
+    ville: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
+    cp: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(5,'Minimum 5 chiffres').max(5,'Maximum 5 chiffres').required('Champ obligatoire'),
+    num: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
+    rue: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
+    etat: Yup.string().required('Champ obligatoire')
+})

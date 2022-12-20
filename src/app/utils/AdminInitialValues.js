@@ -62,7 +62,6 @@ export const promotionCreateInitialValues = () => {
 }
 
 // Valeur Initiale du formulaire Create Users
-
 export const userCreateInitialValues = {
     name: '',
     surname: '',
@@ -71,13 +70,9 @@ export const userCreateInitialValues = {
     passwordConfirm:'',
     roles: 'ROLE_ADMIN',
     phone: '',
-
-    }
-
+}
 
 // Valeur Initiale du formulaire Update  Users
-
-
 export const userUpdateInitialValues = (user) => {
     return{
         name: user.name,
@@ -87,7 +82,7 @@ export const userUpdateInitialValues = (user) => {
         passwordConfirm: '',
         roles: user.roles,
         phone: user.phone,
-        }
+    }
 }
 
 // BLOG
@@ -98,8 +93,8 @@ export const blogCreateInitialValues = {
     date: '',
     pathImage: ''
 }
-// Valeurs initiales du formulaire update blog
 
+// Valeurs initiales du formulaire update blog
 export const blogUpdateInitialValues = (blog) => {
     return{
         title: blog.title,
@@ -110,3 +105,26 @@ export const blogUpdateInitialValues = (blog) => {
         }    
     }
 }
+
+// COMMANDES
+// Valeurs initiales du formulaire COMMANDE modal DETAILS
+export const orderDetailProductInitialValues = product => {
+    return {
+        taille: product.taille,
+        quantite: product.quantite,
+        prix: product.price
+    }    
+}
+
+// Valeurs initiales du formulaire update COMMANDE
+export const orderUpdateInitialValues = product => {
+    return {
+        ville: product.adresse.ville,
+        cp: product.adresse.code_postal,
+        num: product.adresse.num_rue,
+        rue: product.adresse.rue,
+        compAdress: product.adresse.complement_adresse ? product.adresse.complement_adresse : '',
+        etat: product.etatCommande
+    }    
+}
+
