@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import {Helmet} from "react-helmet-async";
 // import axios from 'axios';
-// import apiBackEnd from '../../api/backend/api.Backend';
+import apiBackEnd from '../../api/backend/api.Backend';
 import loadingSVG from '../../assets/images/loading-spin.svg'
 // import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
-// import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT, URL_BACK_UPDATE_TREND_PRODUCT, URL_BACK_UPDATE_AVAILABLE_PRODUCT } from '../../constants/urls/urlBackEnd';
+import {  URL_BACK_COMMANDES } from '../../constants/urls/urlBackEnd';
 // import FormUpdate from '../../components/admin/product/FormUpdate';
 // import TitleContainer from '../../components/admin/TitleContainer';
 
@@ -24,13 +24,46 @@ const AdminOrdersView = () => {
     // Reload table
     const [reload, setReload] = useState(false);
 
+    useEffect(() => {
+      // Permet d'afficher le SVG de chargement
+      setIsLoading(true)
+      // Récupération des données
+      apiBackEnd.get(URL_BACK_COMMANDES)
+      .then(res => {
+        console.log(res);
+        setRows([])
+        setFormUpdate([])
+        // Set le contenu d'une row (à mettre dans l'ordre voulu)
+        res.data.map((res) => setRows(current => [...current, [
+          res.id,
+          res.user.user_name,
+          res.user.user_surname,
+          res.totalCommande +'€',   
+          res.adresse.num_rue +' '+ res.adresse.complement_adresse +' '+ res.adresse.rue +' '+ res.adresse.ville +' '+ res.adresse.code_postal,
+          res.etatCommande,
+          res.date_facture,
+        ]]))
+  
+        res.data.map((res) => {
+          // Formulaire UPDATE
+          // setFormUpdate(current => [...current,
+          //   <FormUpdate produit={res} categories={respArr[0]} promotions={respArr[1]} index={index} updateTable={updateTable}/>
+          // ])
+        })
+
+        // Fin du chargement
+        setIsLoading(false)
+      })
+    },[reload])
+
   return (
 <div className='w-full ml-12 sm:ml-64'>
       <Helmet>
-        <title>Bish - Admin Produits</title>
+        <title>Bish - Admin Commandes</title>
       </Helmet>
       {/* Notifications */}
-      {/* TABLE PRODUITS */}
+      {/* <ToastContainer /> */}
+      {/* TABLE Commandes */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 
         (
@@ -44,7 +77,7 @@ const AdminOrdersView = () => {
                 <TableHeadSort nbSortColumn="2" name="Prénom" />
                 <TableHeadSort nbSortColumn="3" name="Prix Total" />
                 <TableHeadSort nbSortColumn="4" name="Adresse" />
-                <TableHeadSort nbSortColumn="5" name="Statut" />
+                <TableHeadSort nbSortColumn="5" name="Etat" />
                 <TableHeadSort nbSortColumn="6" name="Date" />
                 <th className={labelHeader} title='Détails'>Détails</th>
                 {/* TH Actions à ne pas supprimer */}
@@ -54,7 +87,7 @@ const AdminOrdersView = () => {
             {/* Contenu de la table */}
             <tbody>
               {/* Retourne une ligne pour chaque élément */}
-              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow}/>)}
+              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]}/>)}
             </tbody>
           </table>
         )

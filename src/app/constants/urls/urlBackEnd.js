@@ -60,3 +60,4 @@ export const URL_BACK_UPDATE_USER = '/user/update/'
 
 // Routes COMMANDES CLIENT
 export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";
+export const URL_BACK_COMMANDES ="/commande/"

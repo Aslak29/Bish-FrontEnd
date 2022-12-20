@@ -190,7 +190,7 @@ const AdminProductsView = () => {
   return (
     <div className='w-full ml-12 sm:ml-64'>
       <Helmet>
-        <title>Bish - Admin Produits</title>
+        <title>Bish - Admin Commandes</title>
       </Helmet>
       {/* Notifications */}
       <ToastContainer />
