@@ -5,6 +5,7 @@ import {URL_BACK_CATEGORIES_UPDATE} from "../../../constants/urls/urlBackEnd";
 import {toast} from "react-toastify";
 import {categoryUpdateSchema} from "../../../utils/AdminValidationSchema";
 import {categoryUpdateInitialValues} from "../../../utils/AdminInitialValues";
+//import {createAlbum} from "../../../bucket_S3/awsFunction";
 
 const FormUpdate = props => {
     // UPDATE élément dans la BDD
@@ -18,6 +19,7 @@ const FormUpdate = props => {
             ).then(res => {
                 if (res.status === 200) {
                     props.updateTable(props.categories, values, props.index, pathImageDefault)
+                    //createAlbum(values.infoFile.name,values.infoFile,"products")
                     // Notification succès d'une modification de produit
                     toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été modifié!`, {
                         position: "top-right",
