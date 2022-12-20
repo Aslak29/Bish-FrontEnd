@@ -9,15 +9,12 @@ import TableHeadSort from '../../components/admin/TableHeadSort';
 import {  URL_BACK_COMMANDES } from '../../constants/urls/urlBackEnd';
 // import FormUpdate from '../../components/admin/product/FormUpdate';
 // import TitleContainer from '../../components/admin/TitleContainer';
-import detailsIMG from '../../assets/images/detailsIMG.png'
-import ModalCrud from '../../components/admin/ModalCrud';
-import DetailCommande from '../../components/admin/commandes/DetailCommande'
+import TableDetail from '../../components/admin/commandes/TableDetail';
+
 
 const AdminOrdersView = () => {
    // Style
     const labelHeader = 'truncate hover:text-clip'
-    // State modal Details
-    const [modalIsOpen, setIsOpen] = useState(false);
     // Contenu d'un ligne de la table (sans les keys, que les datas)
     const [rows, setRows] = useState([])
     // Formulaire UPDATE
@@ -45,10 +42,7 @@ const AdminOrdersView = () => {
           res.adresse.num_rue +' '+ res.adresse.complement_adresse +' '+ res.adresse.rue +' '+ res.adresse.ville +' '+ res.adresse.code_postal,
           res.etatCommande,
           res.date_facture,
-          <button className='bish-bg-blue p-2 bish-text-white font-medium' title={"Impossible de modifier des demandes de contact"} onClick={()=>openModal()}>
-          <img className='h-5 lg:h-8' src={detailsIMG} alt="Details"/>
-          <ModalCrud modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} form={<DetailCommande/>} />
-          </button>
+          <TableDetail detail={res}/>
         ]]))
   
         res.data.map((res) => {
@@ -63,15 +57,7 @@ const AdminOrdersView = () => {
       })
     },[reload])
 
-        // Open modal CREATE
-        function openModal() {
-          setIsOpen(true);
-        }
-      
-        // Close modal CREATE
-        function closeModal() {
-          setIsOpen(false);
-        }
+
 
   return (
 <div className='w-full ml-12 sm:ml-64'>

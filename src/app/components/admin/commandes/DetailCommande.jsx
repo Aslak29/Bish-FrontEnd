@@ -1,6 +1,8 @@
 import React from 'react'
 
-const DetailCommande = () => {
+const DetailCommande = (props) => {
+    console.log(props.detail)
+
   return (
     <div>DetailCommande</div>
   )
