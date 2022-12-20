@@ -5,8 +5,8 @@ import { URL_BACK_UPDATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
 import { productUpdateSchema } from '../../../utils/AdminValidationSchema'
 import { productUpdateInitialValues } from '../../../utils/AdminInitialValues';
-import { createAlbum} from "../../../bucket_S3/awsFunction";
-import s3 from "../../../bucket_S3/aws";
+//import { createAlbum} from "../../../bucket_S3/awsFunction";
+//import s3 from "../../../bucket_S3/aws";
 
 const FormUpdate = props => {
 
@@ -22,7 +22,7 @@ const FormUpdate = props => {
             apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
               if (res.status === 200) {
                 props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
-                createAlbum(values.infoFile.name,values.infoFile)
+                //createAlbum(values.infoFile.name,values.infoFile)
                 // Notification succès d'une modification de produit
                 toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
