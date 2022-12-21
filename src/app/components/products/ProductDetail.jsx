@@ -25,10 +25,10 @@ const ProductDetail = (props) => {
         {/*TODO: ajouter la source du produits*/}
       </div>
             <div className="p-8 md:w-5/6 w-full w-11/12 m-auto lg:m-0 relative md:pt-10 -z-0">
-                <div className="flex">
+                <div className="flex flex-col sm:flex-row">
                     <h1 className="text-2xl  md:text-3xl lg:text-4xl">{props.name}</h1>
                     {props.noteAverage &&
-                        <div className="flex items-center ml-5">
+                        <div className="flex items-center sm:ml-5">
                             <StarsComponent note={props.noteAverage} />
                         </div>
                     }

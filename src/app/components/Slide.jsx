@@ -85,7 +85,7 @@ const Slide = () => {
                                 <div className='slide-img flex flex-col w-full'>
                                     <img src={window.location.origin + "/src/app/assets/images/products/" +  `${value.pathImage}`}
                                 alt="Tendance"
-                                className='object-cover h-[20rem] sm:h-full'/>
+                                className='object-cover h-[20rem] sm:h-[40rem]'/>
                                 </div>
                                 <button className="btn-slide-bish w-auto px-4 mt-5">
                                     <Link to={`${URL_PRODUCT_LINK}${value.id}`}>Je découvre</Link>

@@ -48,7 +48,7 @@ const ProductView = () => {
 
     return (
         <div className="w-full">
-            <div className="w-3/4 m-auto mt-12 mb-12 space-y-12">
+            <div className="w-11/12 sm:w-3/4 m-auto mt-12 mb-12 space-y-12">
                 {product && <ProductDetail {...product} />}
 
                 {product && (
