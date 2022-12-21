@@ -1,7 +1,27 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Helmet } from "react-helmet-async";
+import apiBackend from "../../api/backend/api.Backend";
+import { URL_BACK_LIST_ORDERS } from "../../constants/urls/urlBackEnd.js";
+import { useNavigate } from "react-router-dom";
 
-const OrdersView = () => {
+function OrdersView(){
+  const navigate = useNavigate();
+  const [infoCommande, setInfoCommande] = useState([]);
+  
+  useEffect(()=>{
+    apiBackend.post(URL_BACK_LIST_ORDERS + `${localStorage.id}`).then((response) => {
+      console.log(response.data);
+      if (response.status === 200) {
+        setInfoCommande(
+          response.data
+          );
+        }
+    });
+  },[]);
+
+function fetchCommande(idCommande) {
+  navigate('/espace-client/commandes/commande/' + idCommande);
+}
   return (
     <div className="w-full text-center">
       <Helmet>
@@ -18,16 +38,32 @@ const OrdersView = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="border-r-2 py-5 bish-border-gray">1565161</td>
-            <td className="border-x-2 py-5 bish-border-gray">50.78€</td>
-            <td className="border-x-2 py-5 bish-border-gray">21/11/2018</td>
-            <td className="border-l-2 py-5 bish-border-gray">Livrée</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
+        {infoCommande.map((commande, index)=>   {
+            return (
+              <tr
+                className="text-center cursor-pointer hover:bish-bg-blue hover:bish-text-white"
+                key={index}
+                onClick={() => fetchCommande(commande.id)}
+              >
+                <td className="border-r-2 py-5 bish-border-gray">
+                  {commande.id}
+                </td>
+                <td className="border-x-2 py-5 bish-border-gray">
+                  {commande.montant}
+                </td>
+                <td className="border-x-2 py-5 bish-border-gray">
+                  {commande.date_facture}
+                </td>
+                <td className="border-l-2 py-5 bish-border-gray">
+                  {commande.etatCommande}
+                </td>
+              </tr>
+            );
+          })}
+            </tbody>
+            </table>
+      </div>
+      );
+    }
 
 export default OrdersView;
