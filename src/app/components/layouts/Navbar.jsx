@@ -84,11 +84,11 @@ const Navbar = () => {
       </div>
 
       {/*---------------------------------  Searchbar & Espace Client & Panier ---------------------------------  */}
-      <div className="flex flex-row gap-x-4 lg:gap-x-8">
+      <div className="flex flex-row gap-x-4 lg:gap-x-8 ">
         <SearchBar searchBarToggle={toggleLogo}/>
 
         {/*--------------------------------- Espace client et panier ---------------------------------  */}
-        <div className="flex justify-end my-auto mx-0 gap-x-4 lg:gap-x-8">
+        <div className="flex justify-end my-auto mx-0 gap-x-4 lg:gap-x-8 lg:w-2/6 xl:w-auto">
             <> 
               <Link to={URL_SHOPPING_CART}>
                 <img
