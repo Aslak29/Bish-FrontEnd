@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-// import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import apiBackend from "../../api/backend/api.Backend";
 import { useNavigate, useParams } from "react-router-dom";
 import { URL_BACK_SINGLE_ORDER } from "../../constants/urls/urlBackEnd.js";
 import { Helmet } from "react-helmet-async";
 import loadingSVG from "../../assets/images/loading-spin.svg";
-// import TableRow from "./../../components/admin/TableRow";
 import TitleContainer from "../../components/admin/TitleContainer";
 import { URL_404 } from "../../constants/urls/urlFrontEnd";
 
