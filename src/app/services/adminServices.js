@@ -1,6 +1,5 @@
 // Recherche dans la table
 export function search () {
-    console.log('aa');
     // Declare variables
     var input, filter, table, tr, td, i, txtValue, f;
     input = document.getElementById("searchInput");

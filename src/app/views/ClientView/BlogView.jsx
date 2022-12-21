@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import arrowRight from "../../assets/images/arrow-right.png"
 import arrowLeft from "../../assets/images/arrow-left.png"
-import loadingSVG from '../../assets/images/loading-spin.svg'
 
 const BlogView = () => {
 
@@ -21,7 +20,6 @@ const BlogView = () => {
 
   useEffect(() => {
     apiBackend.post(URL_BACK_BLOG+ "5/"+ `${page * 5}`).then((response => {
-      // console.log(isLoading);
       setBlog(response.data[0]);
       setTotalPages(Math.ceil(response.data[1][1]/5));
       

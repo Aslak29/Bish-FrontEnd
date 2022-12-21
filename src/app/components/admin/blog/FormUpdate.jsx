@@ -7,17 +7,14 @@ import {blogUpdateSchema} from "../../../utils/AdminValidationSchema";
 import {blogUpdateInitialValues} from "../../../utils/AdminInitialValues";
 
 const FormUpdate = props => {
-    console.log(props);
     // UPDATE élément dans la BDD
     const pathImageDefault = props.blog.pathImage;
 
     const updateRow = (id, values, pathImageDefault) => {
-        console.log(values);
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
             apiBackEnd.post(
                 `${URL_BACK_UPDATE_BLOG}`, {id: id, title: values.title, description:values.description, pathImage: values.infoFile !== undefined ? values.infoFile.name : pathImageDefault }
             ).then(res => {
-                console.log(res);
                 if (res.status === 200) {
                     props.updateTable(props.blog, values, props.index, pathImageDefault)
                     // Notification succès d'une modification de produit
@@ -90,7 +87,7 @@ const FormUpdate = props => {
                     <div className="flex flex-col h-20">
                         <span>Image</span>
                         <Field className='my-auto' accept="image/*" type="file" name="file" 
-                        onChange={e => {showPreview(e);console.log(e.currentTarget.files[0]); 
+                        onChange={e => {showPreview(e);
                         formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}}/>
                         <ErrorMessage name="infoFile" component="small" className="text-red-400"/>
                     </div>
