@@ -37,7 +37,6 @@ const AdminBlogView = () => {
         
         // TODO: SI PLUSIEURS APPEL API: METTRE ICI
         apiBackEnd.get(URL_BACK_BLOG).then(response => {
-            console.log(response);
         // TODO: EXEMPLE: METTRE LES ELEMENT DANS L'ORDRE D'AFFICHAGE DANS UNE ROW
         // Set le contenu d'une row (à mettre dans l'ordre voulu)
         response.data.map((res) => setRows(current => [...current, [
