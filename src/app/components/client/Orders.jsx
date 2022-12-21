@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import apiBackend from "../../api/backend/api.Backend";
 import {URL_BACK_LIST_ORDERS} from "../../constants/urls/urlBackEnd";
 import {useNavigate} from "react-router-dom";
+import { URL_404 } from '../../constants/urls/urlFrontEnd';
 
 const orders = () => {
     const navigate = useNavigate();
@@ -18,7 +19,11 @@ const orders = () => {
     },[]);
 
     function fetchCommande(idCommande) {
-        navigate('/espace-client/commandes/commande/', {state: {id: idCommande}});
+        if (idCommande) {
+            navigate('/espace-client/commandes/commande/', {state: {id: idCommande}});
+        } else {
+            navigate(URL_404)
+        }
     }
 
     return (
