@@ -20,6 +20,7 @@ const FormUpdate = props => {
                 console.log(res);
                 if (res.status === 200) {
                     props.updateTable(props.blog, values, props.index, pathImageDefault)
+                    // createAlbum(values.infoFile.name,values.infoFile)
                     // Notification succès d'une modification de produit
                     // Notification succès d'une modification de produit
                     toast.success(`L'article de blog ${res.data.id} - ${res.data.title} a été modifié!`, {
@@ -83,7 +84,7 @@ const FormUpdate = props => {
                     </div>
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
-                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.blog.pathImage}/>
+                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.blog.pathImage} /*src={Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}*/  />
                     </div>
                     
                     {/* Image */}

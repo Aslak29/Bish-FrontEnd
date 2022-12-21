@@ -67,7 +67,7 @@ const FormUpdate = props => {
                     </div>
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
-                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}/>
+                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.produit.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}*//>
                     </div>
                     {/* Prix */}
                     <div className="flex flex-col h-20">
