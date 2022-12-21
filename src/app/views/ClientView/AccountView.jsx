@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 
 const AccountView = () => {
   return (
-    <div className='md:flex flex-row w-full h-96 content-center py-4'>
+    <div className='md:flex flex-row w-full content-center py-4'>
       <NavAccount/>
       <Outlet/>
     </div>

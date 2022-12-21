@@ -17,10 +17,10 @@ const SearchBar = props => {
         }
     }
   return (
-    <div className="h-8 my-auto mx-0 flex flex-row space-x-3 sm:space-x-6">
+    <div className="h-8 my-auto mx-0 flex flex-row space-x-3 sm:space-x-6 lg:w-4/6 xl:w-auto">
           <form action="#" className={`${searchBarDisplay} lg:block`}>
             <input 
-              className={`h-8 rounded-full border-transparent w-40 sm:w-64 md:w-96 `}
+              className={`h-8 rounded-full border-transparent w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96`}
               type="search" 
               name="searchbar" 
               id="searchbar" 

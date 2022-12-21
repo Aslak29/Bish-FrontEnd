@@ -20,7 +20,7 @@ const NavAccount = () => {
     }
 
   return (
-    <div className="w-auto h-auto mx-4 flex flex-col justify-around"> 
+    <div className="sm:w-3/12 h-96 mx-4 flex flex-col justify-around"> 
     <h4 className="bish-text-blue text-center">Espace Client</h4>
         <div className="border bish-bg-white-up bish-border-gray-down   rounded-lg px-2 py-2 bish-shadow-grey flex flex-col justify-center content-center ">
             <ul className="divide-y divide-slate-400/25">
