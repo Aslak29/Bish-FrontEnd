@@ -66,4 +66,5 @@ export const URL_BACK_DELETE_ORDER_DETAILS = '/produitInCommande/single_order/de
 
 // Routes COMMANDES CLIENT
 export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";
+export const URL_BACK_LIST_ORDERS = "/commande/byUser/";
 export const URL_BACK_COMMANDES ="/commande/"

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Field, Form, Formik, ErrorMessage } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_UPDATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
 import { productUpdateSchema } from '../../../utils/AdminValidationSchema'
 import { productUpdateInitialValues } from '../../../utils/AdminInitialValues';
+//import { createAlbum} from "../../../bucket_S3/awsFunction";
+//import s3 from "../../../bucket_S3/aws";
 
 const FormUpdate = props => {
 
@@ -20,6 +22,7 @@ const FormUpdate = props => {
             apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
               if (res.status === 200) {
                 props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
+                //createAlbum(values.infoFile.name,values.infoFile)
                 // Notification succès d'une modification de produit
                 toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
@@ -64,7 +67,7 @@ const FormUpdate = props => {
                     </div>
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
-                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/products/' + props.produit.pathImage}/>
+                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}/>
                     </div>
                     {/* Prix */}
                     <div className="flex flex-col h-20">

@@ -5,6 +5,7 @@ import {URL_BACK_CATEGORIES_CREATE} from '../../../constants/urls/urlBackEnd';
 import {toast} from "react-toastify";
 import {categoryCreateSchema} from "../../../utils/AdminValidationSchema";
 import {categoryCreateInitialValues} from "../../../utils/AdminInitialValues";
+// import {createAlbum} from "../../../bucket_S3/awsFunction";
 
 const FormCreate = props => {
 
@@ -17,6 +18,7 @@ const FormCreate = props => {
                         // Notification succès d'un ajout de produit
                         props.setReload(!props.reload)
                         props.close()
+                        // createAlbum(values.infoFile.name,values.infoFile,"categories")
                         toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été ajouté!`, {
                             position: "top-right",
                             autoClose: 5000,

@@ -3,17 +3,14 @@ import {Helmet} from "react-helmet-async";
 import { useParams } from 'react-router-dom';
 import apiBackend from "../../api/backend/api.Backend";
 import {URL_BACK_BLOG} from "../../constants/urls/urlBackEnd";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const BlogArticleView = props => {
   const [articlesBlog, setArticlesBlog]=useState([]);
   const articleID=useParams();
-  // let id= articleID.articleID;
   let id=parseInt(articleID.articleID);
-  console.log(id);
   useEffect(() => {
     apiBackend.get(URL_BACK_BLOG + `${id}`).then((response => {
-      console.log(response);
       setArticlesBlog(response.data[0]);
     }))
   },[])
