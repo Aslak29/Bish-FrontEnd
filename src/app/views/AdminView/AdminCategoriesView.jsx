@@ -12,6 +12,7 @@ import FormUpdate from "../../components/admin/category/FormUpdate";
 import {Helmet} from "react-helmet-async";
 import TableHeadSort from "../../components/admin/TableHeadSort";
 import TitleContainer from "../../components/admin/TitleContainer";
+// import s3 from "../../bucket_S3/aws";
 
 const AdminCategoriesView = () => {
 
@@ -41,7 +42,7 @@ const AdminCategoriesView = () => {
                 res.id,
                 res.name,
                 <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50'
-                     src={window.location.origin + '/src/app/assets/images/categories/' + res.pathImage}
+                     src={window.location.origin + '/src/app/assets/images/categories/' + res.pathImage} //src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+ res.pathImage})}
                      alt={res.name}/>,
                 <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
                        id={`checkTrend${res.id}`} onChange={() => changeIsTrend(res, index)}
@@ -118,7 +119,7 @@ const AdminCategoriesView = () => {
                 categories.id,
                 categories.name,
                 <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50'
-                     src={window.location.origin + '/src/app/assets/images/categories/' + categories.pathImage}
+                     src={window.location.origin + '/src/app/assets/images/categories/' + categories.pathImage} //src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+ categories.pathImage})}
                      alt={categories.name}/>,
                 <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
                        id={`checkTrend${categories.id}`} onChange={() => changeIsTrend(categories, index)}

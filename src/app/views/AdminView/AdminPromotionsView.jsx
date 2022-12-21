@@ -40,6 +40,8 @@ const AdminPromotionsView = () => {
         // Récupération des données
         apiBackEnd.get(URL_BACK_PROMOS).then(respArr => {
             // Set le contenu d'une row (à mettre dans l'ordre voulu)
+            setRows([]);
+            setFormUpdate([]);
             respArr.data.map((res, index) => setRows(current => [...current, [
                 res.id,
                 res.remise,
@@ -85,7 +87,6 @@ const AdminPromotionsView = () => {
         if (window.confirm(`Êtes-vous sûr de vouloir supprimer la promotion ${id} ?`)) {
             apiBackEnd.delete(URL_BACK_DELETE_PROMOTION + id).then(res => {
                 if (res.status === 200) {
-                    console.log(res)
                     // Supprimer l'elément delete de la table
                     setRows(rows.filter(res => res[0] !== id))
                     // Notification promotion supprimé

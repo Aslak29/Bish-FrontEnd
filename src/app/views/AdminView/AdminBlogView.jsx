@@ -9,7 +9,7 @@ import FormUpdate from '../../components/admin/blog/FormUpdate';
 import FormCreate from '../../components/admin/blog/FormCreate';
 import {Helmet} from 'react-helmet-async'
 import TitleContainer from '../../components/admin/TitleContainer';
-
+//import s3 from "../../bucket_S3/aws"
 const AdminBlogView = () => {
 
     // Style
@@ -37,14 +37,13 @@ const AdminBlogView = () => {
         
         // TODO: SI PLUSIEURS APPEL API: METTRE ICI
         apiBackEnd.get(URL_BACK_BLOG).then(response => {
-            console.log(response);
         // TODO: EXEMPLE: METTRE LES ELEMENT DANS L'ORDRE D'AFFICHAGE DANS UNE ROW
         // Set le contenu d'une row (à mettre dans l'ordre voulu)
         response.data.map((res) => setRows(current => [...current, [
             res.id,
             res.title,
             res.description,
-            <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + res.pathImage} alt={res.title}/>,
+            <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + res.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/blog/'+ res.pathImage})}*/ alt={res.title}/>,
             // <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
         ]]))
         response.data.map((res, index) => {
@@ -86,7 +85,7 @@ const AdminBlogView = () => {
           blog.id,
           blog.title,
           blog.description,
-          <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + blog.pathImage} alt={blog.title}/>,
+          <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + blog.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/blog/'+ blog.pathImage})}*/ alt={blog.title}/>,
         ],
         ...current.slice(index+1)
       ])

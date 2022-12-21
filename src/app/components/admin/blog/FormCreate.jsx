@@ -5,20 +5,18 @@ import {URL_BACK_CREATE_BLOG} from '../../../constants/urls/urlBackEnd';
 import {toast} from "react-toastify";
 import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
 import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
-
+// import { createAlbum } from '../../../bucket_S3/awsFunction'
 const FormCreate = props => {
-// console.log(props);
     // CREATE élément dans la BDD
     const createRow = ( values, pathImageDefault) => {
-        console.log(values.description);
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
             apiBackEnd.post(`${URL_BACK_CREATE_BLOG}`, 
             {   title: values.title, 
                 description:values.description, 
                 pathImage: values.infoFile !== undefined ? values.infoFile.name : pathImageDefault })
             .then(res => {
-                console.log(res);
                 if (res.status === 200) {
+                    // createAlbum(values.infoFile.name,values.infoFile)
                     // Notification succès d'un ajout de produit
                     props.setReload(!props.reload)
                     props.close()

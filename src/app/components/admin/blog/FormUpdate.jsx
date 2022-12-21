@@ -7,19 +7,17 @@ import {blogUpdateSchema} from "../../../utils/AdminValidationSchema";
 import {blogUpdateInitialValues} from "../../../utils/AdminInitialValues";
 
 const FormUpdate = props => {
-    console.log(props);
     // UPDATE élément dans la BDD
     const pathImageDefault = props.blog.pathImage;
 
     const updateRow = (id, values, pathImageDefault) => {
-        console.log(values);
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
             apiBackEnd.post(
                 `${URL_BACK_UPDATE_BLOG}`, {id: id, title: values.title, description:values.description, pathImage: values.infoFile !== undefined ? values.infoFile.name : pathImageDefault }
             ).then(res => {
-                console.log(res);
                 if (res.status === 200) {
                     props.updateTable(props.blog, values, props.index, pathImageDefault)
+                    // createAlbum(values.infoFile.name,values.infoFile)
                     // Notification succès d'une modification de produit
                     // Notification succès d'une modification de produit
                     toast.success(`L'article de blog ${res.data.id} - ${res.data.title} a été modifié!`, {
@@ -83,14 +81,14 @@ const FormUpdate = props => {
                     </div>
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
-                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.blog.pathImage}/>
+                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.blog.pathImage} /*src={Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}*/  />
                     </div>
                     
                     {/* Image */}
                     <div className="flex flex-col h-20">
                         <span>Image</span>
                         <Field className='my-auto' accept="image/*" type="file" name="file" 
-                        onChange={e => {showPreview(e);console.log(e.currentTarget.files[0]); 
+                        onChange={e => {showPreview(e);
                         formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}}/>
                         <ErrorMessage name="infoFile" component="small" className="text-red-400"/>
                     </div>

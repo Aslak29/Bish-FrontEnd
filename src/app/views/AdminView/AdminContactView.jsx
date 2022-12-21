@@ -48,7 +48,6 @@ const AdminContactView = () => {
         if (window.confirm(`Êtes-vous sûr de vouloir supprimer le contact ${id} ?`)) {
             apiBackEnd.delete(URL_BACK_REMOVE_CONTACT + id).then(res => {
                 if (res.status === 200) {
-                    console.log(res)
                     // Supprimer l'elément delete de la table
                     setRows(rows.filter(res => res[0] !== id))
                     // Notification produit supprimé
