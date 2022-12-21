@@ -47,28 +47,28 @@ const NavAdmin = () => {
             </button>
             <ul className={`${menuDisplay} sm:block w-full mb-8 sm:mb-10 xl:mb-12 2xl:mb-24`}>
                 <li className={navelement}>
-                    <Link className={lien} to={URL_ADMIN_CATEGORIES}>Catégories</Link>
+                    <Link className={lien} to={URL_ADMIN_USERS}>Utilisateurs</Link>
                 </li>
                 <li className={navelement}>
                     <Link className={lien} to={URL_ADMIN_PRODUCTS}>Produits</Link>
                 </li>
                 <li className={navelement}>
-                    <Link className={lien} to={URL_ADMIN_USERS}>Utilisateurs</Link>
+                    <Link className={lien} to={URL_ADMIN_ORDERS}>Commandes</Link>
                 </li>
                 <li className={navelement}>
-                    <Link className={lien} to={URL_ADMIN_STATS}>Statistiques</Link>
+                    <Link className={lien} to={URL_ADMIN_CATEGORIES}>Catégories</Link>
+                </li>
+                <li className={navelement}>
+                    <Link className={lien} to={URL_ADMIN_PROMOTION}>Promotions</Link>
                 </li>
                 <li className={navelement}>
                     <Link className={lien} to={URL_ADMIN_BLOG}>Blog</Link>
                 </li>
                 <li className={navelement}>
-                    <Link className={lien} to={URL_ADMIN_ORDERS}>Commandes</Link>
-                </li>
-                <li className={navelement}>
                     <Link className={lien} to={URL_ADMIN_CONTACT}>Contact</Link>
                 </li>
                 <li className={navelement}>
-                    <Link className={lien} to={URL_ADMIN_PROMOTION}>Promotions</Link>
+                    <Link className={lien} to={URL_ADMIN_STATS}>Statistiques</Link>
                 </li>
             </ul>
         </div>
