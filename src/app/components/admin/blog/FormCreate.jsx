@@ -5,7 +5,7 @@ import {URL_BACK_CREATE_BLOG} from '../../../constants/urls/urlBackEnd';
 import {toast} from "react-toastify";
 import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
 import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
-import { createAlbum } from '../../../bucket_S3/awsFunction'
+// import { createAlbum } from '../../../bucket_S3/awsFunction'
 const FormCreate = props => {
     // CREATE élément dans la BDD
     const createRow = ( values, pathImageDefault) => {
