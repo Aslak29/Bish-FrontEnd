@@ -26,7 +26,7 @@ const FormUpdate = props => {
         )
     }
 }
-const roles = ["ROLE_ADMIN", "ROLE_USER"]
+const roles = ['ROLE_ADMIN', 'ROLE_USER']
 
   return (
      
@@ -71,8 +71,8 @@ const roles = ["ROLE_ADMIN", "ROLE_USER"]
             {/* Rôles */}
             <div className="flex flex-col">
                   <span>Roles</span>
-                  <Field className='h-full' type="text" name="roles" as="select" required>
-                  {roles.map(resRole => <option key={resRole} value={resRole}>{resRole}</option>)}
+                  <Field className='h-full' name="roles" as="select">
+                    {roles.map(resRole => <option key={resRole} value={resRole}>{resRole}</option>)}
                   </Field>
             </div>
             {/* Telephone */}

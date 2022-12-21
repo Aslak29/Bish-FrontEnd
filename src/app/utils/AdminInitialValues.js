@@ -80,7 +80,7 @@ export const userUpdateInitialValues = (user) => {
         email: user.email,
         password: '',
         passwordConfirm: '',
-        roles: user.roles,
+        roles: user.roles[0],
         phone: user.phone,
     }
 }
