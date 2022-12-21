@@ -1,6 +1,10 @@
 import React from 'react'
 import { Field, Form, Formik, ErrorMessage } from "formik"
-import { orderDetailProductInitialValues, orderUpdateInitialValues } from './../../../utils/AdminInitialValues';
+import { orderUpdateInitialValues } from './../../../utils/AdminInitialValues';
+import { orderProductSchema } from '../../../utils/AdminValidationSchema';
+import apiBackEnd from '../../../api/backend/api.Backend'
+import { URL_BACK_UPDATE_ORDER } from '../../../constants/urls/urlBackEnd'
+import { toast } from 'react-toastify';
 
 const FormUpdate = props => {
 
@@ -8,30 +12,27 @@ const FormUpdate = props => {
 
     // UPDATE élément dans la BDD
     const updateRow = (id, values) => {
-        console.log(id)
-        console.log(values)
-        // if (window.confirm("Êtes-vous sûr de vouloir modifier la commande ?")) {
-        //     apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
-        //       if (res.status === 200) {
-        //         props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
-        //         // Notification succès d'une modification de produit
-        //         toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
-        //       }
-        //     }).catch(error => {
-        //         console.log(error);
-        //         // Notification erreur
-        //         toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
-        //       }
-        //     )
-        // }
+        if (window.confirm("Êtes-vous sûr de vouloir modifier la commande ?")) {
+            apiBackEnd.post(`${URL_BACK_UPDATE_ORDER}${id}/${values.rue}/${values.num}/${values.compAdress === '' ? 'null' : values.compAdress}/${values.cp}/${values.ville}/${values.etat}`).then(res => {
+              if (res.status === 200) {
+                props.setReload(!props.reload)
+                // Notification succès d'une modification de produit
+                toast.success(`La commande a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+              }
+            }).catch(error => {
+                console.log(error);
+                // Notification erreur
+                toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+              }
+            )
+        }
     }
 
-    console.log(props.commande)
     return (
         <Formik
             initialValues={orderUpdateInitialValues(props.commande)}
-            // validationSchema={}
-            onSubmit={(values) => updateRow(props.produit.id, values)}
+            validationSchema={orderProductSchema}
+            onSubmit={(values) => updateRow(props.commande.id, values)}
         >
             <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
                 {/* Ville */}

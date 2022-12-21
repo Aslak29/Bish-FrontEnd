@@ -58,6 +58,12 @@ export const URL_BACK_CREATE_USER = '/user/create/'
 export const URL_BACK_DELETE_USER = '/user/delete/'
 export const URL_BACK_UPDATE_USER = '/user/update/'
 
+// Routes ADMIN COMMANDES
+export const URL_BACK_UPDATE_ORDER = '/commande/update/'
+export const URL_BACK_UPDATE_ORDER_DETAILS = '/produitInCommande/single_order/update/'
+export const URL_BACK_CANCEL_ORDER = '/commande/cancel/'
+export const URL_BACK_DELETE_ORDER_DETAILS = '/produitInCommande/single_order/delete/'
+
 // Routes COMMANDES CLIENT
 export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";
 export const URL_BACK_COMMANDES ="/commande/"

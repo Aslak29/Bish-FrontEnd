@@ -4,25 +4,29 @@ import detailsIMG from '../../../assets/images/detailsIMG.png'
 import DetailCommande from './DetailCommande'
 
 const TableDetail = (props) => {
-     // State modal Details
+
+  // State modal Details
   const [modalIsOpen, setIsOpen] = useState(false);
 
-          // Open modal CREATE
-          function openModalDetail() {
-            setIsOpen(true);
-          }
-        
-          // Close modal CREATE
-          function closeModalDetail() {
-            setIsOpen(false);
-          }
+  const [isDelete, setIsDelete] = useState(false);
+
+  // Open modal CREATE
+  function openModalDetail() {
+    setIsOpen(true);
+  }
+
+  // Close modal CREATE
+  function closeModalDetail() {
+    setIsOpen(false);
+    isDelete && props.setReload(!props.reload)
+  }
 
   return (
     <>
-      <button className='bish-bg-blue p-2 bish-text-white font-medium' title={"Impossible de modifier des demandes de contact"} onClick={()=>openModalDetail()}>
+      <button className='bish-bg-blue p-2 bish-text-white font-medium' title='Détails de la commande' onClick={()=>openModalDetail()}>
         <img className='h-5 lg:h-8' src={detailsIMG} alt="Details"/>
       </button>
-      <ModalCrud modalIsOpen={modalIsOpen} openModal={openModalDetail} closeModal={closeModalDetail} form={<DetailCommande detail={props.detail}/>} />
+      <ModalCrud modalIsOpen={modalIsOpen} openModal={openModalDetail} closeModal={closeModalDetail} form={<DetailCommande detail={props.detail} setIsDelete={setIsDelete}/>} />
     </>
   )
 }

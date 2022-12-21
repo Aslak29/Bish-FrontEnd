@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import {Helmet} from "react-helmet-async";
-// import axios from 'axios';
 import apiBackEnd from '../../api/backend/api.Backend';
 import loadingSVG from '../../assets/images/loading-spin.svg'
-// import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
 import {  URL_BACK_COMMANDES } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/commandes/FormUpdate';
 import TitleContainer from '../../components/admin/TitleContainer';
 import TableDetail from '../../components/admin/commandes/TableDetail';
-
+import { URL_BACK_CANCEL_ORDER } from '../../constants/urls/urlBackEnd'
+import { toast } from 'react-toastify';
 
 const AdminOrdersView = () => {
    // Style
@@ -41,13 +41,13 @@ const AdminOrdersView = () => {
           res.adresse.num_rue +' '+ (res.adresse.complement_adresse ? res.adresse.complement_adresse : '') +' '+ res.adresse.rue +' '+ res.adresse.ville +' '+ res.adresse.code_postal,
           res.etatCommande,
           res.date_facture,
-          <TableDetail detail={res}/>
+          <TableDetail detail={res} reload={reload} setReload={setReload}/>
         ]]))
   
         res.data.map((res) => {
           // Formulaire UPDATE
           setFormUpdate(current => [...current,
-            <FormUpdate commande={res}/>
+            <FormUpdate commande={res} reload={reload} setReload={setReload}/>
           ])
         })
 
@@ -56,7 +56,22 @@ const AdminOrdersView = () => {
       })
     },[reload])
 
-
+    const cancelOrder = id => {
+      if (window.confirm("Êtes-vous sûr de vouloir annuler la commande ?")) {
+          apiBackEnd.post(`${URL_BACK_CANCEL_ORDER}${id}`).then(res => {
+            if (res.status === 200) {
+              setReload(!reload)
+              // Notification succès d'une modification de produit
+              toast.success(`La commande ${res.data.id} a été annulé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+            }
+          }).catch(error => {
+              console.log(error);
+              // Notification erreur
+              toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+            }
+          )
+      }
+  }
 
   return (
 <div className='w-full ml-12 sm:ml-64'>
@@ -64,7 +79,7 @@ const AdminOrdersView = () => {
         <title>Bish - Admin Commandes</title>
       </Helmet>
       {/* Notifications */}
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
       <TitleContainer name="COMMANDES" addButton={false} />
       {/* TABLE Commandes */}
@@ -91,7 +106,7 @@ const AdminOrdersView = () => {
             {/* Contenu de la table */}
             <tbody>
               {/* Retourne une ligne pour chaque élément */}
-              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]}/>)}
+              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={cancelOrder}/>)}
             </tbody>
           </table>
         )
