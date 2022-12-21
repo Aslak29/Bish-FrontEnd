@@ -11,6 +11,7 @@ const ModalCrud = props => {
           bottom: 'auto',
           marginRight: '-50%',
           transform: 'translate(-50%, -50%)',
+          maxHeight: '80%'
         },
     };
     
