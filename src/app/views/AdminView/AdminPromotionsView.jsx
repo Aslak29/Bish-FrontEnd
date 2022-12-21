@@ -40,6 +40,8 @@ const AdminPromotionsView = () => {
         // Récupération des données
         apiBackEnd.get(URL_BACK_PROMOS).then(respArr => {
             // Set le contenu d'une row (à mettre dans l'ordre voulu)
+            setRows([]);
+            setFormUpdate([]);
             respArr.data.map((res, index) => setRows(current => [...current, [
                 res.id,
                 res.remise,
