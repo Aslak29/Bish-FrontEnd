@@ -16,7 +16,7 @@ const FormUpdate = props => {
           if (res.status === 200) {
             props.setReload(!props.reload);
             // Notification succès d'une modification de produit
-            toast.success(`L'utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+            toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} modifié !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
           }
         }).catch(error => {
             console.log(error);

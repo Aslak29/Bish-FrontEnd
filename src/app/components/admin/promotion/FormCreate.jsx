@@ -19,7 +19,7 @@ const FormCreate = props => {
                     props.setReload(!props.reload)
                     props.close()
                     // Notification succès d'un ajout de produit
-                    toast.success(`La promotion ${res.data.successMessage} a été ajouté!`, {
+                    toast.success(`La promotion a été ajoutée !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,

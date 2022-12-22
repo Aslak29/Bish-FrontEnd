@@ -21,7 +21,7 @@ const FormUpdate = props => {
                     props.updateTable(props.categories, values, props.index, pathImageDefault)
                     //createAlbum(values.infoFile.name,values.infoFile,"products")
                     // Notification succès d'une modification de produit
-                    toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été modifié!`, {
+                    toast.success(`Catégorie ${res.data.id} - ${res.data.name} modifié !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,

@@ -19,7 +19,7 @@ const FormUpdate = props => {
                 if (res.status === 200) {
                     props.updateTable(props.promotion, values, props.index, startDate.toLocaleDateString("fr").replaceAll('/','-'),endDate.toLocaleDateString("fr").replaceAll('/','-'))
                     // Notification succès d'une modification d'une promotion'
-                    toast.success(`La promotion ${res.data.id} - a été modifié!`, {
+                    toast.success(`Promotion ${res.data.id} modifiée !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,

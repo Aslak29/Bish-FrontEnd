@@ -41,7 +41,7 @@ const DetailCommande = (props) => {
                     props.setIsDelete(true)
                     setDetailCommande(detailCommande.filter(element => element.id !== id))
                     // Notification succès d'une modification de produit
-                    toast.success(`Le prodit a bien été supprimé de la commande !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+                    toast.success(`Le produit a bien été supprimé de la commande !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
                 }
             }).catch(error => {
                 console.log(error);
