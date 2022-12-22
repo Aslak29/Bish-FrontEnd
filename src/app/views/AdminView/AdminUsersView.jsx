@@ -72,7 +72,7 @@ const AdminUsersView = () => {
         if (res.status === 200) {
         setReload(!reload)
           // Notification produit supprimé
-          toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+          toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} supprimé !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         }
       }).catch(error => { 
         toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });

@@ -136,7 +136,7 @@ const AdminCategoriesView = () => {
                     // Supprimer l'elément supprimer de la table
                     setRows(rows.filter(res => res[0] !== id))
                     // Notification produit supprimé
-                    toast.success(`Catégorie ${id} supprimé!`, {
+                    toast.success(`Catégorie ${id} supprimée !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,

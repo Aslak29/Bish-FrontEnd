@@ -51,7 +51,7 @@ const AdminContactView = () => {
                     // Supprimer l'elément delete de la table
                     setRows(rows.filter(res => res[0] !== id))
                     // Notification produit supprimé
-                    toast.success(`Contact ${id} supprimé!`, {
+                    toast.success(`Message ${id} supprimé !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,

@@ -20,7 +20,7 @@ const FormCreate = props => {
                     // Notification succès d'un ajout de produit
                     props.setReload(!props.reload)
                     props.close()
-                    toast.success(`L'article ${res.data.id} - ${res.data.title} a été ajouté!`, {
+                    toast.success(`Article ${res.data.title} ajouté !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,

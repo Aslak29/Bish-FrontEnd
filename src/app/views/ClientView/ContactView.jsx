@@ -56,7 +56,7 @@ const ContactView = () => {
                 apiBackEnd.post(URL_BACK_ADD_CONTACT , resObj).then(r => {
                     if (r.status === 200){
                       resetForm()
-                      toast.success("Le message a bien été envoyé !", { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+                      toast.success("Le message a bien été envoyé ! Nous vous contacterons dans les plus brefs délais.", { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
                     }
                   }).catch(error => {
                     console.log(error)

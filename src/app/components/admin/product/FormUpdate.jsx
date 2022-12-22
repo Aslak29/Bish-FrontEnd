@@ -24,7 +24,7 @@ const FormUpdate = props => {
                 props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
                 //createAlbum(values.infoFile.name,values.infoFile)
                 // Notification succès d'une modification de produit
-                toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+                toast.success(`Produit ${res.data.id} - ${res.data.name} modifié !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
             }).catch(error => {
                 console.log(error);

@@ -26,7 +26,7 @@ const TableRow = props => {
                     <img className='h-5 lg:h-8' src={editIMG} alt="Modifier"/>
                 </button>
                 :
-                <button className='bg-gray-500 p-2 bish-text-white font-medium cursor-not-allowed' title={"Impossible de modifier des demandes de contact"}>
+                <button className='bg-orange-500 p-2 bish-text-white font-medium cursor-not-allowed opacity-25' title={"Impossible de modifier des demandes de contact"}>
                     <img className='h-5 lg:h-8' src={editIMG} alt="Modifier"/>
                 </button>
             }

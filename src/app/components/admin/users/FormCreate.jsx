@@ -14,7 +14,7 @@ const FormCreate = props => {
         apiBackEnd.post(`${URL_BACK_CREATE_USER}${values.name}/${values.surname}/${values.email}/${values.password}/${values.passwordConfirm}/${values.roles}/${values.phone}`).then(res => {
             props.setReload(!props.reload);
             props.close();
-            toast.success(`L'Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} a été ajouté!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+            toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} ajouté !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         })
         }
     }

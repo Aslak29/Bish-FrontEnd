@@ -27,7 +27,7 @@ const FormCreate = props => {
               props.setReload(!props.reload)
               props.close()
               // Notification succès d'un ajout de produit
-              toast.success(`Le produit ${res.data.id} - ${res.data.name} a été ajouté!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+              toast.success(`Produit ${res.data.id} - ${res.data.name} ajouté !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
             }
           }).catch(error => {
               // Notification erreur

@@ -98,7 +98,7 @@ const AdminBlogView = () => {
           // Supprimer l'elément delete de la table
           setRows(rows.filter(res => res[0] !== id))
           // Notification produit supprimé
-          toast.success(`Produit ${id} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+          toast.success(`Article ${id} supprimé !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         }
       }).catch(error => {
         if(error.response.data.errorCode === '006') {

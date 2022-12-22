@@ -62,7 +62,7 @@ const AdminOrdersView = () => {
             if (res.status === 200) {
               setReload(!reload)
               // Notification succès d'une modification de produit
-              toast.success(`La commande ${res.data.id} a été annulé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+              toast.success(`Commande ${res.data.id} annulée !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
             }
           }).catch(error => {
               console.log(error);

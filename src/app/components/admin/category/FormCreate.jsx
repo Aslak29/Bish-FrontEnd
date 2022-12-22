@@ -19,7 +19,7 @@ const FormCreate = props => {
                         props.setReload(!props.reload)
                         props.close()
                         // createAlbum(values.infoFile.name,values.infoFile,"categories")
-                        toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été ajouté!`, {
+                        toast.success(`Catégorie ${res.data.id} - ${res.data.name} ajouté !`, {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,

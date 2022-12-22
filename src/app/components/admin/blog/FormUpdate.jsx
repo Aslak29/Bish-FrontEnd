@@ -20,7 +20,7 @@ const FormUpdate = props => {
                     // createAlbum(values.infoFile.name,values.infoFile)
                     // Notification succès d'une modification de produit
                     // Notification succès d'une modification de produit
-                    toast.success(`L'article de blog ${res.data.id} - ${res.data.title} a été modifié!`, {
+                    toast.success(`Article ${res.data.id} - ${res.data.title} modifié !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
