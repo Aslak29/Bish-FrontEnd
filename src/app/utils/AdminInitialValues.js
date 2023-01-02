@@ -51,9 +51,11 @@ export const categoryUpdateInitialValues = (categories) => {
     }
 }
 
-export const promotionUpdateInitialValues = (promotion) => {
+export const promotionUpdateInitialValues = (promotion, startDate, endDate) => {
     return {
         remise : promotion.remise,
+        startDate : startDate,
+        endDate : endDate,
     }
 }
 

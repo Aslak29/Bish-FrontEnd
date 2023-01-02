@@ -65,10 +65,11 @@ const AdminPromotionsView = () => {
         })
     }, [reload])
 
-    const updateTable = (promotion,values, index, startDate, startEnd)=> {
+    const updateTable = (promotion,values, index, startDate, startEnd, startTime, endTime)=> {
+        console.log(startDate);
         promotion.remise = values.remise
-        promotion.start_date = startDate + "00:00:00"
-        promotion.end_date = startEnd + "00:00:00"
+        promotion.start_date = startDate + ' ' + startTime
+        promotion.end_date = startEnd + ' ' + endTime
 
         // Modifier la row concernée par l'update
         setRows(current => [

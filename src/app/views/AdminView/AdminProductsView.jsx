@@ -29,6 +29,9 @@ const AdminProductsView = () => {
   // Reload table
   const [reload, setReload] = useState(false);
 
+  const [allRowsCheck, setAllRowsCheck] = useState(true);
+  const [oneRowCheck, setOneRowCheck] = useState(false);
+
   useEffect(() => {
     // Permet d'afficher le SVG de chargement
     setIsLoading(true)
@@ -43,6 +46,7 @@ const AdminProductsView = () => {
       setFormUpdate([])
       // Set le contenu d'une row (à mettre dans l'ordre voulu)
       respArr[2].data.map((res, index) => setRows(current => [...current, [
+        <input type="checkbox" id={`checkRow${res.id}`}/>,
         res.id,
         res.name,
         res.price.toFixed(2) + ' €',
@@ -101,6 +105,7 @@ const AdminProductsView = () => {
     setRows(current => [
       ...current.slice(0, index),
       [
+        <input type="checkbox" id={`checkRow${produit.id}`}/>,
         produit.id,
         produit.name,
         produit.price.toFixed(2) + ' €',
@@ -187,6 +192,13 @@ const AdminProductsView = () => {
     setIsOpen(false);
   }
 
+  const toggleAllRows = () => {
+    setAllRowsCheck(!allRowsCheck)
+      document.querySelectorAll('table [id^="checkRow"]').forEach(checkbox => {
+        checkbox.checked = allRowsCheck;
+      });
+  }
+
   return (
     <div className='w-full ml-12 sm:ml-64'>
       <Helmet>
@@ -196,6 +208,7 @@ const AdminProductsView = () => {
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
       <TitleContainer form={formCreate} name="PRODUITS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+      
       {/* TABLE PRODUITS */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 
@@ -205,6 +218,7 @@ const AdminProductsView = () => {
             <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
               <tr>
                 {/* Tous les titres dans le header de la table */}
+                <th className={labelHeader}><input type="checkbox" onChange={() => toggleAllRows()}/></th>
                 <TableHeadSort nbSortColumn="0" name="Id" />
                 <TableHeadSort nbSortColumn="1" name="Nom" />
                 <TableHeadSort nbSortColumn="2" name="Prix" />
