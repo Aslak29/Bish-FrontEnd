@@ -18,8 +18,6 @@ const FormUpdate = props => {
 
     // UPDATE élément dans la BDD
     const updateRow = (id, pathImageDefault, values) => {
-        console.log(values)
-
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
             apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
               if (res.status === 200) {
@@ -98,9 +96,9 @@ const FormUpdate = props => {
                     {/* Promotion */}
                     <div className="flex flex-col h-20">
                     <span>Promotion</span>
-                    <Field className='h-full' name="promotion" as="select">
+                    <Field className="h-full after:content-['aaaaaa']" name="promotion" as="select">
                         <option value='-'>-</option>
-                        {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} %</option>)}
+                        {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} % - {new Date(resPromo.start_date).toLocaleDateString("fr")} - {new Date(resPromo.end_date).toLocaleDateString("fr")}</option>)}
                     </Field>
                     </div>
                     {/* Tendance et Visible */}

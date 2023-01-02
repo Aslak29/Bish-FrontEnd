@@ -85,7 +85,7 @@ const AdminProductsView = () => {
     produit.is_available = produitAfter.available
     produit.price = produitAfter.price
     produit.promotion.id = produitAfter.promotion
-    produit.promotion.remise = promos.data.find(element => element.id == produitAfter.promotion).remise
+    produit.promotion.remise = produitAfter.promotion !== '-' ? promos.data.find(element => element.id == produitAfter.promotion).remise : '-'
     produit.stockBySize[0].stock = produitAfter.stock.xs
     produit.stockBySize[1].stock = produitAfter.stock.s
     produit.stockBySize[2].stock = produitAfter.stock.m
@@ -97,6 +97,7 @@ const AdminProductsView = () => {
       <FormUpdate produit={produit} categories={categs} promotions={promos} index={index} updateTable={updateTable}/>,
       ...current.slice(index+1)
     ])
+    console.log(produitAfter.promotion);
     // Modifier la row concernée par l'update
     setRows(current => [
       ...current.slice(0, index),
