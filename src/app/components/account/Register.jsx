@@ -41,7 +41,7 @@ const Register = () => {
                 })
             }}
           >
-            {({setFieldValue, errors}) =>
+            {({setFieldValue, errors, values}) =>
               <Form
                 className="flex justify-center w-full"
               >
@@ -50,19 +50,19 @@ const Register = () => {
                   <div className="w-full sm:pr-5 space-y-6 sm:w-1/2">
                     {/* Adresse e-mail */}
                     <div className={`input-div group `}>
-                      <Field type="text" name="email" className="input peer" autoComplete="off"/>
+                      <Field type="text" name="email" className="input peer focus:outline-none focus:ring-0" autoComplete="off"/>
                       <span className="label">Adresse e-mail</span>
                     </div>
                     <ErrorMessage name="email" component="small" className="text-red-400"/>
                     {/* Nom */}
                     <div className={`input-div group`}>
-                      <Field type="text" name="surname" className="input peer"/>
+                      <Field type="text" name="surname" className="input peer focus:outline-none focus:ring-0"/>
                       <span className="label">Nom</span>
                     </div>
                     <ErrorMessage name="surname" component="small" className="text-red-400"/>
                     {/* Prénom */}
                     <div className={`input-div group`}>
-                      <Field type="text" name="name" className="input peer"/>
+                      <Field type="text" name="name" className="input peer focus:outline-none focus:ring-0"/>
                       <span className="label">Prénom</span>
                     </div>
                     <ErrorMessage name="name" component="small" className="text-red-400"/>
@@ -70,14 +70,14 @@ const Register = () => {
                   {/* Section input droite + buton */}
                   <div className="w-full pt-6 sm:pt-0 space-y-6 sm:w-1/2">
                     {/* Mot de passe */}
-                    <div className={`input-div group`}>
-                      <Field type="password" name="password" className="input peer" autoComplete="off"/>
+                    <div className={`input-div group ${values.password.length > 0 ? errors.password === "Minimum 8 caractères" ? 'border-2 border-red-500' : errors.password === "Votre mot de passe doit contenir une majuscule" ? 'border-2 border-orange-500' : errors.password === "Votre mot de passe doit contenir une minuscule" ? 'border-2 border-orange-500' : errors.password === "Votre mot de passe doit contenir un chiffre" ? 'border-2 border-yellow-500' : 'border-2 border-green-500' : ''}`}>
+                    <Field type="password" name="password" className="input peer focus:outline-none focus:ring-0" autoComplete="off"/>
                       <span className="label">Mot de passe</span>
                     </div>
                     <ErrorMessage name="password" component="small" className="text-red-400"/>
                     {/* Confirmer le mot de passe */}
-                    <div className={`input-div group`}>
-                      <Field type="password" name="confirmation" className="input peer" autoComplete="off"/>
+                    <div className={`input-div group ${values.confirmation ? errors.confirmation === "Les 2 mots de passes doivent être identique" ? 'border-2 border-red-500' : 'border-2 border-green-500' : ''}`}>
+                      <Field type="password" name="confirmation" className="input peer focus:outline-none focus:ring-0" autoComplete="off"/>
                       <span className="label">Confirmer le mot de passe</span>
                     </div>
                     <ErrorMessage name="confirmation" component="small" className="text-red-400"/>
