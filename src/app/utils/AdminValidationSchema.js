@@ -9,8 +9,9 @@ export const productCreateSchema = Yup.object().shape({
         trend: Yup.boolean().required(),
         available: Yup.boolean().required(),
         infoFile:
-            Yup.mixed().required("Champ obligatoire").test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
-            value => value && (value.type === "image/jpeg" || value.type === "image/png"))
+            Yup.mixed().required("Champ obligatoire")
+                .test('fileFormat', "Seuls les formats .jpg et .png sont acceptés", value => value && (value.type === "image/jpeg" || value.type === "image/png"))
+                .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
     })
 
 // Schéma de validation du formulaire update admin produit
@@ -21,8 +22,9 @@ export const productUpdateSchema = Yup.object().shape({
     trend: Yup.boolean().required(),
     available: Yup.boolean().required(),
     infoFile:
-        Yup.mixed().test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
-        value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
+        Yup.mixed()
+            .test('fileFormat', "Seuls les formats .jpg et .png sont acceptés", value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
+            .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
 })
 
 // CATEGORIES
@@ -39,6 +41,7 @@ export const categoryCreateSchema = Yup.object().shape({
             "Seuls les formats .jpg et .png sont acceptés",
             value => value && (value.type === "image/jpeg" || value.type === "image/png")
         )
+        .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
 })
 
 // Schéma de validation du formulaire create update catégorie
@@ -57,6 +60,7 @@ export const categoryUpdateSchema =  Yup.object().shape({
                     (value.type === "image/jpeg" || value.type === "image/png") : true
                 : true
         )
+        .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
 })
 
 export const promotionCreateSchema = Yup.object().shape({
@@ -87,6 +91,7 @@ export const blogCreateSchema = Yup.object().shape({
     infoFile:
         Yup.mixed().required("Champ obligatoire").test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
         value => value && (value.type === "image/jpeg" || value.type === "image/png"))
+        .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 1000000 : true : true)
 })
 
 // Schéma de validation du formulaire update admin produit
@@ -96,6 +101,7 @@ description: Yup.string().min(20, 'Minimum 20 caractères').required('Champ obli
 infoFile:
     Yup.mixed().test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
     value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
+    .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 1000000 : true : true)
 })
 
 // Schéma de validation du formulaire update commande details produit
