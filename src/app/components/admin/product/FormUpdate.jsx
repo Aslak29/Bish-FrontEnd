@@ -18,6 +18,8 @@ const FormUpdate = props => {
 
     // UPDATE élément dans la BDD
     const updateRow = (id, pathImageDefault, values) => {
+        console.log(values)
+
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
             apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
               if (res.status === 200) {
