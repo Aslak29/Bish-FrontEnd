@@ -63,13 +63,12 @@ export const categoryUpdateSchema =  Yup.object().shape({
         .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
 })
 
-export const promotionCreateSchema = Yup.object().shape({
+export const promotionSchema = Yup.object().shape({
     remise: Yup.number()
         .required("Champ obligatoire"),
-    startDate: Yup.date()
+    startDate: Yup.date().min(new Date(), "La date doit être supérieur à celle d'aujourd'hui")
         .required("Champ obligatoire"),
-    endDate: Yup.date()
-        .required("Champ obligatoire")
+    endDate: Yup.date().min(Yup.ref('startDate'), "La date de fin doit être supérieur à celle de début").required('Champ obligatoire')
 })
 
 // Schéma de Validation Formulaire Create Update Users
