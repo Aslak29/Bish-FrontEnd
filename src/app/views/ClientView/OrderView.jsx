@@ -14,7 +14,7 @@ function OrderView() {
     }, [])
 
     return (
-        <div className="h-full">
+        <div>
             <Helmet></Helmet>
             {location.state && <Order id={location.state.id}/>}
         </div>
