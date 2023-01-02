@@ -2,21 +2,31 @@ import React, {useState, useEffect} from 'react'
 import {Helmet} from "react-helmet-async";
 import { useParams } from 'react-router-dom';
 import apiBackend from "../../api/backend/api.Backend";
-import {URL_BACK_BLOG} from "../../constants/urls/urlBackEnd";
+import {URL_BACK_BLOG, URL_BACK_CATEGORIES} from "../../constants/urls/urlBackEnd";
 import {Link} from 'react-router-dom';
+import SuggestionsContainer from "../../components/products/SuggestionsContainer"
+import axios from 'axios';
 
 const BlogArticleView = props => {
   const [articlesBlog, setArticlesBlog]=useState([]);
+  const [categorie, setCategorie] = useState();
   const articleID=useParams();
   let id=parseInt(articleID.articleID);
   useEffect(() => {
-    apiBackend.get(URL_BACK_BLOG + `${id}`).then((response => {
-      setArticlesBlog(response.data[0]);
+    axios.all([
+      apiBackend.get(URL_BACK_CATEGORIES),
+      apiBackend.get(URL_BACK_BLOG + `${id}`)
+    ])
+    .then((respArr => {
+      setArticlesBlog(respArr[1].data[0]);
+      setCategorie(respArr[0].data[Math.floor(Math.random()*respArr[0].data.length)]);
+      console.log(respArr);
     }))
   },[])
 
   return (
     <div className='flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up'>
+       {console.log(categorie)}
       <Helmet>
         <title>Bish - Article</title>
         {/*TODO: changer le title par le nom de l'article ainsi que la description*/}
@@ -30,6 +40,13 @@ const BlogArticleView = props => {
 
         <img className='object-cover' src={window.location.origin + `/src/app/assets/images/blog/` + `${articlesBlog.path_image}`} alt="Illustration d'un article de blog" /><br/>
         <p className='text-justify text-sm md:text-lg'>{articlesBlog.description}</p><br/>
+        <div>
+                {categorie && (
+                    <SuggestionsContainer
+                        id={-1}
+                        idCategorie={categorie.id}
+                    />
+                )}</div>
       <button className='m-6'>
         <Link className='btn-black-bish hover:bish-bg-blue ' to={"/blog/"}>Revenir à la liste d'articles</Link>
       </button>
