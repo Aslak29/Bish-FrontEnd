@@ -31,11 +31,13 @@ export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";
 
 // Routes CATEGORIE
 export const URL_BACK_CATEGORIES = "/categorie/"
+export const URL_BACK_CATEGORIES_ADMIN = "/categorie/forAdmin"
 export const URL_BACK_CATEGORIES_CREATE = "/categorie/create"
 export const URL_BACK_CATEGORIES_UPDATE = "/categorie/update"
 export const URL_BACK_CATEGORIES_DELETE = "/categorie/delete/"
 export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 export const URL_BACK_CATEGORIES_UPDATE_TREND = "/categorie/updateIsTrend/"
+export const URL_BACK_CATEGORIES_UPDATE_AVAILABLE = "/categorie/updateAvailable/"
 
 // Route TAILLE
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";

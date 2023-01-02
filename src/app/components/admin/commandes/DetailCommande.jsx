@@ -14,7 +14,6 @@ const DetailCommande = (props) => {
     const [detailCommande, setDetailCommande] = useState(props.detail.produitInCommande)
 
     const updateDetail = (id, values) => {
-        console.log('update')
         if (window.confirm("Êtes-vous sûr de vouloir modifier la commande ?")) {
             apiBackEnd.post(`${URL_BACK_UPDATE_ORDER_DETAILS}${id}/${values.taille}/${values.quantite}/${values.prix}`).then(res => {
                 if (res.status === 200) {

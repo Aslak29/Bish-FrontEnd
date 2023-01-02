@@ -35,6 +35,7 @@ export const categoryCreateSchema = Yup.object().shape({
         .max(50, 'Maximum 50 caractères')
         .required('Champ obligatoire'),
     trend: Yup.boolean(),
+    available: Yup.boolean(),
     infoFile: Yup.mixed()
         .test(
             "fileFormat",
@@ -51,6 +52,7 @@ export const categoryUpdateSchema =  Yup.object().shape({
         .max(50, 'Maximum 50 caractères')
         .required('Champ obligatoire'),
     trend: Yup.boolean(),
+    available: Yup.boolean(),
     infoFile: Yup.mixed()
         .test(
             "fileFormat",
