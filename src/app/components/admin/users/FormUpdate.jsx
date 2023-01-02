@@ -11,7 +11,7 @@ const FormUpdate = props => {
 
   // UPDATE élément dans la BDD
   const updateRow = (id, values) => {
-    if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
+    if (window.confirm("Êtes-vous sûr de vouloir modifier l'utilisateur ?")) {
         apiBackEnd.post(`${URL_BACK_UPDATE_USER}${id}/${values.name}/${values.surname}/${values.email}/${values.password}/${values.passwordConfirm}/${values.roles}/${values.phone}`).then(res => {
           if (res.status === 200) {
             props.setReload(!props.reload);
@@ -59,13 +59,13 @@ const roles = ['ROLE_ADMIN', 'ROLE_USER']
             {/* Password */}
             <div className="flex flex-col">
               <span>Password</span>
-              <Field className='h-full' type="text" name="password" required/>
+              <Field className='h-full' type="text" name="password" required/>  {/*TODO: Remove required Element*/}
               <ErrorMessage name="password" component="small" className='text-red-400'/>
             </div>
             {/* Confirmation Password */}
             <div className="flex flex-col">
               <span>Confirm Password</span>
-              <Field className='h-full' type="text" name="passwordConfirm" required/>
+              <Field className='h-full' type="text" name="passwordConfirm" required/> {/*TODO: Remove required Element*/}
               <ErrorMessage name="passwordConfirm" component="small" className='text-red-400'/>
             </div>
             {/* Rôles */}
