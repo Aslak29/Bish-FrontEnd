@@ -5,6 +5,13 @@ import {URL_BACK_CREATE_BLOG} from '../../../constants/urls/urlBackEnd';
 import {toast} from "react-toastify";
 import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
 import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
+import ReactQuill,{ Quill } from 'react-quill';
+import * as Emoji from "quill-emoji";
+import 'react-quill/dist/quill.snow.css';
+
+Quill.register("modules/emoji", Emoji);
+
+
 // import { createAlbum } from '../../../bucket_S3/awsFunction'
 const FormCreate = props => {
     // CREATE élément dans la BDD
@@ -48,7 +55,13 @@ const FormCreate = props => {
             )
         }
     }
-
+    const toolbarOptions = {
+        container: [
+          ['bold', 'italic', 'underline', 'strike'],
+          ['emoji'],   
+        ],
+        handlers: {'emoji': function() {}}
+      }
     // Preview de l'image dans input type file
     const showPreview = e => {
         if (e.target.files.length > 0) {
@@ -71,6 +84,7 @@ const FormCreate = props => {
                     {/* TITRE */}
                     <div className="flex flex-row gap-4 mb-4">
                         <div className="flex flex-col justify-between items-start">
+
                             <div className="flex flex-col h-20 w-full">
                                 <span>Titre</span>
                                 <Field className='h-full w-full' type="text" name="title"/>
@@ -80,37 +94,57 @@ const FormCreate = props => {
                                     className="text-red-400"
                                 />
                             </div>
-                        {/* Description */}
-                        <div className="flex flex-col col-span-2 row-span-2">
-                            <span>Description</span>
-                            <Field className='h-full' as="textarea" type="text" name="description" required/>
-                            <ErrorMessage name="description" component="small" className="text-red-400"/>
+
+                            {/* Description */}
+                            <div className="flex flex-col col-span-2 row-span-2 w-96 h-96">
+                                <span>Description</span>
+                                <Field name="description">
+                                    {({field})=> (<ReactQuill 
+                                    value={field.value} 
+                                    className="w-96 h-96" 
+                                    onChange={field.onChange(field.name)} 
+                                    defaultValue=""
+                                    theme="snow"
+                                    modules={{
+                                      toolbar: toolbarOptions,
+                                      "emoji-toolbar": true,
+                                      "emoji-textarea": true,
+                                      "emoji-shortname": true,
+                                    }}
+                                    // value={quill_data.delta}
+                                    
+                                    
+                                    
+                                    
+                                    />)}
+                                </Field>
+                                <ErrorMessage name="description" component="small" className="text-red-400"/>
+                            </div>
+                        
+                            {/* Image */}
+                            <div className="flex flex-col h-20">
+                                <span>Image</span>
+                                <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
+                                    showPreview(e);
+                                    formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
+                                }} required/>
+                                <ErrorMessage
+                                    name="infoFile"
+                                    component="small"
+                                    className="text-red-400"
+                                />
+                            </div>
                         </div>
                         {/* Image */}
-
-                        <div className="flex flex-col h-20">
-                            <span>Image</span>
-                            <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
-                                showPreview(e);
-                                formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
-                            }} required/>
-                            <ErrorMessage
-                                name="infoFile"
-                                component="small"
-                                className="text-red-400"
-                            />
+                        {/* Preview de l'image */}
+                        <div className="flex flex-col w-full">
+                            <div className="preview row-span-4 h-96 w-full shadow-lg">
+                                <img className='hidden object-contain h-full w-full' id="img-preview"
+                                        alt='Prévisualisation'
+                                />
+                            </div>
                         </div>
                     </div>
-                    {/* Image */}
-                    {/* Preview de l'image */}
-                    <div className="flex flex-col w-full">
-                        <div className="preview row-span-4 h-96 w-full shadow-lg">
-                            <img className='hidden object-contain h-full w-full' id="img-preview"
-                                    alt='Prévisualisation'
-                            />
-                        </div>
-                    </div>
-                </div>
                     <div className="w-full">
                         <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">
                             Ajouter

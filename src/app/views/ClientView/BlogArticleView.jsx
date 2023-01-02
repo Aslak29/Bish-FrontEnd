@@ -29,7 +29,7 @@ const BlogArticleView = props => {
         </div>
 
         <img className='object-cover' src={window.location.origin + `/src/app/assets/images/blog/` + `${articlesBlog.path_image}`} alt="Illustration d'un article de blog" /><br/>
-        <p className='text-justify text-sm md:text-lg'>{articlesBlog.description}</p><br/>
+        <p className='text-justify text-sm md:text-lg' dangerouslySetInnerHTML={{__html: articlesBlog.description}}/><br/>
       <button className='m-6'>
         <Link className='btn-black-bish hover:bish-bg-blue ' to={"/blog/"}>Revenir à la liste d'articles</Link>
       </button>
