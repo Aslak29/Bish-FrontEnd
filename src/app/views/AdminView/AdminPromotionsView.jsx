@@ -46,8 +46,8 @@ const AdminPromotionsView = () => {
                 res.id,
                 res.name,
                 res.remise,
-                res.start_date,
-                res.end_date,
+                new Date(res.start_date).toLocaleDateString().replaceAll('/','-')+' '+ new Date(res.start_date).toLocaleTimeString(),
+                new Date(res.end_date).toLocaleDateString().replaceAll('/','-') +' '+ new Date(res.end_date).toLocaleTimeString(),
             ]]))
 
             respArr.data.map((res, index) => {
