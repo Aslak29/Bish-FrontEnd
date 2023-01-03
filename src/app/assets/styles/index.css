@@ -9,7 +9,7 @@
 @import url(./components/promo-triangle.css);
 @import url(./components/promo-bg.css);
 @import url(./components/titles.css);
-
+@import url(./components/text-editor.css);
 @tailwind utilities;
 
 
