@@ -3,7 +3,7 @@ import { Field, Form, Formik, ErrorMessage } from "formik";
 import apiBackEnd from '../../../api/backend/api.Backend'
 import { URL_BACK_UPDATE_USER } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify';
-import { userSchema } from '../../../utils/AdminValidationSchema';
+import { userUpdateSchema } from '../../../utils/AdminValidationSchema';
 import { userUpdateInitialValues } from '../../../utils/AdminInitialValues';
 
 
@@ -12,7 +12,7 @@ const FormUpdate = props => {
   // UPDATE élément dans la BDD
   const updateRow = (id, values) => {
     if (window.confirm("Êtes-vous sûr de vouloir modifier l'utilisateur ?")) {
-        apiBackEnd.post(`${URL_BACK_UPDATE_USER}${id}/${values.name}/${values.surname}/${values.email}/${values.password}/${values.passwordConfirm}/${values.roles}/${values.phone}`).then(res => {
+        apiBackEnd.post(`${URL_BACK_UPDATE_USER}${id}/${values.name}/${values.surname}/${values.email}/${values.password ? values.password : "-"}/${values.passwordConfirm ? values.passwordConfirm : "-"}/${values.roles}/${values.phone ? values.phone : "-"}`).then(res => {
           if (res.status === 200) {
             props.setReload(!props.reload);
             // Notification succès d'une modification de produit
@@ -32,7 +32,7 @@ const roles = ['ROLE_ADMIN', 'ROLE_USER']
      
     <Formik
     initialValues={userUpdateInitialValues(props.user)}
-    validationSchema={userSchema}
+    validationSchema={userUpdateSchema}
 
     onSubmit={(values) => updateRow(props.user.id,values)}
 >
@@ -59,13 +59,13 @@ const roles = ['ROLE_ADMIN', 'ROLE_USER']
             {/* Password */}
             <div className="flex flex-col">
               <span>Password</span>
-              <Field className='h-full' type="text" name="password" required/>  {/*TODO: Remove required Element*/}
+              <Field className='h-full' type="text" name="password"/>
               <ErrorMessage name="password" component="small" className='text-red-400'/>
             </div>
             {/* Confirmation Password */}
             <div className="flex flex-col">
               <span>Confirm Password</span>
-              <Field className='h-full' type="text" name="passwordConfirm" required/> {/*TODO: Remove required Element*/}
+              <Field className='h-full' type="text" name="passwordConfirm"/>
               <ErrorMessage name="passwordConfirm" component="small" className='text-red-400'/>
             </div>
             {/* Rôles */}
@@ -78,7 +78,7 @@ const roles = ['ROLE_ADMIN', 'ROLE_USER']
             {/* Telephone */}
             <div className="flex flex-col">
                   <span>Telephone</span>
-                  <Field className='h-full' type="text" name="phone" required/>
+                  <Field className='h-full' type="text" name="phone"/>
                   <ErrorMessage name="phone" component="small" className='text-red-400'/>
             </div>
             {/* Button Modifier */}
