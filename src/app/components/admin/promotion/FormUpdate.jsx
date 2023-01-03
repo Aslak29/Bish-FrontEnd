@@ -7,7 +7,6 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { promotionSchema } from "../../../utils/AdminValidationSchema";
-import { getMonth } from "date-fns";
 
 const FormUpdate = props => {
     console.log(props.promotion.start_date);
@@ -78,13 +77,13 @@ const FormUpdate = props => {
 
                     <div className="flex flex-col h-80">
                         <span>Date de début</span>
-                        <DatePicker selected={startDate} name="startDate" onChange={(date) => {setStartDate(date); formikProps.setFieldValue('startDate', date)} } showTimeSelect/>
+                        <DatePicker dateFormat="dd-MM-yyyy HH:mm" selected={startDate} name="startDate" onChange={(date) => {setStartDate(date); formikProps.setFieldValue('startDate', date)} } showTimeSelect/>
                         <ErrorMessage name="startDate" component="small" className="text-red-400"/>
                     </div>
 
                     <div className="flex flex-col h-20">
                         <span>Date de fin</span>
-                        <DatePicker selected={endDate} name="endDate" onChange={(date) => {setEndDate(date); formikProps.setFieldValue('endDate', date)}} showTimeSelect/>
+                        <DatePicker dateFormat="dd-MM-yyyy HH:mm" selected={endDate} name="endDate" onChange={(date) => {setEndDate(date); formikProps.setFieldValue('endDate', date)}} showTimeSelect/>
                         <ErrorMessage name="endDate" component="small" className="text-red-400"/>
                     </div>
 
