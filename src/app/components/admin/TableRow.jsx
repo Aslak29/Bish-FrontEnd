@@ -30,12 +30,17 @@ const TableRow = props => {
                     <img className='h-5 lg:h-8' src={editIMG} alt="Modifier"/>
                 </button>
             }
-            {!props.disableRemove ?
-                <button className='bg-red-600 p-2 bish-text-white font-medium'
-                        onClick={() => props.deleteRow(props.element[0])}>
-                    <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
-                </button>
+            {
+            !props.disableRemove ?
+                !props.withCheckRows ?
+                    <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[0])}>
+                        <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
+                    </button>
                 :
+                    <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[1])}>
+                        <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
+                    </button>
+            :
                 <button className='gray p-2 bish-text-white font-medium cursor-none'>
                     <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
                 </button>
