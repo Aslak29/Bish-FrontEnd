@@ -5,7 +5,6 @@ import {selectUser} from '../../redux-store/authenticationSlice';
 
 const PersonnalInfoView = () => {
   const user= useSelector(selectUser);
-  console.log(user);
 
   return (
     <div className='w-4/5 sm:w-9/12 mx-auto'>

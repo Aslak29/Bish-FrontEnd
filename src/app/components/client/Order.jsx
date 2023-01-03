@@ -31,7 +31,6 @@ const Order = (props) => {
                     infoClientCommande = response.data.pop();
                     infoClientCommande[0].Adresse.ville = infoClientCommande[0].Adresse.ville.toUpperCase()
                     setInfoClient(infoClientCommande[0].Adresse);
-                    console.log(response.data)
                     setRows(response.data);
                     setIsLoading(false);
                 }
@@ -59,7 +58,7 @@ const Order = (props) => {
                         className="table-fixed w-full pl-5 font-medium text-xs sm:text-base"
                         id="searchTable"
                     >
-                        {/* Nom de chaque colonne */console.log(rows)}
+                        {/* Nom de chaque colonne */}
                         <thead className="shadow mb-11">
                         <tr className="">
                             {/* Titres des colonnes dans le header de la table */}
