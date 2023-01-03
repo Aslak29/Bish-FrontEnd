@@ -43,7 +43,7 @@ const AdminUsersView = () => {
           res.surname,
           res.email,
           res.roles,
-          res.phone.replace(/(.{2})(?=.)/g,"$1-"),
+          res.phone ? res.phone.replace(/(.{2})(?=.)/g,"$1-") : "-",
           res.created_at,
          ]]))
   

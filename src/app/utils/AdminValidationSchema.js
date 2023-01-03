@@ -73,14 +73,23 @@ export const promotionSchema = Yup.object().shape({
 
 // Schéma de Validation Formulaire Create Update Users
 
-export const userSchema =  Yup.object().shape({
+export const userCreateSchema =  Yup.object().shape({
     name: Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
     surname:Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
     email: Yup.string().email('Email invalide').required('Champ obligatoire'),
     password: Yup.string().min(8,'Minimum 8 caractères').matches(/[A-Z]/,'Votre mot de passe doit contenir une majuscule').matches(/[a-z]/,'Votre mot de passe doit contenir une minuscule').matches(/[0-9]/,'Votre mot de passe doit contenir un chiffre').required('Champ obligatoire'),
     passwordConfirm: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
-    phone: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(10,'Minimum 10 chiffres').max(10,'Maximum 10 chiffres').required('Champ obligatoire')
+    phone: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(10,'Minimum 10 chiffres').max(10,'Maximum 10 chiffres')
   })
+
+export const userUpdateSchema =  Yup.object().shape({
+    name: Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
+    surname:Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
+    email: Yup.string().email('Email invalide').required('Champ obligatoire'),
+    password: Yup.string().min(8,'Minimum 8 caractères').matches(/[A-Z]/,'Votre mot de passe doit contenir une majuscule').matches(/[a-z]/,'Votre mot de passe doit contenir une minuscule').matches(/[0-9]/,'Votre mot de passe doit contenir un chiffre'),
+    passwordConfirm: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
+    phone: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(10,'Minimum 10 chiffres').max(10,'Maximum 10 chiffres')
+})
     
 // BLOG
 // Schéma de validation du formulaire create admin produit
