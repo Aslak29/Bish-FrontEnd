@@ -18,7 +18,7 @@ const Categories = props => {
 
     return(
         <div className="my-6 flex justify-center space-x-4 bish-text-gray ">
-            {categories.map(cat =>
+            {categories.map(cat => cat.countProduit > 0 &&
             <div className="cursor-pointer group text-center" onClick={() => props.setCategorie(cat.id,cat.name)} key={cat.id}  >
                 <img
                     className="rounded-full group-hover:border-4 bish-border-blue shadow-xl"
