@@ -82,7 +82,7 @@ const ProductsContainer = props => {
         : 
         (
             <div className='grid grid-cols-2 md:grid-cols-5 gap-4'>
-            {produits.map((r) => <ProductCard key={r.id} produit={r}/>)}
+            {produits.map((r) => r.is_available && <ProductCard key={r.id} produit={r}/>)}
             </div>
         )}
         

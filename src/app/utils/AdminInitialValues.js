@@ -53,6 +53,7 @@ export const categoryUpdateInitialValues = (categories) => {
 
 export const promotionUpdateInitialValues = (promotion, startDate, endDate) => {
     return {
+        name : promotion.name,
         remise : promotion.remise,
         startDate : startDate,
         endDate : endDate,
@@ -61,6 +62,7 @@ export const promotionUpdateInitialValues = (promotion, startDate, endDate) => {
 
 export const promotionCreateInitialValues = () => {
     return {
+        name : '',
         remise : '',
         startDate : '',
         endDate : '',
