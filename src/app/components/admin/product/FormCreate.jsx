@@ -14,12 +14,12 @@ const FormCreate = props => {
 
     useEffect(() =>{
       apiBackEnd.get(URL_BACK_TYPE_TAILLE).then((response=>{
-        setTypeTaille(response.data[1].type);        
+        setTypeTaille(response.data);        
+        console.log(setTypeTaille);
         // ranger les tailles par type
         // let typeTailleByAge = data.findIndex(item=> item.type ==='Adulte');
-        
       }))
-    },[])
+    },[props])
 
     // Valeur par défaut du stock
     const stock = {
@@ -152,7 +152,7 @@ const FormCreate = props => {
             <div>
               <h1>{typeTaille}</h1>
             </div>
-            {/*<div className="flex flex-col h-20">
+            <div className="flex flex-col h-20">
               <span>Tailles</span>
               <Field className="h-full" name="typeTailles" as="select" required>
                   {props.setTypeTaille.data.map((typeT)=>
