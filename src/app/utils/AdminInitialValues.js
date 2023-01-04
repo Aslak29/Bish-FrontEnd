@@ -1,5 +1,7 @@
 // PRODUITS
 // Valeurs initiales du formulaire create admin produit
+import * as Yup from "yup";
+
 export const productCreateInitialValues = stock => {
     return {
         name: '',
@@ -35,26 +37,32 @@ export const productUpdateInitialValues = (produit, stock) => {
 export const categoryCreateInitialValues = {
         name: '',
         trend: false,
+        available: false
 }
 // Valeurs initiales du formulaire update admin categorie
 export const categoryUpdateInitialValues = (categories) => {
     return {
         name: categories.name,
         trend: categories.isTrend,
+        available: categories.available,
         infoFile : {
             name: categories.pathImage
         }
     }
 }
 
-export const promotionUpdateInitialValues = (promotion) => {
+export const promotionUpdateInitialValues = (promotion, startDate, endDate) => {
     return {
+        name : promotion.name ? promotion.name : "",
         remise : promotion.remise,
+        startDate : startDate,
+        endDate : endDate,
     }
 }
 
 export const promotionCreateInitialValues = () => {
     return {
+        name : '',
         remise : '',
         startDate : '',
         endDate : '',

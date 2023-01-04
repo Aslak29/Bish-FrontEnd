@@ -29,13 +29,17 @@ export const URL_BACK_ADD_CONTACT = "/contact/add";
 export const URL_BACK_CONTACT = "/contact/";
 export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";
 
+export const URL_BACK_CONTACT_UPDATE_ISFINISH = "/contact/update/isFinish/"
+
 // Routes CATEGORIE
 export const URL_BACK_CATEGORIES = "/categorie/"
+export const URL_BACK_CATEGORIES_ADMIN = "/categorie/forAdmin"
 export const URL_BACK_CATEGORIES_CREATE = "/categorie/create"
 export const URL_BACK_CATEGORIES_UPDATE = "/categorie/update"
 export const URL_BACK_CATEGORIES_DELETE = "/categorie/delete/"
 export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 export const URL_BACK_CATEGORIES_UPDATE_TREND = "/categorie/updateIsTrend/"
+export const URL_BACK_CATEGORIES_UPDATE_AVAILABLE = "/categorie/updateAvailable/"
 
 // Route TAILLE
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
@@ -51,7 +55,9 @@ export const URL_BACK_CREATE_PRODUCT = '/produit/add/'
 export const URL_BACK_DELETE_PRODUCT = '/produit/remove/'
 export const URL_BACK_UPDATE_PRODUCT = '/produit/update/'
 export const URL_BACK_UPDATE_TREND_PRODUCT = '/produit/update/trend/'
+export const URL_BACK_UPDATE_MULTIPLE_TREND_PRODUCT = '/produit/update/multipleTrend/'
 export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
+export const URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT = '/produit/update/multipleAvailable/'
 
 // Routes ADMIN USER
 export const URL_BACK_CREATE_USER = '/user/create/'

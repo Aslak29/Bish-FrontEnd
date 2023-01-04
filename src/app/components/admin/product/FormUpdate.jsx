@@ -24,7 +24,7 @@ const FormUpdate = props => {
                 props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
                 //createAlbum(values.infoFile.name,values.infoFile)
                 // Notification succès d'une modification de produit
-                toast.success(`Le produit ${res.data.id} - ${res.data.name} a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+                toast.success(`Produit ${res.data.id} - ${res.data.name} modifié !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
             }).catch(error => {
                 console.log(error);
@@ -67,7 +67,7 @@ const FormUpdate = props => {
                     </div>
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
-                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.produit.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}*//>
+                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/products/' + props.produit.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}*//>
                     </div>
                     {/* Prix */}
                     <div className="flex flex-col h-20">
@@ -85,34 +85,33 @@ const FormUpdate = props => {
                         </div>
                     )}
                     </div>
+                    {/* Promotion */}
+                    <div className="flex flex-col h-20 col-span-2">
+                        <span>Promotion</span>
+                        <Field className="h-full after:content-['aaaaaa']" name="promotion" as="select">
+                            <option value='-'>-</option>
+                            {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} % - {new Date(resPromo.start_date).toLocaleDateString("fr")} {new Date(resPromo.start_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - {new Date(resPromo.end_date).toLocaleDateString("fr")} {new Date(resPromo.end_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} {resPromo.name && ' - ' + resPromo.name}</option>)}
+                        </Field>
+                    </div>
                     {/* Catégorie */}
                     <div className="flex flex-col h-20">
-                    <span>Catégorie</span>
-                    <Field className='h-full' name="categorie" as="select">
-                        <option value='-'>-</option>
-                        {props.categories.data.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
-                    </Field>
-                    </div>
-                    {/* Promotion */}
-                    <div className="flex flex-col h-20">
-                    <span>Promotion</span>
-                    <Field className='h-full' name="promotion" as="select">
-                        <option value='-'>-</option>
-                        {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} %</option>)}
-                    </Field>
-                    </div>
+                        <span>Catégorie</span>
+                        <Field className='h-full' name="categorie" as="select">
+                            <option value='-'>-</option>
+                            {props.categories.data.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
+                        </Field>
+                    </div>  
                     {/* Tendance et Visible */}
                     <div className="flex flex-row h-20 justify-around">
-                    <div className="flex flex-col h-full justify-center align-items-center">
-                        <span>Tendance</span>
-                        <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="trend"/>
+                        <div className="flex flex-col h-full justify-center align-items-center">
+                            <span>Tendance</span>
+                            <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="trend"/>
+                        </div>
+                        <div className="flex flex-col h-full justify-center align-items-center">
+                            <span>Visible</span>
+                            <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="available"/>
+                        </div>      
                     </div>
-                    <div className="flex flex-col h-full justify-center align-items-center">
-                        <span>Visible</span>
-                        <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="available"/>
-                    </div>      
-                    </div>
-                    <div></div>
                     {/* Image */}
                     <div className="flex flex-col h-20">
                         <span>Image</span>

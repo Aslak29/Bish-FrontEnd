@@ -14,14 +14,14 @@ const FormUpdate = props => {
     const updateRow = (id, values) => {
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
             apiBackEnd.post(
-                `${URL_BACK_CATEGORIES_UPDATE}/${id}/${values.name}/${values.trend}/${
+                `${URL_BACK_CATEGORIES_UPDATE}/${id}/${values.name}/${values.trend}/${values.available}/${
                     values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}`
             ).then(res => {
                 if (res.status === 200) {
                     props.updateTable(props.categories, values, props.index, pathImageDefault)
                     //createAlbum(values.infoFile.name,values.infoFile,"products")
                     // Notification succès d'une modification de produit
-                    toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été modifié!`, {
+                    toast.success(`Catégorie ${res.data.id} - ${res.data.name} modifié !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -85,6 +85,15 @@ const FormUpdate = props => {
                                     <span>Tendance</span>
                                     <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox"
                                            name="trend"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-row h-20 justify-around">
+                                <div className="flex flex-col h-full justify-center align-items-center">
+                                    <span>Disponible</span>
+                                    <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox"
+                                           name="available"
                                     />
                                 </div>
                             </div>

@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import TableRow from "../../components/admin/TableRow";
 import apiBackEnd from "../../api/backend/api.Backend";
 import {
-    URL_BACK_CATEGORIES,
-    URL_BACK_CATEGORIES_DELETE, URL_BACK_CATEGORIES_UPDATE_TREND,
+    URL_BACK_CATEGORIES, URL_BACK_CATEGORIES_ADMIN,
+    URL_BACK_CATEGORIES_DELETE, URL_BACK_CATEGORIES_UPDATE_AVAILABLE, URL_BACK_CATEGORIES_UPDATE_TREND,
 } from "../../constants/urls/urlBackEnd";
 import loadingSVG from "../../assets/images/loading-spin.svg";
 import {toast, ToastContainer} from "react-toastify";
@@ -35,7 +35,7 @@ const AdminCategoriesView = () => {
 
         setIsLoading(true)
 
-        apiBackEnd.get(URL_BACK_CATEGORIES).then(res => {
+        apiBackEnd.get(URL_BACK_CATEGORIES_ADMIN).then(res => {
             setRows([]);
             setFormUpdate([])
             res.data.map((res, index) => setRows(current => [...current, [
@@ -47,6 +47,10 @@ const AdminCategoriesView = () => {
                 <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
                        id={`checkTrend${res.id}`} onChange={() => changeIsTrend(res, index)}
                        checked={res.isTrend}
+                />,
+                <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
+                       id={`checkAvailable${res.id}`} onChange={() => changeAvailable(res, index)}
+                       checked={res.available}
                 />
             ]]))
 
@@ -101,6 +105,43 @@ const AdminCategoriesView = () => {
         })
     }
 
+    const changeAvailable = (categories, index) => {
+        let available = document.getElementById('checkAvailable' + categories.id).checked
+        apiBackEnd.post(`${URL_BACK_CATEGORIES_UPDATE_AVAILABLE}${categories.id}/${available}/`).then(res => {
+            document.getElementById('checkAvailable' + categories.id).checked = available
+            categories.available = !categories.available
+            // Modifier la checkbox "tendance" du FormUpdate
+            setFormUpdate(current => [
+                ...current.slice(0, index),
+                <FormUpdate categories={categories} index={index} updateTable={updateTable}/>,
+                ...current.slice(index + 1)
+            ])
+            if (available) {
+                toast.success(`Catégorie ${res.data.id} est disponible !`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                })
+            } else {
+                toast.success(`Catégorie ${res.data.id} n'est plus disponible !`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                })
+            }
+        })
+    }
+
 
     const updateTable = (categories, categoriesAfter, index, pathImageDefault) => {
         categories.name = categoriesAfter.name
@@ -123,7 +164,11 @@ const AdminCategoriesView = () => {
                      alt={categories.name}/>,
                 <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
                        id={`checkTrend${categories.id}`} onChange={() => changeIsTrend(categories, index)}
-                       checked={categories.isTrend}/>
+                       checked={categories.isTrend}/>,
+                <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox"
+                       id={`checkAvailable${categories.id}`} onChange={() => changeAvailable(categories, index)}
+                       checked={categories.available}
+                />
             ],
             ...current.slice(index + 1)
         ])
@@ -136,7 +181,7 @@ const AdminCategoriesView = () => {
                     // Supprimer l'elément supprimer de la table
                     setRows(rows.filter(res => res[0] !== id))
                     // Notification produit supprimé
-                    toast.success(`Catégorie ${id} supprimé!`, {
+                    toast.success(`Catégorie ${id} supprimée !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -192,15 +237,16 @@ const AdminCategoriesView = () => {
                     <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
                         {/* Nom de chaque colonne */}
                         <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
-                        <tr>
-                            {/* Tous les titres dans le header de la table */}
-                            <TableHeadSort nbSortColumn="0" name="Id"/>
-                            <TableHeadSort nbSortColumn="1" name="Nom"/>
-                            <th className={labelHeader} title='Tendance'>Image</th>
-                            <th className={labelHeader} title='Tendance'>Tendance</th>
-                            {/* TH Actions à ne pas supprimer */}
-                            <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
-                        </tr>
+                            <tr>
+                                {/* Tous les titres dans le header de la table */}
+                                <TableHeadSort nbSortColumn="0" name="Id"/>
+                                <TableHeadSort nbSortColumn="1" name="Nom"/>
+                                <th className={labelHeader} title='Image'>Image</th>
+                                <th className={labelHeader} title='Tendance'>Tendance</th>
+                                <th className={labelHeader} title='Visible'>Visible</th>
+                                {/* TH Actions à ne pas supprimer */}
+                                <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
+                            </tr>
                         </thead>
                         {/* Contenu de la table */}
                         <tbody>

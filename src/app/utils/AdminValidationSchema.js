@@ -9,8 +9,9 @@ export const productCreateSchema = Yup.object().shape({
         trend: Yup.boolean().required(),
         available: Yup.boolean().required(),
         infoFile:
-            Yup.mixed().required("Champ obligatoire").test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
-            value => value && (value.type === "image/jpeg" || value.type === "image/png"))
+            Yup.mixed().required("Champ obligatoire")
+                .test('fileFormat', "Seuls les formats .jpg et .png sont acceptés", value => value && (value.type === "image/jpeg" || value.type === "image/png"))
+                .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
     })
 
 // Schéma de validation du formulaire update admin produit
@@ -21,8 +22,9 @@ export const productUpdateSchema = Yup.object().shape({
     trend: Yup.boolean().required(),
     available: Yup.boolean().required(),
     infoFile:
-        Yup.mixed().test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
-        value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
+        Yup.mixed()
+            .test('fileFormat', "Seuls les formats .jpg et .png sont acceptés", value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
+            .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
 })
 
 // CATEGORIES
@@ -33,12 +35,14 @@ export const categoryCreateSchema = Yup.object().shape({
         .max(50, 'Maximum 50 caractères')
         .required('Champ obligatoire'),
     trend: Yup.boolean(),
+    available: Yup.boolean(),
     infoFile: Yup.mixed()
         .test(
             "fileFormat",
             "Seuls les formats .jpg et .png sont acceptés",
             value => value && (value.type === "image/jpeg" || value.type === "image/png")
         )
+        .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
 })
 
 // Schéma de validation du formulaire create update catégorie
@@ -48,6 +52,7 @@ export const categoryUpdateSchema =  Yup.object().shape({
         .max(50, 'Maximum 50 caractères')
         .required('Champ obligatoire'),
     trend: Yup.boolean(),
+    available: Yup.boolean(),
     infoFile: Yup.mixed()
         .test(
             "fileFormat",
@@ -57,27 +62,36 @@ export const categoryUpdateSchema =  Yup.object().shape({
                     (value.type === "image/jpeg" || value.type === "image/png") : true
                 : true
         )
+        .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 200000 : true : true)
 })
 
-export const promotionCreateSchema = Yup.object().shape({
-    remise: Yup.number()
+export const promotionSchema = Yup.object().shape({
+    remise: Yup.number().max(99,"La remise doit être inférieur à 100%")
         .required("Champ obligatoire"),
-    startDate: Yup.date()
+    startDate: Yup.date().min(new Date(), "La date doit être supérieur à celle d'aujourd'hui")
         .required("Champ obligatoire"),
-    endDate: Yup.date()
-        .required("Champ obligatoire")
+    endDate: Yup.date().min(Yup.ref('startDate'), "La date de fin doit être supérieur à celle de début").required('Champ obligatoire')
 })
 
 // Schéma de Validation Formulaire Create Update Users
 
-export const userSchema =  Yup.object().shape({
+export const userCreateSchema =  Yup.object().shape({
     name: Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
     surname:Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
     email: Yup.string().email('Email invalide').required('Champ obligatoire'),
     password: Yup.string().min(8,'Minimum 8 caractères').matches(/[A-Z]/,'Votre mot de passe doit contenir une majuscule').matches(/[a-z]/,'Votre mot de passe doit contenir une minuscule').matches(/[0-9]/,'Votre mot de passe doit contenir un chiffre').required('Champ obligatoire'),
     passwordConfirm: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
-    phone: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(10,'Minimum 10 chiffres').max(10,'Maximum 10 chiffres').required('Champ obligatoire')
+    phone: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(10,'Minimum 10 chiffres').max(10,'Maximum 10 chiffres')
   })
+
+export const userUpdateSchema =  Yup.object().shape({
+    name: Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
+    surname:Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
+    email: Yup.string().email('Email invalide').required('Champ obligatoire'),
+    password: Yup.string().min(8,'Minimum 8 caractères').matches(/[A-Z]/,'Votre mot de passe doit contenir une majuscule').matches(/[a-z]/,'Votre mot de passe doit contenir une minuscule').matches(/[0-9]/,'Votre mot de passe doit contenir un chiffre'),
+    passwordConfirm: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
+    phone: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(10,'Minimum 10 chiffres').max(10,'Maximum 10 chiffres')
+})
     
 // BLOG
 // Schéma de validation du formulaire create admin produit
@@ -87,6 +101,7 @@ export const blogCreateSchema = Yup.object().shape({
     infoFile:
         Yup.mixed().required("Champ obligatoire").test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
         value => value && (value.type === "image/jpeg" || value.type === "image/png"))
+        .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 1000000 : true : true)
 })
 
 // Schéma de validation du formulaire update admin produit
@@ -96,6 +111,7 @@ description: Yup.string().min(20, 'Minimum 20 caractères').required('Champ obli
 infoFile:
     Yup.mixed().test('fileFormat', "Seuls les formats .jpg et .png sont acceptés",
     value => value ? value.type ? (value.type === "image/jpeg" || value.type === "image/png") : true : true)
+    .test('fileSize', "Le fichier est trop lourd", value => value ? value.size ? value.size < 1000000 : true : true)
 })
 
 // Schéma de validation du formulaire update commande details produit

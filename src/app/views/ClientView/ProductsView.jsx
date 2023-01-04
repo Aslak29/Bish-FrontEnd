@@ -37,12 +37,12 @@ const ProductsView = () => {
     }
 
     return (
-        <div className="w-11/12 lg:w-3/4 mx-auto my-6 space-y-6">
+        <div className="w-11/12 md:w-3/4 mx-auto my-6 space-y-6">
             <Helmet>
                 <title>Bish - Nos Produits</title>
                 <meta name="description" content="Retrouvez tous nos produits disponibles à tout moments"/>
             </Helmet>
-            <div className="md:w-3/5 m-auto">
+            <div className="lg:w-fit mx-auto">
                 <Categories setCategorie={handleCategorie}/>
             </div>
             <ProductsContainer categorie={categorie} setCategorie={handleCategorie} setCountPage={handleCountPage} page={page} limit={20} backArrow={backArrow}/>

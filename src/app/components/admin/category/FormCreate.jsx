@@ -12,14 +12,14 @@ const FormCreate = props => {
     // CREATE élément dans la BDD
     const createRow = (values) => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
-            apiBackEnd.post(`${URL_BACK_CATEGORIES_CREATE}/${values.name}/${values.trend}/${values.infoFile.name}`)
+            apiBackEnd.post(`${URL_BACK_CATEGORIES_CREATE}/${values.name}/${values.trend}/${values.available}/${values.infoFile.name}`)
                 .then(res => {
                     if (res.status === 200) {
                         // Notification succès d'un ajout de produit
                         props.setReload(!props.reload)
                         props.close()
                         // createAlbum(values.infoFile.name,values.infoFile,"categories")
-                        toast.success(`La catégorie ${res.data.id} - ${res.data.name} a été ajouté!`, {
+                        toast.success(`Catégorie ${res.data.id} - ${res.data.name} ajouté !`, {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -85,6 +85,15 @@ const FormCreate = props => {
                                     <span>Tendance</span>
                                     <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto'
                                            type="checkbox" name="trend"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex flex-row h-20 justify-around">
+                                <div className="flex flex-col h-full justify-center align-items-center">
+                                    <span>Disponible</span>
+                                    <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto'
+                                           type="checkbox" name="available"
                                     />
                                 </div>
                             </div>

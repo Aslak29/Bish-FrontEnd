@@ -43,7 +43,7 @@ const AdminUsersView = () => {
           res.surname,
           res.email,
           res.roles,
-          res.phone, 
+          res.phone ? res.phone.replace(/(.{2})(?=.)/g,"$1-") : "-",
           res.created_at,
          ]]))
   
@@ -72,10 +72,56 @@ const AdminUsersView = () => {
         if (res.status === 200) {
         setReload(!reload)
           // Notification produit supprimé
-          toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+          toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} supprimé !`,
+              {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light"
+              })
         }
-      }).catch(error => { 
-        toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+      }).catch(error => {
+          if (error.response.data["errorCode"] === "015") {
+              toast.warn(`L'utilisateur à une commande en préparation !`,
+                  {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light"
+                  })
+          }else if (error.response.data["errorCode"] === "014") {
+              toast.warn(`L'utilisateur à une commande en cours !`,
+                  {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light"
+                  })
+          }else {
+              toast.error('Une erreur est survenue',
+                  {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light"
+                  });
+          }
       })
     }
   }
@@ -122,7 +168,9 @@ const AdminUsersView = () => {
           {/* Contenu de la table */}
           <tbody>
             {/* Retourne une ligne pour chaque élément */}
-            {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow}/>)} 
+            {rows && rows.map((res, index) =>
+                <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow}/>
+            )}
           </tbody>
         </table>
       )

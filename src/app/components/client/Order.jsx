@@ -44,7 +44,7 @@ const Order = (props) => {
 
 
     return (
-        <div className='flex flex-col items-center justify-center shadow bish-bg-white mb-11 w-3/4 mx-auto px-11 pb-6 bish-bg-white-up rounded-lg'>
+        <div className='flex flex-col items-center justify-center shadow bish-bg-white mb-11 lg:w-3/4 w-11/12 mx-auto px-2 sm:px-11 pb-6 bish-bg-white-up rounded-lg'>
             <span className='text-center my-auto text-2xl font-medium my-11'>Suivi de commande</span>
             {isLoading ? (
                 <img
@@ -55,7 +55,7 @@ const Order = (props) => {
             ) : (
                 <>
                     <table
-                        className="table-fixed w-full pl-5 font-medium"
+                        className="table-fixed w-full pl-5 font-medium text-xs sm:text-base"
                         id="searchTable"
                     >
                         {/* Nom de chaque colonne */}
@@ -67,6 +67,7 @@ const Order = (props) => {
                             <th>Taille</th>
                             <th>Quantité</th>
                             <th>Prix</th>
+                            <th>Prix Remisé</th>
                             <th>Remise</th>
                             <th>Total</th>
                         </tr>
@@ -91,29 +92,34 @@ const Order = (props) => {
                                     <td>{row.nomProduit}</td>
                                     <td className="uppercase">{row.Taille}</td>
                                     <td>{row.quantite}</td>
-                                    <td>{row.prixUnitaire} €</td>
-                                    <td>{row.remise.toFixed(0)} %</td>
-                                    <td className="text-center">{row.total} €</td>
+                                    <td>{row.prixUnitaire.toFixed(2)} €</td>
+                                    <td>{row.prixRemise !== "-" ?
+                                        row.prixRemise + " €" : "-"
+                                    }</td>
+                                    <td>{row.remise !== null ?
+                                        row.remise.toFixed(0) + "%" : "-"
+                                    }</td>
+                                    <td className="text-center">{row.total.toFixed(2)} €</td>
                                 </tr>
                             );
                         })}
                         </tbody>
                     </table>
-                    <div className="flex flex-row justify-between w-full border-t-[3px] mt-5 pt-5 font-medium">
+                    <div className="flex flex-col lg:flex-row justify-between w-full border-t-[3px] mt-5 pt-5 font-medium text-center text-xs sm:text-base">
                         <div
-                            className="flex flex-row bish-bg-white-up items-start justify-start text-center w-1/2 p-2">
+                            className="flex flex-row bish-bg-white-up items-start justify-start w-full lg:w-1/2 p-2">
                             <div className="flex my-auto w-3/5">Adresse de livraison:</div>
-                            <div className="flex my-auto justify-center text-center w-full">
+                            <div className="flex my-auto justify-start sm:justify-center text-center w-full">
                                 <span>{infoClient.rue + " " + infoClient.Code_Postal + " " + infoClient.ville}</span>
                             </div>
                         </div>
-                        <div className="flex flex-row h-full">
-                            <div className="flex flex-col pr-5">
-                                <span>Sous-total Produits: </span>
-                                <span>Taxes: </span>
-                                <span>Frais de port: </span>
+                        <div className="flex flex-row h-full justify-end lg:justify-center pt-5">
+                            <div className="flex flex-col text-right pr-5">
+                                <span>Sous-total Produits : </span>
+                                <span>Taxes : </span>
+                                <span>Frais de port : </span>
                                 <span className="bish-bg-blue bish-text-white rounded text-center font-medium">
-                                    TOTAL:
+                                    TOTAL :
                                 </span>
                             </div>
                             <div className="flex flex-col text-right">

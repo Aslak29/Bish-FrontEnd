@@ -19,7 +19,6 @@ const FormCreate = props => {
 
     // CREATE élément dans la BDD
     const createRow = (values) => {
-
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
           apiBackEnd.post(`${URL_BACK_CREATE_PRODUCT}${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
             if (res.status === 200){
@@ -27,7 +26,7 @@ const FormCreate = props => {
               props.setReload(!props.reload)
               props.close()
               // Notification succès d'un ajout de produit
-              toast.success(`Le produit ${res.data.id} - ${res.data.name} a été ajouté!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+              toast.success(`Produit ${res.data.id} - ${res.data.name} ajouté !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
             }
           }).catch(error => {
               // Notification erreur
@@ -87,19 +86,19 @@ const FormCreate = props => {
                         </div>
                       )}
                     </div>
+                    {/* Promotion */}
+                    <div className="flex flex-col h-20 col-span-2">
+                      <span>Promotion</span>
+                      <Field className='h-full' name="promotion" as="select">
+                        <option value='-'>-</option>
+                        {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} % - {new Date(resPromo.start_date).toLocaleDateString("fr")} {new Date(resPromo.start_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - {new Date(resPromo.end_date).toLocaleDateString("fr")} {new Date(resPromo.end_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} {resPromo.name && ' - ' + resPromo.name}</option>)}
+                      </Field>
+                    </div>
                     {/* Catégorie */}
                     <div className="flex flex-col h-20">
                       <span>Catégorie</span>
                       <Field className='h-full' name="categorie" as="select" required>
                         {props.categories.data.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
-                      </Field>
-                    </div>
-                    {/* Promotion */}
-                    <div className="flex flex-col h-20">
-                      <span>Promotion</span>
-                      <Field className='h-full' name="promotion" as="select">
-                        <option value='-'>-</option>
-                        {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} %</option>)}
                       </Field>
                     </div>
                     {/* Tendance et Visible */}
@@ -113,7 +112,6 @@ const FormCreate = props => {
                         <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="available"/>
                       </div>      
                     </div>
-                    <div></div>
                     {/* Image */}
                     <div className="flex flex-col h-20">
                       <span>Image</span>

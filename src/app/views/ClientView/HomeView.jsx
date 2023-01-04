@@ -1,6 +1,6 @@
 import React from 'react';
 import {Helmet} from "react-helmet-async";
-import Slide from '../../components/Slide';
+import Slide from '../../components/slide/Slide';
 import PromoContainer from "../../components/products/PromoContainer";
 
 const HomeView = () => {

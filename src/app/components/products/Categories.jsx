@@ -17,11 +17,11 @@ const Categories = props => {
 
 
     return(
-        <div className="my-6 flex justify-center space-x-4 bish-text-gray ">
-            {categories.map(cat =>
-            <div className="cursor-pointer group text-center" onClick={() => props.setCategorie(cat.id,cat.name)} key={cat.id}  >
+        <div className="gap-4 bish-text-gray w-full flex gap-6 snap-mandatory overflow-x-auto">
+            {categories.map(cat => cat.countProduit > 0 &&
+            <div className="cursor-pointer group text-center shrink-0" onClick={() => props.setCategorie(cat.id,cat.name)} key={cat.id}  >
                 <img
-                    className="rounded-full group-hover:border-4 bish-border-blue shadow-xl"
+                    className="rounded-full group-hover:border-4 bish-border-blue shadow-xl max-h-28"
                     src={window.location.origin + '/src/app/assets/images/categories/' + cat.pathImage}
                     alt="Catégorie"
                 />
