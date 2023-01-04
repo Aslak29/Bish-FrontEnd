@@ -45,6 +45,7 @@ const AdminUsersView = () => {
           res.roles,
           res.phone ? res.phone.replace(/(.{2})(?=.)/g,"$1-") : "-",
           res.created_at,
+          res.disable ? 'true' : 'false',
          ]]))
   
         res.data.map((res) => {
@@ -169,7 +170,14 @@ const AdminUsersView = () => {
           <tbody>
             {/* Retourne une ligne pour chaque élément */}
             {rows && rows.map((res, index) =>
-                <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow}/>
+                <TableRow 
+                key={index}
+                element={res}
+                formUpdate={formUpdate[index]}
+                deleteRow={deleteRow}
+                disabledEdit={res[7] === 'true' && true}
+                disableRemove={res[7] === 'true' && true}
+                   />
             )}
           </tbody>
         </table>
