@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import TableRow from './../../components/admin/TableRow';
 import apiBackEnd from "../../api/backend/api.Backend";
-import {URL_BACK_CONTACT, URL_BACK_REMOVE_CONTACT} from "../../constants/urls/urlBackEnd";
+import {
+    URL_BACK_CONTACT_UPDATE_ISFINISH,
+    URL_BACK_CONTACT,
+    URL_BACK_REMOVE_CONTACT
+} from "../../constants/urls/urlBackEnd";
 import {toast, ToastContainer} from "react-toastify";
 import {search, sort} from "../../services/adminServices";
 import loadingSVG from "../../assets/images/loading-spin.svg";
@@ -26,8 +30,6 @@ const AdminContactView = () => {
         setIsLoading(true)
         // Récupération des données
         apiBackEnd.get(URL_BACK_CONTACT).then(respArr => {
-            console.log(respArr)
-
             // Set le contenu d'une row (à mettre dans l'ordre voulu)
             respArr.data.map((res, index) => setRows(current => [...current, [
                 res.id,
@@ -36,7 +38,11 @@ const AdminContactView = () => {
                 res.email,
                 res.phone,
                 res.date.date,
-                res.message
+                res.message,
+                <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' key={res.id} type="checkbox"
+                       id={`checkIsFinish${res.id}`} onChange={() => changeIsFinish(res)}
+                       checked={res.isFinish}
+                />
             ]]))
 
 
@@ -44,6 +50,39 @@ const AdminContactView = () => {
             setIsLoading(false)
         })
     }, [])
+
+    const changeIsFinish = (contact) => {
+
+        let isFinish = document.getElementById('checkIsFinish' + contact.id).checked
+        apiBackEnd.post(`${URL_BACK_CONTACT_UPDATE_ISFINISH}${contact.id}/${isFinish}`).then(res => {
+            document.getElementById('checkIsFinish' + contact.id).checked = isFinish
+            contact.isFinish = !contact.isFinish
+            if (isFinish) {
+                toast.success(`Contact ${res.data.id} est traité !`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                })
+            } else {
+                toast.success(`Contact ${res.data.id} doit être re-traité !`, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                })
+            }
+        })
+
+    }
     const deleteRow = id => {
         if (window.confirm(`Êtes-vous sûr de vouloir supprimer le contact ${id} ?`)) {
             apiBackEnd.delete(URL_BACK_REMOVE_CONTACT + id).then(res => {
@@ -145,6 +184,12 @@ const AdminContactView = () => {
                             <th onClick={() => sort(6)}>
                                 <div className={headSort}>
                                     <span className={labelHeader} title='Message'>Message</span>
+                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
+                                </div>
+                            </th>
+                            <th onClick={() => sort(7)}>
+                                <div className={headSort}>
+                                    <span className={labelHeader} title='Traité'>Traité ?</span>
                                     <img className='h-4' src={sortIMG} alt="Trier par ID"/>
                                 </div>
                             </th>
