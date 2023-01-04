@@ -45,7 +45,7 @@ const AdminUsersView = () => {
           res.roles,
           res.phone ? res.phone.replace(/(.{2})(?=.)/g,"$1-") : "-",
           res.created_at,
-          res.disable ? 'true' : 'false',
+          res.disable.toString(),
          ]]))
   
         res.data.map((res) => {
@@ -162,6 +162,7 @@ const AdminUsersView = () => {
                 <TableHeadSort nbSortColumn="4" name="Role" />
                 <TableHeadSort nbSortColumn="5" name="Téléphone" />
                 <TableHeadSort nbSortColumn="6" name="Crée le" />
+                <th/>
               {/* TH Actions à ne pas supprimer */}
               <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
             </tr>
