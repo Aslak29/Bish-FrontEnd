@@ -69,7 +69,7 @@ const FormCreate = props => {
                         <Field type="text" name="remise" id="remise" list="remises"/>
                         <datalist id="remises">
                             {options.map((option) => (
-                            <option value={option}>{option}</option>
+                            <option key={option} value={option}>{option}</option>
                             ))}
                         </datalist>
                         <ErrorMessage name="remise" component="small" className="text-red-400"/>
