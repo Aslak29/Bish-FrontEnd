@@ -27,6 +27,8 @@ const AdminUsersView = () => {
       // Reload table
     const [reload, setReload] = useState(false);
 
+    const [userDisable, setUserDisable]= useState([]);
+
      useEffect(() => {
        // Permet d'afficher le SVG de chargement
       setIsLoading(true)
@@ -36,6 +38,11 @@ const AdminUsersView = () => {
        .then(res => {
         setRows([])
         setFormUpdate([])
+        res.data.map((res) => {
+          res.disable && setUserDisable(current =>[
+            ...current,[res.id]
+          ])
+        })
          // Set le contenu d'une row (à mettre dans l'ordre voulu)
          res.data.map((res) => setRows(current => [...current, [
           res.id,
@@ -45,7 +52,6 @@ const AdminUsersView = () => {
           res.roles,
           res.phone ? res.phone.replace(/(.{2})(?=.)/g,"$1-") : "-",
           res.created_at,
-          res.disable.toString(),
          ]]))
   
         res.data.map((res) => {
@@ -162,7 +168,6 @@ const AdminUsersView = () => {
                 <TableHeadSort nbSortColumn="4" name="Role" />
                 <TableHeadSort nbSortColumn="5" name="Téléphone" />
                 <TableHeadSort nbSortColumn="6" name="Crée le" />
-                <th/>
               {/* TH Actions à ne pas supprimer */}
               <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
             </tr>
@@ -170,16 +175,27 @@ const AdminUsersView = () => {
           {/* Contenu de la table */}
           <tbody>
             {/* Retourne une ligne pour chaque élément */}
-            {rows && rows.map((res, index) =>
-                <TableRow 
-                key={index}
-                element={res}
-                formUpdate={formUpdate[index]}
-                deleteRow={deleteRow}
-                disabledEdit={res[7] === 'true' && true}
-                disableRemove={res[7] === 'true' && true}
-                   />
-            )}
+            {rows && rows.map((res, index) => 
+            (userDisable.map(userid => userid[0]).find(element=>element === res[0]) === res[0])?
+                  <TableRow 
+                  key={index}
+                  element={res}
+                  formUpdate={formUpdate[index]}
+                  deleteRow={deleteRow}
+                  disabledEdit={true}
+                  disableRemove={true}
+                     />
+                 :
+                  <TableRow 
+                  key={index}
+                  element={res}
+                  formUpdate={formUpdate[index]}
+                  deleteRow={deleteRow}
+                     />
+                
+              )
+      
+           }
           </tbody>
         </table>
       )
