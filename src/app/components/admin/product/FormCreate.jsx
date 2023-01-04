@@ -86,19 +86,19 @@ const FormCreate = props => {
                         </div>
                       )}
                     </div>
+                    {/* Promotion */}
+                    <div className="flex flex-col h-20 col-span-2">
+                      <span>Promotion</span>
+                      <Field className='h-full' name="promotion" as="select">
+                        <option value='-'>-</option>
+                        {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} % - {new Date(resPromo.start_date).toLocaleDateString("fr")} {new Date(resPromo.start_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - {new Date(resPromo.end_date).toLocaleDateString("fr")} {new Date(resPromo.end_date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} {resPromo.name && ' - ' + resPromo.name}</option>)}
+                      </Field>
+                    </div>
                     {/* Catégorie */}
                     <div className="flex flex-col h-20">
                       <span>Catégorie</span>
                       <Field className='h-full' name="categorie" as="select" required>
                         {props.categories.data.map(resCateg => <option key={resCateg.id} value={resCateg.id}>{resCateg.name}</option>)}
-                      </Field>
-                    </div>
-                    {/* Promotion */}
-                    <div className="flex flex-col h-20">
-                      <span>Promotion</span>
-                      <Field className='h-full' name="promotion" as="select">
-                        <option value='-'>-</option>
-                        {props.promotions.data.map(resPromo => <option key={resPromo.id} value={resPromo.id}>{resPromo.remise} %</option>)}
                       </Field>
                     </div>
                     {/* Tendance et Visible */}
@@ -112,7 +112,6 @@ const FormCreate = props => {
                         <Field className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue m-auto' type="checkbox" name="available"/>
                       </div>      
                     </div>
-                    <div></div>
                     {/* Image */}
                     <div className="flex flex-col h-20">
                       <span>Image</span>
