@@ -13,6 +13,7 @@ const FormCreate = props => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const createRow = (values) => {
+        console.log(values.remise);
         if (window.confirm("Êtes-vous sûr de vouloir ajouter la promotion ?")) {
             apiBackEnd.post(`${URL_BACK_CREATE_PROMOTION}${values.name}/${values.remise}/${startDate.toLocaleDateString("fr").replaceAll('/','-') + startDate.toLocaleTimeString("fr")}/${endDate.toLocaleDateString("fr").replaceAll('/','-') + endDate.toLocaleTimeString("fr")}`).then(res => {
                 if (res.status === 200) {
@@ -46,6 +47,9 @@ const FormCreate = props => {
             )
         }
     }
+
+    const options = ['',5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95];
+
     return (
         <Formik
             initialValues={promotionCreateInitialValues()}
@@ -55,6 +59,7 @@ const FormCreate = props => {
             {formikProps =>
                 <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {/* Remise */}
+                    {console.log(formikProps.values)}
                     <div className="flex flex-col h-20">
                         <span>Nom</span>
                         <Field type="text" name="name" placeholder="Nom"/>
@@ -63,7 +68,11 @@ const FormCreate = props => {
 
                     <div className="flex flex-col h-20">
                         <span>Remise</span>
-                        <Field type="number" name="remise" placeholder="Remise en %"/>
+                        <Field as="select" name="remise" placeholder="Remise en %">
+                            {options.map((option) => (
+                            <option value={option}>{option}</option>
+                            ))}
+                        </Field>
                         <ErrorMessage name="remise" component="small" className="text-red-400"/>
                     </div>
 
