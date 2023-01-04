@@ -43,7 +43,7 @@ const BlogView = () => {
                   <p>{title}</p>
                   <p className='bish-text-gray text-sm	'>{date}</p><br/>
                 </div>
-                <p className='text-justify text-sm md:text-lg'>{description.substring(0, 80) + "..."}</p><br/>
+                <p className='text-justify text-sm md:text-lg' dangerouslySetInnerHTML={{__html: description.substring(0, 80) + "..."}}/><br/>
                 <button >
                   <Link className='btn-black-bish w-auto h-auto' to={"/blog/article/" +  `${article[1].id}`}>En savoir plus</Link>
                 </button>
