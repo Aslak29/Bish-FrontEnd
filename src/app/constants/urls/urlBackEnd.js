@@ -29,6 +29,8 @@ export const URL_BACK_ADD_CONTACT = "/contact/add";
 export const URL_BACK_CONTACT = "/contact/";
 export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";
 
+export const URL_BACK_CONTACT_UPDATE_ISFINISH = "/contact/update/isFinish/"
+
 // Routes CATEGORIE
 export const URL_BACK_CATEGORIES = "/categorie/"
 export const URL_BACK_CATEGORIES_ADMIN = "/categorie/forAdmin"
