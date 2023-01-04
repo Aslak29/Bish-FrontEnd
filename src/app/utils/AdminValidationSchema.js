@@ -66,7 +66,7 @@ export const categoryUpdateSchema =  Yup.object().shape({
 })
 
 export const promotionSchema = Yup.object().shape({
-    remise: Yup.number()
+    remise: Yup.number().max(99,"La remise doit être inférieur à 100%")
         .required("Champ obligatoire"),
     startDate: Yup.date().min(new Date(), "La date doit être supérieur à celle d'aujourd'hui")
         .required("Champ obligatoire"),

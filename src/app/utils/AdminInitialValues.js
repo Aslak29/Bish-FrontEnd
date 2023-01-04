@@ -53,7 +53,7 @@ export const categoryUpdateInitialValues = (categories) => {
 
 export const promotionUpdateInitialValues = (promotion, startDate, endDate) => {
     return {
-        name : promotion.name,
+        name : promotion.name ? promotion.name : "",
         remise : promotion.remise,
         startDate : startDate,
         endDate : endDate,

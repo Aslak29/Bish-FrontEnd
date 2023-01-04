@@ -9,7 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { promotionSchema } from "../../../utils/AdminValidationSchema";
 
 const FormUpdate = props => {
-    console.log(props.promotion.start_date);
     const [startDate, setStartDate] = useState(new Date(props.promotion.start_date.split(" ")[0]));
     const [endDate, setEndDate] = useState(new Date(props.promotion.end_date.split(" ")[0]));
 
@@ -54,6 +53,8 @@ const FormUpdate = props => {
         }
     }
 
+    const options = ['',5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95];
+
     return (
         <Formik
             initialValues={promotionUpdateInitialValues(props.promotion,startDate,endDate)}
@@ -71,7 +72,12 @@ const FormUpdate = props => {
 
                     <div className="flex flex-col h-20">
                         <span>Remise</span>
-                        <Field type="number" name="remise" placeholder="Remise en %" required/>
+                        <Field type="text" name="remise" id="remise" list="remises"/>
+                        <datalist id="remises">
+                            {options.map((option) => (
+                            <option key={option} value={option}>{option}</option>
+                            ))}
+                        </datalist>
                         <ErrorMessage name="remise" component="small" className="text-red-400"/>
                     </div>
 
