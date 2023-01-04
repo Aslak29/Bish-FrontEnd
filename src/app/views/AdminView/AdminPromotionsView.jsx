@@ -44,9 +44,10 @@ const AdminPromotionsView = () => {
             setFormUpdate([]);
             respArr.data.map((res, index) => setRows(current => [...current, [
                 res.id,
+                res.name,
                 res.remise,
-                res.start_date,
-                res.end_date,
+                new Date(res.start_date).toLocaleDateString().replaceAll('/','-')+' '+ new Date(res.start_date).toLocaleTimeString(),
+                new Date(res.end_date).toLocaleDateString().replaceAll('/','-') +' '+ new Date(res.end_date).toLocaleTimeString(),
             ]]))
 
             respArr.data.map((res, index) => {
@@ -65,20 +66,27 @@ const AdminPromotionsView = () => {
         })
     }, [reload])
 
-    const updateTable = (promotion,values, index, startDate, startEnd, startTime, endTime)=> {
-        console.log(startDate);
+    const updateTable = (promotion,values, index, startDate, startEnd, startTime, endTime, startFullDate, endFullDate)=> {
+
+        promotion.name = values.name
         promotion.remise = values.remise
-        promotion.start_date = startDate + ' ' + startTime
+        promotion.start_date = startFullDate + ' ' + startTime
         promotion.end_date = startEnd + ' ' + endTime
 
         // Modifier la row concernée par l'update
+        setFormUpdate(current=> [
+            ...current.slice(0, index),
+            <FormUpdate promotion={promotion} index={index} updateTable={updateTable}/>,
+            ...current.slice(index+1)
+        ])
         setRows(current => [
             ...current.slice(0, index),
             [
                 promotion.id,
+                promotion.name,
                 promotion.remise,
-                promotion.start_date,
-                promotion.end_date
+                startDate + ' ' + startTime,
+                startEnd + ' ' + endTime,
                ],
             ...current.slice(index+1)
         ])
@@ -151,9 +159,10 @@ const AdminPromotionsView = () => {
                         <tr>
                             {/* Tous les titres dans le header de la table */}
                             <TableHeadSort nbSortColumn="0" name="Id"/>
-                            <TableHeadSort nbSortColumn="1" name="Remise"/>
-                            <TableHeadSort nbSortColumn="2" name="Date de début"/>
-                            <TableHeadSort nbSortColumn="3" name="Date de fin"/>
+                            <TableHeadSort nbSortColumn="1" name="Nom"/>
+                            <TableHeadSort nbSortColumn="2" name="Remise"/>
+                            <TableHeadSort nbSortColumn="3" name="Date de début"/>
+                            <TableHeadSort nbSortColumn="4" name="Date de fin"/>
                             {/* TH Actions à ne pas supprimer */}
                             <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
                         </tr>

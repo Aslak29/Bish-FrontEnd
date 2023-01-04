@@ -14,7 +14,7 @@ const FormCreate = props => {
     const [endDate, setEndDate] = useState();
     const createRow = (values) => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter la promotion ?")) {
-            apiBackEnd.post(`${URL_BACK_CREATE_PROMOTION}${values.remise}/${startDate.toLocaleDateString("fr").replaceAll('/','-') + startDate.toLocaleTimeString("fr")}/${endDate.toLocaleDateString("fr").replaceAll('/','-') + endDate.toLocaleTimeString("fr")}`).then(res => {
+            apiBackEnd.post(`${URL_BACK_CREATE_PROMOTION}${values.name}/${values.remise}/${startDate.toLocaleDateString("fr").replaceAll('/','-') + startDate.toLocaleTimeString("fr")}/${endDate.toLocaleDateString("fr").replaceAll('/','-') + endDate.toLocaleTimeString("fr")}`).then(res => {
                 if (res.status === 200) {
                     props.setReload(!props.reload)
                     props.close()
@@ -55,6 +55,12 @@ const FormCreate = props => {
             {formikProps =>
                 <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     {/* Remise */}
+                    <div className="flex flex-col h-20">
+                        <span>Nom</span>
+                        <Field type="text" name="name" placeholder="Nom"/>
+                        <ErrorMessage name="name" component="small" className="text-red-400"/>
+                    </div>
+
                     <div className="flex flex-col h-20">
                         <span>Remise</span>
                         <Field type="number" name="remise" placeholder="Remise en %"/>
