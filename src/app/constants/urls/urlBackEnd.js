@@ -39,6 +39,7 @@ export const URL_BACK_CATEGORIES_UPDATE_TREND = "/categorie/updateIsTrend/"
 
 // Route TAILLE
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
+export const URL_BACK_TYPE_TAILLE = "/size/typeTaille/";
 
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
