@@ -16,7 +16,7 @@ const BlogArticleView = props => {
   },[])
 
   return (
-    <div className='flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up'>
+    <div className='blog-article flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up'>
       <Helmet>
         <title>Bish - Article</title>
         {/*TODO: changer le title par le nom de l'article ainsi que la description*/}

@@ -5,6 +5,8 @@ import {URL_BACK_UPDATE_BLOG} from "../../../constants/urls/urlBackEnd";
 import {toast} from "react-toastify";
 import {blogUpdateSchema} from "../../../utils/AdminValidationSchema";
 import {blogUpdateInitialValues} from "../../../utils/AdminInitialValues";
+import {toolbarOptions} from './TextEditor';
+import ReactQuill,{ Quill } from 'react-quill';
 
 const FormUpdate = props => {
     // UPDATE élément dans la BDD
@@ -32,7 +34,6 @@ const FormUpdate = props => {
                     })
                 }
             }).catch(error => {
-                    console.log("l'erreur est ici:"+ error);
                     // Notification erreur
                     toast.error('Une erreur est survenue', {
                         position: "top-right",
@@ -66,7 +67,7 @@ const FormUpdate = props => {
             onSubmit={(values) => updateRow(props.blog.id, values, pathImageDefault)}
             >
             {formikProps =>
-                <Form className="grid grid-cols-2 sm:grid-cols-4 gap-4">        
+                <Form className="flex flex-col sm:grid-cols-4 gap-4">  
                     {/* Nom */}
                     <div className="flex flex-col h-20">
                         <span>Titre</span>
@@ -74,11 +75,34 @@ const FormUpdate = props => {
                         <ErrorMessage name="title" component="small" className="text-red-400"/>
                     </div>
                     {/* Description */}
-                    <div className="flex flex-col col-span-2 row-span-2">
+                    <div className="flex flex-col h-96">
+                            <span>Description</span>
+                            <Field name="description">
+                                {/* EDITEUR DE TEXTE PERSONNALISE */}
+                                {({field})=> (<ReactQuill
+                                className="w-full h-80" 
+                                value={field.value} 
+                                onChange={field.onChange(field.name)} 
+                                defaultValue=""
+                                theme="snow"
+                                modules={{
+                                    toolbar: toolbarOptions,
+                                    "emoji-toolbar": true,
+                                    "emoji-textarea": false,
+                                    "emoji-shortname": true,
+                                    }
+
+                                }                                    
+                                />)}
+
+                            </Field>
+                            <ErrorMessage name="description" component="small" className="text-red-400"/>
+                        </div>
+                    {/* <div className="flex flex-col col-span-2 row-span-2">
                         <span>Description</span>
                         <Field className='h-full' as="textarea" type="text" name="description" required/>
                         <ErrorMessage name="description" component="small" className="text-red-400"/>
-                    </div>
+                    </div> */}
                     {/* Preview de l'image */}
                     <div className="preview row-span-4 h-96 shadow-lg">
                         <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.blog.pathImage} /*src={Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}*/  />

@@ -6,10 +6,17 @@ import {toast} from "react-toastify";
 import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
 import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
 import ReactQuill,{ Quill } from 'react-quill';
-import * as Emoji from "quill-emoji";
 import 'react-quill/dist/quill.snow.css';
 import "quill-emoji/dist/quill-emoji.css";
-Quill.register("modules/emoji", Emoji);
+import {toolbarOptions} from './TextEditor';
+
+console.log(Quill.imports);
+var FontAttributor = Quill.import('attributors/class/font');
+FontAttributor.whitelist = [
+  'arial','caveat','dancing-script','lobster','monospace','pacifico','passions-conflict','permanent-marker','playfair-display','poppins', 'roboto',  'sans-serif', 'satisfy'
+];
+Quill.register(FontAttributor, true);
+
 // import { createAlbum } from '../../../bucket_S3/awsFunction'
 const FormCreate = props => {
     // CREATE élément dans la BDD
@@ -53,113 +60,8 @@ const FormCreate = props => {
             )
         }
     }
-    // const toolbarOptions = {
-    //     container: [
-    //       ['bold', 'italic', 'underline', 'strike'],
-    //       ['emoji'],   
-    //     ],
-    //     handlers: {'emoji': function() {}}
-    //   }
-    
-    // const toolbarOptions= new Quill ('#editor-container',{
-    //     container: [
-    //         [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    //         [{ 'font': ['mirza', 'roboto'] }],
-    //         ["bold", "italic", "underline", "strike", "blockquote", "link"],
-    //         [ { 'color': [
-    //             '#000000', '#5c0000', '#663d00', '#666600', '#003700', '#002966', '#3d1466', 
-    //             '#444444', '#a10000', '#b26b00', '#b2b200', '#006100', '#0047b2', '#6b24b2', 
-    //             '#888888', '#e60000', '#ff9900', '#ffff00', '#008a00', '#0066cc', '#9933ff', 
-    //             '#bbbbbb', '#f06666', '#ffc266', '#ffff66', '#66b966', '#66a3e0', '#c285ff', 
-    //             '#ffffff', '#facccc', '#ffebcc', '#ffffcc', '#cce8cc', '#cce0f5', '#ebd6ff', 
-    //             'color-picker'] 
-    //         }, 
-    //         { 'background': [
-    //             '#000000', '#5c0000', '#663d00', '#666600', '#003700', '#002966', '#3d1466', 
-    //             '#444444', '#a10000', '#b26b00', '#b2b200', '#006100', '#0047b2', '#6b24b2', 
-    //                 '#888888', '#e60000', '#ff9900', '#ffff00', '#008a00', '#0066cc', '#9933ff', 
-    //                 '#bbbbbb', '#f06666', '#ffc266', '#ffff66', '#66b966', '#66a3e0', '#c285ff', 
-    //                 '#ffffff', '#facccc', '#ffebcc', '#ffffcc', '#cce8cc', '#cce0f5', '#ebd6ff'
-    //                 ] 
-    //             }
-    //         ], 
-    //         [{ list: "ordered" }, { list: "bullet" }],
-    //         [{ indent: "-1" }, { indent: "+1" }],
-    //         [{ 'align': [] }],
-    //         ["emoji"],
-    //         ["clean"]
-    //     ],
-    //     handlers: {
-    //         'emoji': function() {},
-    //         'color': function (value) {
-    //             // console.log(value);
-    //             if (value === 'color-picker') {
-    //                 var picker = document.getElementById('color-picker');
-    //                 if (!picker) {
-    //                     console.log(!picker); // retourne true
-    //                     console.log("youhouuuu");
 
-    //                     picker = document.createElement('input');
-    //                     picker.id = 'color-picker';
-    //                     picker.type = 'color';
-    //                     picker.style.display = 'none';
-    //                     picker.value = '#f5f5f5';
-    //                     document.body.appendChild(picker);
-    //                     console.log(document.body.appendChild(picker));
-                        
-    //                     picker.addEventListener('change', function() {
-    //                         toolbarOptions.format('color', picker.value);
-    //                     }, false);
-    //                 }
-    //                 picker.click();
-    //             } else {
-    //                 console.log(picker); //retourne undefined
-    //                 toolbarOptions.format('color', value);
-    //             }
-    //         }
-    //     }
-    // })
-    const toolbarOptions= {
-        container: [
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'font': [] }],
-            ["bold", "italic", "underline", "strike", "blockquote", "link"],
-            [ { 'color': ['#000000', '#e60000', '#ff9900', '#ffff00', '#008a00', '#0066cc', '#9933ff', '#ffffff', '#facccc', '#ffebcc', '#ffffcc', '#cce8cc', '#cce0f5', '#ebd6ff', '#bbbbbb', '#f06666', '#ffc266', '#ffff66', '#66b966', '#66a3e0', '#c285ff', '#888888', '#a10000', '#b26b00', '#b2b200', '#006100', '#0047b2', '#6b24b2', '#444444', '#5c0000', '#663d00', '#666600', '#003700', '#002966', '#3d1466', 'color-picker'] }, { 'background': [] }], 
-            [{ list: "ordered" }, { list: "bullet" }],
-            [{ indent: "-1" }, { indent: "+1" }],
-            [{ 'align': [] }],
-            ["emoji"],
-            ["clean"]
-        ],
-        handlers: {
-            'emoji': function() {},
-            'color': function (value) {
-                // console.log(value); //retourne le code couleur ou 'color-picker'
-                if (value === 'color-picker') {
-                    var picker = document.getElementById('color-picker');
-                    if (!picker) {
-                    // console.log(!picker); // retourne true
-                      picker = document.createElement('input');
-                      picker.id = 'color-picker';
-                      picker.type = 'color';
-                      picker.style.display = 'none';
-                      picker.value = '#FF0000';
-                      document.body.appendChild(picker);
-                      console.log(picker);                
-                      picker.addEventListener('change', ()=> {
-                        console.log(this.quill);
-                        this.quill.format('color', picker.value);
-                      });
-                    }
-                    picker.click(); // n'ouvre plus le color picker si on l'enlève
-                    // console.log("coucou picker click" + picker.click());
-                } else {
-                    // console.log(this.quill); //retourne la div .ql-container.ql-snow
-                    this.quill.format('color', value);
-                }
-            }
-        }
-    }
+
 
     // Preview de l'image dans input type file
     const showPreview = e => {

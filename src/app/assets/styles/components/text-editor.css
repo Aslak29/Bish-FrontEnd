@@ -1,16 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Monospace");
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Dancing+Script&family=Pacifico&family=Passions+Conflict&family=Permanent+Marker&family=Satisfy&display=swap');
+
 #editor-container {
     height: 375px;
-  }
+}
   
-  .ql-color .ql-picker-options [data-value=color-picker]:before {
+/* Selecteur de couleurs pour la police */
+.ql-color .ql-picker-options [data-value=color-picker]::before {
     content: 'Pick Color';
-  }
-  
-  .ql-color .ql-picker-options [data-value=color-picker] {
+}
+.ql-color .ql-picker-options [data-value=color-picker] {
+    content: 'Pick Color';
     background: none !important;
     width: 100% !important;
     height: 25px !important;
     text-align: center;
-    color: blue;
+    font-weight: bold;
+    color: #2EB7EB;
     text-decoration: underline;
-  }
+}
+
+/* Selecteur de couleurs pour le background */
+.ql-background .ql-picker-options [data-value=background-color-picker]::before {
+    content: 'Pick Color';
+}
+.ql-background .ql-picker-options [data-value=background-color-picker] {
+    content: 'Pick Color';
+    background: none !important;
+    width: 100% !important;
+    height: 25px !important;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    text-decoration: underline;
+}
+
+
+
+
+
+/* Mise en page */
+.blog-article blockquote{
+    font-style: normal;
+    font-size: 16px;
+    margin-left: 32px;
+    font-family: Consolas, "Times New Roman", Verdana;
+    border-left: 4px solid #CCC;
+    padding-left: 8px;
+}
+
+.blog-article ul li{
+    list-style: inside;
+}
+.blog-article ol li{
+    list-style:decimal;
+}
+.ql-align-center{
+    text-align: center;
+}
+.ql-indent-1{
+    text-indent: 10%;
+}
+
+
+/* Nom des Polices dans l'éditeur de texte */
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=lobster]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=lobster]::before {
+  content: 'Lobster';
+  font-family: "Lobster";
+}
+/* .ql-snow .ql-picker.ql-font .ql-picker-label[data-value=monospace]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+  content: 'Monospace';
+  font-family: "monospace", sans-serif;
+} */
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=sans-serif]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=sans-serif]::before {
+  content: 'Sans-serif';
+  font-family: "Sans serif";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=arial]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=arial]::before {
+  content: 'Arial';
+  font-family: "Arial";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=roboto]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=roboto]::before {
+  content: 'Roboto';
+  font-family: "roboto";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=poppins]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=poppins]::before {
+  content: 'Poppins';
+  font-family: "Poppins";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=playfair-display]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=playfair-display]::before {
+  content: 'Playfair';
+  font-family: "Playfair Display";
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=caveat]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=caveat]::before {
+  content: 'Caveat';
+  font-family: 'Caveat', cursive;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=dancing-script]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=dancing-script]::before {
+  content: 'Dancing';
+  font-family: 'Dancing Script', cursive;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=pacifico]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=pacifico]::before {
+  content: 'Pacifico';
+  font-family: 'Pacifico', cursive;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=passions-conflict]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=passions-conflict]::before {
+  content: 'Passions';
+  font-family: 'Passions Conflict', cursive;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=permanent-marker]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=permanent-marker]::before {
+  content: 'Permanent';
+  font-family: 'Permanent Marker', cursive;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=satisfy]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=satisfy]::before {
+  content: 'Satisfy';
+  font-family: 'Satisfy', cursive;
+}
+
+.ql-font-roboto {
+    font-family: 'Roboto', sans-serif;
+}
+.ql-font-monospace{
+    font-family: Monaco, Courier New, monospace;
+}
+.ql-font-lobster{
+    font-family: 'Lobster', sans-serif;
+}
+.ql-font-poppins{
+    font-family: 'Poppins', sans-serif;
+}
+.ql-font-playfair-display{
+    font-family: 'Playfair Display', sans-serif;
+}
+.ql-font-caveat{
+    font-family: 'Caveat', cursive;
+}
+.ql-font-dancing-script{
+    font-family: 'Dancing Script', cursive;
+}
+.ql-font-pacifico{
+    font-family: 'Pacifico', cursive;
+}
+.ql-font-passions-conflict{
+    font-family: 'Passions Conflict', cursive;
+}
+.ql-font-permanent-marker{
+    font-family: 'Permanent Marker', cursive;
+}
+.ql-font-satisfy{
+    font-family: 'Satisfy', cursive;
+}
+.ql-font-arial{
+    font-family: 'Arial';
+}
+.ql-font-sans-serif{
+    font-family: 'Sans serif';
+}
