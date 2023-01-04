@@ -242,7 +242,6 @@ const AdminProductsView = () => {
 
   return (
     <div className='w-full ml-12 sm:ml-64'>
-      {console.log(rowsCheck)}
       <Helmet>
         <title>Bish - Admin Commandes</title>
       </Helmet>
