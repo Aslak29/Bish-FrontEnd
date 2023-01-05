@@ -19,7 +19,6 @@ const FormUpdate = props => {
                     const year = startDate.getFullYear();
                     const day = startDate.getDate();
                     const month = startDate.getMonth()+1;
-                    console.log(startDate.getDate())
                     props.updateTable(props.promotion, values, props.index, startDate.toLocaleDateString("fr").replaceAll('/','-'),endDate.toLocaleDateString("fr").replaceAll('/','-'), startDate.toLocaleTimeString("fr"), endDate.toLocaleTimeString("fr"), year + '-' + month + '-' + day, endDate)
                     // Notification succès d'une modification d'une promotion'
                     toast.success(`Promotion ${res.data.id} modifiée !`, {
