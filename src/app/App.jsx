@@ -1,12 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-
 import Navbar from './components/layouts/Navbar';
-import { selectIsLogged, signIn } from './redux-store/authenticationSlice';
 import Routes from './routes/Routes';
-import { getToken } from './services/tokenServices';
 import Footer from './components/layouts/Footer';
 
 const contextClass = {
@@ -25,28 +20,14 @@ const contextClass = {
  * @author Peter Mollet
  */
 const App = () => {
-    const isLogged = useSelector(selectIsLogged);
-    const dispatch = useDispatch();
-    const [isLogin, setIsLogin] = useState(true);
-
-    useEffect(() => {
-        const token = getToken();
-        if (token) dispatch(signIn(token));
-        setIsLogin(false);
-    }, []);
-
-    if (isLogin) return null;
-
     return (
         <BrowserRouter>
-            <div className="flex h-full cursor-default relative flex-col bg-gray-100">
-                {/* {isLogged && <IdleTimerCustom />} */}
-                <Navbar />
-                <main className="mt-24 grow">
+            <div className="flex min-h-full cursor-default relative flex-col bish-bg-white">
+                <Navbar/>
+                <main className="mt-20 flex grow">
                     <Routes />
                 </main>
-                <Footer />
-                
+                <Footer />         
             </div>
         </BrowserRouter>
     );

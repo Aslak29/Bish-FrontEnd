@@ -7,7 +7,6 @@ import {
     URL_FAQ,
     URL_LEGAL_NOTICE,
     URL_CGU,
-    URL_HELP,
   } from "../../constants/urls/urlFrontEnd"
   import logo from "../../assets/images/logo-bish.svg";
   import stripe from "../../assets/images/stripe.svg";
@@ -22,19 +21,18 @@ function Footer() {
               alt="Logo Bish"
             /></div>
             <div>
-                {/* <ul>
+                { <ul>
                     <Link to={URL_PRESENTATION}><li>Qui sommes-nous ?</li></Link>
-                    <Link to={URL_BLOG}><li>Blog</li></Link>
+                    {/* <Link to={URL_BLOG}><li>Blog</li></Link>*/}
                     <Link to={URL_CONTACT}><li>Contact</li></Link>
                     <Link to={URL_LEGAL_NOTICE}><li>Mentions légales</li></Link>
-                </ul> */}
+                </ul> }
             </div>
             <div>
-                {/* <ul>
-                <Link to={URL_CGU}><li>CGU</li></Link>
+              <ul>
                 <Link to={URL_FAQ}><li>FAQ</li></Link>
-                <Link to={URL_HELP}><li>Aide</li></Link>
-                </ul> */}
+                <Link to={URL_CGU}><li>CGU</li></Link>
+              </ul>
             </div>
             <div><img
               className="hidden w-auto sm:block sm:h-10"

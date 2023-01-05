@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getPayloadToken, isTokenValid, setToken } from './..//services/tokenServices';
+import { setUser } from './..//services/userServices';
+
+
 
 /**
  * initial state: {
@@ -21,20 +24,26 @@ export const authenticationSlice = createSlice({
     initialState,
     reducers: {
         signIn: (state, action) => {
-            const token = action.payload;
+            const token = action.payload.token;
             state.token = token;
             const claims = getPayloadToken(token);
             const user = {
-                username: claims.sub,
-                roles: claims.auth.split(','),
+                username: claims.username,
+                roles: claims.roles,
+                id: action.payload.id,
+                name: action.payload.name,
+                surname: action.payload.surname
             };
             state.user = user;
             state.isAuthenticated = isTokenValid(token);
-            setToken(action.payload);
+            setToken(action.payload.token);
+            setUser(action.payload.id, action.payload.name, action.payload.surname);
         },
         signOut: (state) => {
             localStorage.clear();
             sessionStorage.clear();
+            state.token = null;
+            state.user = null;
             state.isAuthenticated = false;
         },
     },
@@ -43,7 +52,7 @@ export const authenticationSlice = createSlice({
 export const { signIn, signOut } = authenticationSlice.actions;
 
 export const selectIsLogged = (state) => state.auth.isAuthenticated;
-export const selectUser = (state) => state.auth.user;
+export const selectUser = (state) => state.auth.user ? state.auth.user : null;
 export const selectToken = (state) => state.auth.token;
 export const selectHasRole = (state, roles) => {
     if (!roles || roles.length === 0) return true;

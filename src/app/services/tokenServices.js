@@ -9,8 +9,8 @@ const TOKEN_NAME = 'token';
  * @param {string} token: to save
  * @author Peter Mollet
  */
-export function setToken(token) {
-    localStorage.setItem(TOKEN_NAME, token);
+export function setToken(token, name, surname) {
+    localStorage.setItem(TOKEN_NAME, token)
 }
 
 /**
@@ -20,7 +20,7 @@ export function setToken(token) {
  * @author Peter Mollet
  */
 export function getToken() {
-    return localStorage.getItem(TOKEN_NAME);
+    return localStorage.getItem(TOKEN_NAME)
 }
 
 /**
@@ -52,11 +52,10 @@ export function getPayloadToken(token) {
 export function isTokenValid(token) {
     try {
         const payload = getPayloadToken(token);
-        const roles = payload.auth.split(',');
+        const roles = payload.roles;
         const expirationDate = payload.exp;
-        const login = payload.sub;
         const dateNow = new Date();
-        return token && roles.length > 0 && login && expirationDate < dateNow.getTime();
+        return token && roles.length > 0 && expirationDate < dateNow.getTime();
     } catch {
         return false;
     }

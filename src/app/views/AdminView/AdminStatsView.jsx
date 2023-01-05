@@ -1,8 +1,13 @@
 import React from 'react'
+import {Helmet} from "react-helmet-async";
 
 const AdminStatsView = () => {
   return (
-    <div>AdminStatsView</div>
+    <div>
+      <Helmet>
+        <title>Bish - Admin Statistiques</title>
+      </Helmet>
+      AdminStatsView</div>
   )
 }
 

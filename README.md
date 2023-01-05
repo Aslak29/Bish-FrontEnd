@@ -82,3 +82,12 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+
+### `conflit react-simple-chatbot`
+
+Quand une dépendance est installée, des erreurs peuvent survenir à cause du chatbot.
+pour y remédier:
+-désinstaller react-simple-chatbot et styled-components
+-installer la dépendance voulue
+-réinstaller react-simple-chatbot et styled-components
