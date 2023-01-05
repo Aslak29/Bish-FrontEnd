@@ -146,7 +146,7 @@ const AdminUsersView = () => {
       (
         <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
           {/* Nom de chaque colonne */}
-          <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
+          <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow z-[1]'>
             <tr>
               {/* Tous les titres dans le header de la table */}
               <TableHeadSort nbSortColumn="0" name="Id" />

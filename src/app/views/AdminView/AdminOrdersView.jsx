@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import {Helmet} from "react-helmet-async";
 import apiBackEnd from '../../api/backend/api.Backend';
 import loadingSVG from '../../assets/images/loading-spin.svg'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
-import {  URL_BACK_COMMANDES } from '../../constants/urls/urlBackEnd';
+import {  URL_BACK_COMMANDES, URL_BACK_CANCEL_ORDER } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/commandes/FormUpdate';
 import TitleContainer from '../../components/admin/TitleContainer';
 import TableDetail from '../../components/admin/commandes/TableDetail';
-import { URL_BACK_CANCEL_ORDER } from '../../constants/urls/urlBackEnd'
-import { toast } from 'react-toastify';
 
 const AdminOrdersView = () => {
    // Style
@@ -49,9 +47,9 @@ const AdminOrdersView = () => {
   
         res.data.map((res) => {
           // Formulaire UPDATE
-          setFormUpdate(current => [...current,
-            <FormUpdate commande={res} reload={reload} setReload={setReload}/>
-          ])
+            setFormUpdate(current => [...current,
+                <FormUpdate commande={res} reload={reload} setReload={setReload}/>
+            ])
         })
 
         // Fin du chargement
@@ -65,12 +63,57 @@ const AdminOrdersView = () => {
             if (res.status === 200) {
               setReload(!reload)
               // Notification succès d'une modification de produit
-              toast.success(`Commande ${res.data.id} annulée !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+              toast.success(`Commande ${res.data.id} annulée !`,
+                  {
+                      position: "top-right",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light"
+                  })
             }
           }).catch(error => {
-              console.log(error);
-              // Notification erreur
-              toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+              if (error.response.data["errorCode"] === "016") {
+                  console.log(error.response.data)
+                  toast.warn(error.response.data["errorMessage"],
+                      {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light"
+                      })
+              }else if (error.response.data["errorCode"] === "017") {
+                  toast.warn(error.response.data["errorMessage"],
+                      {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light"
+                      })
+              }else {
+                  toast.error('Une erreur est survenue',
+                      {
+                          position: "top-right",
+                          autoClose: 5000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light"
+                      });
+              }
             }
           )
       }
@@ -91,7 +134,7 @@ const AdminOrdersView = () => {
         (
           <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
             {/* Nom de chaque colonne */}
-            <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
+            <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow z-[1]'>
               <tr>
                 {/* Tous les titres dans le header de la table */}
                 <TableHeadSort nbSortColumn="0" name="Id" />
@@ -109,7 +152,20 @@ const AdminOrdersView = () => {
             {/* Contenu de la table */}
             <tbody>
               {/* Retourne une ligne pour chaque élément */}
-              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={cancelOrder}/>)}
+              {rows && rows.map((res, index) =>
+                  <TableRow
+                      key={index}
+                      element={res}
+                      formUpdate={formUpdate[index]}
+                      disabledEdit={
+                        res[5] === "En cours de livraison" || res[5] === "Annulée" || res[5] === "Livrée" && true
+                        }
+                      disableRemove={
+                        res[5] === "En cours de livraison" || res[5] === "Annulée" || res[5] === "Livrée" && true
+                        }
+                      deleteRow={cancelOrder}
+                  />
+              )}
             </tbody>
           </table>
         )
@@ -118,4 +174,4 @@ const AdminOrdersView = () => {
   )
 }
 
-export default AdminOrdersView
+export default AdminOrdersView;
