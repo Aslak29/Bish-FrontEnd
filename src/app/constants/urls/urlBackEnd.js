@@ -1,5 +1,6 @@
 // Routes AUTHENTICATE
 export const URL_BACK_AUTHENTICATE = "/login_check";
+export const URL_BACK_DISABLE_USER = "/user/getDisableById/";
 
 // Routes PRODUITS
 export const URL_BACK_PRODUCTS = "/produit/";
