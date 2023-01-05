@@ -5,6 +5,18 @@ import {URL_BACK_CREATE_BLOG} from '../../../constants/urls/urlBackEnd';
 import {toast} from "react-toastify";
 import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
 import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
+import ReactQuill,{ Quill } from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import "quill-emoji/dist/quill-emoji.css";
+import {toolbarOptions} from './TextEditor';
+
+console.log(Quill.imports);
+var FontAttributor = Quill.import('attributors/class/font');
+FontAttributor.whitelist = [
+  'arial','caveat','dancing-script','lobster','monospace','pacifico','passions-conflict','permanent-marker','playfair-display','poppins', 'roboto',  'sans-serif', 'satisfy'
+];
+Quill.register(FontAttributor, true);
+
 // import { createAlbum } from '../../../bucket_S3/awsFunction'
 const FormCreate = props => {
     // CREATE élément dans la BDD
@@ -49,6 +61,8 @@ const FormCreate = props => {
         }
     }
 
+
+
     // Preview de l'image dans input type file
     const showPreview = e => {
         if (e.target.files.length > 0) {
@@ -67,50 +81,69 @@ const FormCreate = props => {
             }}
         >
             {formikProps =>
-                <Form className="w-[40rem]">
-                    {/* TITRE */}
-                    <div className="flex flex-row gap-4 mb-4">
-                        <div className="flex flex-col justify-between items-start">
-                            <div className="flex flex-col h-20 w-full">
-                                <span>Titre</span>
-                                <Field className='h-full w-full' type="text" name="title"/>
-                                <ErrorMessage
-                                    name="title"
-                                    component="small"
-                                    className="text-red-400"
-                                />
-                            </div>
-                        {/* Description */}
-                        <div className="flex flex-col col-span-2 row-span-2">
-                            <span>Description</span>
-                            <Field className='h-full' as="textarea" type="text" name="description" required/>
-                            <ErrorMessage name="description" component="small" className="text-red-400"/>
-                        </div>
-                        {/* Image */}
+                <Form className="w-[60rem]">
+                    <div className="flex flex-col">
 
-                        <div className="flex flex-col h-20">
-                            <span>Image</span>
-                            <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
-                                showPreview(e);
-                                formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
-                            }} required/>
+                        {/* TITRE */}
+                        <div className="flex flex-col">
+                            <span>Titre</span>
+                            <Field className='w-full' type="text" name="title"/>
                             <ErrorMessage
-                                name="infoFile"
+                                name="title"
                                 component="small"
                                 className="text-red-400"
                             />
                         </div>
-                    </div>
-                    {/* Image */}
-                    {/* Preview de l'image */}
-                    <div className="flex flex-col w-full">
-                        <div className="preview row-span-4 h-96 w-full shadow-lg">
-                            <img className='hidden object-contain h-full w-full' id="img-preview"
-                                    alt='Prévisualisation'
-                            />
+
+                        {/* Description */}
+                        <div className="flex flex-col h-96">
+                            <span>Description</span>
+                            <Field name="description">
+                                {/* EDITEUR DE TEXTE PERSONNALISE */}
+                                {({field})=> (<ReactQuill
+                                className="w-full h-80" 
+                                value={field.value} 
+                                onChange={field.onChange(field.name)} 
+                                defaultValue=""
+                                theme="snow"
+                                modules={{
+                                    toolbar: toolbarOptions,
+                                    "emoji-toolbar": true,
+                                    "emoji-textarea": false,
+                                    "emoji-shortname": true,
+                                    }
+
+                                }                                    
+                                />)}
+
+                            </Field>
+                            <ErrorMessage name="description" component="small" className="text-red-400"/>
+                        </div>
+                    
+                        {/* Image */}
+                        <div className="flex flex-col w-full">
+                            <div className="flex flex-col">
+                                <span>Image</span>
+                                {/* Formulaire ajout image */}
+                                <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
+                                    showPreview(e);
+                                    formikProps.setFieldValue('infoFile', e.currentTarget.files[0])
+                                }} required/>
+                                <ErrorMessage
+                                    name="infoFile"
+                                    component="small"
+                                    className="text-red-400"
+                                />
+                            </div>
+                            {/* Preview de l'image */}
+                            <div className="flex flex-col w-full">
+                                <div className="preview row-span-4 h-96 w-full shadow-lg">
+                                    <img className='hidden object-contain h-full w-full' id="img-preview"alt='Prévisualisation'/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+
                     <div className="w-full">
                         <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">
                             Ajouter

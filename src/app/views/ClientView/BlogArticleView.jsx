@@ -25,8 +25,7 @@ const BlogArticleView = props => {
   },[])
 
   return (
-    <div className='flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up'>
-       {console.log(categorie)}
+    <div className='blog-article flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up'>
       <Helmet>
         <title>Bish - Article</title>
         {/*TODO: changer le title par le nom de l'article ainsi que la description*/}
@@ -39,7 +38,7 @@ const BlogArticleView = props => {
         </div>
 
         <img className='object-cover' src={window.location.origin + `/src/app/assets/images/blog/` + `${articlesBlog.path_image}`} alt="Illustration d'un article de blog" /><br/>
-        <p className='text-justify text-sm md:text-lg'>{articlesBlog.description}</p><br/>
+        <p className='text-justify text-sm md:text-lg' dangerouslySetInnerHTML={{__html: articlesBlog.description}}></p><br/>
         <div>
                 {categorie && (
                     <SuggestionsContainer
