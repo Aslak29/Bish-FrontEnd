@@ -10,7 +10,6 @@ import 'react-quill/dist/quill.snow.css';
 import "quill-emoji/dist/quill-emoji.css";
 import {toolbarOptions} from './TextEditor';
 
-console.log(Quill.imports);
 var FontAttributor = Quill.import('attributors/class/font');
 FontAttributor.whitelist = [
   'arial','caveat','dancing-script','lobster','monospace','pacifico','passions-conflict','permanent-marker','playfair-display','poppins', 'roboto',  'sans-serif', 'satisfy'

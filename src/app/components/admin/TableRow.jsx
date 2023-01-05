@@ -40,7 +40,7 @@ const TableRow = props => {
                         <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
                     </button>
             :
-                <button className='gray p-2 bish-text-white font-medium cursor-none'>
+                <button className='gray bg-red-600 p-2 bish-text-white font-medium cursor-not-allowed opacity-25'>
                     <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
                 </button>
             }
