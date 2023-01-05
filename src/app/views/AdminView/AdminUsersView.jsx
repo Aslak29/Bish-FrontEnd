@@ -27,6 +27,8 @@ const AdminUsersView = () => {
       // Reload table
     const [reload, setReload] = useState(false);
 
+    const [userDisable, setUserDisable]= useState([]);
+
      useEffect(() => {
        // Permet d'afficher le SVG de chargement
       setIsLoading(true)
@@ -36,6 +38,11 @@ const AdminUsersView = () => {
        .then(res => {
         setRows([])
         setFormUpdate([])
+        res.data.map((res) => {
+          res.disable && setUserDisable(current =>[
+            ...current,[res.id]
+          ])
+        })
          // Set le contenu d'une row (à mettre dans l'ordre voulu)
          res.data.map((res) => setRows(current => [...current, [
           res.id,
@@ -168,9 +175,27 @@ const AdminUsersView = () => {
           {/* Contenu de la table */}
           <tbody>
             {/* Retourne une ligne pour chaque élément */}
-            {rows && rows.map((res, index) =>
-                <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow}/>
-            )}
+            {rows && rows.map((res, index) => 
+            (userDisable.map(userid => userid[0]).find(element=>element === res[0]) === res[0])?
+                  <TableRow 
+                  key={index}
+                  element={res}
+                  formUpdate={formUpdate[index]}
+                  deleteRow={deleteRow}
+                  disabledEdit={true}
+                  disableRemove={true}
+                     />
+                 :
+                  <TableRow 
+                  key={index}
+                  element={res}
+                  formUpdate={formUpdate[index]}
+                  deleteRow={deleteRow}
+                     />
+                
+              )
+      
+           }
           </tbody>
         </table>
       )
