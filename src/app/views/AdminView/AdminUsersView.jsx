@@ -79,7 +79,7 @@ const AdminUsersView = () => {
         if (res.status === 200) {
         setReload(!reload)
           // Notification produit supprimé
-          toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} supprimé !`,
+          toast.success(`Utilisateur ${res.data[0].id} supprimé !`,
               {
                   position: "top-right",
                   autoClose: 5000,
