@@ -92,8 +92,8 @@ const AdminUsersView = () => {
               })
         }
       }).catch(error => {
-          if (error.response.data["errorCode"] === "015") {
-              toast.warn(`L'utilisateur à une commande en préparation !`,
+          if (error.response.data) {
+              toast.warn(error.response.data["errorMessage"],
                   {
                       position: "top-right",
                       autoClose: 5000,
@@ -104,19 +104,7 @@ const AdminUsersView = () => {
                       progress: undefined,
                       theme: "light"
                   })
-          }else if (error.response.data["errorCode"] === "014") {
-              toast.warn(`L'utilisateur à une commande en cours !`,
-                  {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light"
-                  })
-          }else {
+          } else {
               toast.error('Une erreur est survenue',
                   {
                       position: "top-right",
@@ -176,25 +164,11 @@ const AdminUsersView = () => {
           <tbody>
             {/* Retourne une ligne pour chaque élément */}
             {rows && rows.map((res, index) => 
-            (userDisable.map(userid => userid[0]).find(element=>element === res[0]) === res[0])?
-                  <TableRow 
-                  key={index}
-                  element={res}
-                  formUpdate={formUpdate[index]}
-                  deleteRow={deleteRow}
-                  disabledEdit={true}
-                  disableRemove={true}
-                     />
-                 :
-                  <TableRow 
-                  key={index}
-                  element={res}
-                  formUpdate={formUpdate[index]}
-                  deleteRow={deleteRow}
-                     />
-                
+              ( (userDisable.map(userid => userid[0]).find(element=>element === res[0]) === res[0]) || (res[4][0] === "ROLE_ADMIN") )?
+                <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow} disabledEdit={true} disableRemove={true} />
+              : 
+                <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow} />
               )
-      
            }
           </tbody>
         </table>
