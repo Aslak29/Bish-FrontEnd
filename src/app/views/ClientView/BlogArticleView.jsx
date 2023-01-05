@@ -18,12 +18,13 @@ const BlogArticleView = props => {
       apiBackend.get(URL_BACK_BLOG + `${id}`)
     ])
     .then((respArr => {
+      console.log(respArr);
       setArticlesBlog(respArr[1].data[0]);
       setCategorie(respArr[0].data[Math.floor(Math.random()*respArr[0].data.length)]);
       console.log(respArr);
     }))
   },[])
-
+console.log(articlesBlog);
   return (
     <div className='blog-article flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up'>
       <Helmet>
