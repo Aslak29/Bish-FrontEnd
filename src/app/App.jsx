@@ -20,6 +20,18 @@ const contextClass = {
  * @author Peter Mollet
  */
 const App = () => {
+
+    const user = useSelector(selectUser);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        apiBackEnd.get(URL_BACK_DISABLE_USER + user.id).then(res => {
+            if(res.data.disable) {
+                dispatch(signOut());
+            }
+        })
+    }, [])
+
     return (
         <BrowserRouter>
             <div className="flex min-h-full cursor-default relative flex-col bish-bg-white">

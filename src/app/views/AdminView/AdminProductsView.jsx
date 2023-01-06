@@ -222,7 +222,7 @@ const AdminProductsView = () => {
           toast.success(`Produit ${id} supprimé!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         }
       }).catch(error => {
-        if(error.response.data.errorCode === '006') {
+        if(error.response.data.errorCode === '018') {
           // Notification produit en cours de commande
           toast.warn(error.response.data.errorMessage, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
         }
@@ -268,7 +268,7 @@ const AdminProductsView = () => {
         (
           <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
             {/* Nom de chaque colonne */}
-            <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
+            <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow z-[1]'>
               <tr>
                 {/* Tous les titres dans le header de la table */}
                 <th className={labelHeader}><input type="checkbox" id="allRowsCheck" onChange={() => toggleAllRowsCheck()}/></th>

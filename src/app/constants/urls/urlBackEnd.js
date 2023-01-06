@@ -1,5 +1,6 @@
 // Routes AUTHENTICATE
 export const URL_BACK_AUTHENTICATE = "/login_check";
+export const URL_BACK_DISABLE_USER = "/user/getDisableById/";
 
 // Routes PRODUITS
 export const URL_BACK_PRODUCTS = "/produit/";
@@ -43,6 +44,7 @@ export const URL_BACK_CATEGORIES_UPDATE_AVAILABLE = "/categorie/updateAvailable/
 
 // Route TAILLE
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
+export const URL_BACK_TYPE_TAILLE = "/size/typeTaille/";
 
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
