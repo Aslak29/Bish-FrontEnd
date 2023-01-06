@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
 import Routes from './routes/Routes';
 import Footer from './components/layouts/Footer';
-
+// test pour problème git Flo
 const contextClass = {
     success: 'bg-green-600',
     error: 'bg-red-600',
