@@ -5,16 +5,13 @@ import {URL_BACK_CREATE_BLOG} from '../../../constants/urls/urlBackEnd';
 import {toast} from "react-toastify";
 import { blogCreateSchema } from "../../../utils/AdminValidationSchema";
 import { blogCreateInitialValues } from "../../../utils/AdminInitialValues";
-import ReactQuill,{ Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
+// import Quill from "quill";
 import 'react-quill/dist/quill.snow.css';
 import "quill-emoji/dist/quill-emoji.css";
 import {toolbarOptions} from './TextEditor';
+import PreviewBlog from './PreviewBlog';
 
-var FontAttributor = Quill.import('attributors/class/font');
-FontAttributor.whitelist = [
-  'arial','caveat','dancing-script','lobster','monospace','pacifico','passions-conflict','permanent-marker','playfair-display','poppins', 'roboto',  'sans-serif', 'satisfy'
-];
-Quill.register(FontAttributor, true);
 // import { createAlbum } from '../../../bucket_S3/awsFunction'
 const FormCreate = props => {
 
@@ -77,17 +74,6 @@ const FormCreate = props => {
         }
     }
     
-    useEffect((field)=>{
-        setDescription(field);
-    })
-    // console.log(description);
-
-    var quill = new Quill('#editor', {
-    theme: 'snow'
-  });
-//   console.log(quill);
-
-
     return (
         <Formik
             initialValues={ blogCreateInitialValues }
@@ -110,6 +96,7 @@ const FormCreate = props => {
                                 className="text-red-400"
                             />
                         </div>
+                        <PreviewBlog/>
 
                         {/* Description */}
                         <div className="flex flex-col h-96">
@@ -130,12 +117,11 @@ const FormCreate = props => {
                                     "emoji-textarea": false,
                                     "emoji-shortname": true,
                                     }
-                                }                                    
+                                }      
                                 />)}
                             </Field>
                             <ErrorMessage name="description" component="small" className="text-red-400"/>
                         </div>
-                                {/* {console.log(ReactQuill.getText())} */}
                         {/* Image */}
                         <div className="flex flex-col w-full">
                             <div className="flex flex-col">
