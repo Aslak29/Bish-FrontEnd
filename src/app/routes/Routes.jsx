@@ -34,6 +34,8 @@ import ForgotPasswordView from './../views/ClientView/ForgotPasswordView';
 import NewPasswordView from './../views/ClientView/NewPasswordView'
 import AccountView from './../views/ClientView/AccountView';
 import AdminPromotionsView from "../views/AdminView/AdminPromotionsView";
+import StatistiqueUser from "@/app/views/StatistiqueView/StatistiqueUser";
+import StatistiqueProduits from "@/app/views/StatistiqueView/StatistiqueProduits";
 /**
  * Routes of the application
  * with public and private route
@@ -195,7 +197,24 @@ const Routes = () => {
             </PrivateRoute>
         }
         />
+          <Route
+            path={URL.URL_STATISTIQUE_USER}
+            element={
+              <PrivateRoute roles={[ROLE_ADMIN]}>
+                  <StatistiqueUser/>
+              </PrivateRoute>
+            }
+          />
+          <Route
+              path={URL.URL_STATISTIQUE_PRODUITS}
+              element={
+                  <PrivateRoute roles={[ROLE_ADMIN]}>
+                      <StatistiqueProduits/>
+                  </PrivateRoute>
+              }
+          />
       </Route>
+
 
     </RoutesContainer>
   );
