@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {blogUpdateSchema} from "../../../utils/AdminValidationSchema";
 import {blogUpdateInitialValues} from "../../../utils/AdminInitialValues";
 import {toolbarOptions} from './TextEditor';
-import ReactQuill,{ Quill } from 'react-quill';
+import ReactQuill,{ quill } from 'react-quill';
 
 const FormUpdate = props => {
     // UPDATE élément dans la BDD
@@ -49,6 +49,10 @@ const FormUpdate = props => {
             )
         }
     }
+// Preview de la description
+
+
+
 
     // Preview de l'image dans input type file
     const showPreview = e => {
@@ -94,6 +98,7 @@ const FormUpdate = props => {
 
                                 }                                    
                                 />)}
+                                
 
                             </Field>
                             <ErrorMessage name="description" component="small" className="text-red-400"/>

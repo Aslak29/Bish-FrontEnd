@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import apiBackEnd from '../../../api/backend/api.Backend';
 import {URL_BACK_CREATE_BLOG} from '../../../constants/urls/urlBackEnd';
@@ -15,9 +15,13 @@ FontAttributor.whitelist = [
   'arial','caveat','dancing-script','lobster','monospace','pacifico','passions-conflict','permanent-marker','playfair-display','poppins', 'roboto',  'sans-serif', 'satisfy'
 ];
 Quill.register(FontAttributor, true);
-
 // import { createAlbum } from '../../../bucket_S3/awsFunction'
 const FormCreate = props => {
+
+    const [title, setTitle]= useState('');
+    const [description, setDescription]= useState('');
+    const [image, setImage]= useState('');
+    
     // CREATE élément dans la BDD
     const createRow = ( values, pathImageDefault) => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
@@ -61,7 +65,8 @@ const FormCreate = props => {
     }
 
 
-
+    
+    
     // Preview de l'image dans input type file
     const showPreview = e => {
         if (e.target.files.length > 0) {
@@ -71,6 +76,18 @@ const FormCreate = props => {
             preview.style.display = "block";
         }
     }
+    
+    useEffect((field)=>{
+        setDescription(field);
+    })
+    // console.log(description);
+
+    var quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+//   console.log(quill);
+
+
     return (
         <Formik
             initialValues={ blogCreateInitialValues }
@@ -97,9 +114,11 @@ const FormCreate = props => {
                         {/* Description */}
                         <div className="flex flex-col h-96">
                             <span>Description</span>
-                            <Field name="description">
+                            <Field name="description" >
                                 {/* EDITEUR DE TEXTE PERSONNALISE */}
                                 {({field})=> (<ReactQuill
+                                id='editor'
+                                
                                 className="w-full h-80" 
                                 value={field.value} 
                                 onChange={field.onChange(field.name)} 
@@ -111,14 +130,12 @@ const FormCreate = props => {
                                     "emoji-textarea": false,
                                     "emoji-shortname": true,
                                     }
-
                                 }                                    
                                 />)}
-
                             </Field>
                             <ErrorMessage name="description" component="small" className="text-red-400"/>
                         </div>
-                    
+                                {/* {console.log(ReactQuill.getText())} */}
                         {/* Image */}
                         <div className="flex flex-col w-full">
                             <div className="flex flex-col">
@@ -142,8 +159,8 @@ const FormCreate = props => {
                             </div>
                         </div>
                     </div>
-
-                    <div className="w-full">
+{/* Preview article */}
+                    <div className="w-full"> 
                         <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">
                             Ajouter
                         </button>
