@@ -99,29 +99,7 @@ const FormCreate = props => {
                         <PreviewBlog/>
 
                         {/* Description */}
-                        <div className="flex flex-col h-96">
-                            <span>Description</span>
-                            <Field name="description" >
-                                {/* EDITEUR DE TEXTE PERSONNALISE */}
-                                {({field})=> (<ReactQuill
-                                id='editor'
-                                
-                                className="w-full h-80" 
-                                value={field.value} 
-                                onChange={field.onChange(field.name)} 
-                                defaultValue=""
-                                theme="snow"
-                                modules={{
-                                    toolbar: toolbarOptions,
-                                    "emoji-toolbar": true,
-                                    "emoji-textarea": false,
-                                    "emoji-shortname": true,
-                                    }
-                                }      
-                                />)}
-                            </Field>
-                            <ErrorMessage name="description" component="small" className="text-red-400"/>
-                        </div>
+
                         {/* Image */}
                         <div className="flex flex-col w-full">
                             <div className="flex flex-col">

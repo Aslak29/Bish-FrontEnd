@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
+import "quill-emoji/dist/quill-emoji.css";
 import { Quill } from 'react-quill';
 import * as Emoji from "quill-emoji";
+import { toolbarOptions } from './TextEditor';
+import {ErrorMessage, Field, Form, Formik} from "formik";
+
 // Source: https://scriptverse.academy/tutorials/reactjs-rich-text-editor.html
 Quill.register("modules/emoji", Emoji);
 var FontAttributor = Quill.import('attributors/class/font');
@@ -16,7 +20,7 @@ FontAttributor.whitelist =
   'sans-serif', 'satisfy'
 ];
 Quill.register(FontAttributor, true);
-console.log(Quill.values);
+
 class PreviewBlog extends Component {
 	constructor(props) {
 		super(props);
@@ -51,6 +55,7 @@ class PreviewBlog extends Component {
         [{ 'align': [] }],
         ["emoji"],
         ["clean"],
+        
         [{handlers: [
           [{'emoji': function() {}}],
           [{'color': function (value) {
@@ -94,7 +99,7 @@ class PreviewBlog extends Component {
         ]}]
       ]
 		};
-    
+    console.log(PreviewBlog);
 
     this.formats = [
 		    'font',
@@ -112,19 +117,39 @@ class PreviewBlog extends Component {
 		this.rteChange = this.rteChange.bind(this);
 	}
 
-	rteChange = (content, delta, source, editor) => {
+	rteChange = (content, delta, source, editor, field) => {
     console.log(PreviewBlog);
 		console.log(editor.getHTML()); // rich text
 		console.log(editor.getText()); // plain text
 		console.log(editor.getLength()); // number of characters
+    field.onChange(field.name)
 	}
+  
 	render() {
+ 
 	    return (
-	      <div>
-	        <ReactQuill theme="snow"  modules={this.modules}
-				formats={this.formats} onChange={this.rteChange}
-			value={this.state.comments || ''}/>
-	      </div>
+<div className="flex flex-col h-96">
+                            <span>Description</span>
+                            <Field name="description" >
+                                {/* EDITEUR DE TEXTE PERSONNALISE */}
+                                {({field})=> (<ReactQuill
+                                id='editor'
+                                className="w-full h-80" 
+                                value={field.value} 
+                                onChange={this.rteChange} 
+                                defaultValue=""
+                                theme="snow"
+                                modules={{
+                                    toolbar: toolbarOptions,
+                                    "emoji-toolbar": true,
+                                    "emoji-textarea": false,
+                                    "emoji-shortname": true,
+                                    }
+                                }      
+                                />)}
+                            </Field>
+                            <ErrorMessage name="description" component="small" className="text-red-400"/>
+                        </div>
 	    );
 	}
 
