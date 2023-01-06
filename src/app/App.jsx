@@ -5,7 +5,7 @@ import Routes from './routes/Routes';
 import Footer from './components/layouts/Footer';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectUser, signOut } from './redux-store/authenticationSlice';
+import { selectUser, signOut, selectIsLogged } from './redux-store/authenticationSlice';
 import { useDispatch } from 'react-redux';
 import apiBackEnd from './api/backend/api.Backend';
 import { URL_BACK_DISABLE_USER } from './constants/urls/urlBackEnd';
@@ -19,14 +19,17 @@ import { URL_BACK_DISABLE_USER } from './constants/urls/urlBackEnd';
 const App = () => {
 
     const user = useSelector(selectUser);
+    const isLogged = useSelector(selectIsLogged);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        apiBackEnd.get(URL_BACK_DISABLE_USER + user.id).then(res => {
-            if(res.data.disable) {
-                dispatch(signOut());
-            }
-        })
+        if(isLogged) {
+            apiBackEnd.get(URL_BACK_DISABLE_USER + user.id).then(res => {
+                if(res.data.disable) {
+                    dispatch(signOut());
+                }
+            })
+        }
     }, [])
 
     return (
