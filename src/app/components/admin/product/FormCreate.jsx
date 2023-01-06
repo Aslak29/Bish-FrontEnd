@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { productCreateSchema } from '../../../utils/AdminValidationSchema';
 import { productCreateInitialValues } from '../../../utils/AdminInitialValues'
 //import {createAlbum} from "../../../bucket_S3/awsFunction";
-
+// Test pour probleme git flo
 const FormCreate = props => {
 
   /* Type -> Adulte/Enfant/Nourrisson */
