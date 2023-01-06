@@ -17,6 +17,7 @@ export const URL_BACK_BLOG_LAST_ARTICLE = '/blog/lastArticle';
 export const URL_BACK_CREATE_BLOG = '/blog/add'
 export const URL_BACK_DELETE_BLOG = '/blog/remove/'
 export const URL_BACK_UPDATE_BLOG = '/blog/update'
+export const URL_BACK_MULTIPLE_DELETE_BLOG = '/blog/multipleRemove'
 
 // Routes USER
 export const URL_BACK_USERS ="/user/"

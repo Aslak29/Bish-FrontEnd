@@ -4,16 +4,19 @@ import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
 import apiBackEnd from '../../api/backend/api.Backend';
 import loadingSVG from '../../assets/images/loading-spin.svg'
-import { URL_BACK_BLOG, URL_BACK_DELETE_BLOG} from '../../constants/urls/urlBackEnd';
+import { URL_BACK_BLOG, URL_BACK_DELETE_BLOG, URL_BACK_MULTIPLE_DELETE_BLOG} from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/blog/FormUpdate';
 import FormCreate from '../../components/admin/blog/FormCreate';
 import {Helmet} from 'react-helmet-async'
 import TitleContainer from '../../components/admin/TitleContainer';
+import CheckRowsContainer from '../../components/admin/checkRowsContainer';
 //import s3 from "../../bucket_S3/aws"
+import CheckboxRow from './../../components/admin/CheckboxRow';
+import TableHeadCheckbox from './../../components/TableHeadCheckbox';
+
 const AdminBlogView = () => {
 
     // Style
-    const headSort = 'flex py-5 justify-center items-center space-x-2 cursor-pointer'
     const labelHeader = 'truncate hover:text-clip'
 
     // Contenu d'un ligne de la table (sans les keys, que les datas)
@@ -29,6 +32,8 @@ const AdminBlogView = () => {
     // Reload table
     const [reload, setReload] = useState(false);
 
+    const [rowsCheck, setRowsCheck] = useState([])
+    const [allBlogsId, setAllBlogsId] = useState([])
 
     useEffect(() => {
         // Permet d'afficher le SVG de chargement
@@ -37,30 +42,36 @@ const AdminBlogView = () => {
         
         // TODO: SI PLUSIEURS APPEL API: METTRE ICI
         apiBackEnd.get(URL_BACK_BLOG).then(response => {
-        // TODO: EXEMPLE: METTRE LES ELEMENT DANS L'ORDRE D'AFFICHAGE DANS UNE ROW
-        // Set le contenu d'une row (à mettre dans l'ordre voulu)
-        response.data.map((res) => setRows(current => [...current, [
-            res.id,
-            res.title,
-            res.description,
-            <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + res.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/blog/'+ res.pathImage})}*/ alt={res.title}/>,
-            // <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
-        ]]))
-        response.data.map((res, index) => {
-          // Formulaire UPDATE
-          setFormUpdate(current => [...current,
-            <FormUpdate blog={res} index={index} 
-            updateTable={updateTable}
-            />
-          ])
-        })
-        
-        // Formulaire CREATE
-        setFormCreate(
-          <FormCreate blog={response} 
-          reload={reload} setReload={setReload} 
-          close={closeModal}/>
-        )
+          setRows([])
+          setFormUpdate([])
+          setRowsCheck([])
+          setAllBlogsId([])
+          // TODO: EXEMPLE: METTRE LES ELEMENT DANS L'ORDRE D'AFFICHAGE DANS UNE ROW
+          // Set le contenu d'une row (à mettre dans l'ordre voulu)
+          response.data.map(res => setAllBlogsId(current => [...current, res.id]))
+          response.data.map((res) => setRows(current => [...current, [
+              <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
+              res.id,
+              res.title,
+              res.description,
+              <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + res.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/blog/'+ res.pathImage})}*/ alt={res.title}/>,
+              // <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
+          ]]))
+          response.data.map((res, index) => {
+            // Formulaire UPDATE
+            setFormUpdate(current => [...current,
+              <FormUpdate blog={res} index={index} 
+              updateTable={updateTable}
+              />
+            ])
+          })
+
+          // Formulaire CREATE
+          setFormCreate(
+            <FormCreate blog={response} 
+            reload={reload} setReload={setReload} 
+            close={closeModal}/>
+          )
   
 
       // Fin du chargement
@@ -82,6 +93,7 @@ const AdminBlogView = () => {
       setRows(current => [
         ...current.slice(0, index),
         [
+          <CheckboxRow id={blog.id} setRowsCheck={setRowsCheck} />,
           blog.id,
           blog.title,
           blog.description,
@@ -128,6 +140,8 @@ const AdminBlogView = () => {
         <ToastContainer />
         {/* TITRE + BUTTON AJOUTER */}
         <TitleContainer form={formCreate} name="BLOG" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+        {/* LIGNES CHECK + ACTIONS */}
+        <CheckRowsContainer rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_BLOG} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
         {/* TABLE  */}
         {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
           : 
@@ -137,6 +151,7 @@ const AdminBlogView = () => {
               <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
                 <tr>
                   {/* Tous les titres dans le header de la table */}
+                  <TableHeadCheckbox setRowsCheck={setRowsCheck} allBlogsId={allBlogsId} />
                   <TableHeadSort nbSortColumn="0" name="Id" />
                   <TableHeadSort nbSortColumn="1" name="Titre" />
                   <TableHeadSort nbSortColumn="2" name="Description" />

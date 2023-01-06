@@ -32,6 +32,12 @@ const AdminProductsView = () => {
 
   const [rowsCheck, setRowsCheck] = useState([])
   const [allProductsId, setAllProductsId] = useState([])
+  const actionsMultipleRows = 
+    <>
+      <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleTrend(true)}>Mettre en tendance</button>
+      <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleTrend(false)}>Enlever des tendances</button>
+      <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleAvailable(true)}>Visible sur le site</button>
+    </>
 
   useEffect(() => {
     setIsLoadingCheck(false)
