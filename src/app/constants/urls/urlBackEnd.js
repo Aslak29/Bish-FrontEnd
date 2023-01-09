@@ -73,6 +73,7 @@ export const URL_BACK_UPDATE_ORDER = '/commande/update/'
 export const URL_BACK_UPDATE_ORDER_DETAILS = '/produitInCommande/single_order/update/'
 export const URL_BACK_CANCEL_ORDER = '/commande/cancel/'
 export const URL_BACK_DELETE_ORDER_DETAILS = '/produitInCommande/single_order/delete/'
+export const URL_BACK_MULTIPLE_CANCEL_ORDER = '/commande/multipleCancel'
 
 // Routes COMMANDES CLIENT
 export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";
