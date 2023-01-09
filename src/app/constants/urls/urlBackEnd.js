@@ -66,6 +66,7 @@ export const URL_BACK_MULTIPLE_DELETE_PRODUCT = '/produit/multipleRemove'
 export const URL_BACK_CREATE_USER = '/user/create/'
 export const URL_BACK_DELETE_USER = '/user/delete/'
 export const URL_BACK_UPDATE_USER = '/user/update/'
+export const URL_BACK_MULTIPLE_DELETE_USER = '/user/multipleDelete'
 
 // Routes ADMIN COMMANDES
 export const URL_BACK_UPDATE_ORDER = '/commande/update/'
