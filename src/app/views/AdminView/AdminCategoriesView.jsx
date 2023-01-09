@@ -3,7 +3,7 @@ import TableRow from "../../components/admin/TableRow";
 import apiBackEnd from "../../api/backend/api.Backend";
 import {
     URL_BACK_CATEGORIES, URL_BACK_CATEGORIES_ADMIN,
-    URL_BACK_CATEGORIES_DELETE, URL_BACK_CATEGORIES_UPDATE_AVAILABLE, URL_BACK_CATEGORIES_UPDATE_TREND,
+    URL_BACK_CATEGORIES_DELETE, URL_BACK_CATEGORIES_MULTIPLE_DELETE, URL_BACK_CATEGORIES_UPDATE_AVAILABLE, URL_BACK_CATEGORIES_UPDATE_TREND,
 } from "../../constants/urls/urlBackEnd";
 import loadingSVG from "../../assets/images/loading-spin.svg";
 import {toast, ToastContainer} from "react-toastify";
@@ -13,6 +13,10 @@ import {Helmet} from "react-helmet-async";
 import TableHeadSort from "../../components/admin/TableHeadSort";
 import TitleContainer from "../../components/admin/TitleContainer";
 // import s3 from "../../bucket_S3/aws";
+import CheckboxRow from './../../components/admin/CheckboxRow';
+import TableHeadCheckbox from './../../components/TableHeadCheckbox';
+import CheckRowsContainer from './../../components/admin/CheckRowsContainer';
+import { URL_BACK_CATEGORIES_MULTIPLE_UPDATE_TREND, URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE } from './../../constants/urls/urlBackEnd';
 
 const AdminCategoriesView = () => {
 
@@ -31,14 +35,27 @@ const AdminCategoriesView = () => {
 
     const [reload, setReload] = useState(false);
 
+    const [rowsCheck, setRowsCheck] = useState([])
+    const [allCategsIds, setAllCategsIds] = useState([])
+
+    const actionsMultipleRows = 
+    <>
+      <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleTrend(true)}>Mettre en tendance</button>
+      <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleTrend(false)}>Enlever des tendances</button>
+      <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleAvailable(true)}>Visible sur le site</button>
+      <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleAvailable(false)}>Retirer du site</button>
+    </>
+
     useEffect(() => {
-
         setIsLoading(true)
-
+        setRowsCheck([])
+        setAllCategsIds([])
         apiBackEnd.get(URL_BACK_CATEGORIES_ADMIN).then(res => {
             setRows([]);
             setFormUpdate([])
+            res.data.map(res => setAllCategsIds(current => [...current, res.id]))
             res.data.map((res, index) => setRows(current => [...current, [
+                <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
                 res.id,
                 res.name,
                 <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50'
@@ -63,8 +80,9 @@ const AdminCategoriesView = () => {
             setFormCreate(
                 <FormCreate categories={res.data} reload={reload} setReload={setReload} close={closeModal}/>
             )
+
+            setIsLoading(false)
         }).catch(error => console.log(error))
-        setIsLoading(false)
     }, [reload])
 
 
@@ -105,6 +123,13 @@ const AdminCategoriesView = () => {
         })
     }
 
+    const changeMultipleTrend = p => {
+        apiBackEnd.post(`${URL_BACK_CATEGORIES_MULTIPLE_UPDATE_TREND}${p}/`, rowsCheck).then(res => {
+          setRowsCheck([])
+          setReload(!reload)
+        })
+      }
+
     const changeAvailable = (categories, index) => {
         let available = document.getElementById('checkAvailable' + categories.id).checked
         apiBackEnd.post(`${URL_BACK_CATEGORIES_UPDATE_AVAILABLE}${categories.id}/${available}/`).then(res => {
@@ -142,6 +167,12 @@ const AdminCategoriesView = () => {
         })
     }
 
+    const changeMultipleAvailable = p => {
+        apiBackEnd.post(`${URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE}${p}/`, rowsCheck).then(res => {
+          setRowsCheck([])
+          setReload(!reload)
+        })
+    }
 
     const updateTable = (categories, categoriesAfter, index, pathImageDefault) => {
         categories.name = categoriesAfter.name
@@ -157,6 +188,7 @@ const AdminCategoriesView = () => {
         setRows(current => [
             ...current.slice(0, index),
             [
+                <CheckboxRow id={categories.id} setRowsCheck={setRowsCheck} />,
                 categories.id,
                 categories.name,
                 <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50'
@@ -179,7 +211,7 @@ const AdminCategoriesView = () => {
             apiBackEnd.delete(URL_BACK_CATEGORIES_DELETE + id).then(res => {
                 if (res.status === 200) {
                     // Supprimer l'elément supprimer de la table
-                    setRows(rows.filter(res => res[0] !== id))
+                    setRows(rows.filter(res => res[1] !== id))
                     // Notification produit supprimé
                     toast.success(`Catégorie ${id} supprimée !`, {
                         position: "top-right",
@@ -227,10 +259,9 @@ const AdminCategoriesView = () => {
                 <title>Bish - Admin Catégories</title>
             </Helmet>
             <ToastContainer/>
-
             <TitleContainer form={formCreate} name="CATÉGORIES" modalIsOpen={modalIsOpen} openModal={openModal}
                             closeModal={closeModal} addButton={true}/>
-
+            <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_CATEGORIES_MULTIPLE_DELETE} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
                 :
                 (
@@ -239,6 +270,7 @@ const AdminCategoriesView = () => {
                         <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
                             <tr>
                                 {/* Tous les titres dans le header de la table */}
+                                <TableHeadCheckbox setRowsCheck={setRowsCheck} allIds={allCategsIds} />
                                 <TableHeadSort nbSortColumn="0" name="Id"/>
                                 <TableHeadSort nbSortColumn="1" name="Nom"/>
                                 <th className={labelHeader} title='Image'>Image</th>
