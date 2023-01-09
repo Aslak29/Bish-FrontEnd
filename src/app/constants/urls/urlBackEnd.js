@@ -39,9 +39,12 @@ export const URL_BACK_CATEGORIES_ADMIN = "/categorie/forAdmin"
 export const URL_BACK_CATEGORIES_CREATE = "/categorie/create"
 export const URL_BACK_CATEGORIES_UPDATE = "/categorie/update"
 export const URL_BACK_CATEGORIES_DELETE = "/categorie/delete/"
+export const URL_BACK_CATEGORIES_MULTIPLE_DELETE = "/categorie/multipleDelete"
 export const URL_BACK_CATEGORIES_TREND = "/categorie/isTrend"
 export const URL_BACK_CATEGORIES_UPDATE_TREND = "/categorie/updateIsTrend/"
+export const URL_BACK_CATEGORIES_MULTIPLE_UPDATE_TREND = "/categorie/multipleUpdateIsTrend/"
 export const URL_BACK_CATEGORIES_UPDATE_AVAILABLE = "/categorie/updateAvailable/"
+export const URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE = "/categorie/multipleUpdateAvailable/"
 
 // Route TAILLE
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";

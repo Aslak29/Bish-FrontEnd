@@ -29,7 +29,6 @@ const AdminProductsView = () => {
   const [formCreate, setFormCreate] = useState()
   // SVG isLoading si requête en cours
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingCheck, setIsLoadingCheck] = useState(false);
   // Reload table
   const [reload, setReload] = useState(false);
 
@@ -46,7 +45,6 @@ const AdminProductsView = () => {
     </>
 
   useEffect(() => {
-    setIsLoadingCheck(false)
     // Permet d'afficher le SVG de chargement
     setIsLoading(true)
     // Récupération des données
@@ -165,7 +163,6 @@ const AdminProductsView = () => {
   }
 
   const changeMultipleTrend = p => {
-    setIsLoadingCheck(true)
     apiBackEnd.post(`${URL_BACK_UPDATE_MULTIPLE_TREND_PRODUCT}${p}/`, rowsCheck).then(res => {
       setRowsCheck([])
       setReload(!reload)
@@ -193,7 +190,6 @@ const AdminProductsView = () => {
   }
 
   const changeMultipleAvailable = p => {
-    setIsLoadingCheck(true)
     apiBackEnd.post(`${URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT}${p}/`, rowsCheck).then(res => {
       setRowsCheck([])
       setReload(!reload)

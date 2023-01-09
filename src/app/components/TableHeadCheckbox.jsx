@@ -16,7 +16,7 @@ const TableHeadCheckbox = props => {
 
     return (
       <>
-          <th><input type="checkbox" id="allRowsCheck" onChange={() => toggleAllRowsCheck()}/></th>
+        <th><input type="checkbox" id="allRowsCheck" onChange={() => toggleAllRowsCheck()}/></th>
       </>
     )
 }
