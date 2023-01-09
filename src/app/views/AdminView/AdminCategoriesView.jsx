@@ -211,7 +211,7 @@ const AdminCategoriesView = () => {
             apiBackEnd.delete(URL_BACK_CATEGORIES_DELETE + id).then(res => {
                 if (res.status === 200) {
                     // Supprimer l'elément supprimer de la table
-                    setRows(rows.filter(res => res[0] !== id))
+                    setRows(rows.filter(res => res[1] !== id))
                     // Notification produit supprimé
                     toast.success(`Catégorie ${id} supprimée !`, {
                         position: "top-right",

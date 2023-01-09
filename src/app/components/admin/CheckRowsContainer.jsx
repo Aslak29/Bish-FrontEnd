@@ -27,7 +27,9 @@ const CheckRowsContainer = props => {
     if (!canDeleteRows) {
       const idPlural = idsNotToDelete.length > 1 ? 'Les ids' : "L'id"
       const msgPlural = idsNotToDelete.length > 1 ? ' ne peuvent pas être supprimés' : " ne peut pas être supprimé"
-      toast.warn(idPlural + idsNotToDelete.map(id => ' ' + id) + msgPlural, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+      idsNotToDelete.length <= 10 ?
+      toast.warn(idPlural + idsNotToDelete.map(id => ' ' + id) + msgPlural, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+      : toast.warn(idPlural + idsNotToDelete.slice(0, 10).map(id => ' ' + id) + ' +' + (idsNotToDelete.length - 10) + (idsNotToDelete.length === 11 ? ' autre' : ' autres') + msgPlural, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
     } else {
       props.setIsLoading(true)
       apiBackEnd.post(`${props.deleteBackUrl}`, ids).then(res => {

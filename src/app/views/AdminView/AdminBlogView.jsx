@@ -108,7 +108,7 @@ const AdminBlogView = () => {
       apiBackEnd.delete(URL_BACK_DELETE_BLOG + id).then(res => {
         if (res.status === 200) {
           // Supprimer l'elément delete de la table
-          setRows(rows.filter(res => res[0] !== id))
+          setRows(rows.filter(res => res[1] !== id))
           // Notification produit supprimé
           toast.success(`Article ${id} supprimé !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         }
