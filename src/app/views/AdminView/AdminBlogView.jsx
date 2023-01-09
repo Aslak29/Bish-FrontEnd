@@ -33,7 +33,7 @@ const AdminBlogView = () => {
     const [reload, setReload] = useState(false);
 
     const [rowsCheck, setRowsCheck] = useState([])
-    const [allBlogsId, setAllBlogsId] = useState([])
+    const [allBlogsIds, setAllBlogsIds] = useState([])
 
     useEffect(() => {
         // Permet d'afficher le SVG de chargement
@@ -45,10 +45,10 @@ const AdminBlogView = () => {
           setRows([])
           setFormUpdate([])
           setRowsCheck([])
-          setAllBlogsId([])
+          setAllBlogsIds([])
           // TODO: EXEMPLE: METTRE LES ELEMENT DANS L'ORDRE D'AFFICHAGE DANS UNE ROW
           // Set le contenu d'une row (à mettre dans l'ordre voulu)
-          response.data.map(res => setAllBlogsId(current => [...current, res.id]))
+          response.data.map(res => setAllBlogsIds(current => [...current, res.id]))
           response.data.map((res) => setRows(current => [...current, [
               <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
               res.id,
@@ -151,7 +151,7 @@ const AdminBlogView = () => {
               <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
                 <tr>
                   {/* Tous les titres dans le header de la table */}
-                  <TableHeadCheckbox setRowsCheck={setRowsCheck} allBlogsId={allBlogsId} />
+                  <TableHeadCheckbox setRowsCheck={setRowsCheck} allIds={allBlogsIds} />
                   <TableHeadSort nbSortColumn="0" name="Id" />
                   <TableHeadSort nbSortColumn="1" name="Titre" />
                   <TableHeadSort nbSortColumn="2" name="Description" />

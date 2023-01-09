@@ -5,7 +5,7 @@ const TableHeadCheckbox = props => {
     const toggleAllRowsCheck = () => {
         const isCheck = document.getElementById('allRowsCheck').checked
         if (isCheck) {
-          props.setRowsCheck(props.allBlogsId)
+          props.setRowsCheck(props.allIds)
         } else {
           props.setRowsCheck([])
         }

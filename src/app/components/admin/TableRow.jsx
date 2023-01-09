@@ -31,14 +31,9 @@ const TableRow = props => {
             }
             {
             !props.disableRemove ?
-                !props.withCheckRows ?
-                    <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[0])}>
-                        <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
-                    </button>
-                :
-                    <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[1])}>
-                        <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
-                    </button>
+                <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[1])}>
+                    <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
+                </button>
             :
                 <button className='gray bg-red-600 p-2 bish-text-white font-medium cursor-not-allowed opacity-25'>
                     <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>

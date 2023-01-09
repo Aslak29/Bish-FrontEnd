@@ -5,12 +5,15 @@ import loadingSVG from '../../assets/images/loading-spin.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
-import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT, URL_BACK_UPDATE_TREND_PRODUCT, URL_BACK_UPDATE_AVAILABLE_PRODUCT, URL_BACK_UPDATE_MULTIPLE_TREND_PRODUCT, URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT } from '../../constants/urls/urlBackEnd';
+import { URL_BACK_PRODUCTS, URL_BACK_CATEGORIES, URL_BACK_PROMOS, URL_BACK_DELETE_PRODUCT, URL_BACK_UPDATE_TREND_PRODUCT, URL_BACK_UPDATE_AVAILABLE_PRODUCT, URL_BACK_UPDATE_MULTIPLE_TREND_PRODUCT, URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT, URL_BACK_MULTIPLE_DELETE_PRODUCT } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/product/FormUpdate';
 import FormCreate from '../../components/admin/product/FormCreate';
 import {Helmet} from 'react-helmet-async'
 import TitleContainer from '../../components/admin/TitleContainer';
 // import s3 from "../../bucket_S3/aws";
+import CheckboxRow from './../../components/admin/CheckboxRow';
+import TableHeadCheckbox from './../../components/TableHeadCheckbox';
+import CheckRowsContainer from './../../components/admin/CheckRowsContainer';
 
 const AdminProductsView = () => {
 
@@ -31,12 +34,15 @@ const AdminProductsView = () => {
   const [reload, setReload] = useState(false);
 
   const [rowsCheck, setRowsCheck] = useState([])
-  const [allProductsId, setAllProductsId] = useState([])
+  const [allProductsIds, setAllProductsIds] = useState([])
+  const [allProductsIdsToDelete, setAllProductsIdsToDelete] = useState([])
+
   const actionsMultipleRows = 
     <>
       <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleTrend(true)}>Mettre en tendance</button>
       <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleTrend(false)}>Enlever des tendances</button>
       <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleAvailable(true)}>Visible sur le site</button>
+      <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleAvailable(false)}>Retirer du site</button>
     </>
 
   useEffect(() => {
@@ -53,11 +59,15 @@ const AdminProductsView = () => {
       setRows([])
       setFormUpdate([])
       setRowsCheck([])
-      setAllProductsId([])
-      respArr[2].data.map(res => setAllProductsId(current => [...current, res.id]))
+      setAllProductsIds([])
+      setAllProductsIdsToDelete([])
+      respArr[2].data.map(res => {
+        setAllProductsIds(current => [...current, res.id])
+        !res.inCommande && setAllProductsIdsToDelete(current => [...current, res.id])
+      })
       // Set le contenu d'une row (à mettre dans l'ordre voulu)
       respArr[2].data.map((res, index) => setRows(current => [...current, [
-        <input type="checkbox" id={`checkRow${res.id}`} onClick={() => toggleRowCheck(res.id)}/>,
+        <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
         res.id,
         res.name,
         res.price.toFixed(2) + ' €',
@@ -89,27 +99,6 @@ const AdminProductsView = () => {
     })
   },[reload])
 
-  const toggleRowCheck = id => {
-    const isCheck = document.getElementById('checkRow' + id).checked
-    if (isCheck) {
-      setRowsCheck(current => [...current, id])
-    } else {
-      setRowsCheck(current => [...current.filter(res => res !== id)])
-    }
-  }
-
-  const toggleAllRowsCheck = () => {
-    const isCheck = document.getElementById('allRowsCheck').checked
-    if (isCheck) {
-      setRowsCheck(allProductsId)
-    } else {
-      setRowsCheck([])
-    }
-    document.querySelectorAll('table [id^="checkRow"]').forEach(checkbox => {
-      checkbox.checked = isCheck;
-    })
-  }
-
   // Update le formulaire et la row update
   const updateTable = (produit, produitAfter, categs, promos, index, pathImageDefault) => {
     produit.name = produitAfter.name
@@ -137,7 +126,7 @@ const AdminProductsView = () => {
     setRows(current => [
       ...current.slice(0, index),
       [
-        <input type="checkbox" id={`checkRow${produit.id}`} onClick={() => toggleRowCheck(produit.id)}/>,
+        <CheckboxRow id={produit.id} setRowsCheck={setRowsCheck} />,
         produit.id,
         produit.name,
         produit.price.toFixed(2) + ' €',
@@ -218,7 +207,8 @@ const AdminProductsView = () => {
         if (res.status === 200) {
           // Supprimer l'elément delete de la table
           setRows(rows.filter(res => res[1] !== id))
-          setAllProductsId(allProductsId.filter(res => res !== id))
+          setRowsCheck(rowsCheck.filter(res => res[1] !== id))
+          setAllProductsIds(allProductsIds.filter(res => res !== id))
           setRowsCheck(rowsCheck.filter(res => res !== id))
           document.querySelectorAll('table [id^="checkRow"]').forEach(checkbox => {
             checkbox.checked = false;
@@ -255,19 +245,8 @@ const AdminProductsView = () => {
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
       <TitleContainer form={formCreate} name="PRODUITS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
-      {/* Lignes selectionnées change tendance et visible */}
-      {
-        rowsCheck.length > 0 &&
-        <div className='flex flex-row border-t-2 bish-border-gray fixed bottom-0 right-0 mt-20 bish-bg-white w-full z-10 py-5'>
-          <div className='w-12 sm:w-72'></div>
-          <span className='my-auto mr-10'>{rowsCheck.length} produits selectionnés</span>
-          <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleTrend(true)}>Mettre en tendance</button>
-          <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleTrend(false)}>Enlever des tendances</button>
-          <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleAvailable(true)}>Visible sur le site</button>
-          <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleAvailable(false)}>Retirer du site</button>
-          {isLoadingCheck && (<img className='h-10' src={loadingSVG} alt="Chargement"></img>)}
-        </div>
-      }
+      {/* LIGNES CHECK + ACTIONS */}
+      <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} allIdsToDelete={allProductsIdsToDelete} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PRODUCT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE PRODUITS */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 
@@ -277,7 +256,7 @@ const AdminProductsView = () => {
             <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow z-[1]'>
               <tr>
                 {/* Tous les titres dans le header de la table */}
-                <th className={labelHeader}><input type="checkbox" id="allRowsCheck" onChange={() => toggleAllRowsCheck()}/></th>
+                <TableHeadCheckbox setRowsCheck={setRowsCheck} allIds={allProductsIds} />
                 <TableHeadSort nbSortColumn="0" name="Id" />
                 <TableHeadSort nbSortColumn="1" name="Nom" />
                 <TableHeadSort nbSortColumn="2" name="Prix" />
@@ -297,7 +276,7 @@ const AdminProductsView = () => {
             {/* Contenu de la table */}
             <tbody>
               {/* Retourne une ligne pour chaque élément */}
-              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow} withCheckRows={true}/>)}
+              {rows && rows.map((res, index) => <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow} />)}
             </tbody>
           </table>
         )
