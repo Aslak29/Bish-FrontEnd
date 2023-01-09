@@ -4,6 +4,7 @@ import apiBackend from "../../api/backend/api.Backend";
 import {URL_BACK_SINGLE_ORDER} from "../../constants/urls/urlBackEnd";
 import {URL_404} from "../../constants/urls/urlFrontEnd";
 import loadingSVG from "../../assets/images/loading-spin.svg";
+import detailsIMG from '../../assets/images/detailsIMG.png'
 
 const Order = (props) => {
 
@@ -80,11 +81,7 @@ const Order = (props) => {
                                 <tr className="text-center py-5" key={index}>
                                     <td className="flex items-center justify-center mt-4">
                                         <img
-                                            src={
-                                                window.location.origin +
-                                                "/src/app/assets/images/products/" +
-                                                row.image
-                                            }
+                                            src={row.image !== "-" ? window.location.origin + "/src/app/assets/images/products/" + row.image : detailsIMG}
                                             alt=""
                                             className="w-1/2 items-center border-solid border-2 bish-border-gray"
                                         />

@@ -1,15 +1,38 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Field, Form, Formik, ErrorMessage } from "formik"
 import apiBackEnd from '../../../api/backend/api.Backend'
-import { URL_BACK_CREATE_PRODUCT } from '../../../constants/urls/urlBackEnd'
+import { URL_BACK_CREATE_PRODUCT, URL_BACK_TYPE_TAILLE  } from '../../../constants/urls/urlBackEnd'
 import { toast } from 'react-toastify'
 import { productCreateSchema } from '../../../utils/AdminValidationSchema';
 import { productCreateInitialValues } from '../../../utils/AdminInitialValues'
 //import {createAlbum} from "../../../bucket_S3/awsFunction";
-
+// Test pour probleme git flo
 const FormCreate = props => {
+
+  /* Type -> Adulte/Enfant/Nourrisson */
+    const [typeTaille, setTypeTaille] = useState([]);
+
+    useEffect(() =>{
+      apiBackEnd.get(URL_BACK_TYPE_TAILLE).then((response=>{
+        setTypeTaille(response.data);        
+        console.log(setTypeTaille);
+        // ranger les tailles par type
+        // let typeTailleByAge = data.findIndex(item=> item.type ==='Adulte');
+      }))
+    },[props])
+
     // Valeur par défaut du stock
     const stock = {
+        "2 mois": 0,
+        "4 mois": 0,
+        "6 mois": 0,
+        "1 an": 0,
+        "2 ans": 0,
+        '6 ans': 0,
+        '8 ans': 0,
+        '10 ans': 0,
+        '12 ans': 0,
+        '14 ans' : 0,
         xs: 0,
         s: 0,
         m: 0,
@@ -19,8 +42,8 @@ const FormCreate = props => {
 
     // CREATE élément dans la BDD
     const createRow = (values) => {
-        if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
-          apiBackEnd.post(`${URL_BACK_CREATE_PRODUCT}${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
+      if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
+        apiBackEnd.post(`${URL_BACK_CREATE_PRODUCT}${values.name}/${values.description}/${values.infoFile.name}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
             if (res.status === 200){
               // createAlbum(values.infoFile.name,values.infoFile)
               props.setReload(!props.reload)
@@ -29,12 +52,12 @@ const FormCreate = props => {
               toast.success(`Produit ${res.data.id} - ${res.data.name} ajouté !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
             }
           }).catch(error => {
-              // Notification erreur
-              toast.warn('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
-            }
+            // Notification erreur
+            toast.warn('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+          }
           )
         }
-    }
+      }
 
     // Preview de l'image dans input type file
     const showPreview = e => {
