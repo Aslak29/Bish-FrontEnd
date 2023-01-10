@@ -4,13 +4,18 @@ import apiBackEnd from "../../api/backend/api.Backend";
 import {
     URL_BACK_CONTACT_UPDATE_ISFINISH,
     URL_BACK_CONTACT,
-    URL_BACK_REMOVE_CONTACT
+    URL_BACK_REMOVE_CONTACT,
+    URL_BACK_MULTIPLE_REMOVE_CONTACT,
+    URL_BACK_MULTIPLE_CONTACT_UPDATE_ISFINISH
 } from "../../constants/urls/urlBackEnd";
 import {toast, ToastContainer} from "react-toastify";
-import {search, sort} from "../../services/adminServices";
 import loadingSVG from "../../assets/images/loading-spin.svg";
-import sortIMG from "../../assets/images/trier.png";
 import {Helmet} from "react-helmet-async";
+import CheckboxRow from './../../components/admin/CheckboxRow';
+import CheckRowsContainer from './../../components/admin/CheckRowsContainer';
+import TitleContainer from '../../components/admin/TitleContainer';
+import TableHeadSort from './../../components/admin/TableHeadSort';
+import TableHeadCheckbox from './../../components/TableHeadCheckbox';
 
 const AdminContactView = () => {
 
@@ -23,15 +28,30 @@ const AdminContactView = () => {
 
     // SVG isLoading si requête en cours
     const [isLoading, setIsLoading] = useState(false);
+    // Reload table
+    const [reload, setReload] = useState(false);
 
+    const [rowsCheck, setRowsCheck] = useState([])
+    const [allContactsId, setAllContactsId] = useState([])
+
+    const actionsMultipleRows = 
+    <>
+      <button className='p-2 shadow border bish-border-gray mr-2' onClick={() => changeMultipleFinish(true)}>Message traité</button>
+      <button className='p-2 shadow border bish-border-gray mr-10' onClick={() => changeMultipleFinish(false)}>Message pas traité</button>
+    </>
 
     useEffect(() => {
+        setRows([])
+        setRowsCheck([])
+        setAllContactsId([])
         // Permet d'afficher le SVG de chargement
         setIsLoading(true)
         // Récupération des données
         apiBackEnd.get(URL_BACK_CONTACT).then(respArr => {
             // Set le contenu d'une row (à mettre dans l'ordre voulu)
+            respArr.data.map(res => setAllContactsId(current => [...current, res.id]))
             respArr.data.map((res, index) => setRows(current => [...current, [
+                <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
                 res.id,
                 res.name,
                 res.surname,
@@ -44,12 +64,10 @@ const AdminContactView = () => {
                        checked={res.isFinish}
                 />
             ]]))
-
-
             // Fin du chargement
             setIsLoading(false)
         })
-    }, [])
+    }, [reload])
 
     const changeIsFinish = (contact) => {
 
@@ -83,12 +101,20 @@ const AdminContactView = () => {
         })
 
     }
+
+    const changeMultipleFinish = p => {
+        apiBackEnd.post(`${URL_BACK_MULTIPLE_CONTACT_UPDATE_ISFINISH}${p}`, rowsCheck).then(res => {
+          setRowsCheck([])
+          setReload(!reload)
+        })
+    }
+
     const deleteRow = id => {
         if (window.confirm(`Êtes-vous sûr de vouloir supprimer le contact ${id} ?`)) {
             apiBackEnd.delete(URL_BACK_REMOVE_CONTACT + id).then(res => {
                 if (res.status === 200) {
                     // Supprimer l'elément delete de la table
-                    setRows(rows.filter(res => res[0] !== id))
+                    setRows(rows.filter(res => res[1] !== id))
                     // Notification produit supprimé
                     toast.success(`Message ${id} supprimé !`, {
                         position: "top-right",
@@ -127,14 +153,9 @@ const AdminContactView = () => {
             {/* Notifications */}
             <ToastContainer/>
             {/* TITRE + BUTTON AJOUTER */}
-            <div className='flex flex-row shadow fixed top-0 right-0 mt-20 bish-bg-white w-full z-10'>
-                <div className='w-12 sm:w-72'></div>
-                <div className='flex flex-row justify-between space-x-5 h-20 w-full px-10'>
-                    <span className='text-center my-auto text-2xl font-medium'>CONTACTS</span>
-                    <input className='w-1/3 h-10 my-auto' type="text" id="searchInput" onKeyUp={() => search()}
-                           placeholder="Rechercher.."/>
-                </div>
-            </div>
+            <TitleContainer name="CATEGORIES" addButton={false} />
+            {/* LIGNES CHECK + ACTIONS */}
+            <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_MULTIPLE_REMOVE_CONTACT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {/* Modal CREATE */}
 
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
@@ -145,54 +166,15 @@ const AdminContactView = () => {
                         <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
                         <tr>
                             {/* Tous les titres dans le header de la table */}
-                            <th onClick={() => sort(0)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Id'>Id</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(1)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Nom'>Nom</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(2)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Prenom'>Prenom</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(3)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Email'>Email</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(4)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Téléphone'>Téléphone</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(5)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Date'>Date</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(6)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Message'>Message</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
-                            <th onClick={() => sort(7)}>
-                                <div className={headSort}>
-                                    <span className={labelHeader} title='Traité'>Traité ?</span>
-                                    <img className='h-4' src={sortIMG} alt="Trier par ID"/>
-                                </div>
-                            </th>
+                            <TableHeadCheckbox setRowsCheck={setRowsCheck} allIds={allContactsId} />
+                            <TableHeadSort nbSortColumn="0" name="Id" />
+                            <TableHeadSort nbSortColumn="1" name="Nom" />
+                            <TableHeadSort nbSortColumn="2" name="Prénom" />
+                            <TableHeadSort nbSortColumn="3" name="Email" />
+                            <TableHeadSort nbSortColumn="4" name="Téléphone" />
+                            <TableHeadSort nbSortColumn="5" name="Date" />
+                            <TableHeadSort nbSortColumn="6" name="Message" />
+                            <TableHeadSort nbSortColumn="7" name="Traité" />
                             {/* TH Actions à ne pas supprimer */}
                             <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
                         </tr>
