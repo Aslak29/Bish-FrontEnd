@@ -23,11 +23,11 @@ const navStatistique = () => {
     })
 
     return (
-        <div className={"flex space-x-24"}>
+        <div className={"flex space-x-24 mx-8 my-8"}>
 
             <Link to={URL_STATISTIQUE_USER}>
-            <div className={` flex flex-wrap sm:w-72 shadow-xl bish-bg-white h-44`}>
-                <span className={'justify-center font-bold text-2xl'}>Utilisateurs</span>
+            <div className={`flex flex-wrap justify-center sm:w-72 shadow-xl h-44`}>
+                <span className={'font-bold text-2xl '}>Utilisateurs</span>
                 <span>Nombre d'utilisateurs inscrit : {countUser} </span>
             </div>
             </Link>
