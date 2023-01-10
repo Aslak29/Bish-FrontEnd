@@ -18,7 +18,7 @@ const TableRow = props => {
         setIsOpen(false);
     }
     return (<tr className='border-b bish-border-gray'>
-        {props.element && props.element.map((res, index) => <td key={index} className='truncate hover:text-clip	text-center py-5' title={res}>{res}</td>)}
+        {props.element && props.element.map((res, index) => <td key={index} className='truncate hover:text-clip	text-center py-5' title={typeof res === 'object'? '': res}>{res}</td>)}
         <td colSpan='2' className='text-center space-x-5'>
             {!props.disabledEdit ?
                 <button className='bg-orange-500 p-2 bish-text-white font-medium' onClick={() => openModal()}>
@@ -31,14 +31,9 @@ const TableRow = props => {
             }
             {
             !props.disableRemove ?
-                !props.withCheckRows ?
-                    <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[0])}>
-                        <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
-                    </button>
-                :
-                    <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[1])}>
-                        <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
-                    </button>
+                <button className='bg-red-600 p-2 bish-text-white font-medium' onClick={() => props.deleteRow(props.element[1])}>
+                    <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
+                </button>
             :
                 <button className='gray bg-red-600 p-2 bish-text-white font-medium cursor-not-allowed opacity-25'>
                     <img className='h-5 lg:h-8' src={deleteIMG} alt="Supprimer"/>
