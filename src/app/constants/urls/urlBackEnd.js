@@ -27,6 +27,8 @@ export const URL_RESET_PASSWORD = "/reset-password/reset/";
 
 export const URL_USER_STATS_REGISTER = "user/stats/register/"
 
+export const URL_USER_STATS_COUNT = "user/stats/count"
+
 // Routes CONTACT
 export const URL_BACK_ADD_CONTACT = "/contact/add";
 export const URL_BACK_CONTACT = "/contact/";
