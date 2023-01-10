@@ -121,7 +121,7 @@ const FormCreate = props => {
                       {taille.map((e) =>
                         <div className="flex flex-col w-1/5 h-full" key={e.size}>
                           <span>{e.size}</span>
-                          <Field className='h-full' type="number" name={'stock.' + e.size.toLowerCase()} required/>
+                          <Field className='h-full' type="number" name={'stock.' + e.size} required/>
                         </div>
                       )}
                     </div>
