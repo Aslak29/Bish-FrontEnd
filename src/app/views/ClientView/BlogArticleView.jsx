@@ -46,7 +46,8 @@ console.log(articlesBlog);
                         id={-1}
                         idCategorie={categorie.id}
                     />
-                )}</div>
+                )}
+        </div>
       <button className='m-6'>
         <Link className='btn-black-bish hover:bish-bg-blue ' to={"/blog/"}>Revenir à la liste d'articles</Link>
       </button>
