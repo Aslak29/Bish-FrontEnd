@@ -29,8 +29,8 @@ const marks = [
     label: "0€",
   },
   {
-    value: 200,
-    label: "200€",
+    value: 2000,
+    label: "2000€",
   },
 ];
 
@@ -166,7 +166,7 @@ const Filtre = (props) => {
             value={value}
             step={10}
             min={0}
-            max={200}
+            max={2000}
             onChange={rangeSelector}
             valueLabelDisplay="auto"
             marks={marks}

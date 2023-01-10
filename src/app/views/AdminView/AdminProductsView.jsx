@@ -71,7 +71,7 @@ const AdminProductsView = () => {
         res.price.toFixed(2) + ' €',
         res.description,
         res.noteAverage ? res.noteAverage.toFixed(1) + '/5' : '-',
-        res.stockBySize.reduce((accumulator, currentValue) => accumulator + currentValue.stock, 0),
+        Object.entries(res.stockBySize).reduce((accumulator, currentValue) => accumulator + currentValue[1], 0),
         res.name_categorie,
         res.promotion.remise > 0 ? res.promotion.remise + ' %' : '-',
         res.created_at.date,
@@ -109,11 +109,7 @@ const AdminProductsView = () => {
     produit.price = produitAfter.price
     produit.promotion.id = produitAfter.promotion
     produit.promotion.remise = produitAfter.promotion !== '-' ? promos.data.find(element => element.id == produitAfter.promotion).remise : '-'
-    produit.stockBySize[0].stock = produitAfter.stock.xs
-    produit.stockBySize[1].stock = produitAfter.stock.s
-    produit.stockBySize[2].stock = produitAfter.stock.m
-    produit.stockBySize[3].stock = produitAfter.stock.l
-    produit.stockBySize[4].stock = produitAfter.stock.xl
+    produit.stockBySize = produitAfter.stock
     // Modifier le modal update de la row concernée
     setFormUpdate(current => [
       ...current.slice(0, index),
@@ -130,7 +126,7 @@ const AdminProductsView = () => {
         produit.price.toFixed(2) + ' €',
         produit.description,
         produit.noteAverage ? produit.noteAverage.toFixed(1) + '/5' : '-',
-        produit.stockBySize.reduce((accumulator, currentValue) => accumulator + currentValue.stock, 0),
+        Object.entries(produit.stockBySize).reduce((accumulator, currentValue) => accumulator + currentValue[1], 0),
         produit.name_categorie, 
         produit.promotion.remise > 0 ? produit.promotion.remise + ' %' : '-',
         produit.created_at.date,

@@ -11,15 +11,27 @@ import { productUpdateInitialValues } from '../../../utils/AdminInitialValues';
 const FormUpdate = props => {
 
     // Objet STOCK qui se créer dynamiquement pour utiliser dans les initialValues Formik UPDATE
-    const stock = {}
-    props.produit.stockBySize.map(resStock => stock[resStock.taille.toLowerCase()] = resStock.stock)
+    const stock = props.produit.stockBySize
+
 
     const pathImageDefault = props.produit.pathImage
 
     // UPDATE élément dans la BDD
     const updateRow = (id, pathImageDefault, values) => {
+        let product = {
+            id: id,
+            name: values.name,
+            description: values.description,
+            infoFile: values.infoFile !== undefined ? values.infoFile.name : pathImageDefault,
+            categorie: values.categorie,
+            promotion: values.promotion,
+            price: values.price,
+            trend: values.trend,
+            available: values.available,
+            stock: values.stock
+        }
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
-            apiBackEnd.post(`${URL_BACK_UPDATE_PRODUCT}${id}/${values.name}/${values.description}/${values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}/${values.categorie}/${values.promotion}/${values.price}/${values.trend}/${values.available}/${values.stock.xs}/${values.stock.s}/${values.stock.m}/${values.stock.l}/${values.stock.xl}/`).then(res => {
+            apiBackEnd.post(URL_BACK_UPDATE_PRODUCT, product).then(res => {
               if (res.status === 200) {
                 props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
                 //createAlbum(values.infoFile.name,values.infoFile)
@@ -27,7 +39,6 @@ const FormUpdate = props => {
                 toast.success(`Produit ${res.data.id} - ${res.data.name} modifié !`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
             }).catch(error => {
-                console.log(error);
                 // Notification erreur
                 toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
               }
@@ -76,12 +87,12 @@ const FormUpdate = props => {
                         <ErrorMessage name="price" component="small" className="text-red-400"/>
                     </div>
                     {/* Stock */}
-                    <div className="flex flex-row h-20">
+                    <div className="flex flex-row h-20 col-span-3">
                     {
-                        props.produit.stockBySize.map(resStock => 
-                        <div className="flex flex-col w-1/5 h-full" key={resStock.taille}>
-                            <span>{resStock.taille.toUpperCase()}</span>
-                            <Field className='h-full' type="number" name={'stock.' + resStock.taille.toLowerCase()} required/>
+                        Object.entries(stock).map(resStock =>
+                        <div className="flex flex-col w-2/12 h-full" key={resStock[0]}>
+                            <span>{resStock[0]}</span>
+                            <Field className='h-full' type="number" name={'stock.' + resStock[0]} required/>
                         </div>
                     )}
                     </div>
