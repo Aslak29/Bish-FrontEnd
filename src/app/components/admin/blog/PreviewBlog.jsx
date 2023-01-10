@@ -11,7 +11,6 @@ import {ErrorMessage, Field, Form, Formik} from "formik";
 Quill.register("modules/emoji", Emoji);
 var FontAttributor = Quill.import('attributors/class/font');
 FontAttributor.whitelist =
-
 [
   'arial','caveat','dancing-script',
   'lobster','monospace','pacifico',
@@ -120,7 +119,6 @@ class PreviewBlog extends Component {
     this.props.formikProps.setFieldValue("description", e)
   };
 	render() {
- 
 	  return (
       <div className="flex flex-col h-96">
         <p>{this.state.value}</p>

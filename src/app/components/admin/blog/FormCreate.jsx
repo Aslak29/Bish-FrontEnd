@@ -14,11 +14,7 @@ import PreviewBlog from './PreviewBlog';
 // import { createAlbum } from '../../../bucket_S3/awsFunction'
 
 const FormCreate = props => {
-
     const [title, setTitle]= useState('');
-    const [image, setImage]= useState('');
-    // const [date, setDate]= useState('');
-  
     // CREATE élément dans la BDD
     const createRow = ( values, pathImageDefault) => {
         if (window.confirm("Êtes-vous sûr de vouloir ajouter le produit ?")) {
@@ -68,14 +64,13 @@ const FormCreate = props => {
             let preview = document.getElementById("img-preview");
             preview.src = src;
             preview.style.display = "block";
-            setImage(preview.src);
         }
     }
 
     // Pour afficher la date
     const current = new Date();
     var options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    const date = current.toLocaleString("fr-FR", options);
+    const date = current.toLocaleString("fr-FR", options).replaceAll("/", "-");
 
     return (
         <div>
@@ -84,75 +79,64 @@ const FormCreate = props => {
                 validationSchema={ blogCreateSchema }
                 onSubmit={(values) => {
                     createRow(values)
-                }}
-            >
-                {formikProps =>
-                <>
-                    <Form className="w-[60rem]">
+                }}>
+            {formikProps =>
+                <Form className="w-[60rem]">
+                    <div className="flex flex-col">
+                        {/* TITRE */}
                         <div className="flex flex-col">
-                            {/* TITRE */}
+                            <span>Titre</span>
+                            <Field className='w-full' type="text" name="title" value={title.value}
+                                />
+                            <ErrorMessage
+                                name="title"
+                                component="small"
+                                className="text-red-400"
+                            />
+                        </div>
+
+                        {/* Description */}
+                        <PreviewBlog formikProps={formikProps}/>
+
+                        {/* Image */}
+                        <div className="flex flex-col w-full">
                             <div className="flex flex-col">
-                                <span>Titre</span>
-                                <Field className='w-full' type="text" name="title" value={title.value}
-                                    />
+                                <span>Image</span>
+                                {/* Formulaire ajout image */}
+                                <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
+                                    formikProps.setFieldValue('infoFile', e.currentTarget.files[0]);
+                                    showPreview(e);
+                                }} required/>
                                 <ErrorMessage
-                                    name="title"
+                                    name="infoFile"
                                     component="small"
                                     className="text-red-400"
-                                />
-                            </div>
-
-                            {/* Description */}
-                            <PreviewBlog formikProps={formikProps}/>
-
-                            {/* Image */}
-                            <div className="flex flex-col w-full">
-                                <div className="flex flex-col">
-                                    <span>Image</span>
-                                    {/* Formulaire ajout image */}
-                                    <Field className='my-auto' accept="image/*" type="file" name="file" onChange={e => {
-                                        formikProps.setFieldValue('infoFile', e.currentTarget.files[0]);
-                                        showPreview(e);
-                                    }} required/>
-                                  <ErrorMessage
-                                        name="infoFile"
-                                        component="small"
-                                        className="text-red-400"
-                                        />
-                                </div>
-                                {/* Preview de l'image */}
-                                <div className="flex flex-col w-full">
-                                    <div className="preview row-span-4 h-24 w-full shadow-lg">
-                                        <img className='hidden object-contain h-full w-full' id="img-preview"alt='Prévisualisation'/>
-                                    </div>
-                                </div>
+                                    />
                             </div>
                         </div>
-    {/* Preview article */}
-                        <div className="w-full"> 
-                            <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">
-                                Ajouter
-                            </button>
-                        </div>
-                    </Form>
-            <div className="blog-article flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up">
-                <div className='flex flex-col w-10/12 h-auto'>
-                    <div className=' text-right flex flex-row justify-between py-4'>
-                        <p className='text-2xl my-auto'>{formikProps.values.title}</p><br/>
-                        <p className='bish-text-gray text-sm my-auto'>{date}</p>
                     </div>
-                    <img src={image} alt="" />
-                    {/* <img className='object-cover' src={window.location.origin + `/src/app/assets/images/blog/` + `${articlesBlog.path_image}`} alt="Illustration d'un article de blog" /><br/> */}
-                    <p className='text-justify text-sm md:text-lg' dangerouslySetInnerHTML={{__html: formikProps.values.description}}></p><br/>
-                </div>
-            </div>
-        </>
 
+                    <div className="blog-article flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up">
+                        <div className='flex flex-col w-10/12 h-auto'>
+                            <div className=' text-right flex flex-row justify-between py-4'>
+                                <p className='text-2xl my-auto'>{formikProps.values.title}</p><br/>
+                                <p className='bish-text-gray text-sm my-auto'>{date}</p>
+                            </div>
+                                <img id="img-preview" className={formikProps.values.pathImage == ""? 'hidden':'block'} alt="Prévisualisation"/>
+                            <p className='text-justify text-sm md:text-lg' dangerouslySetInnerHTML={{__html: formikProps.values.description}}></p><br/>
+                        </div>
+                    </div>
 
-                }
+                    {/* Preview article */}
+                    <div className="w-full"> 
+                        <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">
+                            Ajouter
+                        </button>
+                    </div>
+                </Form>
+            }
             </Formik>
         </div>
-        
     )
 }
 
