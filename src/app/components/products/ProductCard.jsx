@@ -1,8 +1,16 @@
 import React, {useState, useEffect} from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { URL_PRODUCT_LINK } from "../../constants/urls/urlFrontEnd";
 import Taille from './Taille';
 import StarsComponent from "./StarsComponent";
+import { useDispatch } from 'react-redux';
+import { addItem } from "../../redux-store/cartSlice";
+import { useSelector } from 'react-redux';
+import { selectUser } from "../../redux-store/authenticationSlice";
+import { selectIsLogged } from './../../redux-store/authenticationSlice';
+import { toast } from 'react-toastify'
+import { URL_LOGIN } from './../../constants/urls/urlFrontEnd';
+
 // import s3 from "../../bucket_S3/aws" // Disable this import if you use S3 Bucket
 const ProductCard = props => {
 
@@ -16,6 +24,12 @@ const ProductCard = props => {
   const [env]= useState(import.meta.env.VITE_NODE_ENV);
 
   const [inStock, setInStock] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const user = useSelector(selectUser);
+  const isLogged = useSelector(selectIsLogged);
 
   const toggleDrawer = () =>{
     setIsClicked(!isClicked);
@@ -46,6 +60,24 @@ const ProductCard = props => {
     }
   }
 
+  const addCart = (product, size) => {
+    if(isLogged) {
+      if(user.roles[0] === "ROLE_ADMIN") {
+        toast.warn("Un administrateur ne peut pas ajouter de produit à son panier", { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+      } else {
+        dispatch(addItem({
+          id: product.id,
+          name: product.name,
+          quantity: 1,
+          size: size,
+          price: product.promotion.id ? product.promotion.price_remise : product.price,
+        }))
+      }
+    } else {
+      navigate(URL_LOGIN)
+    }
+  }
+
   return (
     <div>
         <div className={`${drawerDisplay} ${stockDisplayResponsive} bish-bg-gray h-full w-full absolute top-0 left-0 z-10 opacity-50`} onClick={() => toggleDrawer()}/>
@@ -64,11 +96,6 @@ const ProductCard = props => {
                    : <Link to={`${URL_PRODUCT_LINK}${produit.id}`}><img src={window.location.origin + '/src/app/assets/images/products/' + produit.pathImage} alt="" className={`${opacityStock} object-cover w-full h-full`}/></Link>
               )
           }
-
-
-
-
-
             {/* Triangle promotion */}
             {(props.produit.promotion.length !== 0 &&
               <div className="triangle absolute top-0 right-0 opacity-95">
@@ -82,7 +109,7 @@ const ProductCard = props => {
                 <span className='mx-auto mb-2 text-lg lg:text-base xl:text-lg'>Ajouter au panier</span>
                 <div className='w-full gap-1 flex justify-center'>
                   {Object.entries(produit.stockBySize).map(([index, res]) =>
-                      <div key={index} className={`w-1/6 flex justify-center ${ res.taille === "xs" ? "order-1" : res.taille === "s" ? "order-2" : res.taille === "m" ? "order-3" : res.taille === "l" ? "order-4" : res.taille === "xl" && "order-5"}`}>
+                      <div onClick={() => addCart(produit, res.taille)} key={index} className={`w-1/6 flex justify-center ${ res.taille === "xs" ? "order-1" : res.taille === "s" ? "order-2" : res.taille === "m" ? "order-3" : res.taille === "l" ? "order-4" : res.taille === "xl" && "order-5"}`}>
                           <Taille taille={res} addStock={addStock}/>
                       </div>)}
                 </div>
