@@ -13,7 +13,7 @@ const ProductsContainer = props => {
     const [filterDisplay, setFilterDisplay] = useState('hidden');
     const [filterCloseDisplay, setFilterCloseDisplay] = useState('hidden');
     const [filterValue, setFilterValue] = useState([]);
-    const [priceRange, setPriceRange] = useState([0,200]);
+    const [priceRange, setPriceRange] = useState([0,2000]);
     const [produits, setProduits] = useState([]);
     const [size,setSize] = useState("none");
     const [isLoading, setIsLoading] = useState(false);

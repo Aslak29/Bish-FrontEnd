@@ -2,16 +2,16 @@
 // Valeurs initiales du formulaire create admin produit
 import * as Yup from "yup";
 
-export const productCreateInitialValues = stock => {
+export const productCreateInitialValues = (stock, product) => {
     return {
-        name: '',
-        price: '',
-        description: '',
+        name: product.name,
+        price: product.price,
+        description: product.description,
         stock,
-        categorie: 1,
-        promotion: '-',
-        trend: false,
-        available: false,
+        categorie: product.categorie,
+        promotion: product.promotion,
+        trend: product.trend,
+        available: product.available,
     }
 }
 
