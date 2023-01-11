@@ -35,7 +35,6 @@ const FormUpdate = props => {
 
                 }
             }).catch(error => {
-                    console.log(error);
                     // Notification erreur
                     toast.error('Une erreur est survenue', {
                         position: "top-right",

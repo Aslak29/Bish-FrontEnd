@@ -40,7 +40,6 @@ const FormCreate = props => {
                     })
                 }
             }).catch(error => {
-                    console.log(error)
                     // Notification erreur
                     toast.warn('Une erreur est survenue', {
                         position: "top-right",

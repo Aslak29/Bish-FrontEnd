@@ -114,7 +114,6 @@ const FormUpdate = props => {
                             <div className=' text-right flex flex-row justify-between py-4'>
                                 <p className='text-2xl my-auto'>{formikProps.values.title}</p><br/>
                                 <p className='bish-text-gray text-sm my-auto'>{new Date(formikProps.values.date.date).toLocaleDateString().replaceAll("/", "-")}</p>
-                                {/* {console.log(formikProps.values)} */}
                             </div>
                             <img  id="img-preview" alt="Prévisualisation" src={window.location.origin + '/src/app/assets/images/blog/'+ pathImageDefault}/>
                             <p className='text-justify text-sm md:text-lg' dangerouslySetInnerHTML={{__html: formikProps.values.description}}></p><br/>
