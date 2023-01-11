@@ -92,7 +92,6 @@ const AdminOrdersView = () => {
             }
           }).catch(error => {
               if (error.response.data["errorCode"] === "016") {
-                  console.log(error.response.data)
                   toast.warn(error.response.data["errorMessage"],
                       {
                           position: "top-right",

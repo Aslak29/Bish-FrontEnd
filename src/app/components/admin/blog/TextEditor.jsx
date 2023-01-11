@@ -57,7 +57,6 @@ export const toolbarOptions= {
                       picker.value = '#FF0000';
                       document.body.appendChild(picker);
                       picker.addEventListener('change', ()=> {
-                        console.log(this.quill);
                         this.quill.format('color', picker.value);
                       });
                     }
@@ -77,7 +76,6 @@ export const toolbarOptions= {
                       picker.value = '#FF0000';
                       document.body.appendChild(picker);
                       picker.addEventListener('change', ()=> {
-                        console.log(this.quill);
                         this.quill.format('background', picker.value);
                       });
                     }

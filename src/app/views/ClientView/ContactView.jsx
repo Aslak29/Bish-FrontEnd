@@ -59,7 +59,6 @@ const ContactView = () => {
                       toast.success("Le message a bien été envoyé ! Nous vous contacterons dans les plus brefs délais.", { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
                     }
                   }).catch(error => {
-                    console.log(error)
                     toast.warn('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
                 })
               } 

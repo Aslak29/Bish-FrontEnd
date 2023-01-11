@@ -110,7 +110,7 @@ const AdminPromotionsView = () => {
                     // Supprimer l'elément delete de la table
                     setRows(rows.filter(res => res[1] !== id))
                     // Notification promotion supprimé
-                    toast.success(`Contact ${id} supprimé !`, {
+                    toast.success(`Promotion ${id} supprimé !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,

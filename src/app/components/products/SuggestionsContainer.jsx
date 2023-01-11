@@ -30,19 +30,25 @@ const SuggestionsContainer = props => {
   },[props.id])
 
   return (
-    <div>
-      {props.idCategorie !== '-' ? <h2 className='text-2xl underline'>Vous Aimerez Aussi</h2> : <></>}
+    <>
       {
-        isLoading ? (<img className='m-auto' src={loadingSVG} alt="Chargement"></img>)
-        : 
-        (
-          <div className='grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6 my-6 lg:mx-24'>
-            {suggestionsByCateg.map((r) =><ProductCard update={props.update} key={r.id} produit={r}/> )}
-          </div>
-          )
-        }
-        
-    </div>
+        suggestionsByCateg[0] &&
+        <div>
+          {props.idCategorie !== '-' ? <h2 className='text-2xl underline'>Vous Aimerez Aussi</h2> : <></>}
+          {
+            isLoading ? (<img className='m-auto' src={loadingSVG} alt="Chargement"></img>)
+            : 
+            (
+              <div className='grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6 my-6 lg:mx-24'>
+                {suggestionsByCateg.map((r) =><ProductCard update={props.update} key={r.id} produit={r}/> )}
+              </div>
+              )
+            }
+            
+        </div>
+      }
+    </>
+    
   )
 }
 
