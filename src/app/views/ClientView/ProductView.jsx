@@ -6,6 +6,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {URL_404} from "../../constants/urls/urlFrontEnd";
 import SuggestionsContainer from "../../components/products/SuggestionsContainer"
 import Bot from "../../components/bot/Bot";
+import { ToastContainer } from 'react-toastify'
 
 const ProductView = () => {
 
@@ -46,6 +47,7 @@ const ProductView = () => {
     }
     return (
         <div className="w-full">
+                <ToastContainer />
                 <div className="w-11/12 sm:w-3/4 m-auto mt-12 mb-12 space-y-12">
                     {product && <ProductDetail {...product} />}
                     {product && (

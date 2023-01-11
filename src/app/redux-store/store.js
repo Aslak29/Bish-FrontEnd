@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import authenticationReducer from './authenticationSlice';
 import thunk from 'redux-thunk';
+import authenticationReducer from './authenticationSlice';
+import cartReducer from './cartSlice';
 
 const persistConfigAuth = {
     key: 'auth',
@@ -20,6 +21,7 @@ const persistAuthenticationReducer = persistReducer(persistConfigAuth, authentic
 export const store = configureStore({
     reducer: {
         auth: persistAuthenticationReducer,
+        cart: cartReducer,
     },
     middleware: [thunk]
 });
