@@ -4,6 +4,8 @@ import ProductsContainer from './../../components/products/ProductsContainer';
 import Paginate from './../../components/products/Paginate';
 import Categories from './../../components/products/Categories';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify'
+
 const ProductsView = () => {
 
     const [categorie,setCategorie] = useState([-1]);
@@ -42,6 +44,7 @@ const ProductsView = () => {
                 <title>Bish - Nos Produits</title>
                 <meta name="description" content="Retrouvez tous nos produits disponibles à tout moments"/>
             </Helmet>
+            <ToastContainer />
             <div className="lg:w-fit mx-auto">
                 <Categories setCategorie={handleCategorie}/>
             </div>
