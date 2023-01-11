@@ -11,26 +11,61 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem: (state, action) => {
-            // code pour ajouter un produit au panier
-            state.items.push({
-                id: action.payload.id,
-                quantity: action.payload.quantity,
-                size: action.payload.size,
-                lastKnownPrice: action.payload.price
-            })
+            const { id, name, quantity, size, price } = action.payload
+            if(!state.items.find(item => item.id === id && item.size === size)) {
+                state.items.push({
+                    id: id,
+                    quantity: quantity,
+                    size: size,
+                    lastKnownPrice: price
+                })
+            } else {
+                state.items = state.items.map(item => {
+                    if(item.id === id && item.size === size) {
+                        item.quantity += quantity;
+                    }
+                    return item;
+                });
+            }
             state.total = 0
-            state.items.map(item => state.total += item.lastKnownPrice)
-            toast.success(action.payload.name + ' ajouté au panier !', { position: "top-right", autoClose: 1000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
-
+            state.total = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0)
+            toast.success(name + ' ajouté au panier !', { position: "top-right", autoClose: 1000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         },
         removeItem: (state, action) => {
-            // code pour enlever un produit du panier
+            const { id, size } = action.payload
+            state.items = state.items.filter(item => !(item.id === id && item.size === size));
+            state.total = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0);
         },
         updateItemQuantity: (state, action) => {
-            // code pour mettre à jour la quantité d'un produit dans le panier
+            const { id, size, quantity } = action.payload
+            state.items = state.items.map(item => {
+                if(item.id === id && item.size === size) {
+                    item.quantity = quantity;
+                }
+                return item;
+            });
+            state.total = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0);
+        },
+        updateItemPrice: (state, action) => {
+            const { id, size, price } = action.payload
+            state.items = state.items.map(item => {
+                if(item.id === id && item.size === size) {
+                    item.lastKnownPrice = price;
+                }
+                return item
+            })
+            state.total = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0);
+        },
+        clearItems: (state) => {
+            state.items = []
+            state.total = 0
         }
     }
 })
 
-export const { addItem, removeItem, updateItemQuantity } = cartSlice.actions;
+export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems } = cartSlice.actions;
+
+export const selectItems = (state) => state.cart.items;
+// export const selectLastKnowPrice = (state, id) => state.items.find(item => item.id === id).price;
+
 export default cartSlice.reducer;
