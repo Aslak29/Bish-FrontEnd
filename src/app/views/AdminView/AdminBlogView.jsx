@@ -53,7 +53,8 @@ const AdminBlogView = () => {
               <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
               res.id,
               res.title,
-              res.description,
+              // res.description,
+              <p dangerouslySetInnerHTML={{__html: res.description.substring(0, 40) + "..."}} alt="essai"></p>,
               <img className='object-contain h-10 m-auto hover:absolute hover:scale-[10.0] hover:z-50' src={window.location.origin + '/src/app/assets/images/blog/' + res.pathImage} /*src={s3.getSignedUrl('getObject', {Bucket: 'awsbish', Key: 'assets/images/blog/'+ res.pathImage})}*/ alt={res.title}/>,
               // <input className='h-8 w-8 lg:h-10 lg:w-10 bish-text-blue' type="checkbox" defaultChecked={res.is_trend}/>,
           ]]))

@@ -26,6 +26,10 @@ export const URL_BACK_USER_BY_MAIL = "/user/getUserByMail";
 export const URL_SEND_MAIL_FORGOT_PASSWORD = "/reset-password/sendMail";
 export const URL_RESET_PASSWORD = "/reset-password/reset/";
 
+export const URL_USER_STATS_REGISTER = "user/stats/register/"
+
+export const URL_USER_STATS_COUNT = "user/stats/count"
+
 // Routes CONTACT
 export const URL_BACK_ADD_CONTACT = "/contact/add";
 export const URL_BACK_CONTACT = "/contact/";
@@ -59,9 +63,9 @@ export const URL_BACK_CREATE_PROMOTION = "/promotion/add/"
 export const URL_BACK_UPDATE_PROMOTION = "promotion/update/"
 
 // Routes ADMIN PRODUITS
-export const URL_BACK_CREATE_PRODUCT = '/produit/add/'
+export const URL_BACK_CREATE_PRODUCT = '/produit/add'
 export const URL_BACK_DELETE_PRODUCT = '/produit/remove/'
-export const URL_BACK_UPDATE_PRODUCT = '/produit/update/'
+export const URL_BACK_UPDATE_PRODUCT = '/produit/update'
 export const URL_BACK_UPDATE_TREND_PRODUCT = '/produit/update/trend/'
 export const URL_BACK_UPDATE_MULTIPLE_TREND_PRODUCT = '/produit/update/multipleTrend/'
 export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
