@@ -9,6 +9,10 @@ import TitleContainer from "../../components/admin/TitleContainer";
 import TableHeadSort from "../../components/admin/TableHeadSort";
 import FormCreate from "../../components/admin/promotion/FormCreate";
 import FormUpdate from "../../components/admin/promotion/FormUpdate";
+import CheckboxRow from './../../components/admin/CheckboxRow';
+import CheckRowsContainer from './../../components/admin/CheckRowsContainer';
+import { URL_BACK_MULTIPLE_DELETE_PROMOTION } from './../../constants/urls/urlBackEnd';
+import TableHeadCheckbox from './../../components/TableHeadCheckbox';
 
 const AdminPromotionsView = () => {
 
@@ -33,16 +37,22 @@ const AdminPromotionsView = () => {
     // Reload table
     const [reload, setReload] = useState(false);
 
-
+    const [rowsCheck, setRowsCheck] = useState([])
+    const [allPromosId, setAllPromosId] = useState([])
+    
     useEffect(() => {
+        setRows([])
+        setFormUpdate([])
+        setRowsCheck([])
+        setAllPromosId([])
         // Permet d'afficher le SVG de chargement
         setIsLoading(true)
         // Récupération des données
         apiBackEnd.get(URL_BACK_PROMOS).then(respArr => {
             // Set le contenu d'une row (à mettre dans l'ordre voulu)
-            setRows([]);
-            setFormUpdate([]);
+            respArr.data.map(res => setAllPromosId(current => [...current, res.id]))
             respArr.data.map((res, index) => setRows(current => [...current, [
+                <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
                 res.id,
                 res.name,
                 res.remise,
@@ -82,6 +92,7 @@ const AdminPromotionsView = () => {
         setRows(current => [
             ...current.slice(0, index),
             [
+                <CheckboxRow id={promotion.id} setRowsCheck={setRowsCheck} />,
                 promotion.id,
                 promotion.name,
                 promotion.remise,
@@ -97,9 +108,9 @@ const AdminPromotionsView = () => {
             apiBackEnd.delete(URL_BACK_DELETE_PROMOTION + id).then(res => {
                 if (res.status === 200) {
                     // Supprimer l'elément delete de la table
-                    setRows(rows.filter(res => res[0] !== id))
+                    setRows(rows.filter(res => res[1] !== id))
                     // Notification promotion supprimé
-                    toast.success(`Contact ${id} supprimé !`, {
+                    toast.success(`Promotion ${id} supprimé !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -148,6 +159,8 @@ const AdminPromotionsView = () => {
             {/* TITRE + BUTTON AJOUTER */}
             <TitleContainer form={formCreate} name="PROMOTION" modalIsOpen={modalIsOpen} openModal={openModal}
                             closeModal={closeModal} addButton={true}/>
+            {/* LIGNES CHECK + ACTIONS */}
+            <CheckRowsContainer rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PROMOTION} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {/* Modal CREATE */}
 
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
@@ -158,6 +171,7 @@ const AdminPromotionsView = () => {
                         <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow'>
                         <tr>
                             {/* Tous les titres dans le header de la table */}
+                            <TableHeadCheckbox setRowsCheck={setRowsCheck} allIds={allPromosId} />
                             <TableHeadSort nbSortColumn="0" name="Id"/>
                             <TableHeadSort nbSortColumn="1" name="Nom"/>
                             <TableHeadSort nbSortColumn="2" name="Remise"/>

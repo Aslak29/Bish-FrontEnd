@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { selectIsLogged } from "./../../redux-store/authenticationSlice";
 import {
   URL_HOME,
@@ -17,6 +17,7 @@ import search from "../../assets/images/search.svg";
 import ScrollingMenu from './ScrollingMenu';
 import BurgerMenu from "./BurgerMenu";
 import SearchBar from "./SearchBar";
+import { selectItems } from './../../redux-store/cartSlice';
 
 const Navbar = () => {
   // const isLoggued = useSelector(selectIsLogged);
@@ -26,6 +27,8 @@ const Navbar = () => {
   const [menuClass, setMenuClass] = useState("hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [logoDisplay, setLogoDisplay] = useState("");
+
+  const items = useSelector(selectItems)
 
   const updateMenu = () =>{
     setIsMenuClicked(!isMenuClicked);
@@ -88,15 +91,25 @@ const Navbar = () => {
         <SearchBar searchBarToggle={toggleLogo}/>
 
         {/*--------------------------------- Espace client et panier ---------------------------------  */}
-        <div className="flex justify-end my-auto mx-0 gap-x-4 lg:gap-x-8 lg:w-2/6 xl:w-auto">
-            <> 
-              <Link to={URL_SHOPPING_CART}>
-                <img
-                  className="h-8 w-auto cursor-pointer lg:h-8"
-                  src={Panier}
-                  alt="Panier"
-                />                
-              </Link>
+        <div className="flex justify-end my-auto mx-0 gap-x-6 lg:gap-x-8 lg:w-2/6 xl:w-auto">
+            <>
+              <div className="flex flex-row">
+                <Link to={URL_SHOPPING_CART}>
+                  <img
+                    className="h-8 w-auto cursor-pointer lg:h-8"
+                    src={Panier}
+                    alt="Panier"
+                  />
+                </Link>
+                {
+                  items.length > 0 &&
+                  <div className="h-full relative">
+                    <div className={`text-center align-middle rounded-full bish-bg-white ${items.length > 9 ? 'w-6 h-6 leading-6' : 'w-5 h-5 leading-5'} m-auto absolute bottom-0`}>{items.length}</div>
+                  </div> 
+                }
+                
+              </div>
+              
               <ScrollingMenu/>
             </>
         </div>

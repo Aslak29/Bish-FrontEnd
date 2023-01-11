@@ -20,7 +20,6 @@ const FormUpdate = props => {
                 toast.success(`La commande a été modifié!`, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
               }
             }).catch(error => {
-                console.log(error);
                 // Notification erreur
                 toast.error('Une erreur est survenue', { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
               }

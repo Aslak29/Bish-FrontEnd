@@ -6,7 +6,7 @@ import {toast} from "react-toastify";
 import {blogUpdateSchema} from "../../../utils/AdminValidationSchema";
 import {blogUpdateInitialValues} from "../../../utils/AdminInitialValues";
 import {toolbarOptions} from './TextEditor';
-import ReactQuill,{ Quill } from 'react-quill';
+import ReactQuill,{ quill } from 'react-quill';
 
 const FormUpdate = props => {
     // UPDATE élément dans la BDD
@@ -49,6 +49,10 @@ const FormUpdate = props => {
             )
         }
     }
+// Preview de la description
+
+
+
 
     // Preview de l'image dans input type file
     const showPreview = e => {
@@ -64,8 +68,7 @@ const FormUpdate = props => {
         <Formik
             initialValues={blogUpdateInitialValues(props.blog)}
             validationSchema={blogUpdateSchema}
-            onSubmit={(values) => updateRow(props.blog.id, values, pathImageDefault)}
-            >
+            onSubmit={(values) => updateRow(props.blog.id, values, pathImageDefault)}>
             {formikProps =>
                 <Form className="flex flex-col sm:grid-cols-4 gap-4">  
                     {/* Nom */}
@@ -76,36 +79,25 @@ const FormUpdate = props => {
                     </div>
                     {/* Description */}
                     <div className="flex flex-col h-96">
-                            <span>Description</span>
-                            <Field name="description">
-                                {/* EDITEUR DE TEXTE PERSONNALISE */}
-                                {({field})=> (<ReactQuill
-                                className="w-full h-80" 
-                                value={field.value} 
-                                onChange={field.onChange(field.name)} 
-                                defaultValue=""
-                                theme="snow"
-                                modules={{
-                                    toolbar: toolbarOptions,
-                                    "emoji-toolbar": true,
-                                    "emoji-textarea": false,
-                                    "emoji-shortname": true,
-                                    }
-
-                                }                                    
-                                />)}
-
-                            </Field>
-                            <ErrorMessage name="description" component="small" className="text-red-400"/>
-                        </div>
-                    {/* <div className="flex flex-col col-span-2 row-span-2">
                         <span>Description</span>
-                        <Field className='h-full' as="textarea" type="text" name="description" required/>
+                        <Field name="description">
+                            {/* EDITEUR DE TEXTE PERSONNALISE */}
+                            {({field})=> (<ReactQuill
+                            className="w-full h-80" 
+                            value={field.value} 
+                            onChange={field.onChange(field.name)} 
+                            defaultValue=""
+                            theme="snow"
+                            modules={{
+                                toolbar: toolbarOptions,
+                                "emoji-toolbar": true,
+                                "emoji-textarea": false,
+                                "emoji-shortname": true,
+                                }
+                            }                                    
+                            />)}
+                        </Field>
                         <ErrorMessage name="description" component="small" className="text-red-400"/>
-                    </div> */}
-                    {/* Preview de l'image */}
-                    <div className="preview row-span-4 h-96 shadow-lg">
-                        <img className='object-contain h-full w-full' id="img-preview" alt='Prévisualisation' src={window.location.origin + '/src/app/assets/images/blog/' + props.blog.pathImage} /*src={Bucket: 'awsbish', Key: 'assets/images/products/'+props.produit.pathImage})}*/  />
                     </div>
                     
                     {/* Image */}
@@ -115,6 +107,17 @@ const FormUpdate = props => {
                         onChange={e => {showPreview(e);
                         formikProps.setFieldValue('infoFile', e.currentTarget.files[0])}}/>
                         <ErrorMessage name="infoFile" component="small" className="text-red-400"/>
+                    </div>
+
+                    <div className="blog-article flex flex-col justify-center items-center mt-4 mb-12 border bish-border-gray rounded-3xl m-2 sm:m-16 bish-bg-white-up">
+                        <div className='flex flex-col w-10/12 h-auto'>
+                            <div className=' text-right flex flex-row justify-between py-4'>
+                                <p className='text-2xl my-auto'>{formikProps.values.title}</p><br/>
+                                <p className='bish-text-gray text-sm my-auto'>{new Date(formikProps.values.date.date).toLocaleDateString().replaceAll("/", "-")}</p>
+                            </div>
+                            <img  id="img-preview" alt="Prévisualisation" src={window.location.origin + '/src/app/assets/images/blog/'+ pathImageDefault}/>
+                            <p className='text-justify text-sm md:text-lg' dangerouslySetInnerHTML={{__html: formikProps.values.description}}></p><br/>
+                        </div>
                     </div>
                     {/* Button Modifier */}
                     <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">Modifier</button>

@@ -4,11 +4,14 @@ import loadingSVG from '../../assets/images/loading-spin.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
-import { URL_BACK_USERS, URL_BACK_DELETE_USER } from '../../constants/urls/urlBackEnd';
+import { URL_BACK_USERS, URL_BACK_DELETE_USER, URL_BACK_MULTIPLE_DELETE_USER } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/users/FormUpdate';
 import FormCreate from '../../components/admin/users/FormCreate';
 import {Helmet} from "react-helmet-async";
 import TitleContainer from '../../components/admin/TitleContainer';
+import CheckboxRow from './../../components/admin/CheckboxRow';
+import TableHeadCheckbox from './../../components/TableHeadCheckbox';
+import CheckRowsContainer from './../../components/admin/CheckRowsContainer';
 
 const AdminUsersView = () => {
   
@@ -29,7 +32,11 @@ const AdminUsersView = () => {
 
     const [userDisable, setUserDisable]= useState([]);
 
-     useEffect(() => {
+    const [rowsCheck, setRowsCheck] = useState([])
+    const [allUsersIds, setAllUsersIds] = useState([])
+    const [allUsersIdsToDelete, setAllUsersIdsToDelete] = useState([])
+
+    useEffect(() => {
        // Permet d'afficher le SVG de chargement
       setIsLoading(true)
       // Récupération des données
@@ -38,13 +45,17 @@ const AdminUsersView = () => {
        .then(res => {
         setRows([])
         setFormUpdate([])
+        setRowsCheck([])
+        setAllUsersIds([])
+        setAllUsersIdsToDelete([])
         res.data.map((res) => {
-          res.disable && setUserDisable(current =>[
-            ...current,[res.id]
-          ])
+          res.disable && setUserDisable(current =>[...current,[res.id]]);
+          setAllUsersIds(current => [...current, res.id]);
+          (!res.disable && res.roles[0] !== "ROLE_ADMIN" && !res.inCommande) && setAllUsersIdsToDelete(current => [...current, res.id])
         })
          // Set le contenu d'une row (à mettre dans l'ordre voulu)
          res.data.map((res) => setRows(current => [...current, [
+          <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
           res.id,
           res.name,
           res.surname,
@@ -79,7 +90,7 @@ const AdminUsersView = () => {
         if (res.status === 200) {
         setReload(!reload)
           // Notification produit supprimé
-          toast.success(`Utilisateur ${res.data.id} - ${res.data.name} ${res.data.surname} supprimé !`,
+          toast.success(`Utilisateur ${res.data[1].id} supprimé !`,
               {
                   position: "top-right",
                   autoClose: 5000,
@@ -92,8 +103,8 @@ const AdminUsersView = () => {
               })
         }
       }).catch(error => {
-          if (error.response.data["errorCode"] === "015") {
-              toast.warn(`L'utilisateur à une commande en préparation !`,
+          if (error.response.data) {
+              toast.warn(error.response.data["errorMessage"],
                   {
                       position: "top-right",
                       autoClose: 5000,
@@ -104,19 +115,7 @@ const AdminUsersView = () => {
                       progress: undefined,
                       theme: "light"
                   })
-          }else if (error.response.data["errorCode"] === "014") {
-              toast.warn(`L'utilisateur à une commande en cours !`,
-                  {
-                      position: "top-right",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light"
-                  })
-          }else {
+          } else {
               toast.error('Une erreur est survenue',
                   {
                       position: "top-right",
@@ -145,62 +144,51 @@ const AdminUsersView = () => {
 
   return (
     <div className='w-full ml-12 sm:ml-64'>
-         <Helmet>
+      <Helmet>
         <title>Bish - Admin Users</title>
       </Helmet>
-    {/* Notifications */}
-    <ToastContainer />
-    {/* TITRE + BUTTON AJOUTER */}
-     <TitleContainer form={formCreate} name="UTILISATEURS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
-    {/* TABLE Utilisateur */}
-    {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
-      : 
-      (
-        <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
-          {/* Nom de chaque colonne */}
-          <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow z-[1]'>
-            <tr>
-              {/* Tous les titres dans le header de la table */}
-              <TableHeadSort nbSortColumn="0" name="Id" />
-                <TableHeadSort nbSortColumn="1" name="Prénom" />
-                <TableHeadSort nbSortColumn="2" name="Nom" />
-                <TableHeadSort nbSortColumn="3" name="Email" />
-                <TableHeadSort nbSortColumn="4" name="Role" />
-                <TableHeadSort nbSortColumn="5" name="Téléphone" />
-                <TableHeadSort nbSortColumn="6" name="Crée le" />
-              {/* TH Actions à ne pas supprimer */}
-              <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
-            </tr>
-          </thead>
-          {/* Contenu de la table */}
-          <tbody>
-            {/* Retourne une ligne pour chaque élément */}
-            {rows && rows.map((res, index) => 
-            (userDisable.map(userid => userid[0]).find(element=>element === res[0]) === res[0])?
-                  <TableRow 
-                  key={index}
-                  element={res}
-                  formUpdate={formUpdate[index]}
-                  deleteRow={deleteRow}
-                  disabledEdit={true}
-                  disableRemove={true}
-                     />
-                 :
-                  <TableRow 
-                  key={index}
-                  element={res}
-                  formUpdate={formUpdate[index]}
-                  deleteRow={deleteRow}
-                     />
-                
-              )
-      
-           }
-          </tbody>
-        </table>
-      )
-    }
-  </div>
+      {/* Notifications */}
+      <ToastContainer />
+      {/* TITRE + BUTTON AJOUTER */}
+      <TitleContainer form={formCreate} name="UTILISATEURS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+      {/* LIGNES CHECK + ACTIONS */}
+      <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allUsersIdsToDelete} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_USER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+      {/* TABLE Utilisateur */}
+      {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
+        : 
+        (
+          <table className="table-fixed w-full pl-5 mt-20" id="searchTable">
+            {/* Nom de chaque colonne */}
+            <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow z-[1]'>
+              <tr>
+                {/* Tous les titres dans le header de la table */}
+                  <TableHeadCheckbox setRowsCheck={setRowsCheck} allIds={allUsersIds} />
+                  <TableHeadSort nbSortColumn="0" name="Id" />
+                  <TableHeadSort nbSortColumn="1" name="Prénom" />
+                  <TableHeadSort nbSortColumn="2" name="Nom" />
+                  <TableHeadSort nbSortColumn="3" name="Email" />
+                  <TableHeadSort nbSortColumn="4" name="Role" />
+                  <TableHeadSort nbSortColumn="5" name="Téléphone" />
+                  <TableHeadSort nbSortColumn="6" name="Crée le" />
+                {/* TH Actions à ne pas supprimer */}
+                <th className={labelHeader} colSpan='2' title='Actions'>Actions</th>
+              </tr>
+            </thead>
+            {/* Contenu de la table */}
+            <tbody>
+              {/* Retourne une ligne pour chaque élément */}
+              {rows && rows.map((res, index) => 
+                ( (userDisable.map(userid => userid[0]).find(element=>element === res[1]) === res[1]) || (res[5][0] === "ROLE_ADMIN") )?
+                  <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow} disabledEdit={true} disableRemove={true} />
+                : 
+                  <TableRow key={index} element={res} formUpdate={formUpdate[index]} deleteRow={deleteRow} />
+                )
+             }
+            </tbody>
+          </table>
+        )
+      }
+    </div>
   )
 }
 

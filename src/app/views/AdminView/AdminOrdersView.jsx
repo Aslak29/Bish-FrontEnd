@@ -5,10 +5,13 @@ import loadingSVG from '../../assets/images/loading-spin.svg'
 import { ToastContainer, toast } from 'react-toastify';
 import TableRow from './../../components/admin/TableRow';
 import TableHeadSort from '../../components/admin/TableHeadSort';
-import {  URL_BACK_COMMANDES, URL_BACK_CANCEL_ORDER } from '../../constants/urls/urlBackEnd';
+import {  URL_BACK_COMMANDES, URL_BACK_CANCEL_ORDER, URL_BACK_MULTIPLE_CANCEL_ORDER } from '../../constants/urls/urlBackEnd';
 import FormUpdate from '../../components/admin/commandes/FormUpdate';
 import TitleContainer from '../../components/admin/TitleContainer';
 import TableDetail from '../../components/admin/commandes/TableDetail';
+import CheckboxRow from './../../components/admin/CheckboxRow';
+import CheckRowsContainer from './../../components/admin/CheckRowsContainer';
+import TableHeadCheckbox from './../../components/TableHeadCheckbox';
 
 const AdminOrdersView = () => {
    // Style
@@ -22,6 +25,10 @@ const AdminOrdersView = () => {
     // Reload table
     const [reload, setReload] = useState(false);
 
+    const [rowsCheck, setRowsCheck] = useState([])
+    const [allOrdersIds, setAllOrdersIds] = useState([])
+    const [allOrdersIdsToDelete, setAllOrdersIdsToDelete] = useState([])
+
     useEffect(() => {
       // Permet d'afficher le SVG de chargement
       setIsLoading(true)
@@ -30,8 +37,16 @@ const AdminOrdersView = () => {
       .then(res => {
         setRows([])
         setFormUpdate([])
+        setRowsCheck([])
+        setAllOrdersIds([])
+        setAllOrdersIdsToDelete([])
+        res.data.map(res => {
+          setAllOrdersIds(current => [...current, res.id]);
+          res.etatCommande === "En préparation" && setAllOrdersIdsToDelete(current => [...current, res.id]);
+        })
         // Set le contenu d'une row (à mettre dans l'ordre voulu)
         res.data.map((res) => setRows(current => [...current, [
+          <CheckboxRow id={res.id} setRowsCheck={setRowsCheck} />,
           res.id,
           res.user.user_name,
           res.user.user_surname,
@@ -77,7 +92,6 @@ const AdminOrdersView = () => {
             }
           }).catch(error => {
               if (error.response.data["errorCode"] === "016") {
-                  console.log(error.response.data)
                   toast.warn(error.response.data["errorMessage"],
                       {
                           position: "top-right",
@@ -128,6 +142,8 @@ const AdminOrdersView = () => {
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
       <TitleContainer name="COMMANDES" addButton={false} />
+      {/* LIGNES CHECK + ACTIONS */}
+      <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allOrdersIdsToDelete} deleteBackUrl={URL_BACK_MULTIPLE_CANCEL_ORDER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE Commandes */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 
@@ -137,6 +153,7 @@ const AdminOrdersView = () => {
             <thead className='border-b-4 bish-border-gray sticky top-40 bish-bg-white shadow z-[1]'>
               <tr>
                 {/* Tous les titres dans le header de la table */}
+                <TableHeadCheckbox setRowsCheck={setRowsCheck} allIds={allOrdersIds} />
                 <TableHeadSort nbSortColumn="0" name="Id" />
                 <TableHeadSort nbSortColumn="1" name="Nom" />
                 <TableHeadSort nbSortColumn="2" name="Prénom" />
@@ -158,10 +175,10 @@ const AdminOrdersView = () => {
                       element={res}
                       formUpdate={formUpdate[index]}
                       disabledEdit={
-                        res[5] === "En cours de livraison" || res[5] === "Annulée" || res[5] === "Livrée" && true
+                        res[6] === "En cours de livraison" || res[6] === "Annulée" || res[6] === "Livrée" && true
                         }
                       disableRemove={
-                        res[5] === "En cours de livraison" || res[5] === "Annulée" || res[5] === "Livrée" && true
+                        res[6] === "En cours de livraison" || res[6] === "Annulée" || res[6] === "Livrée" && true
                         }
                       deleteRow={cancelOrder}
                   />

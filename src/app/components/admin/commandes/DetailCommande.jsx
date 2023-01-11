@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import detailsIMG from '../../../assets/images/detailsIMG.png'
 
 const DetailCommande = (props) => {
 
@@ -9,7 +10,7 @@ const DetailCommande = (props) => {
         {detailCommande.map(res =>
             <div className='shadow pr-4 flex flex-row items-center gap-x-9 justify-between h-40' key={res.id}>
                     <img className='object-contain h-full w-32'
-                         src={window.location.origin + '/src/app/assets/images/products/' + res.image}
+                         src={res.image ? window.location.origin + '/src/app/assets/images/products/' + res.image : detailsIMG }
                          alt={res.nomProduit}
                     />
                     <div className='flex flex-col h-16 justify-between'>
