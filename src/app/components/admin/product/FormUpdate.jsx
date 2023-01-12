@@ -87,14 +87,16 @@ const FormUpdate = props => {
                         <ErrorMessage name="price" component="small" className="text-red-400"/>
                     </div>
                     {/* Stock */}
-                    <div className="flex flex-row h-20 col-span-3">
-                    {
-                        Object.entries(stock).map(resStock =>
-                        <div className="flex flex-col w-2/12 h-full" key={resStock[0]}>
-                            <span>{resStock[0]}</span>
-                            <Field className='h-full' type="number" name={'stock.' + resStock[0]} required/>
+                    <div className="flex flex-col h-20 col-span-3">
+                        <span>Stock</span>
+                        <div className="flex gap-3 col-span-3">
+                            {Object.entries(stock).map(resStock =>
+                                <div className="flex flex-col w-2/12 h-full" key={resStock[0]}>
+                                    <span>{resStock[0]}</span>
+                                    <Field className='h-full' type="number" name={'stock.' + resStock[0]} required/>
+                                </div>
+                            )}
                         </div>
-                    )}
                     </div>
                     {/* Promotion */}
                     <div className="flex flex-col h-20 col-span-2">
