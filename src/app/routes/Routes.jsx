@@ -36,6 +36,7 @@ import AccountView from './../views/ClientView/AccountView';
 import AdminPromotionsView from "../views/AdminView/AdminPromotionsView";
 import StatistiqueUser from "@/app/views/StatistiqueView/StatistiqueUser";
 import StatistiqueProduits from "@/app/views/StatistiqueView/StatistiqueProduits";
+import AddressesView from './../views/ClientView/AddressesView';
 /**
  * Routes of the application
  * with public and private route
@@ -94,6 +95,14 @@ const Routes = () => {
         element={
           <PrivateRoute roles={[ROLE_USER]}>
             <PersonnalInfoView/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={URL.URL_ADDRESSES}
+        element={
+          <PrivateRoute roles={[ROLE_USER]}>
+            <AddressesView/>
           </PrivateRoute>
         }
       />
