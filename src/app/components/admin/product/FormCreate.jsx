@@ -91,7 +91,7 @@ const FormCreate = props => {
                       <ErrorMessage name="name" component="small" className="text-red-400"/>
                     </div>
                     {/* Description */}
-                    <div className="flex flex-col col-span-2 row-span-2">
+                    <div className="flex flex-col col-span-2 row-span-3">
                       <span>Description</span>
                       <Field className='h-full' as="textarea" type="text" name="description" required/>
                       <ErrorMessage name="description" component="small" className="text-red-400"/>
@@ -110,20 +110,22 @@ const FormCreate = props => {
                     <div className="flex flex-col h-20">
                         <span>Type de Taille</span>
                         <Field className='h-full' name="typeTaille" as="select" onChange={e => {setProduct(formikProps.values);setTypeTaille(e.currentTarget.value);}}>
-                            <option value='-'>-</option>
                             <option value='Adulte'>Adulte</option>
                             <option value='Enfant'>Enfant</option>
                             <option value='Nourrisson'>Nourrisson</option>
                         </Field>
                     </div>
                     {/* Stock */}
-                    <div className="flex flex-row h-20 col-span-2">
-                      {taille.map((e) =>
-                        <div className="flex flex-col w-1/5 h-full" key={e.size}>
-                          <span>{e.size}</span>
-                          <Field className='h-full' type="number" name={'stock.' + e.size} required/>
+                    <div className="flex flex-col h-20 col-span-3">
+                        <span>Stock</span>
+                        <div className="flex gap-3 col-span-3">
+                            {taille.map((e) =>
+                                <div className="flex flex-col w-1/6 h-full col-span-3" key={e.size}>
+                                    <span className="t-center">{e.size}</span>
+                                    <Field className='h-full' type="number" name={'stock.' + e.size} required/>
+                                </div>
+                            )}
                         </div>
-                      )}
                     </div>
                     {/* Promotion */}
                     <div className="flex flex-col h-20 col-span-2">

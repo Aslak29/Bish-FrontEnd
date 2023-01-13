@@ -19,6 +19,7 @@ const Error404View = () => {
         alt="gif je suis perdu"
         className="mb-10 m-auto rounded-b-3xl"
       />
+      <iframe className ="h-[32rem] h-full w-full z-[999] rounded-b-3xl "src="https://chromedino.com/"  loading="lazy"></iframe>
     </div>
   );
 };
