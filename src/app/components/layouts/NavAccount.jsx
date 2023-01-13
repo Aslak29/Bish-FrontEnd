@@ -5,6 +5,7 @@ import { signOut } from "../../redux-store/authenticationSlice";
 import { useNavigate } from 'react-router-dom';
 import { selectIsLogged, selectUser } from '../../redux-store/authenticationSlice';
 import { URL_INFOS, URL_HOME, URL_ORDERS} from "../../constants/urls/urlFrontEnd";
+import { URL_ADDRESSES } from './../../constants/urls/urlFrontEnd';
 
 const NavAccount = () => {
     const dispatch = useDispatch();
@@ -24,7 +25,8 @@ const NavAccount = () => {
             <ul className="divide-y divide-slate-400/25">
                 <li className="py-2 px-4 block my-2">Bonjour <span className="font-semibold bish-text-blue">{user.name} {user.surname}</span></li>
                 <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_INFOS}>Informations personnelles</Link></li>
-                <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ORDERS}>Commandes</Link></li>
+                <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ADDRESSES}>Mes adresses</Link></li>
+                <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ORDERS}>Mes commandes</Link></li>
                 <li className="flex justify-center content-center pt-6">
                     <button className="btn-logout py-2 px-4 whitespace-nowrap flex items-center" onClick={() => logout()}>
                         <span>Déconnexion</span>

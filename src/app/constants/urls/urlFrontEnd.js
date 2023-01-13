@@ -23,6 +23,7 @@ export const URL_INFOS = '/espace-client/informations-personnelles';
 export const URL_ORDERS = '/espace-client/commandes/';
 export const URL_ORDER = '/espace-client/commandes/commande/';
 export const URL_TRACKING_ORDER = '/espace-client/commandes/commande/';
+export const URL_ADDRESSES = '/espace-client/adresses';
 
 
 // Espace Admin
