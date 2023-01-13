@@ -86,7 +86,7 @@ const AdminUsersView = () => {
   // DELETE élément dans la BDD
   const deleteRow = id => {
     if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur ${id} ?`)) {
-      apiBackEnd.post(URL_BACK_DELETE_USER + id).then(res => {
+      apiBackEnd.put(URL_BACK_DELETE_USER + id).then(res => {
         if (res.status === 200) {
         setReload(!reload)
           // Notification produit supprimé
@@ -152,7 +152,7 @@ const AdminUsersView = () => {
       {/* TITRE + BUTTON AJOUTER */}
       <TitleContainer form={formCreate} name="UTILISATEURS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
       {/* LIGNES CHECK + ACTIONS */}
-      <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allUsersIdsToDelete} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_USER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+      <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allUsersIdsToDelete} typeRequest="PUT" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_USER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE Utilisateur */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 

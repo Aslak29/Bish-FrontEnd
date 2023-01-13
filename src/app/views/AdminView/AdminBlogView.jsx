@@ -142,7 +142,7 @@ const AdminBlogView = () => {
         {/* TITRE + BUTTON AJOUTER */}
         <TitleContainer form={formCreate} name="BLOG" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
         {/* LIGNES CHECK + ACTIONS */}
-        <CheckRowsContainer rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_BLOG} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+        <CheckRowsContainer rowsCheck={rowsCheck} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_BLOG} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
         {/* TABLE  */}
         {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
           : 

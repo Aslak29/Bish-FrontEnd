@@ -13,7 +13,7 @@ const FormUpdate = props => {
     // UPDATE élément dans la BDD
     const updateRow = (id, values) => {
         if (window.confirm("Êtes-vous sûr de vouloir modifier la commande ?")) {
-            apiBackEnd.post(`${URL_BACK_UPDATE_ORDER}${id}/${values.rue}/${values.num}/${values.compAdress === '' ? 'null' : values.compAdress}/${values.cp}/${values.ville}/${values.etat}`).then(res => {
+            apiBackEnd.put(`${URL_BACK_UPDATE_ORDER}${id}/${values.rue}/${values.num}/${values.compAdress === '' ? 'null' : values.compAdress}/${values.cp}/${values.ville}/${values.etat}`).then(res => {
               if (res.status === 200) {
                 props.setReload(!props.reload)
                 // Notification succès d'une modification de produit
