@@ -3,6 +3,7 @@ import {Helmet} from "react-helmet-async";
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem, updateItemQuantity, clearItems, updateItemPrice } from '../../redux-store/cartSlice';
 import { selectItems } from './../../redux-store/cartSlice';
+import ShoppingParent from '../../components/carte/ShoppingParent'
 
 const ShoppingCartView = () => {
 
@@ -46,6 +47,7 @@ const ShoppingCartView = () => {
       <div className='flex flex-col'>
         { items.map(item => <span>ID : {item.id} - QUANTITE :{item.quantity} - TAILLE : {item.size} - PRIX : {item.lastKnownPrice}€</span>) }
       </div>
+      <ShoppingParent/>
     </div>
   )
 }
