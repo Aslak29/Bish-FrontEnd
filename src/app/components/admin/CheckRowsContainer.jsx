@@ -32,9 +32,21 @@ const CheckRowsContainer = props => {
       : toast.warn(idPlural + idsNotToDelete.slice(0, 10).map(id => ' ' + id) + ' +' + (idsNotToDelete.length - 10) + (idsNotToDelete.length === 11 ? ' autre' : ' autres') + msgPlural, { position: "top-right", autoClose: 5000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
     } else {
       props.setIsLoading(true)
-      apiBackEnd.post(`${props.deleteBackUrl}`, ids).then(res => {
-        props.setReload(!props.reload)
-      })
+      if (props.typeRequest === "PUT") {
+        apiBackEnd.put(`${props.deleteBackUrl}`, ids).then(res => {
+          props.setReload(!props.reload)
+        })
+      }else if (props.typeRequest === "DELETE") {
+        console.log(ids)
+        apiBackEnd.delete(`${props.deleteBackUrl}`, {data: ids}).then(res => {
+          console.log(res)
+          props.setReload(!props.reload)
+        })
+      }else {
+        apiBackEnd.post(`${props.deleteBackUrl}`, ids).then(res => {
+          props.setReload(!props.reload)
+        })
+      }
     }
       
   }

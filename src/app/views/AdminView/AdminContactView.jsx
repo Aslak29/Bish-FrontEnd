@@ -72,7 +72,7 @@ const AdminContactView = () => {
     const changeIsFinish = (contact) => {
 
         let isFinish = document.getElementById('checkIsFinish' + contact.id).checked
-        apiBackEnd.post(`${URL_BACK_CONTACT_UPDATE_ISFINISH}${contact.id}/${isFinish}`).then(res => {
+        apiBackEnd.put(`${URL_BACK_CONTACT_UPDATE_ISFINISH}${contact.id}/${isFinish}`).then(res => {
             document.getElementById('checkIsFinish' + contact.id).checked = isFinish
             contact.isFinish = !contact.isFinish
             if (isFinish) {
@@ -103,7 +103,7 @@ const AdminContactView = () => {
     }
 
     const changeMultipleFinish = p => {
-        apiBackEnd.post(`${URL_BACK_MULTIPLE_CONTACT_UPDATE_ISFINISH}${p}`, rowsCheck).then(res => {
+        apiBackEnd.put(`${URL_BACK_MULTIPLE_CONTACT_UPDATE_ISFINISH}${p}`, rowsCheck).then(res => {
           setRowsCheck([])
           setReload(!reload)
         })
@@ -155,7 +155,7 @@ const AdminContactView = () => {
             {/* TITRE + BUTTON AJOUTER */}
             <TitleContainer name="CATEGORIES" addButton={false} />
             {/* LIGNES CHECK + ACTIONS */}
-            <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_MULTIPLE_REMOVE_CONTACT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+            <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_REMOVE_CONTACT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {/* Modal CREATE */}
 
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)

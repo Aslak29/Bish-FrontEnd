@@ -31,7 +31,7 @@ const FormUpdate = props => {
             stock: values.stock
         }
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
-            apiBackEnd.post(URL_BACK_UPDATE_PRODUCT, product).then(res => {
+            apiBackEnd.put(URL_BACK_UPDATE_PRODUCT, product).then(res => {
               if (res.status === 200) {
                 props.updateTable(props.produit, values, props.categories, props.promotions, props.index, pathImageDefault)
                 //createAlbum(values.infoFile.name,values.infoFile)

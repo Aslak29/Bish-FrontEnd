@@ -88,7 +88,7 @@ const AdminCategoriesView = () => {
 
     const changeIsTrend = (categories, index) => {
         let isTrend = document.getElementById('checkTrend' + categories.id).checked
-        apiBackEnd.post(`${URL_BACK_CATEGORIES_UPDATE_TREND}${categories.id}/${isTrend}/`).then(res => {
+        apiBackEnd.put(`${URL_BACK_CATEGORIES_UPDATE_TREND}${categories.id}/${isTrend}/`).then(res => {
             document.getElementById('checkTrend' + categories.id).checked = isTrend
             categories.isTrend = !categories.isTrend
             // Modifier la checkbox "tendance" du FormUpdate
@@ -124,7 +124,7 @@ const AdminCategoriesView = () => {
     }
 
     const changeMultipleTrend = p => {
-        apiBackEnd.post(`${URL_BACK_CATEGORIES_MULTIPLE_UPDATE_TREND}${p}/`, rowsCheck).then(res => {
+        apiBackEnd.put(`${URL_BACK_CATEGORIES_MULTIPLE_UPDATE_TREND}${p}/`, rowsCheck).then(res => {
           setRowsCheck([])
           setReload(!reload)
         })
@@ -132,7 +132,7 @@ const AdminCategoriesView = () => {
 
     const changeAvailable = (categories, index) => {
         let available = document.getElementById('checkAvailable' + categories.id).checked
-        apiBackEnd.post(`${URL_BACK_CATEGORIES_UPDATE_AVAILABLE}${categories.id}/${available}/`).then(res => {
+        apiBackEnd.put(`${URL_BACK_CATEGORIES_UPDATE_AVAILABLE}${categories.id}/${available}/`).then(res => {
             document.getElementById('checkAvailable' + categories.id).checked = available
             categories.available = !categories.available
             // Modifier la checkbox "tendance" du FormUpdate
@@ -168,7 +168,7 @@ const AdminCategoriesView = () => {
     }
 
     const changeMultipleAvailable = p => {
-        apiBackEnd.post(`${URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE}${p}/`, rowsCheck).then(res => {
+        apiBackEnd.put(`${URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE}${p}/`, rowsCheck).then(res => {
           setRowsCheck([])
           setReload(!reload)
         })
@@ -261,7 +261,7 @@ const AdminCategoriesView = () => {
             <ToastContainer/>
             <TitleContainer form={formCreate} name="CATÉGORIES" modalIsOpen={modalIsOpen} openModal={openModal}
                             closeModal={closeModal} addButton={true}/>
-            <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_CATEGORIES_MULTIPLE_DELETE} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+            <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} typeRequest="PUT" deleteBackUrl={URL_BACK_CATEGORIES_MULTIPLE_DELETE} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
                 :
                 (

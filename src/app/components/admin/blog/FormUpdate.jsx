@@ -1,12 +1,12 @@
 import React from 'react'
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import apiBackEnd from "../../../api/backend/api.Backend";
-import {URL_BACK_UPDATE_BLOG} from "../../../constants/urls/urlBackEnd";
+import {URL_BACK_UPDATE_BLOG} from "@/app/constants/urls/urlBackEnd";
 import {toast} from "react-toastify";
-import {blogUpdateSchema} from "../../../utils/AdminValidationSchema";
-import {blogUpdateInitialValues} from "../../../utils/AdminInitialValues";
+import {blogUpdateSchema} from "@/app/utils/AdminValidationSchema";
+import {blogUpdateInitialValues} from "@/app/utils/AdminInitialValues";
 import {toolbarOptions} from './TextEditor';
-import ReactQuill,{ quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 
 const FormUpdate = props => {
     // UPDATE élément dans la BDD
@@ -14,7 +14,7 @@ const FormUpdate = props => {
 
     const updateRow = (id, values, pathImageDefault) => {
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
-            apiBackEnd.post(
+            apiBackEnd.put(
                 `${URL_BACK_UPDATE_BLOG}`, {id: id, title: values.title, description:values.description, pathImage: values.infoFile !== undefined ? values.infoFile.name : pathImageDefault }
             ).then(res => {
                 if (res.status === 200) {

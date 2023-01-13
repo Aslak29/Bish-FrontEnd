@@ -12,7 +12,7 @@ const FormUpdate = props => {
   // UPDATE élément dans la BDD
   const updateRow = (id, values) => {
     if (window.confirm("Êtes-vous sûr de vouloir modifier l'utilisateur ?")) {
-        apiBackEnd.post(`${URL_BACK_UPDATE_USER}${id}/${values.name}/${values.surname}/${values.email}/${values.password ? values.password : "-"}/${values.passwordConfirm ? values.passwordConfirm : "-"}/${values.roles}/${values.phone ? values.phone : "-"}`).then(res => {
+        apiBackEnd.put(`${URL_BACK_UPDATE_USER}${id}/${values.name}/${values.surname}/${values.email}/${values.password ? values.password : "-"}/${values.passwordConfirm ? values.passwordConfirm : "-"}/${values.roles}/${values.phone ? values.phone : "-"}`).then(res => {
           if (res.status === 200) {
             props.setReload(!props.reload);
             // Notification succès d'une modification de produit
