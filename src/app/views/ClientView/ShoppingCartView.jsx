@@ -41,12 +41,6 @@ const ShoppingCartView = () => {
       <Helmet>
         <title>Bish - Panier</title>
       </Helmet>
-      <button onClick={() => test()}>
-        test
-      </button>
-      <div className='flex flex-col'>
-        { items.map(item => <span>ID : {item.id} - QUANTITE :{item.quantity} - TAILLE : {item.size} - PRIX : {item.lastKnownPrice}€</span>) }
-      </div>
       <ShoppingParent/>
     </div>
   )
