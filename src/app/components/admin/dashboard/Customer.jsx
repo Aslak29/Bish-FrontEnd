@@ -2,7 +2,7 @@ import React from "react";
 
 const Customer = () => {
   return (
-    <div>
+    <div className='p-5'>
       <h5 className="mb-2">Utilisateur Récents :</h5>
       <table className="w-full text-center table-fixed">
         <thead className="bish-bg-blue bish-text-white">

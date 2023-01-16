@@ -7,12 +7,12 @@ const View = () => {
   return (
     <div className="flex flex-col m-auto my-10 w-11/12">
       <h4>Dashboard</h4>
-      <div className="flex flex-row">
-        <div className="w-1/2">
+      <div className="flex-col">
+        <div className="w-full">
           <Revenues />
-          <RecentOrders />
         </div>
-        <div className="w-1/2">
+        <div className="w-full flex">
+        <RecentOrders/>
         <Customer/>
         </div>
         
