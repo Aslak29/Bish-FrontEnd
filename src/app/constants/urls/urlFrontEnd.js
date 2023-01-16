@@ -28,6 +28,7 @@ export const URL_ADDRESSES = '/espace-client/adresses';
 
 // Espace Admin
 export const URL_ADMIN_HOME = '/admin';
+export const URL_ADMIN_DASHBOARD = '/admin/dashboard';
 export const URL_ADMIN_CATEGORIES= '/admin/categories';
 export const URL_ADMIN_USERS = '/admin/utilisateurs';
 export const URL_ADMIN_PRODUCTS = '/admin/produits';

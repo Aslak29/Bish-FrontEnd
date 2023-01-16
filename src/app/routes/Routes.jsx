@@ -37,6 +37,7 @@ import AdminPromotionsView from "../views/AdminView/AdminPromotionsView";
 import StatistiqueUser from "@/app/views/StatistiqueView/StatistiqueUser";
 import StatistiqueProduits from "@/app/views/StatistiqueView/StatistiqueProduits";
 import AddressesView from './../views/ClientView/AddressesView';
+import AdminDashboardView from "../views/AdminView/AdminDashboardView";
 /**
  * Routes of the application
  * with public and private route
@@ -142,6 +143,14 @@ const Routes = () => {
           </PrivateRoute>
         }
       >
+               <Route
+          path={URL.URL_ADMIN_DASHBOARD}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminDashboardView />
+            </PrivateRoute>
+          }
+        />
         <Route
           path={URL.URL_ADMIN_CATEGORIES}
           element={
