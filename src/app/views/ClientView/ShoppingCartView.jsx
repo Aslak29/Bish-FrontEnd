@@ -3,16 +3,12 @@ import {Helmet} from "react-helmet-async";
 import { useDispatch, useSelector } from 'react-redux';
 import { removeItem, updateItemQuantity, clearItems, updateItemPrice } from '../../redux-store/cartSlice';
 import { selectItems } from './../../redux-store/cartSlice';
-import ShoppingParent from '../../components/carte/ShoppingParent'
+import ShoppingParent from '../../components/cart/ShoppingParent'
 
 const ShoppingCartView = () => {
 
   const dispatch = useDispatch()
   const items = useSelector(selectItems)
-
-  useEffect(() => {
-    console.log(items)
-  }, [])
 
   const test = () => {
 
@@ -37,10 +33,11 @@ const ShoppingCartView = () => {
   }
 
   return (
-    <div className='w-full'>
+    <div className='w-11/12 md:w-4/6 xl:w-8/12 2xl:w-7/12 m-auto'>
       <Helmet>
         <title>Bish - Panier</title>
       </Helmet>
+      <h4 className='mb-5 mt-5 bish-text-blue underline'>Panier</h4>
       <ShoppingParent/>
     </div>
   )

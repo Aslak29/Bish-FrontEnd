@@ -5,6 +5,7 @@ export const URL_BACK_DISABLE_USER = "/user/getDisableById/";
 // Routes PRODUITS
 export const URL_BACK_PRODUCTS = "/produit/";
 export const URL_BACK_PRODUCT_BY_ID = "/produit/find/";
+export const URL_BACK_PRODUCTS_BY_IDS = "/produit/findProductsByIds";
 export const URL_BACK_PRODUCT_FILTER = "/produit/filter/";
 export const URL_BACK_SUGGESTIONS = "/produit/suggestions/";
 export const URL_BACK_PRODUCT_TREND = "/produit/isTrend";
