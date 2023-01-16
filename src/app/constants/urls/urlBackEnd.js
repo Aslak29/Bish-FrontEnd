@@ -56,6 +56,12 @@ export const URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE = "/categorie/multipl
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 export const URL_BACK_TYPE_TAILLE = "/size/typeTaille/";
 
+// Routes ADRESSES
+export const URL_BACK_ADRESSE_FIND_BY_USER = "/adresse/findByUser/"
+export const URL_BACK_ADRESSE_CREATE = "/adresse/create"
+export const URL_BACK_ADRESSE_UPDATE = "/adresse/update"
+export const URL_BACK_ADRESSE_DELETE = "/adresse/delete/"
+
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
 export const URL_BACK_DELETE_PROMOTION = "/promotion/remove/"

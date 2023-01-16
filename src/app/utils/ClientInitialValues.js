@@ -37,11 +37,13 @@ export const contactInitialValues = user => {
 }
 
 // Valeurs initiales du formulaire CREATE ADDRESS
-export const addressInitialValues = {
-    name: "",
-    city: "",
-    cp: "",
-    num: "",
-    rue: "",
-    complement: ""
+export const addressInitialValues = address => {
+    return {
+        name: address ? address.name : '',
+        city: address ? address.city : '',
+        cp: address ? address.postal_code : '',
+        num: address ? address.num_rue : '',
+        rue: address ? address.rue : '',
+        complement: address ? address.complement_adresse ? address.complement_adresse : '' : ''
+    }
 }
