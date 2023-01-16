@@ -10,8 +10,15 @@ const persistConfigAuth = {
     storage
 };
 
+const persistConfigCart = {
+    key: 'cart',
+    storage
+};
+
 const persistAuthenticationReducer = persistReducer(persistConfigAuth, authenticationReducer);
+const persistCartReducer = persistReducer(persistConfigCart, cartReducer);
 // storage.removeItem('persist:auth')
+// storage.removeItem('persist:cart')
 
 /**
  * To configure the store redux.
@@ -21,7 +28,7 @@ const persistAuthenticationReducer = persistReducer(persistConfigAuth, authentic
 export const store = configureStore({
     reducer: {
         auth: persistAuthenticationReducer,
-        cart: cartReducer,
+        cart: persistCartReducer,
     },
     middleware: [thunk]
 });

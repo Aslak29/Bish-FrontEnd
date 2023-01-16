@@ -17,7 +17,7 @@ import search from "../../assets/images/search.svg";
 import ScrollingMenu from './ScrollingMenu';
 import BurgerMenu from "./BurgerMenu";
 import SearchBar from "./SearchBar";
-import { selectItems } from './../../redux-store/cartSlice';
+import { selectTotalQuantity } from './../../redux-store/cartSlice';
 
 const Navbar = () => {
   // const isLoggued = useSelector(selectIsLogged);
@@ -28,7 +28,7 @@ const Navbar = () => {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const [logoDisplay, setLogoDisplay] = useState("");
 
-  const items = useSelector(selectItems)
+  const quantity = useSelector(selectTotalQuantity)
 
   const updateMenu = () =>{
     setIsMenuClicked(!isMenuClicked);
@@ -102,9 +102,9 @@ const Navbar = () => {
                   />
                 </Link>
                 {
-                  items.length > 0 &&
+                  quantity > 0 &&
                   <div className="h-full relative">
-                    <div className={`text-center align-middle rounded-full bish-bg-white ${items.length > 9 ? 'w-6 h-6 leading-6' : 'w-5 h-5 leading-5'} m-auto absolute bottom-0`}>{items.length}</div>
+                    <div className={`text-center align-middle rounded-full bish-bg-white ${quantity > 9 ? 'w-6 h-6 leading-6' : 'w-5 h-5 leading-5'} m-auto absolute bottom-0`}>{quantity}</div>
                   </div> 
                 }
                 
