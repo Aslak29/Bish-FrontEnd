@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import apiBackEnd from './../../api/backend/api.Backend';
 import { URL_BACK_PRODUCTS_BY_IDS } from './../../constants/urls/urlBackEnd';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { URL_CART_LIVRAISON } from '../../constants/urls/urlFrontEnd';
 
 const ShoppingParent = () => {
 
@@ -95,7 +97,7 @@ const ShoppingParent = () => {
               <span>Total :</span>
               <span className='font-medium'>{total.toFixed(2)} €</span>
             </div>
-            <button className='bish-bg-blue rounded px-5 py-2 bish-text-white'>Valider ma commande</button>
+            <Link to={URL_CART_LIVRAISON} className='bish-bg-blue rounded px-5 py-2 bish-text-white'>Passer ma commande</Link>
           </div>
         </div>
     </div>
