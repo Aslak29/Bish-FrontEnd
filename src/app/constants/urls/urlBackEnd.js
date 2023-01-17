@@ -13,6 +13,7 @@ export const URL_BACK_PROMOTIONS = "/produit/promotions";
 
 // Routes BLOG
 export const URL_BACK_BLOG = '/blog/';
+export const URL_BACK_COUNT_BLOG = '/blog/count/'
 export const URL_BACK_BLOG_FIND = '/blog/find/';
 export const URL_BACK_BLOG_LAST_ARTICLE = '/blog/lastArticle';
 export const URL_BACK_CREATE_BLOG = '/blog/add'
@@ -26,13 +27,11 @@ export const URL_BACK_REGISTER = "/user/register";
 export const URL_BACK_USER_BY_MAIL = "/user/getUserByMail";
 export const URL_SEND_MAIL_FORGOT_PASSWORD = "/reset-password/sendMail";
 export const URL_RESET_PASSWORD = "/reset-password/reset/";
-
 export const URL_USER_STATS_REGISTER = "user/stats/register/"
-
 export const URL_USER_STATS_COUNT = "user/stats/count"
 
 // Routes CONTACT
-export const URL_BACK_COUNT_CONTACT ='/contact/count'
+export const URL_BACK_COUNT_CONTACT ='/contact/countNotFinish'
 export const URL_BACK_ADD_CONTACT = "/contact/add";
 export const URL_BACK_CONTACT = "/contact/";
 export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";

@@ -1,22 +1,34 @@
-import React, {useEffect} from "react";
-import { useState } from "react";
-// import {URL_USER_STATS_COUNT, URL_BACK_COUNT_BLOG, URL_BACK_COUNT_PRODUCT, URL_BACK_COUNT_CONTACT, URL_BACK_COUNT_COMMANDE} from "../../../constants/urls/urlBackEnd"
-import {URL_BACK_COUNT_PRODUCT} from "../../../constants/urls/urlBackEnd"
+import React, {useEffect, useState} from "react";
+import {URL_USER_STATS_COUNT, URL_BACK_COUNT_BLOG, URL_BACK_COUNT_PRODUCT, URL_BACK_COUNT_CONTACT, URL_BACK_COUNT_COMMANDE} from "../../../constants/urls/urlBackEnd"
 import apiBackend from "@/app/api/backend/api.Backend";
+import axios from "axios";
 
 
 const Revenues = () => {
 
   const [countProduit, setCountProduit]=useState();
-  // const [countBlog, setCountBlog]=useState();
-  // const [countUser, setCountUser]=useState();
-  // const [countContact, setCountContact]=useState();
-  // const [countCommande, setCountCommande]=useState();
+   const [countBlog, setCountBlog]=useState();
+   const [countUser, setCountUser]=useState();
+   const [countContact, setCountContact]=useState();
+  //  const [countCommande, setCountCommande]=useState();
 
 
   useEffect(() => {
-    apiBackend.get(URL_BACK_COUNT_PRODUCT).then(res => {
-        setCountProduit(res.data[1])
+
+    axios.all([
+      apiBackend.get(URL_USER_STATS_COUNT),
+      apiBackend.get(URL_BACK_COUNT_BLOG),
+      apiBackend.get(URL_BACK_COUNT_CONTACT),
+      apiBackend.get(URL_BACK_COUNT_PRODUCT),
+      // apiBackend.get(URL_BACK_COUNT_COMMANDE),
+    ])
+    .then(res => {
+      console.log(res);
+        setCountUser(res[0].data.countUser)
+        setCountBlog(res[1].data[1])
+        setCountContact(res[2].data[1])
+        setCountProduit(res[3].data[1])
+        // setCountCommande(res[4].data)
     })
 }, [])
 
@@ -80,8 +92,8 @@ const Revenues = () => {
         </svg>
 
         <div className="flex flex-col">
-          <span className="font-bold text-2xl">10 Message non traité</span>
-          <span>Contact</span>
+          <span className="font-bold text-2xl">{countContact}</span>
+          <span>Message non traité</span>
         </div>
       </div>
       <div className="flex flex-1 items-center bish-text-blue bish-bg-white p-5 mr-5 bish-border-blue border rounded-tr-3xl rounded-bl-3xl rounded-tl-md rounded-br-md">
@@ -101,7 +113,7 @@ const Revenues = () => {
         </svg>
 
         <div className="flex flex-col">
-          <span className="font-bold text-2xl leading-4">30</span>
+          <span className="font-bold text-2xl leading-4">{countBlog}</span>
           <span>Nombre de blogs</span>
         </div>
       </div>
@@ -121,7 +133,7 @@ const Revenues = () => {
         </svg>
 
         <div className="flex flex-col">
-          <span className="font-bold text-2xl leading-4">250</span>
+          <span className="font-bold text-2xl leading-4">{countUser}</span>
           <span>Nombre d'utilisateur</span>
         </div>
       </div>
