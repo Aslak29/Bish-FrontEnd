@@ -81,7 +81,7 @@ export const URL_BACK_UPDATE_USER = '/user/update/'
 export const URL_BACK_MULTIPLE_DELETE_USER = '/user/multipleDelete'
 
 // Routes ADMIN COMMANDES
-export const URL_BACK_COUNT_COMMANDE ='/commande/count'
+export const URL_BACK_COUNT_COMMANDE ='/commande/countMonth'
 export const URL_BACK_UPDATE_ORDER = '/commande/update/'
 export const URL_BACK_UPDATE_ORDER_DETAILS = '/produitInCommande/single_order/update/'
 export const URL_BACK_CANCEL_ORDER = '/commande/cancel/'
