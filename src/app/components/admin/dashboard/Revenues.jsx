@@ -1,8 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { useState } from "react";
+import {URL_BACK_USERS, URL_BACK_BLOG, URL_BACK_COUNT_PRODUCT, URL_BACK_CONTACT} from "../../../constants/urls/urlBackEnd"
+import apiBackend from "@/app/api/backend/api.Backend";
+
 
 const Revenues = () => {
 
-  
+  const [countProduit, setCountProduit]=useState();
+
+  useEffect(() => {
+    apiBackend.get(URL_BACK_COUNT_PRODUCT).then(res => {
+        setCountProduit(res.data[1])
+    })
+}, [])
 
 
 
@@ -24,7 +34,7 @@ const Revenues = () => {
           />
         </svg>
         <div className="flex flex-col">
-          <span className="font-bold text-2xl leading-4">250</span>
+          <span className="font-bold text-2xl leading-4">{countProduit}</span>
           <span>Nombre de produits</span>
         </div>
       </div>

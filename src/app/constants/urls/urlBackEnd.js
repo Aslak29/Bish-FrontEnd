@@ -63,6 +63,7 @@ export const URL_BACK_CREATE_PROMOTION = "/promotion/add/"
 export const URL_BACK_UPDATE_PROMOTION = "promotion/update/"
 
 // Routes ADMIN PRODUITS
+export const URL_BACK_COUNT_PRODUCT ='/produit/count'
 export const URL_BACK_CREATE_PRODUCT = '/produit/add'
 export const URL_BACK_DELETE_PRODUCT = '/produit/remove/'
 export const URL_BACK_UPDATE_PRODUCT = '/produit/update'
