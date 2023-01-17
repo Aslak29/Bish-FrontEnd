@@ -1,6 +1,11 @@
 import React from "react";
 
 const Revenues = () => {
+
+  
+
+
+
   return (
     <div className="p-5 flex">
       <div className="flex flex-1 items-center bish-text-white bish-bg-blue p-5 mr-5 rounded-tl-3xl rounded-br-3xl rounded-tr-md rounded-bl-md">
