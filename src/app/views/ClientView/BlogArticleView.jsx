@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {Helmet} from "react-helmet-async";
 import { useParams, Link } from 'react-router-dom';
 import apiBackend from "../../api/backend/api.Backend";
-import {URL_BACK_BLOG, URL_BACK_CATEGORIES} from "../../constants/urls/urlBackEnd";
+import {URL_BACK_BLOG_FIND, URL_BACK_CATEGORIES} from "../../constants/urls/urlBackEnd";
 import SuggestionsContainer from "../../components/products/SuggestionsContainer"
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ const BlogArticleView = props => {
   useEffect(() => {
     axios.all([
       apiBackend.get(URL_BACK_CATEGORIES),
-      apiBackend.get(URL_BACK_BLOG + `${id}`)
+      apiBackend.get(URL_BACK_BLOG_FIND + `${id}`)
     ])
     .then((respArr => {
       setArticlesBlog(respArr[1].data[0]);

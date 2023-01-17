@@ -13,6 +13,7 @@ export const URL_BACK_PROMOTIONS = "/produit/promotions";
 
 // Routes BLOG
 export const URL_BACK_BLOG = '/blog/';
+export const URL_BACK_BLOG_FIND = '/blog/find/';
 export const URL_BACK_BLOG_LAST_ARTICLE = '/blog/lastArticle';
 export const URL_BACK_CREATE_BLOG = '/blog/add'
 export const URL_BACK_DELETE_BLOG = '/blog/remove/'
@@ -31,6 +32,7 @@ export const URL_USER_STATS_REGISTER = "user/stats/register/"
 export const URL_USER_STATS_COUNT = "user/stats/count"
 
 // Routes CONTACT
+export const URL_BACK_COUNT_CONTACT ='/contact/count'
 export const URL_BACK_ADD_CONTACT = "/contact/add";
 export const URL_BACK_CONTACT = "/contact/";
 export const URL_BACK_REMOVE_CONTACT = "/contact/remove/";
@@ -80,6 +82,7 @@ export const URL_BACK_UPDATE_USER = '/user/update/'
 export const URL_BACK_MULTIPLE_DELETE_USER = '/user/multipleDelete'
 
 // Routes ADMIN COMMANDES
+export const URL_BACK_COUNT_COMMANDE ='/commande/count'
 export const URL_BACK_UPDATE_ORDER = '/commande/update/'
 export const URL_BACK_UPDATE_ORDER_DETAILS = '/produitInCommande/single_order/update/'
 export const URL_BACK_CANCEL_ORDER = '/commande/cancel/'

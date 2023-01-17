@@ -1,19 +1,24 @@
 import React, {useEffect} from "react";
 import { useState } from "react";
-import {URL_BACK_USERS, URL_BACK_BLOG, URL_BACK_COUNT_PRODUCT, URL_BACK_CONTACT} from "../../../constants/urls/urlBackEnd"
+// import {URL_USER_STATS_COUNT, URL_BACK_COUNT_BLOG, URL_BACK_COUNT_PRODUCT, URL_BACK_COUNT_CONTACT, URL_BACK_COUNT_COMMANDE} from "../../../constants/urls/urlBackEnd"
+import {URL_BACK_COUNT_PRODUCT} from "../../../constants/urls/urlBackEnd"
 import apiBackend from "@/app/api/backend/api.Backend";
 
 
 const Revenues = () => {
 
   const [countProduit, setCountProduit]=useState();
+  // const [countBlog, setCountBlog]=useState();
+  // const [countUser, setCountUser]=useState();
+  // const [countContact, setCountContact]=useState();
+  // const [countCommande, setCountCommande]=useState();
+
 
   useEffect(() => {
     apiBackend.get(URL_BACK_COUNT_PRODUCT).then(res => {
         setCountProduit(res.data[1])
     })
 }, [])
-
 
 
   return (
