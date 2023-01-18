@@ -11,7 +11,6 @@ const Customer = () => {
     
     apiBackEnd.get(URL_BACK_RECENT_USER)
     .then(res => {
-      console.log(res);
       setUsers(res.data)
       })
 

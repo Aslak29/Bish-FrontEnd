@@ -10,7 +10,6 @@ const RecentOrders = () => {
     
     apiBackEnd.get(URL_BACK_RECENT_COMMANDE)
     .then(res => {
-      console.log(res);
       setCommandes(res.data)
       })
 
