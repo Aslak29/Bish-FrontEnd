@@ -11,6 +11,7 @@ export const registerInitialValues = {
     confirmation: "",
     name: "",
     surname: "",
+    rgpd: false,
     recaptcha: ''
 }
 
