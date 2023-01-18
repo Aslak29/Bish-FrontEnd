@@ -75,12 +75,14 @@ export const URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT = '/produit/update/multi
 export const URL_BACK_MULTIPLE_DELETE_PRODUCT = '/produit/multipleRemove'
 
 // Routes ADMIN USER
+export const URL_BACK_RECENT_USER ='/user/recentUser'
 export const URL_BACK_CREATE_USER = '/user/create/'
 export const URL_BACK_DELETE_USER = '/user/delete/'
 export const URL_BACK_UPDATE_USER = '/user/update/'
 export const URL_BACK_MULTIPLE_DELETE_USER = '/user/multipleDelete'
 
 // Routes ADMIN COMMANDES
+export const URL_BACK_RECENT_COMMANDE='/commande/recentCommande'
 export const URL_BACK_COUNT_COMMANDE ='/commande/countMonth'
 export const URL_BACK_UPDATE_ORDER = '/commande/update/'
 export const URL_BACK_UPDATE_ORDER_DETAILS = '/produitInCommande/single_order/update/'
