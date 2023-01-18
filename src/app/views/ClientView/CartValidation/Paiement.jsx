@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useStep } from './CartOutletValidation';
 import StripeContainer from "@/app/views/ClientView/CartValidation/StripeContainer";
 
 const Paiement = () => {
-    return (
+
+  const { setStep } = useStep();
+
+  useEffect(() => {
+    setStep(2)
+  },[])
+
+  return (
         <StripeContainer />
     );
 };

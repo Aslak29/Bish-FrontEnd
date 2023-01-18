@@ -32,9 +32,9 @@ const CheckoutForm = () => {
 
     return (
         <div >
-            <form onSubmit={handleSubmit} className={"flex flex-col my-20 "}>
+            <form onSubmit={handleSubmit} className={"flex flex-col my-20 items-center"}>
                 <PaymentElement/>
-                <button className={"border bish-border-gray rounded-2xl px-4 py-2 items-center bish-bg-blue my-4"}> Payer </button>
+                <button className={"border bish-border-gray rounded-2xl px-4 py-2 justify-center bish-bg-blue my-4 w-24"}> Payer </button>
             </form>
         </div>
     );
