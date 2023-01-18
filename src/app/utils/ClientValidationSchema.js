@@ -13,6 +13,7 @@ export const registerSchema = Yup.object().shape({
     confirmation: Yup.string().oneOf([Yup.ref('password'),null],'Les 2 mots de passes doivent être identique'),
     name: Yup.string().min(2, 'Minimum 2 caractères').matches(/^([^0-9]*)$/, "Indiquer que des lettres").required('Champ obligatoire'),
     surname: Yup.string().min(2, 'Minimum 2 caractères').matches(/^([^0-9]*)$/, "Indiquer que des lettres").required('Champ obligatoire'),
+    rgpd: Yup.string().required('Vous devez accepter notre politique de confidentialité '),
     recaptcha: Yup.string().required('Champ obligatoire')
 })
 

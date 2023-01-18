@@ -43,7 +43,7 @@ const Register = () => {
           >
             {({setFieldValue, errors, values}) =>
               <Form
-                className="flex justify-center w-full"
+                className="flex flex-col items-center justify-center w-full"
               >
                 <div className="flex justify-center flex-col sm:flex-row rounded-md pt-10 pb-10 w-3/4">
                   {/* Section input gauche */}
@@ -81,6 +81,18 @@ const Register = () => {
                       <span className="label">Confirmer le mot de passe</span>
                     </div>
                     <ErrorMessage name="confirmation" component="small" className="text-red-400"/>
+
+                    {/* Acceptation RGPD */}
+                      <div className="flex justify-center items-center my-auto">
+                        <p className="text-xs">J'ai lu et compris la politique de confidentialité et en matière de Cookies.</p>
+                        <Field type="checkbox" name="rgpd" className="bish-bg-blue" autoComplete="off"/>
+                      </div>
+                    <ErrorMessage name="rgpd" component="small" className="text-red-400"/>
+
+                  </div>
+                </div>
+                  <div>
+                    {/* Recaptcha */}
                     {
                       env === "development" ?
                           <div>
@@ -108,7 +120,7 @@ const Register = () => {
                     }
 
 
-                    {/* Buton s'inscrire */}
+                    {/* Bouton s'inscrire */}
                     <button
                       type="submit"
                       className="bish-bg-blue py-2 rounded-3xl w-full bish-text-white shadow-lg "
@@ -116,7 +128,6 @@ const Register = () => {
                       S'inscrire
                     </button>
                   </div>
-                </div>
               </Form>
             }
           </Formik>
