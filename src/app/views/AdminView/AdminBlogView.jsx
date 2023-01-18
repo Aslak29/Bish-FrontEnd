@@ -140,7 +140,7 @@ const AdminBlogView = () => {
         {/* Notifications */}
         <ToastContainer />
         {/* TITRE + BUTTON AJOUTER */}
-        <TitleContainer form={formCreate} name="BLOG" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+        <TitleContainer form={formCreate} name="BLOG" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} search={true}/>
         {/* LIGNES CHECK + ACTIONS */}
         <CheckRowsContainer rowsCheck={rowsCheck} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_BLOG} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
         {/* TABLE  */}

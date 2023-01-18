@@ -153,7 +153,7 @@ const AdminContactView = () => {
             {/* Notifications */}
             <ToastContainer/>
             {/* TITRE + BUTTON AJOUTER */}
-            <TitleContainer name="CATEGORIES" addButton={false} />
+            <TitleContainer name="CATEGORIES" addButton={false} search={true} />
             {/* LIGNES CHECK + ACTIONS */}
             <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_REMOVE_CONTACT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {/* Modal CREATE */}

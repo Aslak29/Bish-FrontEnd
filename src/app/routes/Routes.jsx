@@ -43,6 +43,7 @@ import Paiement from './../views/ClientView/CartValidation/Paiement';
 import Resume from './../views/ClientView/CartValidation/Resume';
 import Confirmation from './../views/ClientView/CartValidation/Confirmation';
 
+import AdminDashboardView from "../views/AdminView/AdminDashboardView";
 /**
  * Routes of the application
  * with public and private route
@@ -191,6 +192,14 @@ const Routes = () => {
           </PrivateRoute>
         }
       >
+               <Route
+          path={URL.URL_ADMIN_DASHBOARD}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminDashboardView />
+            </PrivateRoute>
+          }
+        />
         <Route
           path={URL.URL_ADMIN_CATEGORIES}
           element={

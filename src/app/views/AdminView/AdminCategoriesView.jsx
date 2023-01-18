@@ -260,7 +260,7 @@ const AdminCategoriesView = () => {
             </Helmet>
             <ToastContainer/>
             <TitleContainer form={formCreate} name="CATÉGORIES" modalIsOpen={modalIsOpen} openModal={openModal}
-                            closeModal={closeModal} addButton={true}/>
+                            closeModal={closeModal} addButton={true} search={true}/>
             <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} typeRequest="PUT" deleteBackUrl={URL_BACK_CATEGORIES_MULTIPLE_DELETE} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
                 :
