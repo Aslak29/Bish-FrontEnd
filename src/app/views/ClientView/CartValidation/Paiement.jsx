@@ -1,9 +1,9 @@
 import React from 'react'
+import StripeContainer from "@/app/views/ClientView/CartValidation/StripeContainer";
 
 const Paiement = () => {
-  return (
-    <div>Paiement</div>
-  )
-}
-
+    return (
+        <StripeContainer />
+    );
+};
 export default Paiement
