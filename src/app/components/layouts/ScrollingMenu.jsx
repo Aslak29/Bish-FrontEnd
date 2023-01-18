@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { selectIsLogged, selectUser, selectHasRole } from './../../redux-store/authenticationSlice';
 import { URL_LOGIN } from "../../constants/urls/urlFrontEnd";
 import { ROLE_ADMIN } from '../../constants/rolesConstant';
+import { clearItems } from "../../redux-store/cartSlice";
 
 const ScrollingMenu = () => {
 
@@ -22,6 +23,7 @@ const ScrollingMenu = () => {
 
     const logout = () => {
         dispatch(signOut());
+        dispatch(clearItems())
         navigate(URL_HOME);
     }
     

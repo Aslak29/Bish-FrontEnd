@@ -5,6 +5,7 @@ export const URL_BACK_DISABLE_USER = "/user/getDisableById/";
 // Routes PRODUITS
 export const URL_BACK_PRODUCTS = "/produit/";
 export const URL_BACK_PRODUCT_BY_ID = "/produit/find/";
+export const URL_BACK_PRODUCTS_BY_IDS = "/produit/findProductsByIds";
 export const URL_BACK_PRODUCT_FILTER = "/produit/filter/";
 export const URL_BACK_SUGGESTIONS = "/produit/suggestions/";
 export const URL_BACK_PRODUCT_TREND = "/produit/isTrend";
@@ -55,6 +56,12 @@ export const URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE = "/categorie/multipl
 // Route TAILLE
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 export const URL_BACK_TYPE_TAILLE = "/size/typeTaille/";
+
+// Routes ADRESSES
+export const URL_BACK_ADRESSE_FIND_BY_USER = "/adresse/findByUser/"
+export const URL_BACK_ADRESSE_CREATE = "/adresse/create"
+export const URL_BACK_ADRESSE_UPDATE = "/adresse/update"
+export const URL_BACK_ADRESSE_DELETE = "/adresse/delete/"
 
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";

@@ -4,6 +4,9 @@ import { toast } from 'react-toastify'
 const initialState = {
     items: [],
     total: 0,
+    deliveryAddress: {},
+    billingAddress: {},
+    idPaymentIntent: null
 };
 
 export const cartSlice = createSlice({
@@ -56,16 +59,40 @@ export const cartSlice = createSlice({
             })
             state.total = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0);
         },
+        updateDeliveryAddress: (state, action) => {
+            state.deliveryAddress = action.payload;
+        },
+        removeDeliveryAddress: (state) => {
+            state.deliveryAddress = {};
+        },
+        updateBillingAddress: (state, action) => {
+            state.billingAddress = action.payload;
+        },
+        removeBillingAddress: (state) => {
+            state.billingAddress = {};
+        },
+        updateIdPaymentIntent: (state, action) => {
+            state.idPaymentIntent = action.payload;
+        },
+        removeIdPaymentIntent: (state) => {
+            state.idPaymentIntent = null;
+        },
         clearItems: (state) => {
             state.items = []
             state.total = 0
+            state.deliveryAddress = {};
+            state.billingAddress = {};
+            state.idPaymentIntent = null;
         }
     }
 })
 
-export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems } = cartSlice.actions;
+export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress } = cartSlice.actions;
 
 export const selectItems = (state) => state.cart.items;
-// export const selectLastKnowPrice = (state, id) => state.items.find(item => item.id === id).price;
+export const selectTotalQuantity = (state) => state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
+export const selectTotal = (state) => state.cart.total;
+export const selectDeliveryAddress = (state) => state.cart.deliveryAddress;
+export const selectBillingAddress = (state) => state.cart.billingAddress;
 
 export default cartSlice.reducer;
