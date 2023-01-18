@@ -44,6 +44,7 @@ export const addressInitialValues = address => {
         cp: address ? address.postal_code : '',
         num: address ? address.num_rue : '',
         rue: address ? address.rue : '',
-        complement: address ? address.complement_adresse ? address.complement_adresse : '' : ''
+        complement: address ? address.complement_adresse ? address.complement_adresse : '' : '',
+        save: true
     }
 }

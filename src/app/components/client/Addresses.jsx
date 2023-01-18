@@ -16,7 +16,7 @@ const Addresses = () => {
     // Info du user
     const user = useSelector(selectUser)
 
-    // State modal CREATE
+    // State modal CREATE et UPDATE
     const [modalIsOpen, setModalIsOpen] = useState(false);
     // Type de formulaire à display dans le modal
     const [typeForm, setTypeForm] = useState();
