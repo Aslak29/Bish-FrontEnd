@@ -141,7 +141,7 @@ const AdminOrdersView = () => {
       {/* Notifications */}
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
-      <TitleContainer name="COMMANDES" addButton={false} />
+      <TitleContainer name="COMMANDES" addButton={false} search={true} />
       {/* LIGNES CHECK + ACTIONS */}
       <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allOrdersIdsToDelete} typeRequest="PUT" deleteBackUrl={URL_BACK_MULTIPLE_CANCEL_ORDER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE Commandes */}

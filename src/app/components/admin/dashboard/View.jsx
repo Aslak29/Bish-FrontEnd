@@ -2,13 +2,14 @@ import React from "react";
 import Customer from "./Customer";
 import RecentOrders from "./RecentOrders";
 import Revenues from "./Revenues";
+import TitleContainer from '../../../components/admin/TitleContainer';
 
 const View = () => {
   return (
     <div className="flex flex-col m-auto my-10 w-11/12">
-      <h4>Dashboard</h4>
+      <TitleContainer name="DASHBOARD" addButton={false} />
       <div className="flex-col">
-        <div className="w-full">
+        <div className="w-full my-10">
           <Revenues />
         </div>
         <div className="w-full flex">

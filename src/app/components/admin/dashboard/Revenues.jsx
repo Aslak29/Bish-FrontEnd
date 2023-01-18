@@ -10,7 +10,7 @@ const Revenues = () => {
    const [countBlog, setCountBlog]=useState();
    const [countUser, setCountUser]=useState();
    const [countContact, setCountContact]=useState();
-  //  const [countCommande, setCountCommande]=useState();
+  const [countCommande, setCountCommande]=useState();
 
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Revenues = () => {
       apiBackend.get(URL_BACK_COUNT_BLOG),
       apiBackend.get(URL_BACK_COUNT_CONTACT),
       apiBackend.get(URL_BACK_COUNT_PRODUCT),
-      // apiBackend.get(URL_BACK_COUNT_COMMANDE),
+      apiBackend.get(URL_BACK_COUNT_COMMANDE),
     ])
     .then(res => {
       console.log(res);
@@ -28,7 +28,7 @@ const Revenues = () => {
         setCountBlog(res[1].data[1])
         setCountContact(res[2].data[1])
         setCountProduit(res[3].data[1])
-        // setCountCommande(res[4].data)
+        setCountCommande(res[4].data[1])
     })
 }, [])
 
@@ -71,7 +71,7 @@ const Revenues = () => {
           />
         </svg>
         <div className="flex flex-col">
-          <span className="font-bold text-2xl leading-4">20 000</span>
+          <span className="font-bold text-2xl leading-4">{countCommande}</span>
           <span>Commande ce mois-ci</span>
         </div>
       </div>
