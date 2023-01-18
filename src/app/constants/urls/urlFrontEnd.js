@@ -11,6 +11,7 @@ export const URL_CONTACT = '/contact';
 export const URL_PRESENTATION = '/qui-sommes-nous';
 export const URL_SHOPPING_CART = '/panier';
 export const URL_FAQ = '/faq';
+export const URL_RGPD = '/protection-de-vos-donnees';
 export const URL_CGU = '/cgu'
 export const URL_LEGAL_NOTICE ='/mentions-legales'
 export const URL_FORGOT_PASSWORD = '/mot-de-passe-oublier'
