@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { selectIsLogged, selectUser } from '../../redux-store/authenticationSlice';
 import { URL_INFOS, URL_HOME, URL_ORDERS} from "../../constants/urls/urlFrontEnd";
 import { URL_ADDRESSES } from './../../constants/urls/urlFrontEnd';
+import { clearItems } from "../../redux-store/cartSlice";
 
 const NavAccount = () => {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const NavAccount = () => {
     
     const logout = () => {
         dispatch(signOut());
+        dispatch(clearItems())
         navigate(URL_HOME);
     }
 
