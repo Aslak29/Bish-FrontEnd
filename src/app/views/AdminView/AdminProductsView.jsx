@@ -236,7 +236,7 @@ const AdminProductsView = () => {
       {/* Notifications */}
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
-      <TitleContainer form={formCreate} name="PRODUITS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+      <TitleContainer form={formCreate} name="PRODUITS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} search={true}/>
       {/* LIGNES CHECK + ACTIONS */}
       <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} allIdsToDelete={allProductsIdsToDelete} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PRODUCT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE PRODUITS */}

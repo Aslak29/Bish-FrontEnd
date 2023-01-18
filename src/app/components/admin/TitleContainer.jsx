@@ -10,7 +10,10 @@ const TitleContainer = props => {
                 <div className='w-12 sm:w-72'></div>
                 <div className='flex flex-row justify-between space-x-5 h-20 w-full px-10'>
                     <span className='text-center my-auto text-2xl font-medium'>{props.name}</span>
+                    {props.search && 
                     <input className='w-1/3 h-10 my-auto' type="text" id="searchInput" onKeyUp={() => search()} placeholder="Rechercher.."/>
+                    }
+                    
                     {
                         props.addButton &&
                         <button className='my-auto bg-green-600 p-2 bish-text-white font-medium' onClick={() => props.openModal()}>

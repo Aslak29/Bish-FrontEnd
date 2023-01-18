@@ -150,7 +150,7 @@ const AdminUsersView = () => {
       {/* Notifications */}
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
-      <TitleContainer form={formCreate} name="UTILISATEURS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+      <TitleContainer form={formCreate} name="UTILISATEURS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} search={true} />
       {/* LIGNES CHECK + ACTIONS */}
       <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allUsersIdsToDelete} typeRequest="PUT" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_USER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE Utilisateur */}
