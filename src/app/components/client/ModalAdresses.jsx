@@ -36,15 +36,21 @@ const ModalAdresses = props => {
       postalCode: values.cp,
       num_rue: values.num,
       cpm_adresse: values.complement,
-      name: values.name,
+      name: values.name === '' ? 'Mon adresse' : values.name,
     }
-    apiBackEnd.post(URL_BACK_ADRESSE_CREATE, query).then(res => {
-      toast.success(`L'adresse ${values.name} a été créée !`, { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
-      props.setReload(!props.reload)
+
+    if(values.save) {
+      apiBackEnd.post(URL_BACK_ADRESSE_CREATE, query).then(res => {
+        toast.success(`L'adresse ${values.name} a été créée !`, { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+        props.setReload(!props.reload)
+        props.closeModal()
+      }).catch(err => {
+        toast.error('Une erreur est survenue', { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
+      });
+    } else {
+      props.newAddress(query)
       props.closeModal()
-    }).catch(err => {
-      toast.error('Une erreur est survenue', { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
-    });
+    }
   }
 
   const updateAddress = values => {
@@ -56,7 +62,7 @@ const ModalAdresses = props => {
       postalCode: values.cp,
       num_rue: values.num,
       cpm_adresse: values.complement,
-      name: values.name,
+      name: values.name === '' ? 'Mon adresse' : values.name,
     }
     apiBackEnd.put(URL_BACK_ADRESSE_UPDATE, query).then(res => {
       toast.success(`L'adresse ${values.name} a été modifiée !`, { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
@@ -77,11 +83,14 @@ const ModalAdresses = props => {
               <Form className='p-5 space-y-2'>
                   <h5 className='mb-5'>Ajouter une adresse :</h5>
                   {/* Nom */}
-                  <div className="flex flex-col">
-                    <span>Nom</span>
-                    <Field type="text" name="name"/>
-                    <ErrorMessage name="name" component="small" className="text-red-400"/>
-                  </div>
+                  {
+                    !props.saveNextPurchase &&
+                    <div className="flex flex-col">
+                      <span>Nom</span>
+                      <Field type="text" name="name"/>
+                      <ErrorMessage name="name" component="small" className="text-red-400"/>
+                    </div>
+                  }
                   {/* Ville */}
                   <div className="flex flex-col">
                     <span>Ville</span>
@@ -112,6 +121,14 @@ const ModalAdresses = props => {
                     <Field type="text" name="complement"/>
                     <ErrorMessage name="complement" component="small" className="text-red-400"/>
                   </div>
+                  {/* Enregistrer pour un prochain achat */}
+                  {
+                    props.saveNextPurchase &&
+                    <div className="flex flex-row place-items-center gap-x-2">
+                      <Field type="checkbox" name="save"/>
+                      <span>Enregistrer pour un prochain achat</span>
+                    </div>
+                  }              
                   {/* Button Ajouter */}
                   <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white">{props.type === 'create' ? 'Ajouter' : props.type === 'update' && 'Modifier'}</button>
               </Form>

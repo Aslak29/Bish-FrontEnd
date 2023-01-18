@@ -38,7 +38,6 @@ export const contactSchema = Yup.object().shape({
 
 // Valeurs initiales du formulaire CREATE UPDATE ADDRESS
 export const addressSchema = Yup.object().shape({
-    name: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
     city: Yup.string().required('Champ obligatoire'),
     cp: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(5,'Minimum 5 chiffres').max(5,'Maximum 5 chiffres').required('Champ obligatoire'),
     num: Yup.string().required('Champ obligatoire'),

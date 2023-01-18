@@ -97,7 +97,12 @@ const ShoppingParent = () => {
               <span>Total :</span>
               <span className='font-medium'>{total.toFixed(2)} €</span>
             </div>
-            <Link to={URL_CART_LIVRAISON} className='bish-bg-blue rounded px-5 py-2 bish-text-white'>Passer ma commande</Link>
+            {
+              items.length > 0 ?
+              <Link to={URL_CART_LIVRAISON} className='bish-bg-blue rounded px-5 py-2 bish-text-white'>Passer ma commande</Link>
+              :
+              <div className='bish-bg-blue rounded px-5 py-2 bish-text-white opacity-50 cursor-default'>Passer ma commande</div>
+            }
           </div>
         </div>
     </div>
