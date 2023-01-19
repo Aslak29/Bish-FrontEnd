@@ -20,8 +20,8 @@ const ProgressBar = props => {
             {
                 step > 1 ?
                 <Link to={URL_CART_LIVRAISON} className={stepStyle}>
-                    <Link to={URL_CART_LIVRAISON} className={step === 1 ? roundStepStyleActive : step > 1 ? roundStepStyleComplete : roundStepStyle}>1</Link>
-                    <Link to={URL_CART_LIVRAISON} className={step >= 1 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</Link>
+                    <div className={step === 1 ? roundStepStyleActive : step > 1 ? roundStepStyleComplete : roundStepStyle}>1</div>
+                    <span className={step >= 1 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</span>
                 </Link>
                 :
                 <div className={stepStyle}>
@@ -33,8 +33,8 @@ const ProgressBar = props => {
             {
                 step > 2 ?
                 <Link to={URL_CART_PAIEMENT} className={stepStyle}>
-                    <Link to={URL_CART_PAIEMENT} className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</Link>
-                    <Link to={URL_CART_PAIEMENT} className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</Link>
+                    <div className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</div>
+                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</span>
                 </Link>
                 :
                 <div className={stepStyle}>
@@ -46,8 +46,8 @@ const ProgressBar = props => {
             {
                 step > 3 ?
                 <Link to={URL_CART_PAIEMENT} className={stepStyle}>
-                    <Link to={URL_CART_PAIEMENT} className={step === 3 ? roundStepStyleActive : step > 3 ? roundStepStyleComplete : roundStepStyle}>3</Link>
-                    <Link to={URL_CART_PAIEMENT} className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</Link>
+                    <div className={step === 3 ? roundStepStyleActive : step > 3 ? roundStepStyleComplete : roundStepStyle}>3</div>
+                    <span className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</span>
                 </Link>
                 :
                 <div className={stepStyle}>
