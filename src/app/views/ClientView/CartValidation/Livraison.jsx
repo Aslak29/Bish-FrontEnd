@@ -84,7 +84,7 @@ const Livraison = () => {
   },[addressFacturationSelect])
 
   return (
-    <div className='my-5'>
+    <div className='my-10'>
       <div className='flex flex-col place-items-center md:place-items-start md:flex-row gap-10 mb-10'>
         <div className='w-4/5 md:w-1/2'>
           <AdresseLivraison adresses={adresses} setAdresses={setAdresses} reload={reload} setReload={setReload} addressLivraisonSelect={addressLivraisonSelect} setAddressLivraisonSelect={setAddressLivraisonSelect} />

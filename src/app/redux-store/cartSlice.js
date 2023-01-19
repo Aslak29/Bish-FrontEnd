@@ -18,6 +18,7 @@ export const cartSlice = createSlice({
             if(!state.items.find(item => item.id === id && item.size === size)) {
                 state.items.push({
                     id: id,
+                    name: name,
                     quantity: quantity,
                     size: size,
                     lastKnownPrice: price

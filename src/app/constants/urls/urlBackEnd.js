@@ -63,6 +63,9 @@ export const URL_BACK_ADRESSE_CREATE = "/adresse/create"
 export const URL_BACK_ADRESSE_UPDATE = "/adresse/update"
 export const URL_BACK_ADRESSE_DELETE = "/adresse/delete/"
 
+// Route TAILLE
+export const URL_BACK_NOTATION_UPDATE = "/notation/noteUser/"
+
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
 export const URL_BACK_DELETE_PROMOTION = "/promotion/remove/"
