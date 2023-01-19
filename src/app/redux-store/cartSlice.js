@@ -6,7 +6,14 @@ const initialState = {
     total: 0,
     deliveryAddress: {},
     billingAddress: {},
-    idPaymentIntent: null
+    idPaymentIntent: null,
+    // TODO: Objet à mettre vide plus tard
+    infosCreditCard: {
+        firstName: 'Prénom',
+        lastName: 'Nom',
+        numbers: '0498',
+        expiration: '06/24'
+    }
 };
 
 export const cartSlice = createSlice({
@@ -78,17 +85,27 @@ export const cartSlice = createSlice({
         removeIdPaymentIntent: (state) => {
             state.idPaymentIntent = null;
         },
+        addInfosCreditCard: (state, action) => {
+            const { firstName, lastName, numbers, exiration } = action.payload
+            state.infosCreditCard.push({
+                firstName: firstName,
+                lastName: lastName,
+                numbers: numbers,
+                exiration: exiration
+            })
+        },
         clearItems: (state) => {
             state.items = []
             state.total = 0
             state.deliveryAddress = {};
             state.billingAddress = {};
             state.idPaymentIntent = null;
+            state.infosCreditCard = {}
         }
     }
 })
 
-export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, updateIdPaymentIntent } = cartSlice.actions;
+export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, addInfosCreditCard, updateIdPaymentIntent} = cartSlice.actions;
 
 export const selectItems = (state) => state.cart.items;
 export const selectTotalQuantity = (state) => state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
@@ -96,5 +113,6 @@ export const selectTotal = (state) => state.cart.total;
 export const selectDeliveryAddress = (state) => state.cart.deliveryAddress;
 export const selectBillingAddress = (state) => state.cart.billingAddress;
 export const selectIdPaymentIntent = (state) => state.cart.idPaymentIntent;
+export const selectInfosCreditCard = (state) => state.cart.infosCreditCard;
 
 export default cartSlice.reducer;
