@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { removeItem, updateItemQuantity } from '../../redux-store/cartSlice';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../../assets/styles/components/overlay.css';
 import checkIMG from '../../assets/images/check.png'
 
 const ShoppingChild = props => {
@@ -39,7 +40,8 @@ const ShoppingChild = props => {
             </div> 
           </div>
         );
-      }
+      },
+      overlayClassName: "bish-bg-overlay"
     });
   }
 

@@ -10,6 +10,7 @@ import apiBackEnd from '../../api/backend/api.Backend';
 import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../../assets/styles/components/overlay.css';
 
 const Addresses = () => {
 
@@ -71,7 +72,8 @@ const Addresses = () => {
                         </div> 
                     </div>
                 );
-            }
+            },
+            overlayClassName: "bish-bg-overlay"
         });
     }
 
