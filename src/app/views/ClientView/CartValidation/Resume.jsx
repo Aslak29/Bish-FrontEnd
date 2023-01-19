@@ -3,7 +3,7 @@ import { useStep } from './CartOutletValidation';
 import { URL_CART_CONFIRM } from './../../../constants/urls/urlFrontEnd';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectDeliveryAddress } from '../../../redux-store/cartSlice';
+import { selectDeliveryAddress, selectInfosCreditCard } from '../../../redux-store/cartSlice';
 import { selectBillingAddress, selectItems, selectTotal } from './../../../redux-store/cartSlice';
 import checkIMG from '../../../assets/images/check.png'
 
@@ -14,6 +14,7 @@ const Resume = () => {
   const billingAddress = useSelector(selectBillingAddress)
   const items = useSelector(selectItems)
   const total = useSelector(selectTotal)
+  const infosCreditCard = useSelector(selectInfosCreditCard)
 
   useEffect(() => {
     setStep(3)
@@ -47,9 +48,9 @@ const Resume = () => {
           <div className='flex flex-row'>
             <h5 className='border-r bish-border-white-up px-5 w-1/2'>Moyen de paiement</h5>
             <div className='flex flex-col px-5 w-1/2'>
-              <span className='font-bold'>Nom Prénom</span>
-              <span>Carte de débit se terminant par •••• 9834</span>
-              <span>Expire le 26/09/2024</span>
+              <span className='font-bold'>{infosCreditCard.lastName} {infosCreditCard.firstName}</span>
+              <span>Carte de débit se terminant par •••• {infosCreditCard.numbers}</span>
+              <span>Expire le {infosCreditCard.expiration}</span>
             </div>
           </div>
         </div>
