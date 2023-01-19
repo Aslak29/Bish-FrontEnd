@@ -17,35 +17,44 @@ const ProgressBar = props => {
 
     return (
         <div className='flex flex-row place-items-center px-10'>
-            <div className={stepStyle}>
-                <div className={step === 1 ? roundStepStyleActive : step > 1 ? roundStepStyleComplete : roundStepStyle}>1</div>
-                {
-                    step > 1 && step < 4 ?
-                    <Link to={URL_CART_LIVRAISON} className='bish-text-blue'>Livraison</Link>
-                    :
+            {
+                step > 1 ?
+                <Link to={URL_CART_LIVRAISON} className={stepStyle}>
+                    <Link to={URL_CART_LIVRAISON} className={step === 1 ? roundStepStyleActive : step > 1 ? roundStepStyleComplete : roundStepStyle}>1</Link>
+                    <Link to={URL_CART_LIVRAISON} className={step >= 1 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</Link>
+                </Link>
+                :
+                <div className={stepStyle}>
+                    <div className={step === 1 ? roundStepStyleActive : step > 1 ? roundStepStyleComplete : roundStepStyle}>1</div>
                     <span className={step >= 1 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</span>
-                }
-            </div>
+                </div>
+            }
             <div className={step > 1 ? barStyleComplete : barStyle} />
-            <div className={stepStyle}>
-                <div className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</div>
-                {
-                    step > 2 && step < 4 ?
-                    <Link to={URL_CART_PAIEMENT} className='bish-text-blue'>Paiement</Link>
-                    :
-                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</span>
-                }
-            </div>
+            {
+                step > 2 ?
+                <Link to={URL_CART_PAIEMENT} className={stepStyle}>
+                    <Link to={URL_CART_PAIEMENT} className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</Link>
+                    <Link to={URL_CART_PAIEMENT} className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</Link>
+                </Link>
+                :
+                <div className={stepStyle}>
+                    <div className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</div>
+                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</span>
+                </div>
+            }
             <div className={step > 2 ? barStyleComplete : barStyle} />
-            <div className={stepStyle}>
-                <div className={step === 3 ? roundStepStyleActive : step > 3 ? roundStepStyleComplete : roundStepStyle}>3</div>
-                {
-                    step > 3 && step < 4 ?
-                    <Link to={URL_CART_RESUME} className='bish-text-blue'>Résumé</Link>
-                    :
+            {
+                step > 3 ?
+                <Link to={URL_CART_PAIEMENT} className={stepStyle}>
+                    <Link to={URL_CART_PAIEMENT} className={step === 3 ? roundStepStyleActive : step > 3 ? roundStepStyleComplete : roundStepStyle}>3</Link>
+                    <Link to={URL_CART_PAIEMENT} className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</Link>
+                </Link>
+                :
+                <div className={stepStyle}>
+                    <div className={step === 3 ? roundStepStyleActive : step > 3 ? roundStepStyleComplete : roundStepStyle}>3</div>
                     <span className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</span>
-                }
-            </div>
+                </div>
+            }
             <div className={step > 3 ? barStyleComplete : barStyle} />
             <div className={stepStyle}>
                 <div className={step === 4 ? roundStepStyleActive : step > 4 ? roundStepStyleComplete : roundStepStyle}>4</div>
