@@ -105,13 +105,14 @@ export const cartSlice = createSlice({
     }
 })
 
-export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, addInfosCreditCard } = cartSlice.actions;
+export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, addInfosCreditCard, updateIdPaymentIntent} = cartSlice.actions;
 
 export const selectItems = (state) => state.cart.items;
 export const selectTotalQuantity = (state) => state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
 export const selectTotal = (state) => state.cart.total;
 export const selectDeliveryAddress = (state) => state.cart.deliveryAddress;
 export const selectBillingAddress = (state) => state.cart.billingAddress;
+export const selectIdPaymentIntent = (state) => state.cart.idPaymentIntent;
 export const selectInfosCreditCard = (state) => state.cart.infosCreditCard;
 
 export default cartSlice.reducer;

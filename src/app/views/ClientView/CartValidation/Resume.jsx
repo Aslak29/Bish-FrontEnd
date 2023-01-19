@@ -1,24 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStep } from './CartOutletValidation';
-import { URL_CART_CONFIRM } from './../../../constants/urls/urlFrontEnd';
+import {URL_CONFIRM_PAYMENT} from '@/app/constants/urls/urlBackEnd';
+import {URL_CART_CONFIRM} from '@/app/constants/urls/urlFrontEnd';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectDeliveryAddress, selectInfosCreditCard } from '../../../redux-store/cartSlice';
+import { selectDeliveryAddress, selectInfosCreditCard, selectIdPaymentIntent } from '../../../redux-store/cartSlice';
 import { selectBillingAddress, selectItems, selectTotal } from './../../../redux-store/cartSlice';
 import checkIMG from '../../../assets/images/check.png'
+import apiBackEnd from "@/app/api/backend/api.Backend";
+import {useNavigate} from "react-router-dom";
 
 const Resume = () => {
 
-  const { setStep } = useStep();
-  const deliveryAddress = useSelector(selectDeliveryAddress)
-  const billingAddress = useSelector(selectBillingAddress)
-  const items = useSelector(selectItems)
-  const total = useSelector(selectTotal)
+    const navigate = useNavigate()
+
+    const { setStep } = useStep();
+    const deliveryAddress = useSelector(selectDeliveryAddress)
+    const billingAddress = useSelector(selectBillingAddress)
+    const idPaymentId = useSelector(selectIdPaymentIntent)
+    const items = useSelector(selectItems)
+    const total = useSelector(selectTotal)
   const infosCreditCard = useSelector(selectInfosCreditCard)
 
-  useEffect(() => {
-    setStep(3)
-  },[])
+
+    useEffect(() => {
+        setStep(3)
+    }, [])
 
   return (
     <div className='my-10 space-y-10'>
@@ -83,7 +90,9 @@ const Resume = () => {
               <span><span className='font-medium'>Réduction:</span> - 10%</span>
               <span className='text-lg'><span className='font-semibold'>A payer:</span> 189.99€</span>
             </div>
-            <Link to={URL_CART_CONFIRM} className='bish-bg-blue rounded px-5 py-2 bish-text-white float-right text-center'>Payer</Link>
+            <button onClick={handleSubmit}
+                    className={"border bish-border-gray rounded-2xl px-4 py-2 justify-center bish-bg-blue my-4 w-24"}> Payer
+            </button>
           </div>
         </div>
       </div>
