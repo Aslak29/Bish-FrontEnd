@@ -29,9 +29,9 @@ const orders = () => {
         })
     },[]);
 
-    function fetchCommande(idCommande) {
+    function fetchCommande(idCommande, etatCommande) {
         if (idCommande) {
-            navigate('/espace-client/commandes/commande/', {state: {id: idCommande}});
+            navigate('/espace-client/commandes/commande/', {state: {id: idCommande, etat: etatCommande}});
         } else {
             navigate(URL_404)
         }
@@ -45,19 +45,19 @@ const orders = () => {
                      infoCommande !== null ?
                         <table className="table-auto bish-shadow-grey w-3/4 m-auto">
                             <thead className="border-b-2 bish-border-gray">
-                            <tr>
-                                <th className="border-r-2 py-5 bish-border-gray">Référence</th>
-                                <th className="border-x-2 py-5 bish-border-gray">Montant</th>
-                                <th className="border-x-2 py-5 bish-border-gray">Date</th>
-                                <th className="border-l-2 py-5 bish-border-gray">Etat</th>
-                            </tr>
+                                <tr>
+                                    <th className="border-r-2 py-5 bish-border-gray">Référence</th>
+                                    <th className="border-x-2 py-5 bish-border-gray">Montant</th>
+                                    <th className="border-x-2 py-5 bish-border-gray">Date</th>
+                                    <th className="border-l-2 py-5 bish-border-gray">Etat</th>
+                                </tr>
                             </thead>
                             <tbody>
                             {infoCommande.map((commande) =>
                                 <tr
                                     className="text-center cursor-pointer hover:bish-bg-blue hover:bish-text-white"
                                     key={commande.id}
-                                    onClick={() => fetchCommande(commande.id)}
+                                    onClick={() => fetchCommande(commande.id, commande.etatCommande)}
                                 >
                                     <td className="border-r-2 py-5 bish-border-gray">
                                         {commande.id}
