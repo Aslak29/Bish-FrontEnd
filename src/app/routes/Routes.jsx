@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes as RoutesContainer } from "react-router-dom";
+import { Navigate, Route, Routes as RoutesContainer } from "react-router-dom";
 
 import { ROLE_ADMIN, ROLE_USER } from "../constants/rolesConstant";
 import * as URL from "../constants/urls/urlFrontEnd";
@@ -42,8 +42,8 @@ import Livraison from './../views/ClientView/CartValidation/Livraison';
 import Paiement from './../views/ClientView/CartValidation/Paiement';
 import Resume from './../views/ClientView/CartValidation/Resume';
 import Confirmation from './../views/ClientView/CartValidation/Confirmation';
-
 import AdminDashboardView from "../views/AdminView/AdminDashboardView";
+
 /**
  * Routes of the application
  * with public and private route
@@ -129,6 +129,7 @@ const Routes = () => {
             </PrivateRoute>
           }
         />
+        <Route path={URL.URL_CART_VALIDATE} element={<Navigate to={URL.URL_CART_CONFIRM} replace={true} />} />
       </Route>
 
 {/* // Routes client loggé (private Route) */}

@@ -15,12 +15,13 @@ const CartOutletValidation = () => {
   const deliveryAddress = useSelector(selectDeliveryAddress)
   const billingAddress = useSelector(selectBillingAddress)
   
-  const [step, setStep] = useState(1)
+  const [step, setStep] = useState(0)
 
   useEffect(() => {
     if(items.length < 1) {
       navigate(URL_SHOPPING_CART)
-    } else if(step > 1) {
+    } 
+    else if(step > 1) {
       if(Object.keys(deliveryAddress).length < 1 || Object.keys(billingAddress).length < 1) {
         navigate(URL_CART_LIVRAISON)
       }
