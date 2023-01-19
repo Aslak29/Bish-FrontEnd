@@ -20,12 +20,18 @@ const Resume = () => {
     const idPaymentId = useSelector(selectIdPaymentIntent)
     const items = useSelector(selectItems)
     const total = useSelector(selectTotal)
-  const infosCreditCard = useSelector(selectInfosCreditCard)
+    const infosCreditCard = useSelector(selectInfosCreditCard)
 
 
     useEffect(() => {
         setStep(3)
     }, [])
+
+  const handleSubmit = async (event) => {
+    apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
+      navigate(URL_CART_CONFIRM)
+    })
+  }
 
   return (
     <div className='my-10 space-y-10'>
