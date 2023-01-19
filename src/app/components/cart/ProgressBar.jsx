@@ -34,12 +34,12 @@ const ProgressBar = props => {
                 step > 2 ?
                 <Link to={URL_CART_PAIEMENT} className={stepStyle}>
                     <Link to={URL_CART_PAIEMENT} className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</Link>
-                    <Link to={URL_CART_PAIEMENT} className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</Link>
+                    <Link to={URL_CART_PAIEMENT} className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</Link>
                 </Link>
                 :
                 <div className={stepStyle}>
                     <div className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</div>
-                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</span>
+                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</span>
                 </div>
             }
             <div className={step > 2 ? barStyleComplete : barStyle} />

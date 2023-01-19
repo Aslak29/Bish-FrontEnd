@@ -10,7 +10,15 @@ const Resume = () => {
   },[])
 
   return (
-    <div>Resume</div>
+    <div>
+      {/* Adresse de livraisonn */}
+      {/* Adresse de facturation */}
+      {/* Moyen de paiement */}
+      {/* Listes de produits avec taille quantité prixremise */}
+      {/* - le code promo */}
+      {/* Total */}
+      {/* Bouton payer */}
+    </div>
   )
 }
 
