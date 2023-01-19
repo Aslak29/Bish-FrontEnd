@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectDeliveryAddress } from '../../../redux-store/cartSlice';
 import { selectBillingAddress, selectItems, selectTotal } from './../../../redux-store/cartSlice';
+import checkIMG from '../../../assets/images/check.png'
 
 const Resume = () => {
 
@@ -20,8 +21,8 @@ const Resume = () => {
 
   return (
     <div className='my-10 space-y-10'>
-      <div className='flex flex-row'>
-        <div className='flex flex-col w-2/3 gap-y-10'>
+      <div className='flex flex-col md:flex-row place-items-end md:place-items-start'>
+        <div className='flex flex-col w-full md:w-2/3 gap-y-10'>
           {/* Adresse de livraison */}
           <div className='flex flex-row'>
             <h5 className='border-r bish-border-white-up px-5 w-1/2'>Adresse de livraison</h5>
@@ -52,8 +53,8 @@ const Resume = () => {
             </div>
           </div>
         </div>
-        <div className='w-1/3 bish-bg-gray-shop shadow px-5 py-2 flex flex-col justify-between'>
-          <div className='flex flex-col'>
+        <div className='w-full sm:w-1/2 md:w-1/3 bish-bg-gray-shop shadow p-5 flex flex-col justify-between my-10 md:my-0'>
+          <div className='flex flex-col mb-10'>
             <h5>Ma commande</h5>
             <div className='flex flex-col my-2'>
               {
@@ -66,15 +67,26 @@ const Resume = () => {
               }
             </div>
           </div>
-          <div className='flex flex-col text-right'>
-            <span><span className='font-medium'>Total:</span> {total.toFixed(2)}€</span>
-            <span><span className='font-medium'>Réduction:</span> - 10%</span>
-            <span className='text-lg'><span className='font-semibold'>A payer:</span> 189.99€</span>
+          <div className='flex flex-col gap-y-2'>
+            <div className='flex flex-col gap-y-2'>
+              <h5>Code promo</h5>
+              <div className='flex flex-row gap-x-2'>
+                <input className='w-4/5 rounded border bish-border-gray' type="text" />
+                <button className='w-1/5 rounded border bish-border-blue hover:bish-bg-blue-opacity py-2'>
+                  <img src={checkIMG} alt="Valider le code promo" className='w-6 m-auto' />
+                </button>
+              </div>
+            </div>
+            <div className='flex flex-col text-right border-t bish-border-gray pt-2'>
+              <span><span className='font-medium'>Total:</span> {total.toFixed(2)}€</span>
+              <span><span className='font-medium'>Réduction:</span> - 10%</span>
+              <span className='text-lg'><span className='font-semibold'>A payer:</span> 189.99€</span>
+            </div>
+            <Link to={URL_CART_CONFIRM} className='bish-bg-blue rounded px-5 py-2 bish-text-white float-right text-center'>Payer</Link>
           </div>
         </div>
       </div>
       {/* TODO: Change l'url par le paiement via stripe */}
-      <Link to={URL_CART_CONFIRM} className='bish-bg-blue rounded px-5 py-2 bish-text-white float-right'>Payer</Link>
     </div>
   )
 }
