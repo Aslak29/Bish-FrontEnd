@@ -1,5 +1,5 @@
 import React from 'react'
-import {CardElement, PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
+import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import apiBackEnd from "@/app/api/backend/api.Backend";
 import {URL_UPDATE_PAYMENTMETHOD} from "@/app/constants/urls/urlBackEnd";
 import {useSelector} from "react-redux";
@@ -24,7 +24,6 @@ const CheckoutForm = () => {
             type: "card",
             card: elements.getElement('card')
         }).then(res => {
-            console.log(res.paymentMethod.id)
             apiBackEnd.post(URL_UPDATE_PAYMENTMETHOD + idPaymentId.id +'/'+res.paymentMethod.id).then(res => {
                 navigate(URL_CART_RESUME)
             })
