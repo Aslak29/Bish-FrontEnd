@@ -69,6 +69,26 @@ export const promotionCreateInitialValues = () => {
     }
 }
 
+export const codePromotionUpdateInitialValues = (codePromo, startDate, endDate) => {
+    return {
+        name : codePromo.name,
+        type : codePromo.type,
+        remise : codePromo.remise,
+        startDate : startDate,
+        endDate : endDate,
+    }
+}
+
+export const codePromotionCreateInitialValues = () => {
+    return {
+        name : '',
+        type : '',
+        remise : '',
+        startDate : '',
+        endDate : '',
+    }
+}
+
 // Valeur Initiale du formulaire Create Users
 export const userCreateInitialValues = {
     name: '',

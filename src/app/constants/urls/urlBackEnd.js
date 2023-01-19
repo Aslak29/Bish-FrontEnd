@@ -84,6 +84,9 @@ export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
 export const URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT = '/produit/update/multipleAvailable/'
 export const URL_BACK_MULTIPLE_DELETE_PRODUCT = '/produit/multipleRemove'
 
+// ADMIN CODE PROMO
+export const URL_BACK_CODE_PROMOS ='/code/promo/findForAdmin'
+
 // Routes ADMIN USER
 export const URL_BACK_RECENT_USER ='/user/recentUser'
 export const URL_BACK_CREATE_USER = '/user/create/'

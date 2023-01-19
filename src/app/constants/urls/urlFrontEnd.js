@@ -42,6 +42,7 @@ export const URL_ADMIN_BLOG = '/admin/blog';
 export const URL_ADMIN_ORDERS = '/admin/commandes';
 export const URL_ADMIN_CONTACT = '/admin/contact';
 export const URL_ADMIN_PROMOTION = "/admin/promotions"
+export const URL_ADMIN_CODE_PROMOTION = "/admin/codepromo"
 
 // Espace Statistiques
 
