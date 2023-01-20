@@ -5,12 +5,20 @@ import { Link } from 'react-router-dom';
 import { URL_CART_PAIEMENT } from './../../../constants/urls/urlFrontEnd';
 import { useStep } from './CartOutletValidation';
 import apiBackEnd from '../../../api/backend/api.Backend';
-import { URL_BACK_ADRESSE_FIND_BY_USER } from './../../../constants/urls/urlBackEnd';
+import {URL_BACK_ADRESSE_FIND_BY_USER, URL_STRIPE_PAYMENTINTENT} from './../../../constants/urls/urlBackEnd';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../redux-store/authenticationSlice';
 import { useDispatch } from 'react-redux';
-import { selectDeliveryAddress, updateDeliveryAddress, removeDeliveryAddress, updateBillingAddress, removeBillingAddress } from '../../../redux-store/cartSlice';
+import {
+  selectDeliveryAddress,
+  updateDeliveryAddress,
+  removeDeliveryAddress,
+  updateBillingAddress,
+  removeBillingAddress,
+  selectTotal, updateIdPaymentIntent, selectIdPaymentIntent
+} from '../../../redux-store/cartSlice';
 import { selectBillingAddress } from './../../../redux-store/cartSlice';
+import apiBackend from "@/app/api/backend/api.Backend";
 
 const Livraison = () => {
 
@@ -32,6 +40,11 @@ const Livraison = () => {
   // State autre adresse de facturation
   const [otherAddress, setOtherAddress] = useState(false);
 
+  // Total de la commande, sert a initialiser un paymentIntent
+  const total = useSelector(selectTotal)
+
+  const idPaymentIntent = useSelector(selectIdPaymentIntent)
+
   useEffect(() => {
     setStep(1)
   },[])
@@ -40,6 +53,12 @@ const Livraison = () => {
     apiBackEnd.post(URL_BACK_ADRESSE_FIND_BY_USER + user.id).then(res => {
         setAdresses(res.data)
     })
+    if (!idPaymentIntent){
+      apiBackend.post(URL_STRIPE_PAYMENTINTENT + `${total}`).then(res => {
+        dispatch(updateIdPaymentIntent(res.data))
+      })
+    }
+
   },[reload])
 
   useEffect(() => {
@@ -65,7 +84,7 @@ const Livraison = () => {
   },[addressFacturationSelect])
 
   return (
-    <div className='my-5'>
+    <div className='my-10'>
       <div className='flex flex-col place-items-center md:place-items-start md:flex-row gap-10 mb-10'>
         <div className='w-4/5 md:w-1/2'>
           <AdresseLivraison adresses={adresses} setAdresses={setAdresses} reload={reload} setReload={setReload} addressLivraisonSelect={addressLivraisonSelect} setAddressLivraisonSelect={setAddressLivraisonSelect} />

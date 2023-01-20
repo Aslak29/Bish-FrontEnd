@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useStep } from './CartOutletValidation';
+import StripeContainer from "@/app/views/ClientView/CartValidation/StripeContainer";
 
 const Paiement = () => {
 
@@ -10,8 +11,7 @@ const Paiement = () => {
   },[])
 
   return (
-    <div>Paiement</div>
-  )
-}
-
+        <StripeContainer />
+    );
+};
 export default Paiement

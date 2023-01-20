@@ -63,6 +63,9 @@ export const URL_BACK_ADRESSE_CREATE = "/adresse/create"
 export const URL_BACK_ADRESSE_UPDATE = "/adresse/update"
 export const URL_BACK_ADRESSE_DELETE = "/adresse/delete/"
 
+// Route TAILLE
+export const URL_BACK_NOTATION_UPDATE = "/notation/noteUser/"
+
 // Routes PROMOTIONS
 export const URL_BACK_PROMOS = "/promotion/";
 export const URL_BACK_DELETE_PROMOTION = "/promotion/remove/"
@@ -101,3 +104,10 @@ export const URL_BACK_MULTIPLE_CANCEL_ORDER = '/commande/multipleCancel'
 export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";
 export const URL_BACK_LIST_ORDERS = "/commande/byUser/";
 export const URL_BACK_COMMANDES ="/commande/"
+
+export const URL_STRIPE_PAYMENTINTENT = "stripe/paymentIntent/"
+export const URL_STRIPE_CLIENTSECRET = "stripe/clientSecret/"
+export const URL_UPDATE_PAYMENTMETHOD = "stripe/setPaymentIntent/PaymentMethod/"
+export const URL_CONFIRM_PAYMENT = "stripe/confirmPayment/"
+
+
