@@ -133,7 +133,7 @@ export const orderProductSchema = Yup.object().shape({
 export const codepromoSchema = Yup.object().shape({
     name: Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
     type: Yup.string().required("Champ obligatoire"),
-    remise: Yup.number().max(99,"La remise doit être inférieur à 100%")
+    remise: Yup.number().when("type",{is:val=>val==="pourcent", then: Yup.number().max(99,"La remise doit être inférieur à 100%")})
         .required("Champ obligatoire"),
     montantMin: Yup.number()
         .required("Champ obligatoire"),
