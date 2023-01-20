@@ -96,9 +96,7 @@ const Resume = () => {
               <span><span className='font-medium'>Réduction:</span> - 10%</span>
               <span className='text-lg'><span className='font-semibold'>A payer:</span> 189.99€</span>
             </div>
-            <button onClick={handleSubmit}
-                    className={"border bish-border-gray rounded-2xl px-4 py-2 justify-center bish-bg-blue my-4 w-24"}> Payer
-            </button>
+            <button onClick={handleSubmit} className={"border rounded py-2 justify-center bish-bg-blue bish-text-white"}>Payer</button>
           </div>
         </div>
       </div>
