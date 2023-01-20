@@ -91,6 +91,8 @@ export const URL_BACK_CODE_PROMOS_UPDATE ='/code/promo/update'
 export const URL_BACK_CODE_PROMOS_DELETE ='/code/promo/delete/'
 export const URL_BACK_CODE_PROMOS_MULTIPLE_REMOVE ='/code/promo/multipleRemove'
 
+export const URL_BACK_CODE_PROMOS_FIND_BY_NAME ='/code/promo/findByName'
+
 // Routes ADMIN USER
 export const URL_BACK_RECENT_USER ='/user/recentUser'
 export const URL_BACK_CREATE_USER = '/user/create/'

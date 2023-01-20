@@ -31,7 +31,7 @@ const FormUpdate  = props => {
                     const month = startDate.getMonth()+1;
                     props.updateTable(props.codePromo, values, props.index, startDate.toLocaleDateString("fr").replaceAll('/','-'),endDate.toLocaleDateString("fr").replaceAll('/','-'), startDate.toLocaleTimeString("fr"), endDate.toLocaleTimeString("fr"), year + '-' + month + '-' + day, endDate)
                     // Notification succès d'une modification d'une promotion'
-                    toast.success(`Code promo ${res.data.id} modifiée !`, {
+                    toast.success(`Code promo modifiée !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -45,17 +45,30 @@ const FormUpdate  = props => {
 
                 }
             }).catch(error => {
-                    // Notification erreur
-                    toast.error('Une erreur est survenue', {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light"
-                    });
+                    if(error.response.data["errorCode"] === "035"){
+                        toast.warn(error.response.data["errorMessage"], {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
+                    } else {
+                        // Notification erreur
+                        toast.error('Une erreur est survenue', {
+                            position: "top-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light"
+                        });
+                    }
                 }
             )
         }

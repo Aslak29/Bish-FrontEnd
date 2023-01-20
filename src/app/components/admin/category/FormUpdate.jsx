@@ -124,7 +124,7 @@ const FormUpdate = props => {
                     </div>
                     <div className="w-full">
                         <button type="submit" className="bish-bg-blue py-3 w-full bish-text-white col-span-4 mx-auto">
-                            Ajouter
+                            Modifier
                         </button>
                     </div>
                 </Form>
