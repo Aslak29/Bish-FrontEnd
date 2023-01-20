@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import apiBackEnd from "../../api/backend/api.Backend";
-import {URL_BACK_DELETE_PROMOTION, URL_BACK_CODE_PROMOS} from "../../constants/urls/urlBackEnd";
-import {ToastContainer} from "react-toastify";
+import {URL_BACK_CODE_PROMOS_DELETE, URL_BACK_CODE_PROMOS} from "../../constants/urls/urlBackEnd";
+import {ToastContainer,toast} from "react-toastify";
 import {Helmet} from "react-helmet-async";
 import loadingSVG from "../../assets/images/loading-spin.svg";
 import TableRow from "../../components/admin/TableRow";
@@ -12,7 +12,7 @@ import FormUpdate from "../../components/admin/codepromo/FormUpdate";
 import CheckboxRow from './../../components/admin/CheckboxRow';
 import CheckRowsContainer from './../../components/admin/CheckRowsContainer';
 import TableHeadCheckbox from './../../components/TableHeadCheckbox';
-import {URL_BACK_MULTIPLE_DELETE_PROMOTION} from "../../constants/urls/urlBackEnd"
+import {URL_BACK_CODE_PROMOS_MULTIPLE_REMOVE} from "../../constants/urls/urlBackEnd"
 
 const AdminCodePromoView = () => {
 
@@ -64,7 +64,7 @@ const AdminCodePromoView = () => {
                respArr.data.map((res, index) => {
                    // Formulaire UPDATE
                    setFormUpdate(current => [...current,
-                       <FormUpdate promotion={res} index={index} updateTable={updateTable}/>
+                       <FormUpdate codePromo={res} index={index} updateTable={updateTable}/>
                    ])
                })
    
@@ -78,16 +78,19 @@ const AdminCodePromoView = () => {
        }, [reload])
    
        const updateTable = (promotion,values, index, startDate, startEnd, startTime, endTime, startFullDate, endFullDate)=> {
-   
+        
            promotion.name = values.name
            promotion.remise = values.remise
+           promotion.montantMin = values.montantMin
            promotion.start_date = startFullDate + ' ' + startTime
            promotion.end_date = startEnd + ' ' + endTime
+           promotion.startDateEN = startFullDate 
+           promotion.endDateEN = startEnd
    
            // Modifier la row concernée par l'update
            setFormUpdate(current=> [
                ...current.slice(0, index),
-               <FormUpdate promotion={promotion} index={index} updateTable={updateTable}/>,
+               <FormUpdate codePromo={promotion} index={index} updateTable={updateTable}/>,
                ...current.slice(index+1)
            ])
            setRows(current => [
@@ -97,6 +100,7 @@ const AdminCodePromoView = () => {
                    promotion.id,
                    promotion.name,
                    promotion.remise,
+                   promotion.montantMin,
                    startDate + ' ' + startTime,
                    startEnd + ' ' + endTime,
                   ],
@@ -106,12 +110,12 @@ const AdminCodePromoView = () => {
    
        const deleteRow = id => {
            if (window.confirm(`Êtes-vous sûr de vouloir supprimer le code promotion ${id} ?`)) {
-               apiBackEnd.delete(URL_BACK_DELETE_PROMOTION + id).then(res => {
+               apiBackEnd.delete(URL_BACK_CODE_PROMOS_DELETE + id).then(res => {
                    if (res.status === 200) {
                        // Supprimer l'elément delete de la table
                        setRows(rows.filter(res => res[1] !== id))
                        // Notification promotion supprimé
-                       toast.success(`Promotion ${id} supprimé !`, {
+                       toast.success(`Code Promo ${id} supprimé !`, {
                            position: "top-right",
                            autoClose: 5000,
                            hideProgressBar: false,
@@ -123,6 +127,7 @@ const AdminCodePromoView = () => {
                        })
                    }
                }).catch(error => {
+                console.log(error);
                    if (error.response.data.errorCode === '006') {
                        // Notification promotion en cours de commande
                        toast.warn(error.response.data.errorMessage, {
@@ -161,7 +166,7 @@ const AdminCodePromoView = () => {
     <TitleContainer form={formCreate} name="Code Promotion" modalIsOpen={modalIsOpen} openModal={openModal}
                     closeModal={closeModal} addButton={true} search={true}/>
     {/* LIGNES CHECK + ACTIONS */}
-    <CheckRowsContainer rowsCheck={rowsCheck} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PROMOTION} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+    <CheckRowsContainer rowsCheck={rowsCheck} typeRequest="DELETE" deleteBackUrl={URL_BACK_CODE_PROMOS_MULTIPLE_REMOVE} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
     {/* Modal CREATE */}
 
     {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)

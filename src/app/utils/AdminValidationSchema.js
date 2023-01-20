@@ -129,3 +129,15 @@ export const orderProductSchema = Yup.object().shape({
     rue: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
     etat: Yup.string().required('Champ obligatoire')
 })
+
+export const codepromoSchema = Yup.object().shape({
+    name: Yup.string().min(2,'Minimum 2 caractères').required('Champ obligatoire'),
+    type: Yup.string().required("Champ obligatoire"),
+    remise: Yup.number().max(99,"La remise doit être inférieur à 100%")
+        .required("Champ obligatoire"),
+    montantMin: Yup.number().max(99,"La remise doit être inférieur à 100%")
+        .required("Champ obligatoire"),
+    startDate: Yup.date().min(new Date(), "La date doit être supérieur à celle d'aujourd'hui")
+        .required("Champ obligatoire"),
+    endDate: Yup.date().min(Yup.ref('startDate'), "La date de fin doit être supérieur à celle de début").required('Champ obligatoire')
+})

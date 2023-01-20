@@ -1,24 +1,33 @@
 import React, {useState} from "react"
 import apiBackEnd from "../../../api/backend/api.Backend";
-import {URL_BACK_CREATE_PROMOTION} from "../../../constants/urls/urlBackEnd";
+import {URL_BACK_CODE_PROMOS_CREATE} from "../../../constants/urls/urlBackEnd";
 import {toast} from "react-toastify";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {codePromotionCreateInitialValues} from "../../../utils/AdminInitialValues";
-import {promotionSchema} from "../../../utils/AdminValidationSchema";
+import {codepromoSchema} from "../../../utils/AdminValidationSchema";
 
 const FormCreate  = props => {
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const createRow = (values) => {
-        if (window.confirm("Êtes-vous sûr de vouloir ajouter la promotion ?")) {
-            apiBackEnd.post(`${URL_BACK_CREATE_PROMOTION}${values.name}/${values.remise}/${startDate.toLocaleDateString("fr").replaceAll('/','-') + startDate.toLocaleTimeString("fr")}/${endDate.toLocaleDateString("fr").replaceAll('/','-') + endDate.toLocaleTimeString("fr")}`).then(res => {
+
+        if (window.confirm("Êtes-vous sûr de vouloir ajouter le code promo ?")) {
+            const objet = {
+                name: values.name,
+                remise: values.remise,
+                montantMin: values.montantMin,
+                startDate: values.startDate.toLocaleDateString().replaceAll('/','-')+' '+values.startDate.toLocaleTimeString(),
+                endDate: values.endDate.toLocaleDateString().replaceAll('/','-')+' '+values.endDate.toLocaleTimeString(),
+                type: values.type
+            }
+            apiBackEnd.post(URL_BACK_CODE_PROMOS_CREATE,objet).then(res => {
                 if (res.status === 200) {
                     props.setReload(!props.reload)
                     props.close()
                     // Notification succès d'un ajout de produit
-                    toast.success(`La promotion a été ajoutée !`, {
+                    toast.success(`Le code promo a été ajoutée !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -31,6 +40,7 @@ const FormCreate  = props => {
                 }
             }).catch(error => {
                     // Notification erreur
+                    console.log(error)
                     toast.warn('Une erreur est survenue', {
                         position: "top-right",
                         autoClose: 5000,
@@ -51,7 +61,7 @@ const FormCreate  = props => {
     return (
         <Formik
             initialValues={codePromotionCreateInitialValues}
-            validationSchema={promotionSchema}
+            validationSchema={codepromoSchema}
             onSubmit={(values) => createRow(values)}
         >
             {formikProps =>
@@ -74,7 +84,7 @@ const FormCreate  = props => {
 
                     <div className="flex flex-col h-20">
                         <span>Remise</span>
-                        <Field type="text" name="remise" id="remise" list="remises"/>
+                        <Field type="number" name="remise" id="remise" list="remises"/>
                         <datalist id="remises">
                             {options.map((option) => (
                             <option key={option} value={option}>{option}</option>
@@ -85,8 +95,8 @@ const FormCreate  = props => {
 
                     <div className="flex flex-col h-20">
                         <span>Montant Minimum</span>
-                        <Field type="text" name="montantmin" placeholder="Montant min"/>
-                        <ErrorMessage name="montantmin" component="small" className="text-red-400"/>
+                        <Field type="number" name="montantMin" placeholder="Montant min"/>
+                        <ErrorMessage name="montantMin" component="small" className="text-red-400"/>
                     </div>
 
                     <div className="flex flex-col h-20">

@@ -1,27 +1,37 @@
 import React, {useState} from "react"
 import apiBackEnd from "../../../api/backend/api.Backend";
-import {URL_BACK_UPDATE_PROMOTION} from "../../../constants/urls/urlBackEnd";
+import {URL_BACK_CODE_PROMOS_UPDATE} from "../../../constants/urls/urlBackEnd";
 import {toast} from "react-toastify";
 import {codePromotionUpdateInitialValues} from "../../../utils/AdminInitialValues";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { promotionSchema } from "../../../utils/AdminValidationSchema";
+import { codepromoSchema } from "../../../utils/AdminValidationSchema";
 
 const FormUpdate  = props => {
-    const [startDate, setStartDate] = useState(new Date(props.promotion.start_date.split(" ")[0]));
-    const [endDate, setEndDate] = useState(new Date(props.promotion.end_date.split(" ")[0]));
+    console.log(props.codePromo.startDateEN);
+    const [startDate, setStartDate] = useState(new Date(props.codePromo.startDateEN));
+    const [endDate, setEndDate] = useState(new Date(props.codePromo.endDateEN));
 
     const updateRow = (id, values) => {
-        if (window.confirm("Êtes-vous sûr de vouloir modifier la promotion ?")) {
-            apiBackEnd.put(`${URL_BACK_UPDATE_PROMOTION}${id}/${values.name}/${values.remise}/${startDate.toLocaleDateString("fr").replaceAll('/','-') + startDate.toLocaleTimeString("fr")}/${endDate.toLocaleDateString("fr").replaceAll('/','-') + endDate.toLocaleTimeString("fr")}`).then(res => {
+        if (window.confirm("Êtes-vous sûr de vouloir modifier le code promo ?")) {
+            const objet = {
+                id: id,
+                name: values.name,
+                remise: values.remise,
+                montantMin: values.montantMin,
+                startDate: values.startDate,
+                endDate: values.endDate,
+                type: values.type
+            }
+            apiBackEnd.put(URL_BACK_CODE_PROMOS_UPDATE,objet).then(res => {
                 if (res.status === 200) {
                     const year = startDate.getFullYear();
                     const day = startDate.getDate();
                     const month = startDate.getMonth()+1;
-                    props.updateTable(props.promotion, values, props.index, startDate.toLocaleDateString("fr").replaceAll('/','-'),endDate.toLocaleDateString("fr").replaceAll('/','-'), startDate.toLocaleTimeString("fr"), endDate.toLocaleTimeString("fr"), year + '-' + month + '-' + day, endDate)
+                    props.updateTable(props.codePromo, values, props.index, startDate.toLocaleDateString("fr").replaceAll('/','-'),endDate.toLocaleDateString("fr").replaceAll('/','-'), startDate.toLocaleTimeString("fr"), endDate.toLocaleTimeString("fr"), year + '-' + month + '-' + day, endDate)
                     // Notification succès d'une modification d'une promotion'
-                    toast.success(`Promotion ${res.data.id} modifiée !`, {
+                    toast.success(`Code promo ${res.data.id} modifiée !`, {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -56,8 +66,8 @@ const FormUpdate  = props => {
     return (
         <Formik
             initialValues={codePromotionUpdateInitialValues(props.codePromo,startDate,endDate)}
-            validationSchema={promotionSchema}
-            onSubmit={(values) => updateRow(props.promotion.id, values)}
+            validationSchema={codepromoSchema}
+            onSubmit={(values) => updateRow(props.codePromo.id, values)}
         >
             {formikProps =>
                 <Form className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -80,7 +90,7 @@ const FormUpdate  = props => {
 
                     <div className="flex flex-col h-20">
                         <span>Remise</span>
-                        <Field type="text" name="remise" id="remise" list="remises"/>
+                        <Field type="number" name="remise" id="remise" list="remises"/>
                         <datalist id="remises">
                             {options.map((option) => (
                             <option key={option} value={option}>{option}</option>
@@ -91,8 +101,8 @@ const FormUpdate  = props => {
 
                     <div className="flex flex-col h-20">
                         <span>Montant Minimum</span>
-                        <Field type="text" name="montant min" placeholder="Montant min"/>
-                        <ErrorMessage name="montant min" component="small" className="text-red-400"/>
+                        <Field type="number" name="montantMin" placeholder="Montant min"/>
+                        <ErrorMessage name="montantMin" component="small" className="text-red-400"/>
                     </div>
 
 
@@ -107,7 +117,7 @@ const FormUpdate  = props => {
                         <DatePicker dateFormat="dd-MM-yyyy HH:mm" selected={endDate} name="endDate" onChange={(date) => {setEndDate(date); formikProps.setFieldValue('endDate', date)}} showTimeSelect/>
                         <ErrorMessage name="endDate" component="small" className="text-red-400"/>
                     </div>
- 
+                                    
                     {/* Button Modifier */}
                     <button type="submit"
                             className="bish-bg-blue py-3 w-full bish-text-white col-span-3 mx-auto">Modifier
