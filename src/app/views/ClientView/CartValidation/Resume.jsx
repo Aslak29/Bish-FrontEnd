@@ -9,27 +9,34 @@ import { selectBillingAddress, selectItems, selectTotal } from './../../../redux
 import checkIMG from '../../../assets/images/check.png'
 import apiBackEnd from "@/app/api/backend/api.Backend";
 import {useNavigate} from "react-router-dom";
+import { URL_BACK_CODE_PROMOS_FIND_BY_NAME } from '../../../constants/urls/urlBackEnd';
 
 const Resume = () => {
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
+  const { setStep } = useStep();
+  const [codePromo, setCodePromo] = useState("")
 
-    const { setStep } = useStep();
-    const deliveryAddress = useSelector(selectDeliveryAddress)
-    const billingAddress = useSelector(selectBillingAddress)
-    const idPaymentId = useSelector(selectIdPaymentIntent)
-    const items = useSelector(selectItems)
-    const total = useSelector(selectTotal)
-    const infosCreditCard = useSelector(selectInfosCreditCard)
+  const deliveryAddress = useSelector(selectDeliveryAddress)
+  const billingAddress = useSelector(selectBillingAddress)
+  const idPaymentId = useSelector(selectIdPaymentIntent)
+  const items = useSelector(selectItems)
+  const total = useSelector(selectTotal)
+  const infosCreditCard = useSelector(selectInfosCreditCard)
 
-
-    useEffect(() => {
-        setStep(3)
-    }, [])
+  useEffect(() => {
+      setStep(3)
+  }, [])
 
   const handleSubmit = async (event) => {
     apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
       navigate(URL_CART_CONFIRM)
+    })
+  }
+
+  const handleCodePromo = () => {
+    apiBackEnd.post(URL_BACK_CODE_PROMOS_FIND_BY_NAME, {name: codePromo, total: total}).then(res => {
+      console.log(res.data)
     })
   }
 
@@ -85,8 +92,8 @@ const Resume = () => {
             <div className='flex flex-col gap-y-2'>
               <h5>Code promo</h5>
               <div className='flex flex-row gap-x-2'>
-                <input className='w-4/5 rounded border bish-border-gray' type="text" />
-                <button className='w-1/5 rounded border bish-border-blue hover:bish-bg-blue-opacity py-2'>
+                <input className='w-4/5 rounded border bish-border-gray' type="text" onChange={e => setCodePromo(e.currentTarget.value)} />
+                <button className='w-1/5 rounded border bish-border-blue hover:bish-bg-blue-opacity py-2' onClick={() => handleCodePromo()}>
                   <img src={checkIMG} alt="Valider le code promo" className='w-6 m-auto' />
                 </button>
               </div>
