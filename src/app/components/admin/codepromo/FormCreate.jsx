@@ -39,9 +39,9 @@ const FormCreate  = props => {
                     })
                 }
             }).catch(error => {
-                    // Notification erreur
-                    console.log(error)
-                    toast.warn('Une erreur est survenue', {
+                console.log(error);
+                if(error.response.data["errorCode"] === "035"){
+                    toast.warn(error.response.data["errorMessage"], {
                         position: "top-right",
                         autoClose: 5000,
                         hideProgressBar: false,
@@ -51,6 +51,22 @@ const FormCreate  = props => {
                         progress: undefined,
                         theme: "light"
                     });
+                }else{
+                // Notification erreur
+                console.log(error)
+                toast.warn('Une erreur est survenue', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light"
+                });
+                }
+                    
+
                 }
             )
         }

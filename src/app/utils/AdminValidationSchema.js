@@ -135,7 +135,7 @@ export const codepromoSchema = Yup.object().shape({
     type: Yup.string().required("Champ obligatoire"),
     remise: Yup.number().max(99,"La remise doit être inférieur à 100%")
         .required("Champ obligatoire"),
-    montantMin: Yup.number().max(99,"La remise doit être inférieur à 100%")
+    montantMin: Yup.number()
         .required("Champ obligatoire"),
     startDate: Yup.date().min(new Date(), "La date doit être supérieur à celle d'aujourd'hui")
         .required("Champ obligatoire"),
