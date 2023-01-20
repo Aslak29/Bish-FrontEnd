@@ -43,6 +43,7 @@ import Paiement from './../views/ClientView/CartValidation/Paiement';
 import Resume from './../views/ClientView/CartValidation/Resume';
 import Confirmation from './../views/ClientView/CartValidation/Confirmation';
 import AdminDashboardView from "../views/AdminView/AdminDashboardView";
+import AdminCodePromoView from "../views/AdminView/AdminCodePromoView";
 
 /**
  * Routes of the application
@@ -262,6 +263,14 @@ const Routes = () => {
            element={
             <PrivateRoute roles={[ROLE_ADMIN]}>
                 <AdminPromotionsView />
+            </PrivateRoute>
+        }
+        />
+                <Route
+           path={URL.URL_ADMIN_CODE_PROMOTION}
+           element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+                <AdminCodePromoView />
             </PrivateRoute>
         }
         />
