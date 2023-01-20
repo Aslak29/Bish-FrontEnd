@@ -158,9 +158,9 @@ const AdminPromotionsView = () => {
             <ToastContainer/>
             {/* TITRE + BUTTON AJOUTER */}
             <TitleContainer form={formCreate} name="PROMOTION" modalIsOpen={modalIsOpen} openModal={openModal}
-                            closeModal={closeModal} addButton={true}/>
+                            closeModal={closeModal} addButton={true} search={true}/>
             {/* LIGNES CHECK + ACTIONS */}
-            <CheckRowsContainer rowsCheck={rowsCheck} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PROMOTION} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+            <CheckRowsContainer rowsCheck={rowsCheck} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PROMOTION} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
             {/* Modal CREATE */}
 
             {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)

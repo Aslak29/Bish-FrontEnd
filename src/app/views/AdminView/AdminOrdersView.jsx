@@ -74,7 +74,7 @@ const AdminOrdersView = () => {
 
     const cancelOrder = id => {
       if (window.confirm("Êtes-vous sûr de vouloir annuler la commande ?")) {
-          apiBackEnd.post(`${URL_BACK_CANCEL_ORDER}${id}`).then(res => {
+          apiBackEnd.put(`${URL_BACK_CANCEL_ORDER}${id}`).then(res => {
             if (res.status === 200) {
               setReload(!reload)
               // Notification succès d'une modification de produit
@@ -141,9 +141,9 @@ const AdminOrdersView = () => {
       {/* Notifications */}
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
-      <TitleContainer name="COMMANDES" addButton={false} />
+      <TitleContainer name="COMMANDES" addButton={false} search={true} />
       {/* LIGNES CHECK + ACTIONS */}
-      <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allOrdersIdsToDelete} deleteBackUrl={URL_BACK_MULTIPLE_CANCEL_ORDER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+      <CheckRowsContainer rowsCheck={rowsCheck} allIdsToDelete={allOrdersIdsToDelete} typeRequest="PUT" deleteBackUrl={URL_BACK_MULTIPLE_CANCEL_ORDER} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE Commandes */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 

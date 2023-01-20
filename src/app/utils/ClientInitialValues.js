@@ -4,7 +4,7 @@ export const loginInitialValues = {
     password: ""
 }
 
-// Valeurs initiales du formulaire LOGIN
+// Valeurs initiales du formulaire REGISTER
 export const registerInitialValues = {
     email: "",
     password: "",
@@ -20,7 +20,7 @@ export const forgotPasswordInitialValues = {
     email: ""
 }
 
-// Valeurs initiales du formulaire FORGOT PASSWORD
+// Valeurs initiales du formulaire NEW PASSWORD
 export const newPasswordInitialValues = {
     password: "",
     confirmation: ""
@@ -34,5 +34,18 @@ export const contactInitialValues = user => {
         email: user ? user.username : '',
         message: "",
         phone:""
+    }
+}
+
+// Valeurs initiales du formulaire CREATE ADDRESS
+export const addressInitialValues = address => {
+    return {
+        name: address ? address.name : '',
+        city: address ? address.city : '',
+        cp: address ? address.postal_code : '',
+        num: address ? address.num_rue : '',
+        rue: address ? address.rue : '',
+        complement: address ? address.complement_adresse ? address.complement_adresse : '' : '',
+        save: true
     }
 }

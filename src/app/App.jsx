@@ -9,7 +9,7 @@ import { selectUser, signOut, selectIsLogged } from './redux-store/authenticatio
 import { useDispatch } from 'react-redux';
 import apiBackEnd from './api/backend/api.Backend';
 import { URL_BACK_DISABLE_USER } from './constants/urls/urlBackEnd';
-
+import CookieConsent from "react-cookie-consent";
 const contextClass = {
     success: 'bg-green-600',
     error: 'bg-red-600',
@@ -41,16 +41,25 @@ const App = () => {
     }, [])
 
     return (
-            <BrowserRouter>
-                <div className="flex min-h-full cursor-default relative flex-col bish-bg-white">
-                    <Navbar/>
-                    <main className="mt-20 flex grow">
-                        <Routes />
-                    </main>
-                    <Footer />         
-                </div>
-            </BrowserRouter>
-
+        <BrowserRouter>
+            <div className="flex min-h-full cursor-default relative flex-col bish-bg-white">
+                <Navbar/>
+                <main className="mt-20 flex grow">
+                    <Routes />
+                </main>
+                <CookieConsent
+                    location="bottom"
+                    buttonText="Accepter"
+                    cookieName="myAwesomeCookieName2"
+                    style={{ background: "#2B373B" }}
+                    buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
+                    expires={150}> 
+                    Bish et ses partenaires utilisent des cookies pour adapter le contenu de notre site à vos préférences, vous donner accès à des solutions de la relation client (chat et avis client), vous proposer des offres et publicités personnalisées ou encore pour réaliser des mesures de performance.Une fois votre choix réalisé, nous le conserverons pendant 6 mois.Vous pouvez changer d’avis à tout moment depuis le lien « Les cookies » en bas à gauche de chaque page de notre site.{" "}
+                    <a href="" style={{ fontSize: "10px" }}>Consulter la politique de protection de vos données</a>
+                </CookieConsent>
+                <Footer />         
+            </div>
+        </BrowserRouter>
     );
 };
 

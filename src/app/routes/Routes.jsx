@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes as RoutesContainer } from "react-router-dom";
+import { Navigate, Route, Routes as RoutesContainer } from "react-router-dom";
 
 import { ROLE_ADMIN, ROLE_USER } from "../constants/rolesConstant";
 import * as URL from "../constants/urls/urlFrontEnd";
@@ -37,6 +37,14 @@ import AccountView from './../views/ClientView/AccountView';
 import AdminPromotionsView from "../views/AdminView/AdminPromotionsView";
 import StatistiqueUser from "@/app/views/StatistiqueView/StatistiqueUser";
 import StatistiqueProduits from "@/app/views/StatistiqueView/StatistiqueProduits";
+import AddressesView from './../views/ClientView/AddressesView';
+import CartOutletValidation from './../views/ClientView/CartValidation/CartOutletValidation';
+import Livraison from './../views/ClientView/CartValidation/Livraison';
+import Paiement from './../views/ClientView/CartValidation/Paiement';
+import Resume from './../views/ClientView/CartValidation/Resume';
+import Confirmation from './../views/ClientView/CartValidation/Confirmation';
+import AdminDashboardView from "../views/AdminView/AdminDashboardView";
+
 /**
  * Routes of the application
  * with public and private route
@@ -82,6 +90,50 @@ const Routes = () => {
       <Route path={URL.URL_CGU} element={<CGUView/>} />
       <Route path={URL.URL_LEGAL_NOTICE} element={<LegalNoticeView/>} />
 
+{/* Routes validation du panier */}
+      <Route
+        path={URL.URL_CART_VALIDATE}
+        element={
+          <PrivateRoute roles={[ROLE_USER]}>
+            <CartOutletValidation />
+          </PrivateRoute>
+        }
+      >
+        <Route
+          path={URL.URL_CART_LIVRAISON}
+          element={
+            <PrivateRoute roles={[ROLE_USER]}>
+              <Livraison />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={URL.URL_CART_PAIEMENT}
+          element={
+            <PrivateRoute roles={[ROLE_USER]}>
+              <Paiement />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={URL.URL_CART_RESUME}
+          element={
+            <PrivateRoute roles={[ROLE_USER]}>
+              <Resume />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={URL.URL_CART_CONFIRM}
+          element={
+            <PrivateRoute roles={[ROLE_USER]}>
+              <Confirmation />
+            </PrivateRoute>
+          }
+        />
+        <Route path={URL.URL_CART_VALIDATE} element={<Navigate to={URL.URL_CART_CONFIRM} replace={true} />} />
+      </Route>
+
 {/* // Routes client loggé (private Route) */}
       <Route
         path={URL.URL_ACCOUNT}
@@ -96,6 +148,14 @@ const Routes = () => {
         element={
           <PrivateRoute roles={[ROLE_USER]}>
             <PersonnalInfoView/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={URL.URL_ADDRESSES}
+        element={
+          <PrivateRoute roles={[ROLE_USER]}>
+            <AddressesView/>
           </PrivateRoute>
         }
       />
@@ -135,6 +195,14 @@ const Routes = () => {
           </PrivateRoute>
         }
       >
+               <Route
+          path={URL.URL_ADMIN_DASHBOARD}
+          element={
+            <PrivateRoute roles={[ROLE_ADMIN]}>
+              <AdminDashboardView />
+            </PrivateRoute>
+          }
+        />
         <Route
           path={URL.URL_ADMIN_CATEGORIES}
           element={

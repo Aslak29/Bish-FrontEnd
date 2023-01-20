@@ -13,7 +13,7 @@ const FormUpdate = props => {
 
     const updateRow = (id, values) => {
         if (window.confirm("Êtes-vous sûr de vouloir modifier le produit ?")) {
-            apiBackEnd.post(
+            apiBackEnd.put(
                 `${URL_BACK_CATEGORIES_UPDATE}/${id}/${values.name}/${values.trend}/${values.available}/${
                     values.infoFile !== undefined ? values.infoFile.name : pathImageDefault}`
             ).then(res => {

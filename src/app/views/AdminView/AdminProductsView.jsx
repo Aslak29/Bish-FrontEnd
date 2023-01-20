@@ -141,7 +141,7 @@ const AdminProductsView = () => {
   // Change tendance dans la BDD
   const changeIsTrend = (produit, categs, promos, index) => {
     let isTrend = document.getElementById('checkTrend' + produit.id).checked
-    apiBackEnd.post(`${URL_BACK_UPDATE_TREND_PRODUCT}${produit.id}/${isTrend}/`).then(res => {
+    apiBackEnd.put(`${URL_BACK_UPDATE_TREND_PRODUCT}${produit.id}/${isTrend}/`).then(res => {
       document.getElementById('checkTrend' + produit.id).checked = isTrend
       produit.is_trend = !produit.is_trend
       // Modifier la checkbox "tendance" du FormUpdate
@@ -159,7 +159,7 @@ const AdminProductsView = () => {
   }
 
   const changeMultipleTrend = p => {
-    apiBackEnd.post(`${URL_BACK_UPDATE_MULTIPLE_TREND_PRODUCT}${p}/`, rowsCheck).then(res => {
+    apiBackEnd.put(`${URL_BACK_UPDATE_MULTIPLE_TREND_PRODUCT}${p}/`, rowsCheck).then(res => {
       setRowsCheck([])
       setReload(!reload)
     })
@@ -168,7 +168,7 @@ const AdminProductsView = () => {
   // Change available dans la BDD
   const changeIsAvailable = (produit, categs, promos, index) => {
     let isAvailable = document.getElementById('checkAvailable' + produit.id).checked
-    apiBackEnd.post(`${URL_BACK_UPDATE_AVAILABLE_PRODUCT}${produit.id}/${isAvailable}/`).then(res => {
+    apiBackEnd.put(`${URL_BACK_UPDATE_AVAILABLE_PRODUCT}${produit.id}/${isAvailable}/`).then(res => {
       document.getElementById('checkAvailable' + produit.id).checked = isAvailable
       produit.is_available = !produit.is_available
       // Modifier la checkbox "visible" du FormUpdate
@@ -186,7 +186,7 @@ const AdminProductsView = () => {
   }
 
   const changeMultipleAvailable = p => {
-    apiBackEnd.post(`${URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT}${p}/`, rowsCheck).then(res => {
+    apiBackEnd.put(`${URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT}${p}/`, rowsCheck).then(res => {
       setRowsCheck([])
       setReload(!reload)
     })
@@ -236,9 +236,9 @@ const AdminProductsView = () => {
       {/* Notifications */}
       <ToastContainer />
       {/* TITRE + BUTTON AJOUTER */}
-      <TitleContainer form={formCreate} name="PRODUITS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} />
+      <TitleContainer form={formCreate} name="PRODUITS" modalIsOpen={modalIsOpen} openModal={openModal} closeModal={closeModal} addButton={true} search={true}/>
       {/* LIGNES CHECK + ACTIONS */}
-      <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} allIdsToDelete={allProductsIdsToDelete} deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PRODUCT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
+      <CheckRowsContainer actions={actionsMultipleRows} rowsCheck={rowsCheck} allIdsToDelete={allProductsIdsToDelete} typeRequest="DELETE" deleteBackUrl={URL_BACK_MULTIPLE_DELETE_PRODUCT} setReload={setReload} reload={reload} setIsLoading={setIsLoading} isLoading={isLoading} />
       {/* TABLE PRODUITS */}
       {isLoading ? (<img className='absolute top-1/3 left-1/2' src={loadingSVG} alt="Chargement"></img>)
         : 

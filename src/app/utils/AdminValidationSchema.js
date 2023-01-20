@@ -125,7 +125,7 @@ export const orderDetailProductSchema = Yup.object().shape({
 export const orderProductSchema = Yup.object().shape({
     ville: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
     cp: Yup.string().matches(/^[0-9]*$/,'Que des chiffres').min(5,'Minimum 5 chiffres').max(5,'Maximum 5 chiffres').required('Champ obligatoire'),
-    num: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
+    num: Yup.string().required('Champ obligatoire'),
     rue: Yup.string().min(2, 'Minimum 2 caractères').required('Champ obligatoire'),
     etat: Yup.string().required('Champ obligatoire')
 })

@@ -5,11 +5,16 @@ import {URL_BACK_SINGLE_ORDER} from "../../constants/urls/urlBackEnd";
 import {URL_404} from "../../constants/urls/urlFrontEnd";
 import loadingSVG from "../../assets/images/loading-spin.svg";
 import detailsIMG from '../../assets/images/detailsIMG.png'
+import StarsRating from "@/app/components/client/StarsRating";
+import {useSelector} from "react-redux";
+import {selectUser} from "@/app/redux-store/authenticationSlice";
+import {ToastContainer} from "react-toastify";
 
 const Order = (props) => {
 
     const navigate = useNavigate();
     const [rows, setRows] = useState([]);
+    const user = useSelector(selectUser);
     // SVG isLoading si requête en cours
     const [isLoading, setIsLoading] = useState(false);
     const [infoClient, setInfoClient] = useState({});
@@ -55,6 +60,7 @@ const Order = (props) => {
                 ></img>
             ) : (
                 <>
+                    <ToastContainer/>
                     <table
                         className="table-fixed w-full pl-5 font-medium text-xs sm:text-base"
                         id="searchTable"
@@ -64,7 +70,8 @@ const Order = (props) => {
                         <tr className="">
                             {/* Titres des colonnes dans le header de la table */}
                             <th>Image</th>
-                            <th>Nom</th>
+                            <th colSpan='2'>Nom</th>
+                            {props.etatCommande === "Livrée" && <th colSpan='2'>Note</th>}
                             <th>Taille</th>
                             <th>Quantité</th>
                             <th>Prix</th>
@@ -78,7 +85,7 @@ const Order = (props) => {
                         {/* Retourne une ligne pour chaque élément */}
                         {rows.map((row, index) => {
                             return (
-                                <tr className="text-center py-5" key={index}>
+                                <tr className="text-center my-5" key={index}>
                                     <td className="flex items-center justify-center mt-4">
                                         <img
                                             src={row.image !== "-" ? window.location.origin + "/src/app/assets/images/products/" + row.image : detailsIMG}
@@ -86,7 +93,12 @@ const Order = (props) => {
                                             className="w-1/2 items-center border-solid border-2 bish-border-gray"
                                         />
                                     </td>
-                                    <td>{row.nomProduit}</td>
+                                    <td colSpan='2'>{row.nomProduit}</td>
+                                    {props.etatCommande === "Livrée" &&
+                                        <td colSpan="2">
+                                            <StarsRating noteUser={row.noteByUser} userId={user.id} produitId={row.produitId}/>
+                                        </td>
+                                    }
                                     <td className="uppercase">{row.Taille}</td>
                                     <td>{row.quantite}</td>
                                     <td>{row.prixUnitaire.toFixed(2)} €</td>

@@ -14,7 +14,7 @@ const FormUpdate = props => {
 
     const updateRow = (id, values) => {
         if (window.confirm("Êtes-vous sûr de vouloir modifier la promotion ?")) {
-            apiBackEnd.post(`${URL_BACK_UPDATE_PROMOTION}${id}/${values.name}/${values.remise}/${startDate.toLocaleDateString("fr").replaceAll('/','-') + startDate.toLocaleTimeString("fr")}/${endDate.toLocaleDateString("fr").replaceAll('/','-') + endDate.toLocaleTimeString("fr")}`).then(res => {
+            apiBackEnd.put(`${URL_BACK_UPDATE_PROMOTION}${id}/${values.name}/${values.remise}/${startDate.toLocaleDateString("fr").replaceAll('/','-') + startDate.toLocaleTimeString("fr")}/${endDate.toLocaleDateString("fr").replaceAll('/','-') + endDate.toLocaleTimeString("fr")}`).then(res => {
                 if (res.status === 200) {
                     const year = startDate.getFullYear();
                     const day = startDate.getDate();

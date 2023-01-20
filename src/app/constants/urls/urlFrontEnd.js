@@ -10,6 +10,11 @@ export const URL_BLOG_ARTICLE = '/blog/article/:articleID';
 export const URL_CONTACT = '/contact';
 export const URL_PRESENTATION = '/qui-sommes-nous';
 export const URL_SHOPPING_CART = '/panier';
+export const URL_CART_VALIDATE = '/panier/validation';
+export const URL_CART_LIVRAISON = '/panier/validation/livraison';
+export const URL_CART_PAIEMENT = '/panier/validation/paiement';
+export const URL_CART_RESUME = '/panier/validation/resume';
+export const URL_CART_CONFIRM = '/panier/validation/confirmation';
 export const URL_FAQ = '/faq';
 export const URL_RGPD = '/protection-de-vos-donnees';
 export const URL_CGU = '/cgu'
@@ -24,10 +29,12 @@ export const URL_INFOS = '/espace-client/informations-personnelles';
 export const URL_ORDERS = '/espace-client/commandes/';
 export const URL_ORDER = '/espace-client/commandes/commande/';
 export const URL_TRACKING_ORDER = '/espace-client/commandes/commande/';
+export const URL_ADDRESSES = '/espace-client/adresses';
 
 
 // Espace Admin
 export const URL_ADMIN_HOME = '/admin';
+export const URL_ADMIN_DASHBOARD = '/admin/dashboard';
 export const URL_ADMIN_CATEGORIES= '/admin/categories';
 export const URL_ADMIN_USERS = '/admin/utilisateurs';
 export const URL_ADMIN_PRODUCTS = '/admin/produits';
