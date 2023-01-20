@@ -100,7 +100,6 @@ const Resume = () => {
           </div>
         </div>
       </div>
-      {/* TODO: Change l'url par le paiement via stripe */}
     </div>
   )
 }
