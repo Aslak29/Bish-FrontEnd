@@ -5,9 +5,13 @@ import { Link } from 'react-router-dom';
 import { URL_CART_PAIEMENT } from './../../../constants/urls/urlFrontEnd';
 import { useStep } from './CartOutletValidation';
 import apiBackEnd from '../../../api/backend/api.Backend';
-import {URL_BACK_ADRESSE_FIND_BY_USER, URL_STRIPE_PAYMENTINTENT} from './../../../constants/urls/urlBackEnd';
+import {
+  URL_BACK_ADRESSE_FIND_BY_USER,
+  URL_STRIPE_PAYMENTINTENT,
+  URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT
+} from '@/app/constants/urls/urlBackEnd';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../../redux-store/authenticationSlice';
+import { selectUser } from '@/app/redux-store/authenticationSlice';
 import { useDispatch } from 'react-redux';
 import {
   selectDeliveryAddress,
@@ -16,8 +20,8 @@ import {
   updateBillingAddress,
   removeBillingAddress,
   selectTotal, updateIdPaymentIntent, selectIdPaymentIntent
-} from '../../../redux-store/cartSlice';
-import { selectBillingAddress } from './../../../redux-store/cartSlice';
+} from '@/app/redux-store/cartSlice';
+import { selectBillingAddress } from '@/app/redux-store/cartSlice';
 import apiBackend from "@/app/api/backend/api.Backend";
 
 const Livraison = () => {
@@ -53,10 +57,15 @@ const Livraison = () => {
     apiBackEnd.post(URL_BACK_ADRESSE_FIND_BY_USER + user.id).then(res => {
         setAdresses(res.data)
     })
+
     if (!idPaymentIntent){
       apiBackend.post(URL_STRIPE_PAYMENTINTENT + `${total}`).then(res => {
         dispatch(updateIdPaymentIntent(res.data))
       })
+    }
+    else{
+      apiBackend.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {})
+
     }
 
   },[reload])
