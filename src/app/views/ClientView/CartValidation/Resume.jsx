@@ -4,25 +4,32 @@ import {URL_CONFIRM_PAYMENT} from '@/app/constants/urls/urlBackEnd';
 import {URL_CART_CONFIRM} from '@/app/constants/urls/urlFrontEnd';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectDeliveryAddress, selectInfosCreditCard, selectIdPaymentIntent } from '../../../redux-store/cartSlice';
-import { selectBillingAddress, selectItems, selectTotal } from './../../../redux-store/cartSlice';
+import { selectDeliveryAddress, selectInfosCreditCard, selectIdPaymentIntent, selectDiscount, updateDiscount } from '../../../redux-store/cartSlice';
+import { selectBillingAddress, selectItems, selectTotal, selectTotalBeforeDiscount } from './../../../redux-store/cartSlice';
 import checkIMG from '../../../assets/images/check.png'
 import apiBackEnd from "@/app/api/backend/api.Backend";
 import {useNavigate} from "react-router-dom";
 import { URL_BACK_CODE_PROMOS_FIND_BY_NAME } from '../../../constants/urls/urlBackEnd';
+import { useDispatch } from 'react-redux';
 
 const Resume = () => {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { setStep } = useStep();
+
   const [codePromo, setCodePromo] = useState("")
+  const [codePromoErrorMsg, setCodePromoErrprMsg] = useState()
+  const [codePromoSuccess, setCodePromoSuccess] = useState(false)
 
   const deliveryAddress = useSelector(selectDeliveryAddress)
   const billingAddress = useSelector(selectBillingAddress)
   const idPaymentId = useSelector(selectIdPaymentIntent)
   const items = useSelector(selectItems)
+  const totalBeforeDiscount = useSelector(selectTotalBeforeDiscount)
   const total = useSelector(selectTotal)
   const infosCreditCard = useSelector(selectInfosCreditCard)
+  const discount = useSelector(selectDiscount)
 
   useEffect(() => {
       setStep(3)
@@ -36,7 +43,22 @@ const Resume = () => {
 
   const handleCodePromo = () => {
     apiBackEnd.post(URL_BACK_CODE_PROMOS_FIND_BY_NAME, {name: codePromo, total: total}).then(res => {
-      console.log(res.data)
+      const data = res.data
+      if(data.error) {
+        setCodePromoErrprMsg(data.message)
+      } else {
+        setCodePromoErrprMsg()
+        if(total >= data.montantMin) {
+          dispatch(updateDiscount({
+            remise : data.remise,
+            type: data.type
+          }))
+          console.log(data);
+          setCodePromoSuccess(true)
+        } else {
+          setCodePromoErrprMsg("Désolé, ce code ne s'applique pas au contenu de votre panier")
+        }
+      }
     })
   }
 
@@ -97,11 +119,12 @@ const Resume = () => {
                   <img src={checkIMG} alt="Valider le code promo" className='w-6 m-auto' />
                 </button>
               </div>
+              { codePromoErrorMsg ? <span className='text-red-500'>{codePromoErrorMsg}</span> : codePromoSuccess && <span className='text-green-500'>Une réduction a été appliquée</span>}
             </div>
             <div className='flex flex-col text-right border-t bish-border-gray pt-2'>
-              <span><span className='font-medium'>Total:</span> {total.toFixed(2)}€</span>
-              <span><span className='font-medium'>Réduction:</span> - 10%</span>
-              <span className='text-lg'><span className='font-semibold'>A payer:</span> 189.99€</span>
+              <span><span className='font-medium'>Total:</span> {totalBeforeDiscount.toFixed(2)}€</span>
+              <span><span className='font-medium'>Réduction:</span> - {(totalBeforeDiscount - total).toFixed(2)}€</span>
+              <span className='text-lg'><span className='font-semibold'>A payer:</span> {total.toFixed(2)}€</span>
             </div>
             <button onClick={handleSubmit} className={"border rounded py-2 justify-center bish-bg-blue bish-text-white"}>Payer</button>
           </div>
