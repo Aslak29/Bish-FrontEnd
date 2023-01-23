@@ -10,6 +10,7 @@ import TrendProductsSlide from './TrendProductsSlide';
 import TrendCategorySlide from './TrendCategorySlide';
 import BestPromo from './BestPromo';
 import LastBlog from './LastBlog';
+import ImageSlide from '../../assets/images/boutique-vetements-boutique-vetements-cintre-boutique-moderne_1150-8886.png'
 
 const Slide = () => {
     const [categorie,setCategorie]= useState([])
@@ -255,10 +256,17 @@ const Slide = () => {
                     <TrendCategorySlide categorie={categorie} />
                 </Carousel>
                 :
-                (trend.length >= 2 && !categorie && !idBlog && !idPromo) &&
+                (trend.length >= 2 && !categorie && !idBlog && !idPromo) ?
                 <Carousel autoPlay interval="7000" transitionTime="2000" showStatus={false} stopOnHover={true} showThumbs={false} infiniteLoop={true} className='w-full'>
                     <TrendProductsSlide trend={trend} colorLeft={colorLeft} colorRight={colorRight} />
                 </Carousel>
+                :
+                (trend.length < 2 && !categorie && !idBlog && !idPromo) &&
+                <Carousel autoPlay interval="7000" transitionTime="2000" showStatus={false} stopOnHover={true} showThumbs={false} infiniteLoop={true} className='w-full'>
+                 <div><img src={ImageSlide} alt="ImageSlide" /></div>
+                </Carousel>
+                
+                
             }
         </> 
     );
