@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './components/layouts/Navbar';
 import Routes from './routes/Routes';
@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux';
 import apiBackEnd from './api/backend/api.Backend';
 import { URL_BACK_DISABLE_USER } from './constants/urls/urlBackEnd';
 import CookieConsent from "react-cookie-consent";
+import cookies from"../app/assets/images/cookie.gif";
+
 const contextClass = {
     success: 'bg-green-600',
     error: 'bg-red-600',
@@ -30,6 +32,8 @@ const App = () => {
     const isLogged = useSelector(selectIsLogged);
     const dispatch = useDispatch();
 
+    const [modalIsOpen, setModalIsOpen] = React.useState(false);
+    
     useEffect(() => {
         if(isLogged) {
             apiBackEnd.get(URL_BACK_DISABLE_USER + user.id).then(res => {
@@ -38,8 +42,18 @@ const App = () => {
                 }
             })
         }
-    }, [])
 
+    }, [])
+    
+    // Open modal Cookies
+    function openModal() {
+        setModalIsOpen(true);
+    }
+  
+    // Close modal Cookies
+    function closeModal() {
+        setModalIsOpen(false);
+    }
     return (
         <BrowserRouter>
             <div className="flex min-h-full cursor-default relative flex-col bish-bg-white">
@@ -50,12 +64,25 @@ const App = () => {
                 <CookieConsent
                     location="bottom"
                     buttonText="Accepter"
-                    cookieName="myAwesomeCookieName2"
-                    style={{ background: "#2B373B" }}
-                    buttonStyle={{ color: "#4e503b", fontSize: "13px" }}
-                    expires={150}> 
-                    Bish et ses partenaires utilisent des cookies pour adapter le contenu de notre site à vos préférences, vous donner accès à des solutions de la relation client (chat et avis client), vous proposer des offres et publicités personnalisées ou encore pour réaliser des mesures de performance.Une fois votre choix réalisé, nous le conserverons pendant 6 mois.Vous pouvez changer d’avis à tout moment depuis le lien « Les cookies » en bas à gauche de chaque page de notre site.{" "}
-                    <a href="" style={{ fontSize: "10px" }}>Consulter la politique de protection de vos données</a>
+                    buttonClasses="btn-primary"
+                    cookieName="BishCookie"
+                    cookieValue={true}
+
+                    enableDeclineButton
+                    declineButtonText="Refuser"
+                    declineButtonClasses="btn-secondary"
+                    declineCookieValue={false}
+
+                    style={{ background: "#2EB7EB" }}
+                    buttonStyle={{ background:"#f5f5f5", color: "black", fontSize: "13px" }}
+                    declineButtonStyle={{background:"#cfcfcf", color: "black", fontSize: "13px"}}
+                    expires={150}
+                    > 
+
+                    <img src={cookies}  alt="" className='absolute inset-y-16 right-12 w-24 hidden md:block'/>
+                    <h3>Cookies</h3>
+                    <p className='text-justify'>Bish et ses partenaires utilisent des cookies pour adapter le contenu de notre site à vos préférences, vous donner accès à des solutions de la relation client (chat et avis client), vous proposer des offres et publicités personnalisées ou encore pour réaliser des mesures de performance.Une fois votre choix réalisé, nous le conserverons pendant 6 mois.Vous pouvez changer d’avis à tout moment depuis le lien « Les cookies » en bas à gauche de chaque page de notre site.</p>
+                    <a href={window.location.origin + `/protection-de-vos-donnees`} style={{ fontSize: "10px" }}>Consulter la politique de protection de vos données</a>
                 </CookieConsent>
                 <Footer />         
             </div>
