@@ -84,7 +84,7 @@ const Register = () => {
 
                     {/* Acceptation RGPD */}
                       <div className="flex justify-center items-center my-auto">
-                        <p className="text-xs">J'ai lu et compris la politique de confidentialité et en matière de Cookies.</p>
+                        <p className="text-xs">J'ai lu et compris la politique de confidentialité et en matière de <a href={window.location.origin + `/protection-de-vos-donnees`} className="bish-text-blue">Cookies</a>.</p>
                         <Field type="checkbox" name="rgpd" autoComplete="off"/>
                       </div>
                     <ErrorMessage name="rgpd" component="small" className="text-red-400"/>
