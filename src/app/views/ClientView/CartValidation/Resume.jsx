@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useStep } from './CartOutletValidation';
 import {URL_CONFIRM_PAYMENT} from '@/app/constants/urls/urlBackEnd';
 import {URL_CART_CONFIRM} from '@/app/constants/urls/urlFrontEnd';
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectDeliveryAddress, selectInfosCreditCard, selectIdPaymentIntent, selectDiscount, updateDiscount } from '../../../redux-store/cartSlice';
 import { selectBillingAddress, selectItems, selectTotal, selectTotalBeforeDiscount } from './../../../redux-store/cartSlice';
 import checkIMG from '../../../assets/images/check.png'
 import apiBackEnd from "@/app/api/backend/api.Backend";
 import {useNavigate} from "react-router-dom";
-import { URL_BACK_CODE_PROMOS_FIND_BY_NAME } from '../../../constants/urls/urlBackEnd';
+import { URL_BACK_CODE_PROMOS_FIND_BY_NAME, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from '../../../constants/urls/urlBackEnd';
 import { useDispatch } from 'react-redux';
 
 const Resume = () => {
@@ -21,6 +20,7 @@ const Resume = () => {
   const [codePromo, setCodePromo] = useState("")
   const [codePromoErrorMsg, setCodePromoErrprMsg] = useState()
   const [codePromoSuccess, setCodePromoSuccess] = useState(false)
+  const [cardInfos, setCardInfos] = useState()
 
   const deliveryAddress = useSelector(selectDeliveryAddress)
   const billingAddress = useSelector(selectBillingAddress)
@@ -28,12 +28,20 @@ const Resume = () => {
   const items = useSelector(selectItems)
   const totalBeforeDiscount = useSelector(selectTotalBeforeDiscount)
   const total = useSelector(selectTotal)
-  const infosCreditCard = useSelector(selectInfosCreditCard)
-  const discount = useSelector(selectDiscount)
+  const idPaymentIntent = useSelector(selectIdPaymentIntent)
 
   useEffect(() => {
       setStep(3)
+      apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {
+        setCardInfos(res.data[1].card)
+      })
   }, [])
+
+  const payment = () => {
+    apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {
+      handleSubmit()
+    })
+  }
 
   const handleSubmit = async (event) => {
     apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
@@ -53,7 +61,7 @@ const Resume = () => {
             remise : data.remise,
             type: data.type
           }))
-          console.log(data);
+          apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {})
           setCodePromoSuccess(true)
         } else {
           setCodePromoErrprMsg("Désolé, ce code ne s'applique pas au contenu de votre panier")
@@ -89,11 +97,15 @@ const Resume = () => {
           {/* Moyen de paiement */}
           <div className='flex flex-row'>
             <h5 className='border-r bish-border-white-up px-5 w-1/2'>Moyen de paiement</h5>
-            <div className='flex flex-col px-5 w-1/2'>
-              <span className='font-bold'>{infosCreditCard.lastName} {infosCreditCard.firstName}</span>
-              <span>Carte de débit se terminant par •••• {infosCreditCard.numbers}</span>
-              <span>Expire le {infosCreditCard.expiration}</span>
-            </div>
+            {
+              cardInfos &&
+              <div className='flex flex-col px-5 w-1/2'>
+                {console.log(cardInfos)}
+                <span className='font-bold'>{cardInfos.brand.toUpperCase()}</span>
+                <span>Carte de débit se terminant par •••• {cardInfos.last4}</span>
+                <span>Expire le {("0" + cardInfos.exp_month.toString()).slice(-2)}/{cardInfos.exp_year.toString().slice(-2)}</span>
+              </div>
+            }
           </div>
         </div>
         <div className='w-full sm:w-1/2 md:w-1/3 bish-bg-gray-shop shadow p-5 flex flex-col justify-between my-10 md:my-0'>
@@ -122,11 +134,15 @@ const Resume = () => {
               { codePromoErrorMsg ? <span className='text-red-500'>{codePromoErrorMsg}</span> : codePromoSuccess && <span className='text-green-500'>Une réduction a été appliquée</span>}
             </div>
             <div className='flex flex-col text-right border-t bish-border-gray pt-2'>
-              <span><span className='font-medium'>Total:</span> {totalBeforeDiscount.toFixed(2)}€</span>
-              <span><span className='font-medium'>Réduction:</span> - {(totalBeforeDiscount - total).toFixed(2)}€</span>
+              {(totalBeforeDiscount - total) > 0 &&
+                <>
+                  <span><span className='font-medium'>Total:</span> {totalBeforeDiscount.toFixed(2)}€</span>
+                  <span><span className='font-medium'>Réduction:</span> - {(totalBeforeDiscount - total).toFixed(2)}€</span>
+                </>
+              }
               <span className='text-lg'><span className='font-semibold'>A payer:</span> {total.toFixed(2)}€</span>
             </div>
-            <button onClick={handleSubmit} className={"border rounded py-2 justify-center bish-bg-blue bish-text-white"}>Payer</button>
+            <button onClick={() => payment()} className={"border rounded py-2 justify-center bish-bg-blue bish-text-white"}>Payer</button>
           </div>
         </div>
       </div>
