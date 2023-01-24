@@ -3,7 +3,7 @@ import { useStep } from './CartOutletValidation';
 import {URL_CONFIRM_PAYMENT} from '@/app/constants/urls/urlBackEnd';
 import {URL_CART_CONFIRM} from '@/app/constants/urls/urlFrontEnd';
 import { useSelector } from 'react-redux';
-import { selectDeliveryAddress, selectInfosCreditCard, selectIdPaymentIntent, selectDiscount, updateDiscount } from '../../../redux-store/cartSlice';
+import { selectDeliveryAddress, selectIdPaymentIntent, updateDiscount } from '../../../redux-store/cartSlice';
 import { selectBillingAddress, selectItems, selectTotal, selectTotalBeforeDiscount } from './../../../redux-store/cartSlice';
 import checkIMG from '../../../assets/images/check.png'
 import apiBackEnd from "@/app/api/backend/api.Backend";
