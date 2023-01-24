@@ -9,13 +9,7 @@ const initialState = {
     deliveryAddress: {},
     billingAddress: {},
     idPaymentIntent: null,
-    // TODO: Objet à mettre vide plus tard
-    infosCreditCard: {
-        firstName: 'Prénom',
-        lastName: 'Nom',
-        numbers: '0498',
-        expiration: '06/24'
-    }
+    timestampPaymentIntent: null,
 };
 
 export const cartSlice = createSlice({
@@ -91,6 +85,7 @@ export const cartSlice = createSlice({
         },
         updateIdPaymentIntent: (state, action) => {
             state.idPaymentIntent = action.payload;
+            state.timestampPaymentIntent = Date.now() + 1800000;
         },
         removeIdPaymentIntent: (state) => {
             state.idPaymentIntent = null;
@@ -105,14 +100,15 @@ export const cartSlice = createSlice({
             const deductedPrice = type === "euro" ? state.totalBeforeDiscount - remise : type === "pourcent" && state.totalBeforeDiscount - (state.totalBeforeDiscount * remise / 100)
             state.total = deductedPrice
         },
-        addInfosCreditCard: (state, action) => {
-            const { firstName, lastName, numbers, exiration } = action.payload
-            state.infosCreditCard.push({
-                firstName: firstName,
-                lastName: lastName,
-                numbers: numbers,
-                exiration: exiration
-            })
+        expirePaymentIntent: (state) => {
+            state.totalBeforeDiscount = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0)
+            state.total = state.totalBeforeDiscount
+            state.discount = {};
+            state.deliveryAddress = {};
+            state.billingAddress = {};
+            state.idPaymentIntent = null;
+            state.timestampPaymentIntent = null;
+            state.infosCreditCard = {}
         },
         clearItems: (state) => {
             state.items = [];
@@ -122,12 +118,13 @@ export const cartSlice = createSlice({
             state.deliveryAddress = {};
             state.billingAddress = {};
             state.idPaymentIntent = null;
+            state.timestampPaymentIntent = null;
             state.infosCreditCard = {}
         }
     }
 })
 
-export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, addInfosCreditCard, updateIdPaymentIntent, updateDiscount} = cartSlice.actions;
+export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, updateIdPaymentIntent, updateDiscount, expirePaymentIntent} = cartSlice.actions;
 
 export const selectItems = (state) => state.cart.items;
 export const selectTotalQuantity = (state) => state.cart.items.reduce((acc, item) => acc + item.quantity, 0);
@@ -136,8 +133,7 @@ export const selectTotal = (state) => state.cart.total;
 export const selectDeliveryAddress = (state) => state.cart.deliveryAddress;
 export const selectBillingAddress = (state) => state.cart.billingAddress;
 export const selectIdPaymentIntent = (state) => state.cart.idPaymentIntent;
-export const selectInfosCreditCard = (state) => state.cart.infosCreditCard;
+export const selectTimestampPaymentIntent = (state) => state.cart.timestampPaymentIntent;
 export const selectDiscount = (state) => state.cart.discount;
-// export const selectDeductedPrice = (state) => state.cart.type === "euro" ? state.cart.total - state.cart.discount : state.cart.type === "pourcent" && state.cart.total - (state.cart.total * state.cart.discount / 100)
 
 export default cartSlice.reducer;

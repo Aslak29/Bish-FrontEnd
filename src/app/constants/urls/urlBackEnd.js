@@ -120,5 +120,6 @@ export const URL_UPDATE_PAYMENTMETHOD = "stripe/setPaymentIntent/PaymentMethod/"
 export const URL_CONFIRM_PAYMENT = "stripe/confirmPayment/"
 
 export const URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT = "stripe/setPaymentIntent/amount/"
+export const URL_STRIPE_PAYMENTINTENT_CANCEL = "stripe/cancelPaymentIntent/"
 
 

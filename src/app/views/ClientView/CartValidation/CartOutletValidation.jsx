@@ -4,12 +4,12 @@ import {Helmet} from "react-helmet-async";
 import ProgressBar from './../../../components/cart/ProgressBar';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectDeliveryAddress, selectItems, selectBillingAddress, selectTotal, updateIdPaymentIntent } from './../../../redux-store/cartSlice';
+import { selectDeliveryAddress, selectItems, selectBillingAddress, selectTotal, updateIdPaymentIntent, selectIdPaymentIntent, selectTimestampPaymentIntent, expirePaymentIntent } from './../../../redux-store/cartSlice';
 import { URL_CART_LIVRAISON, URL_SHOPPING_CART } from '../../../constants/urls/urlFrontEnd';
-import { selectIdPaymentIntent } from '@/app/redux-store/cartSlice';
 import apiBackEnd from '../../../api/backend/api.Backend';
 import { URL_STRIPE_PAYMENTINTENT, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from '../../../constants/urls/urlBackEnd';
 import { useDispatch } from 'react-redux';
+import { URL_STRIPE_PAYMENTINTENT_CANCEL } from './../../../constants/urls/urlBackEnd';
 
 const CartOutletValidation = () => {
 
@@ -20,24 +20,30 @@ const CartOutletValidation = () => {
   const deliveryAddress = useSelector(selectDeliveryAddress)
   const billingAddress = useSelector(selectBillingAddress)
   const idPaymentIntent = useSelector(selectIdPaymentIntent)
+  const timestampPaymentIntent = useSelector(selectTimestampPaymentIntent)
   const total = useSelector(selectTotal)
 
   const [step, setStep] = useState(0)
 
   useEffect(() => {
-    if (!idPaymentIntent){
+    if(idPaymentIntent) {
+      if(timestampPaymentIntent < Date.now()) {
+        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_CANCEL + idPaymentIntent).then(res => {
+          dispatch(expirePaymentIntent())
+          navigate(URL_SHOPPING_CART)
+        })
+      } else {
+        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {})
+      }
+    } else {
       apiBackEnd.post(URL_STRIPE_PAYMENTINTENT + `${total}`).then(res => {
         dispatch(updateIdPaymentIntent(res.data))
-      })
-    }
-    else{
-      apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {})
+      })  
     }
 
     if(items.length < 1) {
       navigate(URL_SHOPPING_CART)
-    } 
-    else if(step > 1) {
+    } else if(step > 1) {
       if(Object.keys(deliveryAddress).length < 1 || Object.keys(billingAddress).length < 1) {
         navigate(URL_CART_LIVRAISON)
       }
