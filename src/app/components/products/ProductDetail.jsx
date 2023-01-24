@@ -22,8 +22,7 @@ const ProductDetail = (props) => {
     const isLogged = useSelector(selectIsLogged);
 
     const addCart = () => {
-        if(isLogged) {
-          if(user.roles[0] === "ROLE_ADMIN") {
+          if(user && user.roles[0] === "ROLE_ADMIN") {
             toast.warn("Un administrateur ne peut pas ajouter de produit à son panier", { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
           } else {
             if(selectSize) {
@@ -39,11 +38,8 @@ const ProductDetail = (props) => {
             } else {
                 toast.warn("Veuillez sélectionner une taille", { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
             }
-          }
-        } else {
-          navigate(URL_LOGIN)
         }
-      }
+    }
 
     return (
         <div className="flex flex-col lg:flex-row justify-center bish-bg-product-detail rounded-lg">

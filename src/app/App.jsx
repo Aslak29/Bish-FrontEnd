@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import apiBackEnd from './api/backend/api.Backend';
 import { URL_BACK_DISABLE_USER } from './constants/urls/urlBackEnd';
 import CookieConsent from "react-cookie-consent";
+import { clearItems } from './redux-store/cartSlice';
 const contextClass = {
     success: 'bg-green-600',
     error: 'bg-red-600',
@@ -37,6 +38,10 @@ const App = () => {
                     dispatch(signOut());
                 }
             })
+            if(user.roles[0] === "ROLE_ADMIN") {
+                console.log('first')
+                dispatch(clearItems())
+            }
         }
     }, [])
 
