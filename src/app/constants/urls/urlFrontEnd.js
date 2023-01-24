@@ -16,6 +16,7 @@ export const URL_CART_PAIEMENT = '/panier/validation/paiement';
 export const URL_CART_RESUME = '/panier/validation/resume';
 export const URL_CART_CONFIRM = '/panier/validation/confirmation';
 export const URL_FAQ = '/faq';
+export const URL_RGPD = '/protection-de-vos-donnees';
 export const URL_CGU = '/cgu'
 export const URL_LEGAL_NOTICE ='/mentions-legales'
 export const URL_FORGOT_PASSWORD = '/mot-de-passe-oublier'

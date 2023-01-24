@@ -17,7 +17,7 @@ const Register = () => {
   const recaptchaRef = React.createRef()
 
   return (
-    <div className="flex items-center justify-center sm:mt-20 mt-20 my-10 ">
+    <div className="flex items-center justify-center sm:mt-10 mt-10 my-10 ">
       <ToastContainer/>
       <div className="flex items-center justify-center flex-col border-2 border-black rounded-3xl w-3/4">
         <h3 className="pt-10">Inscription</h3>
@@ -43,7 +43,7 @@ const Register = () => {
           >
             {({setFieldValue, errors, values}) =>
               <Form
-                className="flex justify-center w-full"
+                className="flex flex-col items-center justify-center w-full"
               >
                 <div className="flex justify-center flex-col sm:flex-row rounded-md pt-10 pb-10 w-3/4">
                   {/* Section input gauche */}
@@ -81,34 +81,49 @@ const Register = () => {
                       <span className="label">Confirmer le mot de passe</span>
                     </div>
                     <ErrorMessage name="confirmation" component="small" className="text-red-400"/>
+
+                    {/* Acceptation RGPD */}
+                      <div className="flex justify-center items-center my-auto">
+                        <p className="text-xs">J'ai lu et compris la politique de confidentialité et en matière de Cookies.</p>
+                        <Field type="checkbox" name="rgpd" autoComplete="off"/>
+                      </div>
+                    <ErrorMessage name="rgpd" component="small" className="text-red-400"/>
+
+                  </div>
+                </div>
+                  <div className="flex flex-col justify-center items-center">
+                    {/* Recaptcha */}
                     {
                       env === "development" ?
-                          <div>
-                            <ReCAPTCHA
-                                name="captcha"
-                                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                                ref={recaptchaRef}
-                                onChange={(value) => {
-                                  setFieldValue("recaptcha", value);
-                                }}
-                            />
-                            <ErrorMessage name="recaptcha" component="small" className="text-red-400"/>
-                          </div> :
-                          <div>
-                            <ReCAPTCHA
-                                name="captcha"
-                                ref={recaptchaRef}
-                                sitekey={import.meta.env.VITE_SITE_KEY_RECAPTCHA}
-                                onChange={(value) => {
-                                  setFieldValue("recaptcha", value);
-                                }}
-                            />
-                            <ErrorMessage name="recaptcha" component="small" className="text-red-400"/>
-                          </div>
+                        <div className="captcha flex flex-col justify-center items-center" style={{transform:"scale(0.90)", transformOrigin:"0 0"}}>
+                          <ReCAPTCHA
+                              theme = 'light'
+                              name="captcha"
+                              sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                              ref={recaptchaRef}
+                              onChange={(value) => {
+                                setFieldValue("recaptcha", value);
+                              }}
+                          />
+                          <ErrorMessage name="recaptcha" component="small" className="text-red-400"/>
+                        </div> 
+                        :
+                        <div className="captcha flex flex-col justify-center items-center " style={{transform:"scale(0.90)", transformOrigin:"0 0"}}>
+                          <ReCAPTCHA
+                          
+                              name="captcha"
+                              ref={recaptchaRef}
+                              sitekey={import.meta.env.VITE_SITE_KEY_RECAPTCHA}
+                              onChange={(value) => {
+                                setFieldValue("recaptcha", value);
+                              }}
+                          />
+                          <ErrorMessage name="recaptcha" component="small" className="text-red-400"/>
+                        </div>
                     }
 
 
-                    {/* Buton s'inscrire */}
+                    {/* Bouton s'inscrire */}
                     <button
                       type="submit"
                       className="bish-bg-blue py-2 rounded-3xl w-full bish-text-white shadow-lg "
@@ -116,7 +131,6 @@ const Register = () => {
                       S'inscrire
                     </button>
                   </div>
-                </div>
               </Form>
             }
           </Formik>

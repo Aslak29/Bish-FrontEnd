@@ -1,5 +1,6 @@
 /* VARIABLES TAILWIND BASIQUES */
-import color.css .btn {
+@import url("color.css");
+.btn {
   @apply inline-flex items-center justify-center px-4 py-2 text-base font-medium transform border border-transparent rounded-md shadow whitespace-nowrap focus:outline-none active:scale-95 active:ring-2 active:ring-offset-2 active:ring-white;
 }
 

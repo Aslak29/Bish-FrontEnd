@@ -19,6 +19,7 @@ import FAQView from './../views/ClientView/FAQView';
 import PersonnalInfoView from './../views/ClientView/PersonnalInfoView';
 import OrdersView from './../views/ClientView/OrdersView';
 import OrderView from './../views/ClientView/OrderView';
+import RGPDView from "../views/ClientView/RGPDView";
 import TrackingOrderView from './../views/ClientView/TrackingOrderView';
 import AdminCategoriesView from './../views/AdminView/AdminCategoriesView';
 import AdminUsersView from './../views/AdminView/AdminUsersView';
@@ -84,6 +85,7 @@ const Routes = () => {
       />
 
       <Route path={URL.URL_FAQ} element={<FAQView/>} />
+      <Route path={URL.URL_RGPD} element={<RGPDView/>} />
       <Route path='*' element={<Error404View/>} />
         <Route path={URL.URL_404} element={<Error404View/>} />
       <Route path={URL.URL_CGU} element={<CGUView/>} />
