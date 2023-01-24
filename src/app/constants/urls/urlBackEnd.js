@@ -84,6 +84,15 @@ export const URL_BACK_UPDATE_AVAILABLE_PRODUCT = '/produit/update/available/'
 export const URL_BACK_UPDATE_MULTIPLE_AVAILABLE_PRODUCT = '/produit/update/multipleAvailable/'
 export const URL_BACK_MULTIPLE_DELETE_PRODUCT = '/produit/multipleRemove'
 
+// ADMIN CODE PROMO
+export const URL_BACK_CODE_PROMOS ='/code/promo/findForAdmin'
+export const URL_BACK_CODE_PROMOS_CREATE ='/code/promo/create'
+export const URL_BACK_CODE_PROMOS_UPDATE ='/code/promo/update'
+export const URL_BACK_CODE_PROMOS_DELETE ='/code/promo/delete/'
+export const URL_BACK_CODE_PROMOS_MULTIPLE_REMOVE ='/code/promo/multipleRemove'
+
+export const URL_BACK_CODE_PROMOS_FIND_BY_NAME ='/code/promo/findByName'
+
 // Routes ADMIN USER
 export const URL_BACK_RECENT_USER ='/user/recentUser'
 export const URL_BACK_CREATE_USER = '/user/create/'
@@ -109,5 +118,10 @@ export const URL_STRIPE_PAYMENTINTENT = "stripe/paymentIntent/"
 export const URL_STRIPE_CLIENTSECRET = "stripe/clientSecret/"
 export const URL_UPDATE_PAYMENTMETHOD = "stripe/setPaymentIntent/PaymentMethod/"
 export const URL_CONFIRM_PAYMENT = "stripe/confirmPayment/"
+
+export const URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT = "stripe/setPaymentIntent/amount/"
+export const URL_STRIPE_PAYMENTINTENT_CANCEL = "stripe/cancelPaymentIntent/"
+
+export const URL_PRODUITBYSIZE_UPDATE_IN_CART = "produit/by/size/updateStockInCart/"
 
 

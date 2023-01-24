@@ -95,7 +95,7 @@ const ShoppingParent = () => {
           <div className='flex flex-row justify-between my-5'>
             <div className='flex row justify-around w-2/12 bish-bg-gray-shop p-2 rounded bish-text-blue text-lg'>
               <span>Total :</span>
-              <span className='font-medium'>{total.toFixed(2)} €</span>
+              <span className='font-medium'> {total.toFixed(2)} €</span>
             </div>
             {
               items.length > 0 ?

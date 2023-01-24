@@ -61,20 +61,16 @@ const ProductCard = props => {
   }
 
   const addCart = (product, size) => {
-    if(isLogged) {
-      if(user.roles[0] === "ROLE_ADMIN") {
-        toast.warn("Un administrateur ne peut pas ajouter de produit à son panier", { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
-      } else {
-        dispatch(addItem({
-          id: product.id,
-          name: product.name,
-          quantity: 1,
-          size: size,
-          price: product.promotion.id ? product.promotion.price_remise : product.price,
-        }))
-      }
+    if(user && user.roles[0] === "ROLE_ADMIN") {
+      toast.warn("Un administrateur ne peut pas ajouter de produit à son panier", { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
     } else {
-      navigate(URL_LOGIN)
+      dispatch(addItem({
+        id: product.id,
+        name: product.name,
+        quantity: 1,
+        size: size,
+        price: product.promotion.id ? product.promotion.price_remise : product.price,
+      }))
     }
   }
 
