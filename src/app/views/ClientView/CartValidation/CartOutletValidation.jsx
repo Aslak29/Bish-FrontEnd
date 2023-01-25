@@ -26,6 +26,7 @@ const CartOutletValidation = () => {
   const [step, setStep] = useState(1)
 
   useEffect(() => {
+    if (step < 4) {
     if(idPaymentIntent) {
       if(timestampPaymentIntent < Date.now()) {
         apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_CANCEL + idPaymentIntent.id).then(res => {
@@ -54,11 +55,12 @@ const CartOutletValidation = () => {
       })
     }
 
-    if(items.length < 1) {
-      navigate(URL_SHOPPING_CART)
-    } else if(step > 1) {
-      if(Object.keys(deliveryAddress).length < 1 || Object.keys(billingAddress).length < 1) {
-        navigate(URL_CART_LIVRAISON)
+      if (items.length < 1) {
+        navigate(URL_SHOPPING_CART)
+      } else if (step > 1) {
+        if (Object.keys(deliveryAddress).length < 1 || Object.keys(billingAddress).length < 1) {
+          navigate(URL_CART_LIVRAISON)
+        }
       }
     }
   },[step])
