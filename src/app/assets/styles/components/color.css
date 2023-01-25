@@ -39,7 +39,10 @@
 .hover\:bish-bg-blue-opacity:hover {
     background-color: rgba(46, 183, 235, 0.25);
 }
-
+.hover\:bish-bg-blue-light:hover {
+    background-color: #C4E6F3;
+}
+#C4E6F3
 /* Background color quand focus*/
 .focus\:bish-bg-white:focus {
     background-color: #F5F5F5;
