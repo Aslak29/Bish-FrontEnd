@@ -114,6 +114,8 @@ export const URL_BACK_SINGLE_ORDER = "/produitInCommande/single_order/";
 export const URL_BACK_LIST_ORDERS = "/commande/byUser/";
 export const URL_BACK_COMMANDES ="/commande/"
 
+export const ULR_BACK_CREATE_COMMANDES = "/commande/createCommande"
+
 export const URL_STRIPE_PAYMENTINTENT = "stripe/paymentIntent/"
 export const URL_STRIPE_CLIENTSECRET = "stripe/clientSecret/"
 export const URL_UPDATE_PAYMENTMETHOD = "stripe/setPaymentIntent/PaymentMethod/"

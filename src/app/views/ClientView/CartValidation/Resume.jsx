@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useStep } from './CartOutletValidation';
-import {URL_CONFIRM_PAYMENT} from '@/app/constants/urls/urlBackEnd';
+import {ULR_BACK_CREATE_COMMANDES, URL_CONFIRM_PAYMENT} from '@/app/constants/urls/urlBackEnd';
 import {URL_CART_CONFIRM} from '@/app/constants/urls/urlFrontEnd';
 import { useSelector } from 'react-redux';
 import { selectDeliveryAddress, selectIdPaymentIntent, updateDiscount } from '../../../redux-store/cartSlice';
@@ -44,8 +44,39 @@ const Resume = () => {
   }
 
   const handleSubmit = async (event) => {
+    let products = []
+    for (let i = 0; i< items.length; i++) {
+      let product = {
+          id : items[i].id,
+          quantity : items[i].quantity,
+          price : items[i].lastKnownPrice,
+          remise : 50,
+          size : items[i].size,
+          name : items[i].name
+        }
+      products.unshift(product);
+    }
+
     apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
-      navigate(URL_CART_CONFIRM)
+      let commande = {
+        userId : localStorage.id,
+        rueLivraison : deliveryAddress.rue,
+        num_rueLivraison : deliveryAddress.num_rue,
+        villeLivraison : deliveryAddress.city,
+        rueFacturation : billingAddress.rue,
+        num_rueFacturation : billingAddress.num_rue,
+        villeFacturation : billingAddress.city,
+        complement_adresseLivraison : deliveryAddress.complement_adresse,
+        complement_adresseFacturation : billingAddress.complement_adresse,
+        code_postalLivraison : deliveryAddress.postal_code,
+        code_postalFacturation : billingAddress.postal_code,
+        etat_commande : "En préparation",
+        produits : products
+      }
+      apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
+        navigate(URL_CART_CONFIRM, {state : {idCommande : res.data.id} })
+      })
+
     })
   }
 
@@ -100,7 +131,6 @@ const Resume = () => {
             {
               cardInfos &&
               <div className='flex flex-col px-5 w-1/2'>
-                {console.log(cardInfos)}
                 <span className='font-bold'>{cardInfos.brand.toUpperCase()}</span>
                 <span>Carte de débit se terminant par •••• {cardInfos.last4}</span>
                 <span>Expire le {("0" + cardInfos.exp_month.toString()).slice(-2)}/{cardInfos.exp_year.toString().slice(-2)}</span>
