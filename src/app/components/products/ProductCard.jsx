@@ -4,12 +4,15 @@ import { URL_PRODUCT_LINK } from "../../constants/urls/urlFrontEnd";
 import Taille from './Taille';
 import StarsComponent from "./StarsComponent";
 import { useDispatch } from 'react-redux';
-import { addItem } from "../../redux-store/cartSlice";
+import { addItem, updateQuantityDecrement } from "../../redux-store/cartSlice";
 import { useSelector } from 'react-redux';
 import { selectUser } from "../../redux-store/authenticationSlice";
 import { selectIsLogged } from './../../redux-store/authenticationSlice';
 import { toast } from 'react-toastify'
 import { URL_LOGIN } from './../../constants/urls/urlFrontEnd';
+import { selectIdPaymentIntent } from '@/app/redux-store/cartSlice';
+import apiBackEnd from "../../api/backend/api.Backend";
+import { URL_PRODUITBYSIZE_UPDATE_IN_CART } from "../../constants/urls/urlBackEnd";
 
 // import s3 from "../../bucket_S3/aws" // Disable this import if you use S3 Bucket
 const ProductCard = props => {
@@ -29,7 +32,7 @@ const ProductCard = props => {
   const navigate = useNavigate()
 
   const user = useSelector(selectUser);
-  const isLogged = useSelector(selectIsLogged);
+  const idPaymentIntent = useSelector(selectIdPaymentIntent)
 
   const toggleDrawer = () =>{
     setIsClicked(!isClicked);
@@ -60,7 +63,7 @@ const ProductCard = props => {
     }
   }
 
-  const addCart = (product, size) => {
+  const addCart = (product, stockBySize) => {
     if(user && user.roles[0] === "ROLE_ADMIN") {
       toast.warn("Un administrateur ne peut pas ajouter de produit à son panier", { position: "top-right", autoClose: 2000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" });
     } else {
@@ -68,9 +71,18 @@ const ProductCard = props => {
         id: product.id,
         name: product.name,
         quantity: 1,
-        size: size,
+        size: stockBySize.taille,
+        stockBefore: stockBySize.stock,
         price: product.promotion.id ? product.promotion.price_remise : product.price,
       }))
+      if(idPaymentIntent) {
+        apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'decrement', [{productId: product.id, size: stockBySize.taille, stock: 1}]).then(res => {
+          dispatch(updateQuantityDecrement({
+            id: product.id,
+            size: stockBySize.taille
+          }))
+        })
+      }
     }
   }
 
@@ -105,7 +117,7 @@ const ProductCard = props => {
                 <span className='mx-auto mb-2 text-lg lg:text-base xl:text-lg'>Ajouter au panier</span>
                 <div className='w-full gap-1 flex justify-center'>
                   {Object.entries(produit.stockBySize).map(([index, res]) =>
-                      <div onClick={() => addCart(produit, res.taille)} key={index} className={`w-1/6 flex justify-center ${ res.taille === "xs" ? "order-1" : res.taille === "s" ? "order-2" : res.taille === "m" ? "order-3" : res.taille === "l" ? "order-4" : res.taille === "xl" && "order-5"}`}>
+                      <div onClick={() => addCart(produit, res)} key={index} className={`w-1/6 flex justify-center ${ res.taille === "xs" ? "order-1" : res.taille === "s" ? "order-2" : res.taille === "m" ? "order-3" : res.taille === "l" ? "order-4" : res.taille === "xl" && "order-5"}`}>
                           <Taille taille={res} addStock={addStock}/>
                       </div>)}
                 </div>

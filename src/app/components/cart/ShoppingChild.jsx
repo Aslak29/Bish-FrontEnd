@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import trash from "../../assets/images/trash.png";
 import { useDispatch } from 'react-redux';
-import { removeItem, updateItemQuantity } from '../../redux-store/cartSlice';
+import { removeItem, updateItemQuantity, updateQuantityDecrement } from '../../redux-store/cartSlice';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../../assets/styles/components/overlay.css';
 import checkIMG from '../../assets/images/check.png'
+import { useSelector } from 'react-redux';
+import { URL_PRODUITBYSIZE_UPDATE_IN_CART } from "../../constants/urls/urlBackEnd";
+import apiBackEnd from "../../api/backend/api.Backend";
+import { selectIdPaymentIntent } from '@/app/redux-store/cartSlice';
 
 const ShoppingChild = props => {
 
   const product = props.product
   const dispatch = useDispatch()
+
+  const idPaymentIntent = useSelector(selectIdPaymentIntent)
 
   const [quantity, setQuantity] = useState(product.quantity)
   const [readNewPrice, setReadNewPrice] = useState(product.newPrice ? false : true)
@@ -27,6 +33,9 @@ const ShoppingChild = props => {
               <button className="bish-bg-white text-black p-2 rounded bish-text-white flex-1" onClick={onClose}>Non</button>
               <button className="bish-bg-white text-black p-2 rounded bish-text-white flex-1"
                 onClick={() => {
+                  if(idPaymentIntent) {
+                    apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'increment', [{productId: product.id, size: product.size, stock: product.quantity}]).then(res => {})
+                  }
                   dispatch(removeItem({
                     id: product.id,
                     size: product.size
@@ -53,6 +62,14 @@ const ShoppingChild = props => {
         quantity: quantity + 1
       }))
       setQuantity(quantity + 1)
+      if(idPaymentIntent) {
+        apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'decrement', [{productId: product.id, size: product.size, stock: 1}]).then(res => {
+          dispatch(updateQuantityDecrement({
+            id: product.id,
+            size: product.size
+          }))
+        })
+      }
     }
   }
 
@@ -64,6 +81,14 @@ const ShoppingChild = props => {
         quantity: quantity - 1
       }))
       setQuantity(quantity - 1)
+      if(idPaymentIntent) {
+        apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'increment', [{productId: product.id, size: product.size, stock: 1}]).then(res => {
+          dispatch(updateQuantityDecrement({
+            id: product.id,
+            size: product.size
+          }))
+        })
+      }
     }
   }
 
