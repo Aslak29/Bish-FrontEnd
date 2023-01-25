@@ -70,7 +70,6 @@ const ProductDetail = (props) => {
                   }
                   alt={props.name}
                 />
-            {/*TODO: ajouter la source du produits*/}
             </div>
             <div className="p-8 md:w-5/6 w-full w-11/12 m-auto lg:m-0 relative md:pt-10 -z-0">
                 <div className="flex flex-col sm:flex-row">
