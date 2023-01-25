@@ -124,4 +124,4 @@ export const URL_STRIPE_PAYMENTINTENT_CANCEL = "stripe/cancelPaymentIntent/"
 
 export const URL_PRODUITBYSIZE_UPDATE_IN_CART = "produit/by/size/updateStockInCart/"
 
-
+export const URL_PRODUIT_BY_SEARCHBAR = "produit/bySearchBar/"
