@@ -6,9 +6,12 @@ import StarsComponent from "./StarsComponent";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLogged, selectUser } from './../../redux-store/authenticationSlice';
 import { toast } from 'react-toastify';
-import { addItem } from "../../redux-store/cartSlice";
+import { addItem, updateQuantityDecrement } from "../../redux-store/cartSlice";
 import { useNavigate } from 'react-router-dom';
 import { URL_LOGIN } from './../../constants/urls/urlFrontEnd';
+import { selectIdPaymentIntent } from '@/app/redux-store/cartSlice';
+import apiBackEnd from "../../api/backend/api.Backend";
+import { URL_PRODUITBYSIZE_UPDATE_IN_CART } from "../../constants/urls/urlBackEnd";
 
 const ProductDetail = (props) => {
 
@@ -20,6 +23,7 @@ const ProductDetail = (props) => {
 
     const user = useSelector(selectUser);
     const isLogged = useSelector(selectIsLogged);
+    const idPaymentIntent = useSelector(selectIdPaymentIntent)
 
     const addCart = () => {
           if(user && user.roles[0] === "ROLE_ADMIN") {
@@ -33,6 +37,14 @@ const ProductDetail = (props) => {
                     size: selectSize.taille,
                     price: props.promotion.id ? props.promotion.price_remise : props.price,
                 }))
+                if(idPaymentIntent) {
+                    apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'decrement', [{productId: props.id, size: selectSize.taille, stock: 1}]).then(res => {
+                      dispatch(updateQuantityDecrement({
+                        id: props.id,
+                        size: selectSize.taille
+                      }))
+                    })
+                  }
                 setResetFocus()
                 setSelectSize()
             } else {
@@ -58,7 +70,6 @@ const ProductDetail = (props) => {
                   }
                   alt={props.name}
                 />
-            {/*TODO: ajouter la source du produits*/}
             </div>
             <div className="p-8 md:w-5/6 w-full w-11/12 m-auto lg:m-0 relative md:pt-10 -z-0">
                 <div className="flex flex-col sm:flex-row">

@@ -23,6 +23,7 @@ export const cartSlice = createSlice({
                     id: id,
                     name: name,
                     quantity: quantity,
+                    quantityDecrement: 0,
                     size: size,
                     lastKnownPrice: price
                 })
@@ -38,7 +39,7 @@ export const cartSlice = createSlice({
             state.discount = {}
             state.totalBeforeDiscount = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0)
             state.total = state.totalBeforeDiscount
-            toast.success(name + ' ajouté au panier !', { position: "top-right", autoClose: 1000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
+            toast.success(name + ' ajouté au panier !', { position: "bottom-left", autoClose: 1000, hideProgressBar: false, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "light" })
         },
         removeItem: (state, action) => {
             const { id, size } = action.payload
@@ -64,6 +65,18 @@ export const cartSlice = createSlice({
             state.items = state.items.map(item => {
                 if(item.id === id && item.size === size) {
                     item.lastKnownPrice = price;
+                }
+                return item
+            })
+            state.discount = {}
+            state.totalBeforeDiscount = state.items.reduce((acc, item) => acc + item.lastKnownPrice * item.quantity, 0)
+            state.total = state.totalBeforeDiscount
+        },
+        updateQuantityDecrement: (state, action) => {
+            const { id, size } = action.payload
+            state.items = state.items.map(item => {
+                if(item.id === id && item.size === size) {
+                    item.quantityDecrement = item.quantity;
                 }
                 return item
             })
@@ -124,7 +137,7 @@ export const cartSlice = createSlice({
     }
 })
 
-export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, updateIdPaymentIntent, updateDiscount, expirePaymentIntent} = cartSlice.actions;
+export const { addItem, removeItem, updateItemQuantity, updateItemPrice, clearItems, updateDeliveryAddress, updateBillingAddress, removeDeliveryAddress, removeBillingAddress, updateIdPaymentIntent, updateDiscount, expirePaymentIntent, updateQuantityDecrement } = cartSlice.actions;
 
 export const selectItems = (state) => state.cart.items;
 export const selectTotalQuantity = (state) => state.cart.items.reduce((acc, item) => acc + item.quantity, 0);

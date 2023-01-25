@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { selectIdPaymentIntent } from '@/app/redux-store/cartSlice';
 import { expirePaymentIntent, selectTimestampPaymentIntent, selectTotal } from '../../redux-store/cartSlice';
 import apiBackEnd from './../../api/backend/api.Backend';
-import { URL_STRIPE_PAYMENTINTENT_CANCEL, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from './../../constants/urls/urlBackEnd';
+import { URL_PRODUITBYSIZE_UPDATE_IN_CART, URL_STRIPE_PAYMENTINTENT_CANCEL, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from './../../constants/urls/urlBackEnd';
 import { URL_SHOPPING_CART } from '../../constants/urls/urlFrontEnd';
+import { selectItems } from './../../redux-store/cartSlice';
 
 const ShoppingCartView = () => {
 
@@ -17,16 +18,28 @@ const ShoppingCartView = () => {
   const idPaymentIntent = useSelector(selectIdPaymentIntent)
   const timestampPaymentIntent = useSelector(selectTimestampPaymentIntent)
   const total = useSelector(selectTotal)
+  const items = useSelector(selectItems)
 
   useEffect(() => {
     if(idPaymentIntent) {
       if(timestampPaymentIntent < Date.now()) {
-        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_CANCEL + idPaymentIntent).then(res => {
+        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_CANCEL + idPaymentIntent.id).then(res => {
+          let itemsIncrement = []
+          items.map(item => {
+              itemsIncrement.push(
+                {
+                  productId: item.id,
+                  size: item.size,
+                  stock: item.quantityDecrement
+                }
+              )
+          })
+          apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'increment', itemsIncrement).then(res => {})
           dispatch(expirePaymentIntent())
           navigate(URL_SHOPPING_CART)
         })
       } else {
-        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {console.log(res)})
+        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {})
       }
     }
   },[])
