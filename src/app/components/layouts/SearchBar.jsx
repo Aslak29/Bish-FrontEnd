@@ -49,40 +49,40 @@ const SearchBar = props => {
 
   return (
 
-    <div className="h-8 my-auto mx-0 flex flex-col space-x-3 sm:space-x-6 lg:w-4/6 xl:w-auto">
-          <form action="#" className={`${searchBarDisplay} lg:block`}>
+    <div className="h-8 my-auto mx-0 flex flex-col lg:w-4/6 xl:w-auto">
+        <div>
+            <form action="#" className={`${searchBarDisplay} lg:block`}>
             <input 
-              className={`h-8 rounded-full border-transparent w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96`}
-              type="search" 
-              name="searchbar" 
-              id="searchbar"
-              onChange={onChangeValue}
-              placeholder="Rechercher..."/>
+                className={`h-8 ${products.length > 0 ? 'rounded-t-lg' : 'rounded-lg'} border-transparent w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96`}
+                type="search" 
+                name="searchbar" 
+                id="searchbar"
+                onChange={onChangeValue}
+                placeholder="Rechercher..."/>
             <input type="submit" value="" className="hidden"/>
-          </form>
-            <button className="lg:hidden" onClick={toggleSearchBar}>
-              <img
-                  className="h-8 w-auto cursor-pointer"
-                  src={search}
-                  alt="Recherche"/> 
-            </button>
-
-        {
-            valueSearchBar !== null &&
-
-            products.map((product)  => {
-             return (
-                 <div className={'flex flex-raw items-center justify-between sm:w-72 shadow-xl h-44 bg-white cursor-pointer'} onClick={() => handleSearchBar(product.id)} key={product.id}>
-                     <img className={'h-12'} src={window.location.origin + '/src/app/assets/images/products/' + product.pathImage} alt={product.name}/>
-                     <span>{product.name}</span>
-                     <span>{product.price} €</span>
-                 </div>
-             )
-            }
-            )
-        }
-
+        </form>
+        <button className="lg:hidden" onClick={toggleSearchBar}>
+            <img className="h-8 w-auto cursor-pointer" src={search} alt="Recherche"/> 
+        </button>
         </div>
+        
+        {
+            products.length > 0 &&
+            <div className='flex flex-col bish-bg-white border bish-border-gray w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96'>
+                {
+                    products.map((product)  => {
+                        return (
+                            <div className={'flex flex-row items-center justify-between bish-bg-white cursor-pointer hover:bish-bg-blue-light border-b bish-border-white-up py-2 px-5'} onClick={() => handleSearchBar(product.id)} key={product.id}>
+                                <img className={'h-12'} src={window.location.origin + '/src/app/assets/images/products/' + product.pathImage} alt={product.name}/>
+                                <span>{product.name}</span>
+                                <span>{product.price} €</span>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        }
+    </div>
   )
 }
 
