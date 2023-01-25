@@ -3,13 +3,19 @@ import { useStep } from './CartOutletValidation';
 import {ULR_BACK_CREATE_COMMANDES, URL_CONFIRM_PAYMENT} from '@/app/constants/urls/urlBackEnd';
 import {URL_CART_CONFIRM} from '@/app/constants/urls/urlFrontEnd';
 import { useSelector } from 'react-redux';
-import { selectDeliveryAddress, selectIdPaymentIntent, updateDiscount } from '../../../redux-store/cartSlice';
+import {
+  clearItems,
+  selectDeliveryAddress,
+  selectIdPaymentIntent,
+  updateDiscount
+} from '../../../redux-store/cartSlice';
 import { selectBillingAddress, selectItems, selectTotal, selectTotalBeforeDiscount } from './../../../redux-store/cartSlice';
 import checkIMG from '../../../assets/images/check.png'
 import apiBackEnd from "@/app/api/backend/api.Backend";
 import {useNavigate} from "react-router-dom";
 import { URL_BACK_CODE_PROMOS_FIND_BY_NAME, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from '../../../constants/urls/urlBackEnd';
 import { useDispatch } from 'react-redux';
+import * as storage from "@/app/redux-store/cartSlice";
 
 const Resume = () => {
 
@@ -74,6 +80,7 @@ const Resume = () => {
         produits : products
       }
       apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
+        dispatch(clearItems())
         navigate(URL_CART_CONFIRM, {state : {idCommande : res.data.id} })
       })
 
