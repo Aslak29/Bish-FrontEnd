@@ -42,7 +42,6 @@ const SearchBar = props => {
     }
 
     function handleSearchBar(idProduct){
-        console.log("test : " + idProduct)
         navigate(URL_PRODUCT_LINK + idProduct)
         navigate(0)
     }

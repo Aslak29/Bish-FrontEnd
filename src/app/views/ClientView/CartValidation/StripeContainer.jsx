@@ -22,7 +22,6 @@ const StripeContainer = () => {
                 clientSecret: res.data.clientSecret
             })
         }).catch(res => {
-            console.log(res)
         })
     },[])
 

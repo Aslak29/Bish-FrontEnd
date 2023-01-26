@@ -45,11 +45,17 @@ const ProductsView = () => {
                 <meta name="description" content="Retrouvez tous nos produits disponibles à tout moments"/>
             </Helmet>
             <ToastContainer />
+
+
             <div className="lg:w-fit mx-auto">
                 <Categories setCategorie={handleCategorie}/>
             </div>
             <ProductsContainer categorie={categorie} setCategorie={handleCategorie} setCountPage={handleCountPage} page={page} limit={20} backArrow={backArrow}/>
-            <Paginate setPage={handlePage} countPage={countPage} page={page}/>
+
+            {countPage > 1 &&
+                <Paginate setPage={handlePage} countPage={countPage} page={page}/>
+            }
+
         </div>
     );
 };

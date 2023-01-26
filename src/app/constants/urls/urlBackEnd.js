@@ -54,6 +54,7 @@ export const URL_BACK_CATEGORIES_UPDATE_AVAILABLE = "/categorie/updateAvailable/
 export const URL_BACK_CATEGORIES_MULTIPLE_UPDATE_AVAILABLE = "/categorie/multipleUpdateAvailable/"
 
 // Route TAILLE
+export const URL_BACK_SIZE = "/size/";
 export const URL_BACK_SIZE_PRODUCT = "/size/allSizeProduct/";
 export const URL_BACK_TYPE_TAILLE = "/size/typeTaille/";
 

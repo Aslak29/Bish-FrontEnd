@@ -15,7 +15,7 @@ const ProductsContainer = props => {
     const [filterValue, setFilterValue] = useState([]);
     const [priceRange, setPriceRange] = useState([0,2000]);
     const [produits, setProduits] = useState([]);
-    const [size,setSize] = useState("none");
+    const [filterSize,setFilterSize] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const toggleFilter = () => {
@@ -44,29 +44,39 @@ const ProductsContainer = props => {
         setPriceRange(priceRange)
     }
 
-    const handleSize = (size) =>{
-        setSize(size)
+    const handleSize = (filterSize) => {
+        setFilterSize(filterSize)
     }
 
     useEffect(() => {
-        const callApi= () =>{
+        const callApi= () =>
+        {
+            const obj = {
+                filterValue: filterValue,
+                priceRangeMin: priceRange[0],
+                priceRangeMax: priceRange[1],
+                categorie: props.categorie[0],
+                size: filterSize,
+                limit: props.limit,
+                page: props.page*20
+            }
             setIsLoading(true)
-            apiBackEnd.post(URL_BACK_PRODUCT_FILTER + `${filterValue[0]}`+ `/${filterValue[1]}`+ `/${priceRange[0]}`+ `/${priceRange[1]}` + `/${props.categorie[0]}` + `/${size}` + `/${props.limit}` + `/${props.page*20}`).then(r => {
-            setIsLoading(false)
-            props.setCountPage(r.data[1].count[0][1])
-            setProduits(r.data[0]);
+            apiBackEnd.post(URL_BACK_PRODUCT_FILTER , obj).then(r => {
+                setIsLoading(false)
+                props.setCountPage(r.data[1].count[0][1])
+                setProduits(r.data[0]);
         }).catch(error => {
             console.log(error)
-        })} 
+        })}
         callApi()
-      },[filterValue, priceRange,props.categorie,props.page,size])
+      },[filterSize,filterValue, priceRange,props.categorie,props.page,])
 
 
   return (
     <div className='space-y-6'>
         <div className={`${filterCloseDisplay} bish-bg-gray h-full w-full absolute top-0 left-0 z-30 opacity-0`} onClick={() => closeFilter()}/>
-        <div className={`${filterDisplay} fixed top-0 right-0 z-40 h-full border bish-border-gray pr-20 bish-bg-white pl-5`}>
-            <Filtre closeFilter={() => closeFilter()} filter={filterChoice} priceRangeFilter={priceRangeFilter} setSize={handleSize}/>
+        <div className={`${filterDisplay} fixed top-0 right-0 z-40 h-full border bish-border-gray pr-10 bish-bg-white pl-5`}>
+            <Filtre closeFilter={() => closeFilter()} size={handleSize} filter={filterChoice} priceRangeFilter={priceRangeFilter} />
         </div>
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row items-center'>
@@ -81,9 +91,19 @@ const ProductsContainer = props => {
         {isLoading ? (<img className='m-auto py-24' src={loadingSVG} alt="Chargement"></img>)
         : 
         (
-            <div className='grid grid-cols-2 md:grid-cols-5 gap-4'>
-            {produits.map((r) => r.is_available && <ProductCard key={r.id} produit={r}/>)}
-            </div>
+            <>
+                {produits.length > 0 ?
+                    <div className='grid grid-cols-2 md:grid-cols-5 gap-4'>
+                        {produits.map((r) => r.is_available &&
+                            <ProductCard key={r.id} produit={r}/>
+                        )}
+                    </div>
+                    :
+                    <div className="flex items-center justify-center bish-bg-gray-shop w-full m-auto text-center py-10 rounded-xl text-lg">Aucun résultat ne correspond à votre recherche !</div>
+                }
+            </>
+
+
         )}
         
     </div>

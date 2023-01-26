@@ -104,3 +104,32 @@
 .bish-shadow-grey{
     box-shadow: 5px 5px 10px rgba(88, 80, 80, 0.4);
 }
+
+/* Outline color */
+
+.hover\:bish-outline-gray:hover {
+    outline: 1px solid #585050;
+}
+
+/* Peer checked */
+
+/*.peer-checked\:bish-outline-gray {
+    outline: 1px solid #585050;
+}
+
+.peer-checked\:bish-bg-white:checked {
+    background-color: #F5F5F5;
+}*/
+
+/*
+.peer-\[\.inputSize\]\:bish-bg-white {
+    background-color: #F5F5F5;
+}
+*/
+
+
+input[name=sizeCheck]:checked ~ div {
+    background-color: #F5F5F5;
+    outline: 1px solid #585050;
+    color: black;
+}
