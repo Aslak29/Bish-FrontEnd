@@ -9,7 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { codepromoSchema } from "../../../utils/AdminValidationSchema";
 
 const FormUpdate  = props => {
-    console.log(props.codePromo.startDateEN);
     const [startDate, setStartDate] = useState(new Date(props.codePromo.startDateEN));
     const [endDate, setEndDate] = useState(new Date(props.codePromo.endDateEN));
 

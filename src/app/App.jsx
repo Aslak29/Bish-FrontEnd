@@ -43,7 +43,6 @@ const App = () => {
                 }
             })
             if(user.roles[0] === "ROLE_ADMIN") {
-                console.log('first')
                 dispatch(clearItems())
             }
         }

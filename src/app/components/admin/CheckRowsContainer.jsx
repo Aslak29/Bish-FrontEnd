@@ -38,7 +38,6 @@ const CheckRowsContainer = props => {
         })
       }else if (props.typeRequest === "DELETE") {
         apiBackEnd.delete(`${props.deleteBackUrl}`, {data: ids}).then(res => {
-          console.log(res)
           props.setReload(!props.reload)
         })
       }else {

@@ -23,7 +23,6 @@ const Revenues = () => {
       apiBackend.get(URL_BACK_COUNT_COMMANDE),
     ])
     .then(res => {
-      console.log(res);
         setCountUser(res[0].data.countUser)
         setCountBlog(res[1].data[1])
         setCountContact(res[2].data[1])
