@@ -1,5 +1,5 @@
 import React from 'react'
-import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js";
+import {PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import apiBackEnd from "@/app/api/backend/api.Backend";
 import {URL_UPDATE_PAYMENTMETHOD} from "@/app/constants/urls/urlBackEnd";
 import {useSelector} from "react-redux";
@@ -33,7 +33,7 @@ const CheckoutForm = () => {
     return (
         <div >
             <form onSubmit={handleSubmit} className={"my-20"}>
-                <CardElement />
+                <PaymentElement />
                 <button className={"border bish-border-gray rounded-2xl px-4 py-2 justify-center bish-bg-blue my-4 w-24"}>Continuer</button>
             </form>
         </div>
