@@ -8,11 +8,16 @@ import localStorage from "redux-persist/es/storage";
  */
 
 let token = await localStorage.getItem('token')
+console.log(token)
 
-const apiBackEnd = axios.create({
+const apiBackEnd = token !== null ?
+    axios.create({
   baseURL: import.meta.env.VITE_REQUEST_API,
   headers:{
     Authorization : 'Bearer ' + token
-  }
+  }})
+  :
+    axios.create({
+      baseURL: import.meta.env.VITE_REQUEST_API,
 });
 export default apiBackEnd;
