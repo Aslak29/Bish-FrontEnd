@@ -18,7 +18,7 @@ const ProgressBar = props => {
     return (
         <div className='flex flex-row place-items-center px-10'>
             {
-                step > 1 ?
+                step > 1 && step < 4 ?
                 <Link to={URL_CART_LIVRAISON} className={stepStyle}>
                     <div className={step === 1 ? roundStepStyleActive : step > 1 ? roundStepStyleComplete : roundStepStyle}>1</div>
                     <span className={step >= 1 ? 'bish-text-blue' : 'bish-text-gray'}>Livraison</span>
@@ -31,28 +31,28 @@ const ProgressBar = props => {
             }
             <div className={step > 1 ? barStyleComplete : barStyle} />
             {
-                step > 2 ?
-                <Link to={URL_CART_PAIEMENT} className={stepStyle}>
+                step > 2 && step < 4 ?
+                <Link to={URL_CART_RESUME} className={stepStyle}>
                     <div className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</div>
-                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</span>
+                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</span>
                 </Link>
                 :
                 <div className={stepStyle}>
                     <div className={step === 2 ? roundStepStyleActive : step > 2 ? roundStepStyleComplete : roundStepStyle}>2</div>
-                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</span>
+                    <span className={step >= 2 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</span>
                 </div>
             }
             <div className={step > 2 ? barStyleComplete : barStyle} />
             {
-                step > 3 ?
+                step > 3 && step < 4 ?
                 <Link to={URL_CART_PAIEMENT} className={stepStyle}>
                     <div className={step === 3 ? roundStepStyleActive : step > 3 ? roundStepStyleComplete : roundStepStyle}>3</div>
-                    <span className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</span>
+                    <span className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</span>
                 </Link>
                 :
                 <div className={stepStyle}>
                     <div className={step === 3 ? roundStepStyleActive : step > 3 ? roundStepStyleComplete : roundStepStyle}>3</div>
-                    <span className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Résumé</span>
+                    <span className={step >= 3 ? 'bish-text-blue' : 'bish-text-gray'}>Paiement</span>
                 </div>
             }
             <div className={step > 3 ? barStyleComplete : barStyle} />

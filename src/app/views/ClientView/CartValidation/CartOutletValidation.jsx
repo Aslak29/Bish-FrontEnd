@@ -27,33 +27,33 @@ const CartOutletValidation = () => {
 
   useEffect(() => {
     if (step < 4) {
-    if(idPaymentIntent) {
-      if(timestampPaymentIntent < Date.now()) {
-        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_CANCEL + idPaymentIntent.id).then(res => {
-          let itemsIncrement = []
-          items.map(item => {
-              itemsIncrement.push(
-                {
-                  productId: item.id,
-                  size: item.size,
-                  stock: item.quantityDecrement
-                }
-              )
+      if(idPaymentIntent) {
+        if(timestampPaymentIntent < Date.now()) {
+          apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_CANCEL + idPaymentIntent.id).then(res => {
+            let itemsIncrement = []
+            items.map(item => {
+                itemsIncrement.push(
+                  {
+                    productId: item.id,
+                    size: item.size,
+                    stock: item.quantityDecrement
+                  }
+                )
+            })
+            apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'increment', itemsIncrement).then(res => {})
+            dispatch(expirePaymentIntent())
+            navigate(URL_SHOPPING_CART)
           })
-          apiBackEnd.post(URL_PRODUITBYSIZE_UPDATE_IN_CART + 'increment', itemsIncrement).then(res => {})
-          dispatch(expirePaymentIntent())
-          navigate(URL_SHOPPING_CART)
-        })
+        } else {
+          step > 0 && updateStock()
+          apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {})
+        }
       } else {
-        step > 0 && updateStock()
-        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {})
+        apiBackEnd.post(URL_STRIPE_PAYMENTINTENT + `${total}`).then(res => {
+          step > 0 && updateStock()
+          dispatch(updateIdPaymentIntent(res.data))
+        })
       }
-    } else {
-      apiBackEnd.post(URL_STRIPE_PAYMENTINTENT + `${total}`).then(res => {
-        step > 0 && updateStock()
-        dispatch(updateIdPaymentIntent(res.data))
-      })
-    }
 
       if (items.length < 1) {
         navigate(URL_SHOPPING_CART)
