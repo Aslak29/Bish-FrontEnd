@@ -50,41 +50,41 @@ const Resume = () => {
   // }
 
   // const handleSubmit = async (event) => {
-  //   let products = []
-  //   for (let i = 0; i< items.length; i++) {
-  //     let product = {
-  //         id : items[i].id,
-  //         quantity : items[i].quantity,
-  //         price : items[i].lastKnownPrice,
-  //         remise : 50,
-  //         size : items[i].size,
-  //         name : items[i].name
-  //       }
-  //     products.unshift(product);
-  //   }
-  // 
-  //   apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
-  //     let commande = {
-  //       userId : localStorage.id,
-  //       rueLivraison : deliveryAddress.rue,
-  //       num_rueLivraison : deliveryAddress.num_rue,
-  //       villeLivraison : deliveryAddress.city,
-  //       rueFacturation : billingAddress.rue,
-  //       num_rueFacturation : billingAddress.num_rue,
-  //       villeFacturation : billingAddress.city,
-  //       complement_adresseLivraison : deliveryAddress.complement_adresse,
-  //       complement_adresseFacturation : billingAddress.complement_adresse,
-  //       code_postalLivraison : deliveryAddress.postal_code,
-  //       code_postalFacturation : billingAddress.postal_code,
-  //       etat_commande : "En préparation",
-  //       produits : products
-  //     }
-  //     apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
-  //       dispatch(clearItems())
-  //       navigate(URL_CART_CONFIRM, {state : {idCommande : res.data.id} })
-  //     })
+    // let products = []
+    // for (let i = 0; i< items.length; i++) {
+    //   let product = {
+    //       id : items[i].id,
+    //       quantity : items[i].quantity,
+    //       price : items[i].lastKnownPrice,
+    //       remise : 50,
+    //       size : items[i].size,
+    //       name : items[i].name
+    //     }
+    //   products.unshift(product);
+    // }
+  
+    // apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
+    //   let commande = {
+    //     userId : localStorage.id,
+    //     rueLivraison : deliveryAddress.rue,
+    //     num_rueLivraison : deliveryAddress.num_rue,
+    //     villeLivraison : deliveryAddress.city,
+    //     rueFacturation : billingAddress.rue,
+    //     num_rueFacturation : billingAddress.num_rue,
+    //     villeFacturation : billingAddress.city,
+    //     complement_adresseLivraison : deliveryAddress.complement_adresse,
+    //     complement_adresseFacturation : billingAddress.complement_adresse,
+    //     code_postalLivraison : deliveryAddress.postal_code,
+    //     code_postalFacturation : billingAddress.postal_code,
+    //     etat_commande : "En préparation",
+    //     produits : products
+    //   }
+    //   apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
+    //     dispatch(clearItems())
+    //     navigate(URL_CART_CONFIRM, {state : {idCommande : res.data.id} })
+    //   })
 
-  //   })
+    // })
   // }
 
   const handleCodePromo = () => {

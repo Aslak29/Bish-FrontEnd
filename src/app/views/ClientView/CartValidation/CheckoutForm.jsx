@@ -6,10 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectIdPaymentIntent} from "@/app/redux-store/cartSlice";
 import {useNavigate} from "react-router-dom";
 import {URL_CART_RESUME} from "@/app/constants/urls/urlFrontEnd";
-import { clearItems, selectTotal } from '../../../redux-store/cartSlice';
+import { clearItems, selectBillingAddress, selectTotal } from '../../../redux-store/cartSlice';
 import { useState } from 'react';
-import { URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from '../../../constants/urls/urlBackEnd';
+import { ULR_BACK_CREATE_COMMANDES, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from '../../../constants/urls/urlBackEnd';
 import { URL_CART_CONFIRM } from './../../../constants/urls/urlFrontEnd';
+import { selectItems, selectDeliveryAddress } from './../../../redux-store/cartSlice';
+import { URL_CONFIRM_PAYMENT } from './../../../constants/urls/urlBackEnd';
 
 const CheckoutForm = () => {
 
@@ -21,6 +23,9 @@ const CheckoutForm = () => {
 
     const idPaymentId = useSelector(selectIdPaymentIntent)
     const total = useSelector(selectTotal)
+    const items = useSelector(selectItems)
+    const deliveryAddress = useSelector(selectDeliveryAddress)
+    const billingAddress = useSelector(selectBillingAddress)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -36,8 +41,40 @@ const CheckoutForm = () => {
         if(error){
             setError(error.message)
         }else if(paymentIntent && paymentIntent.status === "succeeded"){
+            let products = []
+
+            for (let i = 0; i< items.length; i++) {
+            let product = {
+                id : items[i].id,
+                quantity : items[i].quantity,
+                price : items[i].lastKnownPrice,
+                remise : 50,
+                size : items[i].size,
+                name : items[i].name
+                }
+            products.unshift(product);
+            }
+        
+            let commande = {
+                userId : localStorage.id,
+                rueLivraison : deliveryAddress.rue,
+                num_rueLivraison : deliveryAddress.num_rue,
+                villeLivraison : deliveryAddress.city,
+                rueFacturation : billingAddress.rue,
+                num_rueFacturation : billingAddress.num_rue,
+                villeFacturation : billingAddress.city,
+                complement_adresseLivraison : deliveryAddress.complement_adresse,
+                complement_adresseFacturation : billingAddress.complement_adresse,
+                code_postalLivraison : deliveryAddress.postal_code,
+                code_postalFacturation : billingAddress.postal_code,
+                etat_commande : "En préparation",
+                produits : products
+            }
+            apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
+                dispatch(clearItems())
+                navigate(URL_CART_CONFIRM, {state : {idCommande : res.data.id} })
+            })
             dispatch(clearItems())
-            navigate(URL_CART_CONFIRM)
         }else{
             setError("une erreur est survenue")
         }
