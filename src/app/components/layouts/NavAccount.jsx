@@ -26,9 +26,9 @@ const NavAccount = () => {
         <div className="border bish-bg-white-up bish-border-gray-down   rounded-lg px-2 py-2 bish-shadow-grey flex flex-col justify-center content-center ">
             <ul className="divide-y divide-slate-400/25">
                 <li className="py-2 px-4 block my-2">Bonjour <span className="font-semibold bish-text-blue">{user.name} {user.surname}</span></li>
-                <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_INFOS}>Informations personnelles</Link></li>
-                <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ADDRESSES}>Mes adresses</Link></li>
-                <li><Link className="link-hover-blue bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ORDERS}>Mes commandes</Link></li>
+                <li><Link className="hover:bish-bg-blue-light bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_INFOS}>Informations personnelles</Link></li>
+                <li><Link className="hover:bish-bg-blue-light bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ADDRESSES}>Mes adresses</Link></li>
+                <li><Link className="hover:bish-bg-blue-light bish-text-grey py-2 px-4 block whitespace-nowrap text-s" to={URL_ORDERS}>Mes commandes</Link></li>
                 <li className="flex justify-center content-center pt-6">
                     <button className="btn-logout py-2 px-4 whitespace-nowrap flex items-center" onClick={() => logout()}>
                         <span>Déconnexion</span>

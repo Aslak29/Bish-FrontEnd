@@ -55,7 +55,7 @@ const orders = () => {
                             <tbody>
                             {infoCommande.map((commande) =>
                                 <tr
-                                    className="text-center cursor-pointer hover:bish-bg-blue hover:bish-text-white"
+                                    className="text-center cursor-pointer hover:bish-bg-blue-light hover:bish-text-white"
                                     key={commande.id}
                                     onClick={() => fetchCommande(commande.id, commande.etatCommande)}
                                 >
