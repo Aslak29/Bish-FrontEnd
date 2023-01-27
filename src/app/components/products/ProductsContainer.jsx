@@ -12,7 +12,7 @@ const ProductsContainer = props => {
     const [filterClick, setFilterClick] = useState(false);
     const [filterDisplay, setFilterDisplay] = useState('hidden');
     const [filterCloseDisplay, setFilterCloseDisplay] = useState('hidden');
-    const [filterValue, setFilterValue] = useState([]);
+    const [filterValue, setFilterValue] = useState([null, false]);
     const [priceRange, setPriceRange] = useState([0,1000]);
     const [produits, setProduits] = useState([]);
     const [filterSize,setFilterSize] = useState([]);
@@ -76,6 +76,7 @@ const ProductsContainer = props => {
     <div className='space-y-6'>
         <div className={`${filterCloseDisplay} bish-bg-gray h-full w-full absolute top-0 left-0 z-30 opacity-0`} onClick={() => closeFilter()}/>
         <div className={`${filterDisplay} fixed top-0 right-0 z-40 h-full border bish-border-gray pr-10 bish-bg-white pl-5`}>
+
             <Filtre closeFilter={() => closeFilter()} size={handleSize} filter={filterChoice} priceRangeFilter={priceRangeFilter} />
         </div>
         <div className='flex flex-row justify-between'>

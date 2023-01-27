@@ -36,7 +36,10 @@ const marks = [
     },
 ];
 
-const CheckBox = ({label, typeCheck, name, onChange, value}) => {
+const CheckBox = ({label, typeCheck, name, onChange, value, checked}) => {
+
+
+
     return (
         <>
             <input
@@ -44,6 +47,7 @@ const CheckBox = ({label, typeCheck, name, onChange, value}) => {
                 type={typeCheck}
                 name={name}
                 onChange={onChange}
+                defaultChecked={checked && true}
                 value={value}
             />
             <label className="ml-3">{label}</label>
@@ -80,6 +84,14 @@ const Filtre = (props) => {
             props.priceRangeFilter(newValue);
         }, 1000);
     };
+
+    const handleChangeAscDesc = () => {
+        setCheckedAsc(false)
+        setCheckedDesc(false)
+        if (props.filter !== null){
+            props.filter(null, false);
+        }
+    }
 
     const handleChangeAsc = () => {
         setCheckedAsc(!checkedAsc);
@@ -142,6 +154,16 @@ const Filtre = (props) => {
             />
             <p className="bish-text-gray text-3xl mb-3">Trier par</p>
             <ul className="flex flex-col space-y-3">
+                <li>
+                    <input
+                        className="w-6 h-6 rounded-full"
+                        type="radio"
+                        name="orderByPrice"
+                        onChange={() => handleChangeAscDesc()}
+                        defaultChecked={true}
+                    />
+                    <label className="ml-3">Aucun ordre</label>
+                </li>
                 <li>
                     <CheckBox
                         label="Prix: par ordre croissant"
