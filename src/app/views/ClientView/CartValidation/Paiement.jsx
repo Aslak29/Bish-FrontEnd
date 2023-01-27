@@ -7,7 +7,7 @@ const Paiement = () => {
   const { setStep } = useStep();
 
   useEffect(() => {
-    setStep(2)
+    setStep(3)
   },[])
 
   return (

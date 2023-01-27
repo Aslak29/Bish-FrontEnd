@@ -12,10 +12,10 @@ import {
 import { selectBillingAddress, selectItems, selectTotal, selectTotalBeforeDiscount } from './../../../redux-store/cartSlice';
 import checkIMG from '../../../assets/images/check.png'
 import apiBackEnd from "@/app/api/backend/api.Backend";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { URL_BACK_CODE_PROMOS_FIND_BY_NAME, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from '../../../constants/urls/urlBackEnd';
 import { useDispatch } from 'react-redux';
-import * as storage from "@/app/redux-store/cartSlice";
+import { URL_CART_PAIEMENT } from './../../../constants/urls/urlFrontEnd';
 
 const Resume = () => {
 
@@ -26,7 +26,7 @@ const Resume = () => {
   const [codePromo, setCodePromo] = useState("")
   const [codePromoErrorMsg, setCodePromoErrprMsg] = useState()
   const [codePromoSuccess, setCodePromoSuccess] = useState(false)
-  const [cardInfos, setCardInfos] = useState()
+  // const [cardInfos, setCardInfos] = useState()
 
   const deliveryAddress = useSelector(selectDeliveryAddress)
   const billingAddress = useSelector(selectBillingAddress)
@@ -37,55 +37,55 @@ const Resume = () => {
   const idPaymentIntent = useSelector(selectIdPaymentIntent)
 
   useEffect(() => {
-      setStep(3)
+      setStep(2)
       apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {
-        setCardInfos(res.data[1].card)
+        // setCardInfos(res.data[1].card)
       })
   }, [])
 
-  const payment = () => {
-    apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {
-      handleSubmit()
-    })
-  }
+  // const payment = () => {
+  //   apiBackEnd.post(URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT + `${idPaymentIntent.id}` + "/" + `${total}`).then(res => {
+  //     handleSubmit()
+  //   })
+  // }
 
-  const handleSubmit = async (event) => {
-    let products = []
-    for (let i = 0; i< items.length; i++) {
-      let product = {
-          id : items[i].id,
-          quantity : items[i].quantity,
-          price : items[i].lastKnownPrice,
-          remise : 50,
-          size : items[i].size,
-          name : items[i].name
-        }
-      products.unshift(product);
-    }
+  // const handleSubmit = async (event) => {
+  //   let products = []
+  //   for (let i = 0; i< items.length; i++) {
+  //     let product = {
+  //         id : items[i].id,
+  //         quantity : items[i].quantity,
+  //         price : items[i].lastKnownPrice,
+  //         remise : 50,
+  //         size : items[i].size,
+  //         name : items[i].name
+  //       }
+  //     products.unshift(product);
+  //   }
+  // 
+  //   apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
+  //     let commande = {
+  //       userId : localStorage.id,
+  //       rueLivraison : deliveryAddress.rue,
+  //       num_rueLivraison : deliveryAddress.num_rue,
+  //       villeLivraison : deliveryAddress.city,
+  //       rueFacturation : billingAddress.rue,
+  //       num_rueFacturation : billingAddress.num_rue,
+  //       villeFacturation : billingAddress.city,
+  //       complement_adresseLivraison : deliveryAddress.complement_adresse,
+  //       complement_adresseFacturation : billingAddress.complement_adresse,
+  //       code_postalLivraison : deliveryAddress.postal_code,
+  //       code_postalFacturation : billingAddress.postal_code,
+  //       etat_commande : "En préparation",
+  //       produits : products
+  //     }
+  //     apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
+  //       dispatch(clearItems())
+  //       navigate(URL_CART_CONFIRM, {state : {idCommande : res.data.id} })
+  //     })
 
-    apiBackEnd.post(URL_CONFIRM_PAYMENT + idPaymentId.id).then(res => {
-      let commande = {
-        userId : localStorage.id,
-        rueLivraison : deliveryAddress.rue,
-        num_rueLivraison : deliveryAddress.num_rue,
-        villeLivraison : deliveryAddress.city,
-        rueFacturation : billingAddress.rue,
-        num_rueFacturation : billingAddress.num_rue,
-        villeFacturation : billingAddress.city,
-        complement_adresseLivraison : deliveryAddress.complement_adresse,
-        complement_adresseFacturation : billingAddress.complement_adresse,
-        code_postalLivraison : deliveryAddress.postal_code,
-        code_postalFacturation : billingAddress.postal_code,
-        etat_commande : "En préparation",
-        produits : products
-      }
-      apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
-        dispatch(clearItems())
-        navigate(URL_CART_CONFIRM, {state : {idCommande : res.data.id} })
-      })
-
-    })
-  }
+  //   })
+  // }
 
   const handleCodePromo = () => {
     apiBackEnd.post(URL_BACK_CODE_PROMOS_FIND_BY_NAME, {name: codePromo, total: total}).then(res => {
@@ -133,7 +133,7 @@ const Resume = () => {
             </div>
           </div>
           {/* Moyen de paiement */}
-          <div className='flex flex-row'>
+          {/* <div className='flex flex-row'>
             <h5 className='border-r bish-border-white-up px-5 w-1/2'>Moyen de paiement</h5>
             {
               cardInfos &&
@@ -143,7 +143,7 @@ const Resume = () => {
                 <span>Expire le {("0" + cardInfos.exp_month.toString()).slice(-2)}/{cardInfos.exp_year.toString().slice(-2)}</span>
               </div>
             }
-          </div>
+          </div> */}
         </div>
         <div className='w-full sm:w-1/2 md:w-1/3 bish-bg-gray-shop shadow p-5 flex flex-col justify-between my-10 md:my-0'>
           <div className='flex flex-col mb-10'>
@@ -179,7 +179,7 @@ const Resume = () => {
               }
               <span className='text-lg'><span className='font-semibold'>A payer:</span> {total.toFixed(2)}€</span>
             </div>
-            <button onClick={() => payment()} className={"border rounded py-2 justify-center bish-bg-blue bish-text-white"}>Payer</button>
+            <Link to={URL_CART_PAIEMENT} className={"border rounded py-2 justify-center bish-bg-blue bish-text-white text-center"}>Confirmer</Link>
           </div>
         </div>
       </div>
