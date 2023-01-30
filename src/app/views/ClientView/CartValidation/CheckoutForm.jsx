@@ -1,17 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {PaymentElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import apiBackEnd from "@/app/api/backend/api.Backend";
-import {URL_UPDATE_PAYMENTMETHOD} from "@/app/constants/urls/urlBackEnd";
 import {useDispatch, useSelector} from "react-redux";
-import {selectIdPaymentIntent} from "@/app/redux-store/cartSlice";
+import {selectDiscount, selectIdPaymentIntent} from "@/app/redux-store/cartSlice";
 import {useNavigate} from "react-router-dom";
-import {URL_CART_RESUME} from "@/app/constants/urls/urlFrontEnd";
 import { clearItems, selectBillingAddress, selectTotal } from '../../../redux-store/cartSlice';
-import { useState } from 'react';
 import { ULR_BACK_CREATE_COMMANDES, URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT } from '../../../constants/urls/urlBackEnd';
 import { URL_CART_CONFIRM } from './../../../constants/urls/urlFrontEnd';
 import { selectItems, selectDeliveryAddress } from './../../../redux-store/cartSlice';
-import { URL_CONFIRM_PAYMENT } from './../../../constants/urls/urlBackEnd';
 
 const CheckoutForm = () => {
 
@@ -19,13 +15,16 @@ const CheckoutForm = () => {
     const dispatch = useDispatch();
     const stripe = useStripe();
     const elements = useElements();
-    const [error, setError] = useState();
+    const [error, setError] = useState(null);
 
     const idPaymentId = useSelector(selectIdPaymentIntent)
     const total = useSelector(selectTotal)
     const items = useSelector(selectItems)
+    const discount = useSelector(selectDiscount)
     const deliveryAddress = useSelector(selectDeliveryAddress)
     const billingAddress = useSelector(selectBillingAddress)
+    console.log(discount.remise)
+    console.log(discount.type)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -43,17 +42,16 @@ const CheckoutForm = () => {
         }else if(paymentIntent && paymentIntent.status === "succeeded"){
             let products = []
 
-            for (let i = 0; i< items.length; i++) {
-            let product = {
-                id : items[i].id,
-                quantity : items[i].quantity,
-                price : items[i].lastKnownPrice,
-                remise : 50,
-                size : items[i].size,
-                name : items[i].name
+            items.map((item) => {
+                let product = {
+                    id : item.id,
+                    quantity : item.quantity,
+                    price : item.lastKnownPrice,
+                    size : item.size,
+                    name : item.name
                 }
-            products.unshift(product);
-            }
+                products.unshift(product);
+            })
         
             let commande = {
                 userId : localStorage.id,
@@ -68,6 +66,8 @@ const CheckoutForm = () => {
                 code_postalLivraison : deliveryAddress.postal_code,
                 code_postalFacturation : billingAddress.postal_code,
                 etat_commande : "En préparation",
+                remise: discount.remise,
+                remise_type: discount.type,
                 produits : products
             }
             apiBackEnd.post(ULR_BACK_CREATE_COMMANDES,commande).then(res => {
@@ -84,7 +84,7 @@ const CheckoutForm = () => {
         <div >
             <form onSubmit={handleSubmit} className={"my-20"}>
                 <PaymentElement />
-                {/* {error && <span>{error}</span>} */}
+                 {error && <span>{error}</span>}
                 <button className="bish-bg-blue rounded px-5 py-2 bish-text-white float-right my-10">Payer {total.toFixed(2)}€</button>
             </form>
         </div>
