@@ -125,6 +125,6 @@ export const URL_CONFIRM_PAYMENT = "stripe/confirmPayment/"
 export const URL_STRIPE_PAYMENTINTENT_UPDATE_AMOUNT = "stripe/setPaymentIntent/amount/"
 export const URL_STRIPE_PAYMENTINTENT_CANCEL = "stripe/cancelPaymentIntent/"
 
-export const URL_PRODUITBYSIZE_UPDATE_IN_CART = "produit/by/size/updateStockInCart/"
+export const URL_PRODUITBYSIZE_UPDATE_IN_CART = "authenticated/produit/by/size/updateStockInCart/"
 
 export const URL_PRODUIT_BY_SEARCHBAR = "/public/produit/bySearchBar/"
