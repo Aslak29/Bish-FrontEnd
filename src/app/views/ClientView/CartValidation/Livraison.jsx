@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import AdresseFacturation from '../../../components/cart/AdresseFacturation'
 import AdresseLivraison from '../../../components/cart/AdresseLivraison'
 import { Link } from 'react-router-dom';
-import { URL_CART_PAIEMENT } from './../../../constants/urls/urlFrontEnd';
+import { URL_CART_RESUME } from './../../../constants/urls/urlFrontEnd';
 import { useStep } from './CartOutletValidation';
 import apiBackEnd from '../../../api/backend/api.Backend';
 import {
@@ -84,7 +84,7 @@ const Livraison = () => {
       </div>
       {
         Object.keys(deliveryAddress).length > 0 && Object.keys(billingAddress).length > 0 ?
-        <Link to={URL_CART_PAIEMENT} className='bish-bg-blue rounded px-5 py-2 bish-text-white float-right'>Continuer</Link>
+        <Link to={URL_CART_RESUME} className='bish-bg-blue rounded px-5 py-2 bish-text-white float-right'>Continuer</Link>
         :
         <div className='bish-bg-blue rounded px-5 py-2 bish-text-white float-right opacity-50 cursor-default'>Continuer</div>
       }

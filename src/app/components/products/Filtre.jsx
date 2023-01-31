@@ -31,12 +31,15 @@ const marks = [
         label: "0€",
     },
     {
-        value: 2000,
-        label: "2000€",
+        value: 1000,
+        label: "1000€",
     },
 ];
 
-const CheckBox = ({label, typeCheck, name, onChange, value}) => {
+const CheckBox = ({label, typeCheck, name, onChange, value, checked}) => {
+
+
+
     return (
         <>
             <input
@@ -44,6 +47,7 @@ const CheckBox = ({label, typeCheck, name, onChange, value}) => {
                 type={typeCheck}
                 name={name}
                 onChange={onChange}
+                defaultChecked={checked && true}
                 value={value}
             />
             <label className="ml-3">{label}</label>
@@ -58,7 +62,6 @@ const Filtre = (props) => {
     const [size, setSize] = useState([]);
     const [sizeChecked, setSizeChecked] = React.useState([]);
     const [value, setValue] = React.useState([0, 20]);
-    const [oldValue, setoldValue] = React.useState([]);
     let timer;
 
     useEffect(() => {
@@ -68,19 +71,27 @@ const Filtre = (props) => {
         props.size(sizeChecked)
     }, [sizeChecked])
 
-    const rangeSelector = (event, newValue) => {
+    const rangeSelectorOld = (event, newValue) => {
         setValue(newValue)
-        setoldValue(value);
+    }
+
+    const rangeSelector = (event, newValue) => {
         if (timer) {
             clearTimeout(timer);
         }
         timer = setTimeout(() => {
             timer = null;
-            if (oldValue === newValue) {
-                props.priceRangeFilter(newValue);
-            }
-        }, 2000);
+            props.priceRangeFilter(newValue);
+        }, 1000);
     };
+
+    const handleChangeAscDesc = () => {
+        setCheckedAsc(false)
+        setCheckedDesc(false)
+        if (props.filter !== null){
+            props.filter(null, false);
+        }
+    }
 
     const handleChangeAsc = () => {
         setCheckedAsc(!checkedAsc);
@@ -128,7 +139,6 @@ const Filtre = (props) => {
         const check = document.getElementById("sizeCheck" + taille).checked
         if (check) {
             setSizeChecked(current => [...current, taille])
-            console.log(taille)
         } else {
             setSizeChecked(current => [...current.filter(res => res !== taille)])
         }
@@ -144,6 +154,16 @@ const Filtre = (props) => {
             />
             <p className="bish-text-gray text-3xl mb-3">Trier par</p>
             <ul className="flex flex-col space-y-3">
+                <li>
+                    <input
+                        className="w-6 h-6 rounded-full"
+                        type="radio"
+                        name="orderByPrice"
+                        onChange={() => handleChangeAscDesc()}
+                        defaultChecked={true}
+                    />
+                    <label className="ml-3">Aucun ordre</label>
+                </li>
                 <li>
                     <CheckBox
                         label="Prix: par ordre croissant"
@@ -183,8 +203,9 @@ const Filtre = (props) => {
                         value={value}
                         step={10}
                         min={0}
-                        max={2000}
-                        onChange={rangeSelector}
+                        max={1000}
+                        onChange={rangeSelectorOld}
+                        onChangeCommitted={rangeSelector}
                         valueLabelDisplay="auto"
                         marks={marks}
                     />

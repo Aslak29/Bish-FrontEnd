@@ -15,6 +15,7 @@ const orders = () => {
         apiBackend.post(URL_BACK_LIST_ORDERS + `${localStorage.id}`).then((response) => {
             setIsLoading(false)
             if (response.status === 200) {
+                console.log(response.data)
                 if (response.data.length === 0) {
                     setInfoCommande(null)
                 }else {
@@ -55,7 +56,7 @@ const orders = () => {
                             <tbody>
                             {infoCommande.map((commande) =>
                                 <tr
-                                    className="text-center cursor-pointer hover:bish-bg-blue hover:bish-text-white"
+                                    className="text-center cursor-pointer hover:bish-bg-blue-light hover:bish-text-white"
                                     key={commande.id}
                                     onClick={() => fetchCommande(commande.id, commande.etatCommande)}
                                 >
@@ -63,7 +64,7 @@ const orders = () => {
                                         {commande.id}
                                     </td>
                                     <td className="border-x-2 py-5 bish-border-gray">
-                                        {(commande.montant + commande.montant * 0.2 + 2).toFixed(2)} €
+                                        {commande.montant.toFixed(2)} €
                                     </td>
                                     <td className="border-x-2 py-5 bish-border-gray">
                                         {commande.date_facture}

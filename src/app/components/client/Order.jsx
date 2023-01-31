@@ -19,13 +19,14 @@ const Order = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [infoClient, setInfoClient] = useState({});
     const [totalCommande, setTotalCommande] = useState(0);
+    const [codePromo, setCodePromo] = useState({})
 
     let infoClientCommande = [];
 
     useEffect(() => {
         setIsLoading(true);
         apiBackend
-            .post(URL_BACK_SINGLE_ORDER + `${props.id}`)
+            .get(URL_BACK_SINGLE_ORDER + `${props.id}`)
             .then((response) => {
                 if (response.status === 200) {
                     let total = 0;
@@ -36,6 +37,15 @@ const Order = (props) => {
                     // pop pour sortir les infos Commande à part des articles
                     infoClientCommande = response.data.pop();
                     infoClientCommande[0].Adresse.ville = infoClientCommande[0].Adresse.ville.toUpperCase()
+                    const remise = infoClientCommande[0].codePromo.remise;
+                    if (infoClientCommande[0].codePromo.remiseType === "pourcent"){
+                        setCodePromo({remise: remise,remiseType: "%"})
+                    }else if (infoClientCommande[0].codePromo.remiseType === "euro"){
+                        setCodePromo({remise: remise,remiseType: "€"})
+                    }else {
+                        setCodePromo(infoClientCommande[0].codePromo)
+                    }
+                    console.log(infoClientCommande[0].codePromo)
                     setInfoClient(infoClientCommande[0].Adresse);
                     setRows(response.data);
                     setIsLoading(false);
@@ -125,18 +135,28 @@ const Order = (props) => {
                         <div className="flex flex-row h-full justify-end lg:justify-center pt-5">
                             <div className="flex flex-col text-right pr-5">
                                 <span>Sous-total Produits : </span>
-                                <span>Taxes : </span>
-                                <span>Frais de port : </span>
+                                {codePromo.remise !== "-" &&
+                                    <span>Code-Promo : </span>
+                                }
+
                                 <span className="bish-bg-blue bish-text-white rounded text-center font-medium">
                                     TOTAL :
                                 </span>
                             </div>
                             <div className="flex flex-col text-right">
-                                <span>{totalCommande.toFixed(2) + " €"}</span>
-                                <span>{(totalCommande * 0.2).toFixed(2) + " €"}</span>
-                                <span> 2 €</span>
+                                <span>{totalCommande.toFixed(2) + " €"}</span>{console.log(codePromo.remiseType)}
+                                {codePromo.remise !== "-" &&
+                                    <span>{codePromo.remise + " " + codePromo.remiseType}</span>
+                                }
                                 <span>
-                                    {(totalCommande + totalCommande * 0.2 + 2).toFixed(2) + " €"}
+                                    {codePromo.remise !== "-" ?
+                                        codePromo.remiseType === "%" ?
+                                        (totalCommande - ((totalCommande * codePromo.remise)/100)).toFixed(2)+ " €"
+                                            :
+                                            (totalCommande - codePromo.remise).toFixed(2)+ " €"
+                                        :
+                                        totalCommande.toFixed(2) + " €"
+                                    }
                                 </span>
                             </div>
                         </div>
