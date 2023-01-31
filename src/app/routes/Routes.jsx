@@ -45,6 +45,7 @@ import Resume from './../views/ClientView/CartValidation/Resume';
 import Confirmation from './../views/ClientView/CartValidation/Confirmation';
 import AdminDashboardView from "../views/AdminView/AdminDashboardView";
 import AdminCodePromoView from "../views/AdminView/AdminCodePromoView";
+import WebSocketView from "../views/ClientView/WebSocketView";
 
 /**
  * Routes of the application
@@ -294,6 +295,14 @@ const Routes = () => {
           />
       </Route>
 
+      <Route
+              path={URL.URL_WEBSOCKET}
+              element={
+                  <PrivateRoute roles={[ROLE_USER]}>
+                      <WebSocketView/>
+                  </PrivateRoute>
+              }
+          />
 
     </RoutesContainer>
   );
