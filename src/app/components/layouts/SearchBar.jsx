@@ -4,6 +4,7 @@ import apiBackEnd from "@/app/api/backend/api.Backend";
 import {URL_PRODUIT_BY_SEARCHBAR} from "@/app/constants/urls/urlBackEnd";
 import {URL_PRODUCT_LINK} from "@/app/constants/urls/urlFrontEnd";
 import {useNavigate} from "react-router-dom";
+import {DebounceInput} from 'react-debounce-input';
 
 const SearchBar = props => {
 
@@ -35,15 +36,20 @@ const SearchBar = props => {
     },[valueSearchBar])
 
     function onChangeValue(event){
+        // console.log(valueSearchBar)
         setValueSearchBar(event.target.value)
-        if (event.target.value === ""){
-            setValueSearchBar(null)
-        }
+        // if (event.target.value === ""){
+        //     setValueSearchBar(null)
+        // }
     }
 
-    function handleSearchBar(idProduct){
+    function handleSearchBar(idProduct, event){
+        setValueSearchBar(null)
+        setSearchBarClick(false)
+        setSearchBarDisplay("hidden");
         navigate(URL_PRODUCT_LINK + idProduct)
-        navigate(0)
+        // console.log(valueSearchBar)
+        // navigate(0)
     }
 
   return (
@@ -51,13 +57,22 @@ const SearchBar = props => {
     <div className="h-8 my-auto mx-0 flex flex-col lg:w-4/6 xl:w-auto">
         <div>
             <form action="#" className={`${searchBarDisplay} lg:block`}>
-            <input 
+            <DebounceInput
+                type="search"
+                name= "searchbar"
+                id="searchbar"
+                onChange={onChangeValue}
+                placeholder="Rechercher..."
+                debounceTimeout={500}
+                className={`h-8 ${products.length > 0 ? 'rounded-t-lg' : 'rounded-lg'} border-transparent w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96`}
+                />
+            {/* <input 
                 className={`h-8 ${products.length > 0 ? 'rounded-t-lg' : 'rounded-lg'} border-transparent w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96`}
                 type="search" 
                 name="searchbar" 
                 id="searchbar"
                 onChange={onChangeValue}
-                placeholder="Rechercher..."/>
+                placeholder="Rechercher..."/> */}
             <input type="submit" value="" className="hidden"/>
         </form>
         <button className="lg:hidden" onClick={toggleSearchBar}>
@@ -71,7 +86,7 @@ const SearchBar = props => {
                 {
                     products.map((product)  => {
                         return (
-                            <div className={'flex flex-row items-center justify-between bish-bg-white cursor-pointer hover:bish-bg-blue-light border-b bish-border-white-up py-2 px-5'} onClick={() => handleSearchBar(product.id)} key={product.id}>
+                            <div className={'flex flex-row items-center justify-between bish-bg-white cursor-pointer hover:bish-bg-blue-light border-b bish-border-white-up py-2 px-5'} onClick={(event) => handleSearchBar(product.id, event)} key={product.id}>
                                 <img className={'h-12'} src={window.location.origin + '/src/app/assets/images/products/' + product.pathImage} alt={product.name}/>
                                 <span>{product.name}</span>
                                 <span>{product.price} €</span>

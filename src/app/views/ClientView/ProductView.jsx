@@ -8,8 +8,8 @@ import SuggestionsContainer from "../../components/products/SuggestionsContainer
 import Bot from "../../components/bot/Bot";
 import { ToastContainer } from 'react-toastify'
 
-const ProductView = () => {
-
+const ProductView = (valueSearchBar) => {
+console.log(valueSearchBar);
     const [product, setProduct] = useState();
     const [updateDetail, setUpdateDetail] = useState(false);
     const [timerBot, setTimer] = useState();
@@ -18,7 +18,6 @@ const ProductView = () => {
     const num = useParams();
     let id = num.productID;
     const navigate = useNavigate();
-
     useEffect(() => {
         apiBackend.post(URL_BACK_PRODUCT_BY_ID + `${id}`).then((response => {
             if (response.status === 200) {
@@ -30,7 +29,7 @@ const ProductView = () => {
                 navigate(URL_404)
             }
         })
-    }, [updateDetail])
+    }, [updateDetail, id])
 
     //Permet de relancer le useEffect pour changer le contenu de ProductDetail au clic sur une ProductCard
     const updateDetailComponent = () => {
