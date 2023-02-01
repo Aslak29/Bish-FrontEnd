@@ -8,8 +8,7 @@ import SuggestionsContainer from "../../components/products/SuggestionsContainer
 import Bot from "../../components/bot/Bot";
 import { ToastContainer } from 'react-toastify'
 
-const ProductView = (valueSearchBar) => {
-console.log(valueSearchBar);
+const ProductView = () => {
     const [product, setProduct] = useState();
     const [updateDetail, setUpdateDetail] = useState(false);
     const [timerBot, setTimer] = useState();

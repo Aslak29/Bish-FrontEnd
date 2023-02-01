@@ -10,7 +10,7 @@ const SearchBar = props => {
 
     const [searchBarDisplay, setSearchBarDisplay] = useState("hidden ");
     const [searchBarClick, setSearchBarClick] = useState(false);
-    const [valueSearchBar, setValueSearchBar] = useState(null);
+    const [valueSearchBar, setValueSearchBar] = useState("");
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
 
@@ -28,28 +28,30 @@ const SearchBar = props => {
     }
 
     useEffect(() => {
-        apiBackEnd.post(URL_PRODUIT_BY_SEARCHBAR + valueSearchBar).then(res => {
-            setProducts(Object.values(res.data))
-        }).catch(error => {
-            console.log(error)
-        })
+        if(valueSearchBar !== ""){
+            apiBackEnd.post(URL_PRODUIT_BY_SEARCHBAR + valueSearchBar).then(res => {
+                setProducts(Object.values(res.data))
+                }).catch(error => {
+                console.log(error)
+                })
+        }else{
+            setProducts([])
+        }
     },[valueSearchBar])
 
     function onChangeValue(event){
-        // console.log(valueSearchBar)
         setValueSearchBar(event.target.value)
-        // if (event.target.value === ""){
-        //     setValueSearchBar(null)
-        // }
+        if (event.target.value === ""){
+            setValueSearchBar("")
+        }
     }
 
     function handleSearchBar(idProduct, event){
-        setValueSearchBar(null)
-        setSearchBarClick(false)
+        setValueSearchBar("");
+        setSearchBarClick(false);
         setSearchBarDisplay("hidden");
         navigate(URL_PRODUCT_LINK + idProduct)
-        // console.log(valueSearchBar)
-        // navigate(0)
+
     }
 
   return (
@@ -64,16 +66,9 @@ const SearchBar = props => {
                 onChange={onChangeValue}
                 placeholder="Rechercher..."
                 debounceTimeout={500}
+                value={`${valueSearchBar}`}
                 className={`h-8 ${products.length > 0 ? 'rounded-t-lg' : 'rounded-lg'} border-transparent w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96`}
                 />
-            {/* <input 
-                className={`h-8 ${products.length > 0 ? 'rounded-t-lg' : 'rounded-lg'} border-transparent w-40 sm:w-64 md:w-96 lg:w-72 xl:w-96`}
-                type="search" 
-                name="searchbar" 
-                id="searchbar"
-                onChange={onChangeValue}
-                placeholder="Rechercher..."/> */}
-            <input type="submit" value="" className="hidden"/>
         </form>
         <button className="lg:hidden" onClick={toggleSearchBar}>
             <img className="h-8 w-auto cursor-pointer" src={search} alt="Recherche"/> 

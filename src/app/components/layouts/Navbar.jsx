@@ -19,7 +19,7 @@ import BurgerMenu from "./BurgerMenu";
 import SearchBar from "./SearchBar";
 import { selectTotalQuantity } from './../../redux-store/cartSlice';
 
-const Navbar = (valueSearchBar) => {
+const Navbar = () => {
   // const isLoggued = useSelector(selectIsLogged);
 
   // ---------------------States et Fonction pour le Menu Burger--------------------
@@ -88,7 +88,7 @@ const Navbar = (valueSearchBar) => {
 
       {/*---------------------------------  Searchbar & Espace Client & Panier ---------------------------------  */}
       <div className="flex flex-row gap-x-4 lg:gap-x-8 ">
-        <SearchBar searchBarToggle={toggleLogo} valueSearchBar={valueSearchBar}/>
+        <SearchBar searchBarToggle={toggleLogo}/>
 
         {/*--------------------------------- Espace client et panier ---------------------------------  */}
         <div className="flex justify-end my-auto mx-0 gap-x-6 lg:gap-x-8 lg:w-2/6 xl:w-auto">
