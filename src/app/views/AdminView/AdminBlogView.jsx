@@ -9,7 +9,7 @@ import FormUpdate from '../../components/admin/blog/FormUpdate';
 import FormCreate from '../../components/admin/blog/FormCreate';
 import {Helmet} from 'react-helmet-async'
 import TitleContainer from '../../components/admin/TitleContainer';
-import CheckRowsContainer from '../../components/admin/checkRowsContainer';
+import CheckRowsContainer from '../../components/admin/CheckRowsContainer';
 //import s3 from "../../bucket_S3/aws"
 import CheckboxRow from './../../components/admin/CheckboxRow';
 import TableHeadCheckbox from './../../components/TableHeadCheckbox';
