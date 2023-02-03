@@ -6,6 +6,10 @@ import * as path from "path";
 export default ({ mode }) => {
     process.env = {...process.env, ...loadEnv(mode, process.cwd())};
     return defineConfig({
+        server: {
+            host: true,
+            port:3000
+        },
         plugins: [reactRefresh(),],
         resolve: {
             alias: {
